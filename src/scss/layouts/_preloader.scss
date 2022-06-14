@@ -1,0 +1,12 @@
+.window-preloader {
+    min-width: 100vw;
+    min-height: 100vh;
+    overflow: hidden;
+    .preloader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+    }
+}

@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import Header from 'src/components/Header';
 
 const Home: NextPage = () => {
     const [showPreloader, setShowPreloader] = useState(true);
@@ -13,7 +14,7 @@ const Home: NextPage = () => {
 
     console.log({ showPreloader });
     return (
-        <div>
+        <>
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -23,9 +24,11 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main>this is a next js page</main>
+            <main>
+                <Header />
+            </main>
             <footer></footer>
-        </div>
+        </>
     );
 };
 

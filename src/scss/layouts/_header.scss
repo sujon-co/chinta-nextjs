@@ -1,0 +1,139 @@
+.header {
+    background: rgb(242, 242, 242);
+    height: 70px;
+    font-size: 14px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 100;
+    @media screen and (max-width: 960px) {
+        transition: 0.8s all ease;
+    }
+
+    &-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        z-index: 1;
+    }
+    &-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &-search {
+        display: flex;
+        position: relative;
+        margin-top: 2px;
+
+        &-input {
+            width: 1rem;
+            height: 1rem;
+            border-radius: 1.563rem;
+            border: 1.5px solid black;
+            transition: 0.5s;
+            caret-color: black;
+            cursor: pointer !important;
+
+            &:focus {
+                cursor: text !important;
+                border-radius: 1.563rem;
+                border: 1.5px black;
+                padding: 0.4rem;
+                width: 12.5rem;
+                caret-color: red;
+                text-align: right;
+                outline: 1px solid black;
+                font-size: 13px;
+            }
+
+            &:focus ~ .bar {
+                cursor: text;
+                animation: hide 0.5s linear;
+                height: 0;
+                transition: 0.5s height;
+            }
+        }
+        .bar {
+            position: absolute;
+            background-color: black;
+            right: -1px;
+            bottom: -2px;
+            height: 4px;
+            width: 1.5px;
+            transition: 0.3s;
+            transform: rotate(311deg);
+        }
+    }
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    .header-menu-wrapper {
+        overflow: hidden;
+
+        .header-menu {
+            display: flex;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+            padding-right: 10px;
+            right: -100%;
+            &-item {
+                display: inline-block;
+                color: black;
+                text-decoration: none;
+                position: relative;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    width: 100%;
+                    transform: scaleX(0);
+                    height: 1px;
+                    bottom: 0;
+                    left: 0;
+                    background-color: #0087ca;
+                    transform-origin: bottom right;
+                    transition: transform 0.25s ease-out;
+                }
+                &:hover {
+                    &::after {
+                        content: '';
+                        transform: scaleX(1);
+                        transform-origin: bottom left;
+                    }
+                }
+            }
+        }
+    }
+    .header-dots {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+}
+.menu-close-animation {
+    right: -100% !important;
+    transition: 0.5s right linear;
+}
+.menu-open-animation {
+    right: 0 !important;
+    transition: 0.5s right linear;
+}
+
+@keyframes hide {
+    0% {
+    }
+    50% {
+        right: 4px;
+        bottom: 4px;
+    }
+    100% {
+        right: 4px;
+        bottom: 5px;
+        opacity: 0;
+    }
+}
