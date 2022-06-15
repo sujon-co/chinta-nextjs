@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Header from 'src/components/Header';
+import Slider from 'src/components/Slider';
 
 const Home: NextPage = () => {
     const [showPreloader, setShowPreloader] = useState(true);
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
 
             <main>
                 <Header />
+                <Slider />
             </main>
             <footer></footer>
         </>
