@@ -5,3 +5,18 @@
 @import './overwrite';
 
 @import './layouts/layouts';
+
+.element {
+    height: 1000px;
+    border-top: 1px solid #000;
+    padding-top: 55px;
+    padding-left: 10px;
+}
+
+.element.no-padding {
+    padding-top: 0;
+}
+
+.active {
+    color: red !important;
+}

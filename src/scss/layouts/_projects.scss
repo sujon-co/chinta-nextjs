@@ -1,0 +1,43 @@
+.projects {
+    overflow-y: auto;
+    overflow-x: hidden !important;
+    height: 60vh;
+    padding-right: 5px;
+
+    .project-item {
+        position: relative;
+        cursor: pointer;
+        overflow: hidden;
+        &-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 4px;
+            padding: 10px;
+            opacity: 0;
+            height: 0;
+            transition: 0.5s height linear, 0.5s opacity linear;
+            overflow: hidden;
+        }
+        &:hover {
+            .project-item-overlay {
+                padding: 10px;
+                height: 85px;
+                opacity: 1;
+            }
+        }
+    }
+    &::-webkit-scrollbar {
+        width: 3px;
+        height: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: red;
+        border-radius: 20px;
+    }
+    &::-webkit-scrollbar-track {
+        background: lightgray;
+    }
+}

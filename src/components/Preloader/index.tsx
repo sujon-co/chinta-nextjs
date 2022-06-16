@@ -1,12 +1,13 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
+import gifImage from 'public/preload.gif';
 
 const Preloader: NextPage = () => {
     return (
         <div className="window-preloader">
             <div className="preloader">
                 <Image
-                    src="/preload.gif"
+                    src={gifImage}
                     layout="fixed"
                     alt="brand preloader"
                     height={160}

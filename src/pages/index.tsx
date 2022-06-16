@@ -1,7 +1,11 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { Element } from 'react-scroll';
+import Contact from 'src/components/Contact';
 import Header from 'src/components/Header';
+import Info from 'src/components/Info';
+import Projects from 'src/components/Projects';
 import Slider from 'src/components/Slider';
 
 const Home: NextPage = () => {
@@ -13,7 +17,6 @@ const Home: NextPage = () => {
         });
     }, []);
 
-    console.log({ showPreloader });
     return (
         <>
             <Head>
@@ -28,6 +31,13 @@ const Home: NextPage = () => {
             <main>
                 <Header />
                 <Slider />
+                <Element name="projects" className=" section project-section">
+                    <Projects />
+                </Element>
+                <Info />
+                <Element name="contact" className="section">
+                    <Contact />
+                </Element>
             </main>
             <footer></footer>
         </>
