@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import { Element } from 'react-scroll';
 import About from './about';
 import InfoRoutes from './routes';
+import Studio from './studio';
 
 interface Props {}
 
@@ -27,7 +28,7 @@ const Info: NextPage<Props> = () => {
                                 name="studio"
                                 className="info-item-section"
                             >
-                                second element inside container
+                                <Studio />
                             </Element>
                             <Element name="award" className="info-item-section">
                                 award element inside container

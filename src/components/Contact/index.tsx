@@ -9,7 +9,7 @@ const Contact: NextPage<Props> = () => {
                 <div className="col-md-6">Contact</div>
                 <div className="col-md-6">
                     <div className="mapouter">
-                        <div className="gmap_canvas">
+                        {/* <div className="gmap_canvas">
                             <iframe
                                 width="200"
                                 height="200"
@@ -20,7 +20,7 @@ const Contact: NextPage<Props> = () => {
                                 marginHeight={0}
                                 marginWidth={0}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
