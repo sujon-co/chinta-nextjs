@@ -62,21 +62,33 @@ const Header: NextPage<IProps> = () => {
                             </Link>
                         </div>
                     </div>
-                    <div
-                        className="header-dots"
-                        onClick={() => setShowMenu(!showMenu)}
-                    >
-                        <BsThreeDotsVertical />
-                    </div>
-                    <div className="header-search">
-                        <input
-                            className="header-search-input"
-                            type="text"
-                            name=""
-                            id=""
-                            onFocus={() => setShowMenu(false)}
-                        />
-                        <span className="bar"></span>
+                    {!showMenu && (
+                        <div
+                            className="header-dots"
+                            onClick={() => setShowMenu(true)}
+                        >
+                            <BsThreeDotsVertical />
+                        </div>
+                    )}
+                    {showMenu && (
+                        <div
+                            className="bar-wrapper"
+                            onClick={() => setShowMenu(false)}
+                        >
+                            <div className="bar" />
+                        </div>
+                    )}
+                    <div className="">
+                        <div className="header-search">
+                            <input
+                                className="header-search-input"
+                                type="text"
+                                name=""
+                                id=""
+                                onFocus={() => setShowMenu(false)}
+                            />
+                            <span className="bar"></span>
+                        </div>
                     </div>
                 </div>
             </nav>
