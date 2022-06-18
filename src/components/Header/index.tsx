@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Link } from 'react-scroll';
 
@@ -9,6 +9,15 @@ interface IProps {}
 const Header: NextPage<IProps> = () => {
     const [showMenu, setShowMenu] = useState(false);
     console.log({ showMenu });
+
+    useEffect(() => {
+        if (showMenu) {
+            setTimeout(() => {
+                setShowMenu(false);
+            }, 10000);
+        }
+    }, [showMenu]);
+
     return (
         <header className="header">
             <nav className="container header-nav">

@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-import studioImage from '/public/about/about2.jpg';
+import studioImage from '/public/about/about.jpg';
 
 interface Props {}
 
@@ -15,15 +15,15 @@ const StudioItem: NextPage<Props> = () => {
                 <h6 className="name">Mahmudul Haque Gani</h6>
                 <div className="position">Principal Architect</div>
                 <div className="social-icons">
-                    <div className="social-icons-item">
+                    <a href="#" className="social-icons-item">
                         <FaFacebookF />
-                    </div>
-                    <div className="social-icons-item">
+                    </a>
+                    <a href="#" className="social-icons-item">
                         <FaInstagram />
-                    </div>
-                    <div className="social-icons-item">
+                    </a>
+                    <a href="#" className="social-icons-item">
                         <FaLinkedinIn />
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>

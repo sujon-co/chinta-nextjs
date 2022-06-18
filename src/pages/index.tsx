@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Element } from 'react-scroll';
 import Contact from 'src/components/Contact';
+import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
 import Info from 'src/components/Info';
 import Projects from 'src/components/Projects';
@@ -28,8 +29,8 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
+            <Header />
             <main>
-                <Header />
                 <Slider />
                 <Element name="projects" className=" section project-section">
                     <Projects />
@@ -39,7 +40,7 @@ const Home: NextPage = () => {
                     <Contact />
                 </Element>
             </main>
-            <footer></footer>
+            <Footer />
         </>
     );
 };

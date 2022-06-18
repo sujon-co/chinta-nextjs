@@ -76,11 +76,10 @@ const InfoRoutes: NextPage<Props> = () => {
                 <Link
                     activeClass="active"
                     className="info-route-item"
-                    to="contacts"
+                    to="contact"
                     spy={true}
                     smooth={true}
                     duration={250}
-                    containerId="containerElement"
                 >
                     Contacts
                 </Link>

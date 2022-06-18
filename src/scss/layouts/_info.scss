@@ -55,7 +55,11 @@
 
 /***** studio section *****/
 .studio-item {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+
     &-image {
+        filter: grayscale(100%);
+        transition: filter 0.5s;
     }
     &-content {
         display: flex;
@@ -63,11 +67,18 @@
         justify-content: center;
         flex-direction: column;
         gap: 2px;
+        padding: 7px 0;
 
         .name {
             font-weight: 800;
             font-size: 15px;
             margin-bottom: 0;
+            color: black;
+        }
+    }
+    &:hover {
+        .studio-item-image {
+            filter: grayscale(0%);
         }
     }
 }
@@ -75,6 +86,8 @@
 .social-icons {
     display: flex;
     gap: 8px;
+    margin-top: 4px;
+    padding-bottom: 3px;
     &-item {
         height: 20px;
         width: 20px;
