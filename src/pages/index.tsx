@@ -36,7 +36,7 @@ const Home: NextPage = () => {
                     <Projects />
                 </Element>
                 <Info />
-                <Element name="contact" className="section">
+                <Element name="contact" className="">
                     <Contact />
                 </Element>
             </main>

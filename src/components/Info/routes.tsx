@@ -1,9 +1,15 @@
 import { NextPage } from 'next';
 import { Link } from 'react-scroll';
+import { routeTypes } from '.';
 
-interface Props {}
+interface IProps {
+    routeHandler: (route: routeTypes) => void;
+}
 
-const InfoRoutes: NextPage<Props> = () => {
+const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
+    // useEffect(() => {
+    //     document.getElementById('ctn')?.click();
+    // }, []);
     return (
         <div className="info-route-wrapper">
             <div className="info-route">
@@ -48,6 +54,7 @@ const InfoRoutes: NextPage<Props> = () => {
                     smooth={true}
                     duration={250}
                     containerId="containerElement"
+                    onClick={() => routeHandler('news')}
                 >
                     News
                 </Link>
@@ -59,17 +66,19 @@ const InfoRoutes: NextPage<Props> = () => {
                     smooth={true}
                     duration={250}
                     containerId="containerElement"
+                    onClick={() => routeHandler('jobs')}
                 >
                     Jobs
                 </Link>
                 <Link
                     activeClass="active"
                     className="info-route-item"
-                    to="shop"
+                    to="shops"
                     spy={true}
                     smooth={true}
                     duration={250}
                     containerId="containerElement"
+                    onClick={() => routeHandler('shops')}
                 >
                     Shops
                 </Link>
@@ -77,6 +86,7 @@ const InfoRoutes: NextPage<Props> = () => {
                     activeClass="active"
                     className="info-route-item"
                     to="contact"
+                    id="ctn"
                     spy={true}
                     smooth={true}
                     duration={250}
