@@ -28,6 +28,13 @@ const Info: NextPage<Props> = () => {
                 top: document.body.scrollHeight,
                 behavior: 'smooth',
             });
+            document.getElementById('ctn')?.classList.add('active');
+            const found = document.querySelectorAll('.route-item');
+            found.forEach((item) => {
+                item.classList.remove('active');
+            });
+        } else {
+            document.getElementById('ctn')?.classList.remove('active');
         }
     }, [inView]);
 

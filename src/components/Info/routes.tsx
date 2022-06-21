@@ -15,7 +15,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
             <div className="info-route">
                 <Link
                     activeClass="active"
-                    className="info-route-item"
+                    className="info-route-item route-item"
                     to="about"
                     spy={true}
                     smooth={true}
@@ -26,7 +26,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                 </Link>
                 <Link
                     activeClass="active"
-                    className="info-route-item"
+                    className="info-route-item route-item"
                     to="studio"
                     spy={true}
                     smooth={true}
@@ -37,7 +37,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                 </Link>
                 <Link
                     activeClass="active"
-                    className="info-route-item"
+                    className="info-route-item route-item"
                     to="award"
                     spy={true}
                     smooth={true}
@@ -48,7 +48,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                 </Link>
                 <Link
                     activeClass="active"
-                    className="info-route-item"
+                    className="info-route-item route-item"
                     to="news"
                     spy={true}
                     smooth={true}
@@ -60,7 +60,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                 </Link>
                 <Link
                     activeClass="active"
-                    className="info-route-item"
+                    className="info-route-item route-item"
                     to="jobs"
                     spy={true}
                     smooth={true}
@@ -72,7 +72,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                 </Link>
                 <Link
                     activeClass="active"
-                    className="info-route-item"
+                    className="info-route-item route-item"
                     to="shops"
                     spy={true}
                     smooth={true}
