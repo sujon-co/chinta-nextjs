@@ -49,7 +49,7 @@ const Contact: NextPage<Props> = () => {
                                 </div>
                             )}
                             <br />
-                            <h6 style={{ fontWeight: '300' }}>
+                            <h6>
                                 We would love to hear from you so don&lsquo;t
                                 hesitate to say hi!
                             </h6>
