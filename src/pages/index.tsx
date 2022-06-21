@@ -6,6 +6,7 @@ import Contact from 'src/components/Contact';
 import Footer from 'src/components/Footer';
 import Header from 'src/components/Header';
 import Info from 'src/components/Info';
+import Preloader from 'src/components/Preloader';
 import Projects from 'src/components/Projects';
 import Slider from 'src/components/Slider';
 
@@ -31,6 +32,7 @@ const Home: NextPage = () => {
 
             <Header />
             <main>
+                {showPreloader && <Preloader />}
                 <Slider />
                 <Element name="projects" className=" section project-section">
                     <Projects />
