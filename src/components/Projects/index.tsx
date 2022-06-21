@@ -7,13 +7,11 @@ const Projects: NextPage<Props> = () => {
     return (
         <div className="container">
             <div className="projects">
-                <div className="row g-3">
+                <div className="row g-3  row-cols-5 ">
                     {Array(30)
                         .fill('_')
                         .map((item, index) => (
-                            <div className="col-md-3" key={index + 1}>
-                                <ProjectItem />
-                            </div>
+                            <ProjectItem key={index + 1} />
                         ))}
                 </div>
             </div>

@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import { Link } from 'react-scroll';
 import { routeTypes } from '.';
-
 interface IProps {
     routeHandler: (route: routeTypes) => void;
 }
@@ -10,6 +9,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
     // useEffect(() => {
     //     document.getElementById('ctn')?.click();
     // }, []);
+
     return (
         <div className="info-route-wrapper">
             <div className="info-route">

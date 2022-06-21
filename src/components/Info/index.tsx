@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { Element } from 'react-scroll';
 import About from './about';
 import InfoRoutes from './routes';
@@ -10,13 +11,26 @@ interface Props {}
 export type routeTypes = 'news' | 'jobs' | 'shops';
 
 const Info: NextPage<Props> = () => {
+    const { ref, inView, entry } = useInView({
+        threshold: 0,
+    });
+    const [isViewPortVisible, setIsViewPortVisible] = useState<boolean>(inView);
     const [selectedRoute, setSelectedRoute] = useState<routeTypes>();
 
     const routeHandler = (route: routeTypes) => {
         setSelectedRoute(route);
     };
 
-    console.log({ selectedRoute });
+    useEffect(() => {
+        if (inView) {
+            window.scrollTo({
+                left: 0,
+                top: document.body.scrollHeight,
+                behavior: 'smooth',
+            });
+        }
+    }, [inView]);
+
     return (
         <Element name="info" className="section info-section-wrapper">
             <div className="container">
@@ -52,6 +66,7 @@ const Info: NextPage<Props> = () => {
                             <Element name="shops" className="info-item-section">
                                 shop element inside container
                             </Element>
+                            <div ref={ref} style={{ height: '5px' }} />
                         </Element>
                     </div>
                 </div>
