@@ -11,3 +11,11 @@
 .line-height-27 {
     line-height: 27px;
 }
+
+.form-signin {
+    @include flex-center;
+    min-height: 100vh;
+    .login-form {
+        width: 300px;
+    }
+}
