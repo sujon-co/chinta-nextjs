@@ -8,18 +8,6 @@ import Projects from 'src/components/Projects';
 import Slider from 'src/components/Slider';
 
 const Home: NextPage = () => {
-    // // const [showPreloader, setShowPreloader] = useState(true);
-
-    // useEffect(() => {
-    //     const handlePreloader = () => {
-    //         setShowPreloader(false);
-    //     };
-    //     window.addEventListener('load', handlePreloader);
-    //     return () => {
-    //         window.removeEventListener('load', handlePreloader);
-    //     };
-    // }, []);
-
     return (
         <>
             <Head>
