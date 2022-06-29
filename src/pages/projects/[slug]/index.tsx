@@ -13,7 +13,7 @@ const ProjectDetails: NextPage<Props> = () => {
             </Head>
             <Layout>
                 <section className="project-details-section">
-                    <div className="container w-50 mx-auto">
+                    <div className=" container mx-auto">
                         <div className="row">
                             <div className="col-12 bg-gradient">
                                 <Image
