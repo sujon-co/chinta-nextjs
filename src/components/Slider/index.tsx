@@ -8,17 +8,13 @@ interface Props {}
 
 const Slider: NextPage<Props> = () => {
     return (
-        <div className="container mt-3">
+        <div className="section">
             <Swiper
-                pagination={{
-                    dynamicBullets: true,
-                    clickable: true,
-                }}
                 autoplay={{
                     delay: 2500,
                     disableOnInteraction: false,
                 }}
-                modules={[Pagination, Autoplay]}
+                modules={[Autoplay]}
                 className="mySwiper"
             >
                 <SwiperSlide>Slide 1</SwiperSlide>
