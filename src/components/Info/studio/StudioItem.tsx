@@ -16,9 +16,6 @@ const StudioItem: NextPage<Props> = () => {
                 <div className="position">Principal Architect</div>
                 <div className="social-icons">
                     <a href="#" className="social-icons-item">
-                        <FaFacebookF />
-                    </a>
-                    <a href="#" className="social-icons-item">
                         <FaInstagram />
                     </a>
                     <a href="#" className="social-icons-item">

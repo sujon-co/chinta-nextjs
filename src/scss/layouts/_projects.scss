@@ -1,7 +1,7 @@
 .projects {
     overflow-y: auto;
     overflow-x: hidden !important;
-    height: 70vh;
+    height: 65vh;
     padding-right: 5px;
 
     .project-item {
@@ -13,7 +13,7 @@
             color: #fff;
             position: absolute;
             width: 94%;
-            bottom: 4px;
+            bottom: 0;
             padding: 10px;
             opacity: 0;
             height: 0;
@@ -41,5 +41,20 @@
     }
     &::-webkit-scrollbar-track {
         background: lightgray;
+    }
+}
+
+.project-filter {
+    padding: 25px 0;
+    font-weight: 400;
+    padding-left: 0;
+    list-style: none;
+    .filter-item {
+        font-size: 14px;
+        cursor: pointer;
+
+        &.active {
+            color: red;
+        }
     }
 }

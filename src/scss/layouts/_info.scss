@@ -1,10 +1,12 @@
 .info-route-wrapper {
 }
-.info-item-section {
+.info-item-section2 {
     background-color: lightblue;
+    // min-height: 500px;
+    overflow: hidden;
 }
 .info-route {
-    border-right: 1px solid $primary;
+    border-right: 1px solid red;
     margin-left: auto;
     height: 350px;
 
@@ -33,7 +35,6 @@
         }
         &.active,
         &:hover {
-            color: $primary;
             &::after {
                 content: '';
                 transform: scaleX(1);
@@ -46,14 +47,12 @@
     height: 500px;
     position: relative;
     overflow-y: scroll;
-    margin-bottom: 100px;
     overflow-x: hidden;
     padding-right: 5px;
     .info-item-section {
         min-height: 500px;
         padding-bottom: 100px;
         margin-bottom: 50px;
-        // background-color: lightblue;
     }
 
     &::-webkit-scrollbar {

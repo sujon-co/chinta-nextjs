@@ -28,7 +28,7 @@ const Home: NextPage = () => {
                         <Projects />
                     </Element>
                     <Info />
-                    <Element name="contact" className="">
+                    <Element name="contact" className="contact-section">
                         <Contact />
                     </Element>
                 </main>

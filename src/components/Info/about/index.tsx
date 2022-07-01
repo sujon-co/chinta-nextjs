@@ -7,7 +7,7 @@ interface Props {}
 const About: NextPage<Props> = () => {
     return (
         <div className="row">
-            <div className="col-md-4">
+            <div className="col-md-5 col-lg-4">
                 <div className="about-img">
                     <Image
                         src={aboutImage}

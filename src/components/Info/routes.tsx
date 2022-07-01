@@ -6,10 +6,6 @@ interface IProps {
 }
 
 const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
-    // useEffect(() => {
-    //     document.getElementById('ctn')?.click();
-    // }, []);
-
     return (
         <div className="info-route-wrapper">
             <div className="info-route">
@@ -21,6 +17,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                     smooth={true}
                     duration={250}
                     containerId="containerElement"
+                    onClick={() => routeHandler('about')}
                 >
                     About
                 </Link>
@@ -32,6 +29,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                     smooth={true}
                     duration={250}
                     containerId="containerElement"
+                    onClick={() => routeHandler('studio')}
                 >
                     Studio
                 </Link>
@@ -43,6 +41,7 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                     smooth={true}
                     duration={250}
                     containerId="containerElement"
+                    onClick={() => routeHandler('award')}
                 >
                     Award
                 </Link>

@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import { Router } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Element } from 'react-scroll';
@@ -8,17 +9,42 @@ import Studio from './studio';
 
 interface Props {}
 
-export type routeTypes = 'news' | 'jobs' | 'shops';
+export type routeTypes =
+    | 'about'
+    | 'studio'
+    | 'award'
+    | 'news'
+    | 'jobs'
+    | 'shops';
 
 const Info: NextPage<Props> = () => {
     const { ref, inView, entry } = useInView({
         threshold: 0,
     });
-    const [isViewPortVisible, setIsViewPortVisible] = useState<boolean>(inView);
     const [selectedRoute, setSelectedRoute] = useState<routeTypes>();
 
+    const removeActiveClass = (id: string) => {
+        document.getElementById(id)?.classList.add('active');
+    };
     const routeHandler = (route: routeTypes) => {
         setSelectedRoute(route);
+        if (route === 'award') {
+            removeActiveClass('award');
+        }
+        if (route === 'news') {
+            removeActiveClass('news');
+        }
+        if (route === 'jobs') {
+            removeActiveClass('jobs');
+        }
+        if (route === 'shops') {
+            removeActiveClass('shops');
+        }
+
+        const found = document.querySelectorAll('.route-item');
+        found.forEach((item) => {
+            item.classList.remove('active');
+        });
     };
 
     useEffect(() => {
@@ -51,27 +77,60 @@ const Info: NextPage<Props> = () => {
                             className="info-section"
                             id="containerElement"
                         >
-                            <Element name="about" className="info-item-section">
+                            <Element
+                                id="about"
+                                name="about"
+                                className="info-item-section"
+                            >
                                 <About />
                             </Element>
 
                             <Element
+                                id="studio"
                                 name="studio"
                                 className="info-item-section"
                             >
                                 <Studio />
                             </Element>
-                            <Element name="award" className="info-item-section">
+                            <Element
+                                id="award"
+                                name="award"
+                                className="info-item-section2"
+                                style={{
+                                    height: selectedRoute === 'award' ? 500 : 0,
+                                }}
+                            >
                                 award element inside container
                             </Element>
-                            <Element name="news" className="info-item-section">
-                                news element inside container
+                            <Element
+                                id="news"
+                                name="news"
+                                className="info-item-section2"
+                                style={{
+                                    height: selectedRoute === 'news' ? 500 : 0,
+                                }}
+                            >
+                                <About />
                             </Element>
-                            <Element name="jobs" className="info-item-section">
-                                jobs element inside container
+                            <Element
+                                id="jobs"
+                                name="jobs"
+                                className="info-item-section2"
+                                style={{
+                                    height: selectedRoute === 'jobs' ? 500 : 0,
+                                }}
+                            >
+                                <Studio />
                             </Element>
-                            <Element name="shops" className="info-item-section">
-                                shop element inside container
+                            <Element
+                                id="shops"
+                                name="shops"
+                                className="info-item-section2"
+                                style={{
+                                    height: selectedRoute === 'shops' ? 500 : 0,
+                                }}
+                            >
+                                <About />
                             </Element>
                             <div ref={ref} style={{ height: '5px' }} />
                         </Element>

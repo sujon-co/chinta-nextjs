@@ -18,13 +18,19 @@ function MyApp({ Component, pageProps }: AppProps) {
             setPageLoading(false);
         };
 
+        const delayHandler = () => {
+            setTimeout(() => {
+                setPageLoading(false);
+            }, 3000);
+        };
+
         router.events.on('routeChangeStart', handleStart);
         router.events.on('routeChangeComplete', handleComplete);
         router.events.on('routeChangeError', handleComplete);
 
-        window.addEventListener('load', handleComplete);
+        window.addEventListener('load', delayHandler);
         return () => {
-            window.removeEventListener('load', handleComplete);
+            window.removeEventListener('load', delayHandler);
         };
     }, [router]);
 

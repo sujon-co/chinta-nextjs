@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
+import Footer from '../Footer';
 import Popup from './Popup';
 
 interface Props {}
@@ -67,20 +68,38 @@ const Contact: NextPage<Props> = () => {
                         </div>
                         <ul className="social-link">
                             <li>
-                                <a href="#">Twitter</a>
+                                <a
+                                    href="#"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Twitter
+                                </a>
                             </li>
                             <li>
-                                <a href="https://www.linkedin.com/in/kanakmahmud/">
+                                <a
+                                    href="https://www.linkedin.com/in/kanakmahmud/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     LinkedIn
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.instagram.com/chintaarchitects/">
+                                <a
+                                    href="https://www.instagram.com/chintaarchitects/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     Instagram
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.facebook.com/chintasthapatya">
+                                <a
+                                    href="https://www.facebook.com/chintasthapatya"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     Facebook
                                 </a>
                             </li>

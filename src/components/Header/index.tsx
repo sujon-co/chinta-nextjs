@@ -11,15 +11,20 @@ interface IProps {}
 
 const Header: NextPage<IProps> = () => {
     const [showMenu, setShowMenu] = useState(false);
+    const [stay, setStay] = useState(false);
     const { pathname } = useRouter();
 
     useEffect(() => {
-        if (showMenu) {
+        if (stay) {
+            setShowMenu(true);
+        }
+        if (showMenu && !stay) {
             setTimeout(() => {
                 setShowMenu(false);
             }, 10000);
         }
-    }, [showMenu]);
+        console.log({ stay, showMenu });
+    }, [showMenu, stay]);
 
     return (
         <header className="header">
@@ -45,6 +50,8 @@ const Header: NextPage<IProps> = () => {
                                             ? 'menu-open-animation'
                                             : 'menu-close-animation'
                                     }`}
+                                    onMouseOver={() => setStay(true)}
+                                    onMouseLeave={() => setStay(false)}
                                 >
                                     <Link
                                         className="header-menu-item"
