@@ -8,15 +8,13 @@ const Projects: NextPage<Props> = () => {
     return (
         <Layout>
             <div className="container">
-                <div className="">
+                <div className="project-search">
                     Search Project
-                    <form className="">
-                        <div className="feedbackInput">
-                            <input type="text" />
-                            <button>
-                                <FaSearch />
-                            </button>
-                        </div>
+                    <form className="searchInput">
+                        <input type="text" />
+                        <button>
+                            <FaSearch />
+                        </button>
                     </form>
                 </div>
             </div>

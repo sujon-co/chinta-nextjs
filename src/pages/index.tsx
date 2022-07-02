@@ -1,5 +1,6 @@
-import type { NextPage } from 'next';
+import type { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
+import { getPlaiceholder } from 'plaiceholder';
 import { Element } from 'react-scroll';
 import Contact from 'src/components/Contact';
 import Info from 'src/components/Info';
@@ -7,7 +8,9 @@ import Layout from 'src/components/Layout';
 import Projects from 'src/components/Projects';
 import Slider from 'src/components/Slider';
 
-const Home: NextPage = () => {
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+    sliderImages,
+}) => {
     return (
         <>
             <Head>
@@ -20,7 +23,7 @@ const Home: NextPage = () => {
             </Head>
             <Layout>
                 <main className="section-wrapper">
-                    <Slider />
+                    <Slider sliderImages={sliderImages} />
                     <Element
                         name="projects"
                         className=" section project-section"
@@ -35,6 +38,60 @@ const Home: NextPage = () => {
             </Layout>
         </>
     );
+};
+
+export const getStaticProps = async () => {
+    const images = [
+        {
+            image: '/sliders/1.jpg',
+            alt: 'alternative data',
+        },
+        {
+            image: '/sliders/2.jpg',
+            alt: 'alternative data',
+        },
+        {
+            image: '/sliders/3.jpg',
+            alt: 'alternative data',
+        },
+        {
+            image: '/sliders/4.jpg',
+            alt: 'alternative data',
+        },
+        {
+            image: '/sliders/5.jpg',
+            alt: 'alternative data',
+        },
+        {
+            image: '/sliders/6.jpg',
+            alt: 'alternative data',
+        },
+        {
+            image: '/sliders/7.jpg',
+            alt: 'alternative data',
+        },
+        {
+            image: '/sliders/8.jpg',
+            alt: 'alternative data',
+        },
+    ];
+
+    const sliderImages = await Promise.all(
+        images.map(async (data) => {
+            const { base64, img } = await getPlaiceholder(data.image);
+            return {
+                ...img,
+                base64: base64,
+                alt: data.alt,
+            };
+        })
+    ).then((value) => value);
+
+    return {
+        props: {
+            sliderImages,
+        },
+    };
 };
 
 export default Home;

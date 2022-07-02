@@ -4,11 +4,17 @@ import Image from 'next/image';
 import { useState } from 'react';
 import GalleryView from 'src/components/Gallery';
 import Layout from 'src/components/Layout';
+import BlurImage from 'src/components/BlurImage';
 
 interface Props {}
 
 const ProjectDetails: NextPage<Props> = () => {
     const [showMore, setShowMore] = useState(false);
+    const images = [
+        '/projects/18.jpeg',
+        '/projects/19.gif',
+        '/projects/20.jpeg',
+    ];
 
     return (
         <>
@@ -20,9 +26,9 @@ const ProjectDetails: NextPage<Props> = () => {
                     <div className="container mx-auto">
                         <div className="row">
                             <div className="col-12">
-                                <Image
+                                <BlurImage
                                     src="/projects/17.jpeg"
-                                    alt="alt"
+                                    alt="using placeholder without blurDataUrl should work"
                                     layout="responsive"
                                     height={250}
                                     width={400}
@@ -140,7 +146,7 @@ const ProjectDetails: NextPage<Props> = () => {
                                             </p>
                                         </div>
                                         <div className="col-6">
-                                            <Image
+                                            <BlurImage
                                                 src="/projects/port.jpeg"
                                                 layout="responsive"
                                                 height={300}
@@ -152,7 +158,7 @@ const ProjectDetails: NextPage<Props> = () => {
                                 </div>
                                 <div className="images">
                                     <div className="image-item">
-                                        <Image
+                                        <BlurImage
                                             src="/projects/18.jpeg"
                                             alt="alt"
                                             layout="responsive"
@@ -162,7 +168,7 @@ const ProjectDetails: NextPage<Props> = () => {
                                         />
                                     </div>
                                     <div className="image-item">
-                                        <Image
+                                        <BlurImage
                                             src="/projects/19.gif"
                                             alt="alt"
                                             layout="responsive"
@@ -173,7 +179,7 @@ const ProjectDetails: NextPage<Props> = () => {
                                     </div>
 
                                     <div className="image-item">
-                                        <Image
+                                        <BlurImage
                                             src="/projects/20.jpeg"
                                             alt="alt"
                                             layout="responsive"
@@ -183,7 +189,7 @@ const ProjectDetails: NextPage<Props> = () => {
                                         />
                                     </div>
                                     <div className="image-item">
-                                        <Image
+                                        <BlurImage
                                             src="/projects/21.jpeg"
                                             alt="alt"
                                             layout="responsive"

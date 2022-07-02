@@ -2,9 +2,11 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import aboutImage from '/public/about/about.jpg';
 
-interface Props {}
+interface Props {
+    message: string;
+}
 
-const About: NextPage<Props> = () => {
+const About: NextPage<Props> = (props) => {
     return (
         <div className="row">
             <div className="col-md-5 col-lg-4">

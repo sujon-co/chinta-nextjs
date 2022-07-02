@@ -36,26 +36,33 @@
     font-weight: 400;
 }
 
-.feedbackInput {
+.feedbackInput,
+.searchInput {
     display: flex;
     flex-direction: row;
+    input {
+        width: 60%;
+        height: 23.2px;
+        border: solid 2px black;
+        align-items: right;
+        justify-content: right;
+        outline: none;
+        caret-color: blue;
+    }
+    button {
+        color: white;
+        background: black;
+        outline: none;
+        border: none;
+        width: 10%;
+        height: 23.2px;
+    }
 }
-.feedbackInput input {
-    width: 60%;
-    height: 23.2px;
-    border: solid 2px black;
-    align-items: right;
-    justify-content: right;
-    outline: none;
-    caret-color: blue;
-}
-.feedbackInput button {
-    color: white;
-    background: black;
-    outline: none;
-    border: none;
-    width: 10%;
-    height: 23.2px;
+.searchInput {
+    input,
+    button {
+        height: 40px;
+    }
 }
 
 .tagline {

@@ -8,7 +8,7 @@ import '../scss/main.scss';
 
 function MyApp({ Component, pageProps }: AppProps) {
     const router = useRouter();
-    const [pageLoading, setPageLoading] = useState(true);
+    const [pageLoading, setPageLoading] = useState(false);
 
     useEffect(() => {
         const handleStart = () => {

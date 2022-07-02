@@ -1,13 +1,23 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
-import { Autoplay, Pagination } from 'swiper';
+import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-interface Props {}
+interface Props {
+    sliderImages: {
+        base64: string;
+        alt: string;
+        src: string;
+        height: number;
+        width: number;
+        type?: string | undefined;
+    }[];
+}
 
-const Slider: NextPage<Props> = () => {
+const Slider: NextPage<Props> = ({ sliderImages }) => {
+    console.log({ sliderImages });
     return (
         <div className="section slider-section">
             <Swiper
@@ -19,33 +29,17 @@ const Slider: NextPage<Props> = () => {
                 modules={[Autoplay]}
                 className="mySwiper"
             >
-                <SwiperSlide>
-                    <Image src="/sliders/8.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/1.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/2.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/3.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/4.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/5.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/6.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/7.jpg" layout="fill" alt="" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <Image src="/sliders/8.jpg" layout="fill" alt="" />
-                </SwiperSlide>
+                {sliderImages.map((image) => (
+                    <SwiperSlide key={image.src}>
+                        <Image
+                            src={image.src}
+                            layout="fill"
+                            alt={image.alt}
+                            placeholder="blur"
+                            blurDataURL={image.base64}
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </div>
     );
