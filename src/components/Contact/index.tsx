@@ -20,9 +20,9 @@ const Contact: NextPage<Props> = () => {
     return (
         <>
             {showModal && <Popup setShowModal={setShowModal} />}
-            <div className="container pt-5">
+            <div className="container ">
                 <div className="row justify-content-between">
-                    <div className="col-md-5">
+                    <div className="col-md-6">
                         <div className="wrapper">
                             <div className="text-box">{message}</div>
                             {!showInput && (

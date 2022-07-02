@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { Router } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Element } from 'react-scroll';
 import About from './about';
@@ -22,6 +22,7 @@ const Info: NextPage<Props> = () => {
         threshold: 0,
     });
     const [selectedRoute, setSelectedRoute] = useState<routeTypes>();
+    const counterRef = useRef(0);
 
     const removeActiveClass = (id: string) => {
         document.getElementById(id)?.classList.add('active');
@@ -49,20 +50,26 @@ const Info: NextPage<Props> = () => {
 
     useEffect(() => {
         if (inView) {
-            window.scrollTo({
-                left: 0,
-                top: document.body.scrollHeight,
-                behavior: 'smooth',
-            });
-            document.getElementById('ctn')?.classList.add('active');
-            const found = document.querySelectorAll('.route-item');
-            found.forEach((item) => {
-                item.classList.remove('active');
-            });
+            if (counterRef.current <= 0) {
+                window.scrollTo({
+                    left: 0,
+                    top: document.body.scrollHeight,
+                    behavior: 'smooth',
+                });
+                document.getElementById('ctn')?.classList.add('active');
+                const found = document.querySelectorAll('.route-item');
+                found.forEach((item) => {
+                    item.classList.remove('active');
+                });
+                console.log('enter', counterRef.current);
+            }
+            counterRef.current++;
         } else {
             document.getElementById('ctn')?.classList.remove('active');
         }
     }, [inView]);
+
+    console.log({ counter: counterRef.current });
 
     return (
         <Element name="info" className="section info-section-wrapper">
@@ -110,7 +117,7 @@ const Info: NextPage<Props> = () => {
                                     height: selectedRoute === 'news' ? 500 : 0,
                                 }}
                             >
-                                <About />
+                                news element inside container
                             </Element>
                             <Element
                                 id="jobs"
@@ -120,7 +127,7 @@ const Info: NextPage<Props> = () => {
                                     height: selectedRoute === 'jobs' ? 500 : 0,
                                 }}
                             >
-                                <Studio />
+                                jobs element inside container
                             </Element>
                             <Element
                                 id="shops"
@@ -130,7 +137,7 @@ const Info: NextPage<Props> = () => {
                                     height: selectedRoute === 'shops' ? 500 : 0,
                                 }}
                             >
-                                <About />
+                                shops element inside container
                             </Element>
                             <div ref={ref} style={{ height: '5px' }} />
                         </Element>

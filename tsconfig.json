@@ -17,6 +17,6 @@
     "baseUrl": "./",
     "allowSyntheticDefaultImports": true,
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Gallery/index.jsx"],
   "exclude": ["node_modules"]
 }

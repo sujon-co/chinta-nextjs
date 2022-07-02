@@ -4,4 +4,35 @@
             margin-bottom: 25px;
         }
     }
+    .content {
+        .height-wrapper {
+            transition: height 0.5s;
+            overflow: hidden;
+        }
+    }
+}
+
+/*** Project Details ****/
+.react-photo-gallery--gallery {
+    > div {
+        gap: 8px;
+        img {
+            height: 160px;
+            width: 160px;
+        }
+    }
+}
+.react-images__view-image.react-images__view-image--isModal {
+    max-width: 80% !important;
+}
+
+.show-more {
+    cursor: pointer;
+    color: $primary;
+    padding-top: 5px;
+}
+.show-less {
+    cursor: pointer;
+    color: red;
+    padding-top: 5px;
 }

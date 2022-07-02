@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { Link } from 'react-scroll';
 
@@ -12,7 +12,14 @@ interface IProps {}
 const Header: NextPage<IProps> = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [stay, setStay] = useState(false);
-    const { pathname } = useRouter();
+    const [search, setSearch] = useState('');
+    const { pathname, push } = useRouter();
+
+    const searchHandler = (event: React.SyntheticEvent) => {
+        event.preventDefault();
+        push(`/projects/?search=${search}`);
+        console.log('searching');
+    };
 
     useEffect(() => {
         if (stay) {
@@ -25,6 +32,7 @@ const Header: NextPage<IProps> = () => {
         }
         console.log({ stay, showMenu });
     }, [showMenu, stay]);
+    console.log({ search });
 
     return (
         <header className="header">
@@ -104,16 +112,22 @@ const Header: NextPage<IProps> = () => {
                         </>
                     )}
                     <div className="">
-                        <div className="header-search">
+                        <form
+                            className="header-search"
+                            onSubmit={searchHandler}
+                        >
                             <input
                                 className="header-search-input"
                                 type="text"
                                 name=""
                                 id=""
+                                onChange={(event) =>
+                                    setSearch(event.target.value)
+                                }
                                 onFocus={() => setShowMenu(false)}
                             />
                             <span className="bar"></span>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </nav>

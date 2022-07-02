@@ -1,12 +1,26 @@
 import { NextPage } from 'next';
+import { FaSearch } from 'react-icons/fa';
+import Layout from 'src/components/Layout';
 
 interface Props {}
 
 const Projects: NextPage<Props> = () => {
     return (
-        <div>
-            <h1>Projects</h1>
-        </div>
+        <Layout>
+            <div className="container">
+                <div className="">
+                    Search Project
+                    <form className="">
+                        <div className="feedbackInput">
+                            <input type="text" />
+                            <button>
+                                <FaSearch />
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </Layout>
     );
 };
 
