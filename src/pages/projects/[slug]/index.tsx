@@ -61,7 +61,7 @@ const ProjectDetails: NextPage<Props> = () => {
                                     <div
                                         className="height-wrapper"
                                         style={{
-                                            height: showMore ? 120 : 0,
+                                            height: showMore ? 105 : 0,
                                         }}
                                     >
                                         <div className="other">

@@ -17,6 +17,7 @@ const Contact: NextPage<Props> = () => {
             document.body.style.overflowY = 'scroll';
         }
     }, [showModal]);
+
     return (
         <>
             {showModal && <Popup setShowModal={setShowModal} />}
@@ -24,19 +25,26 @@ const Contact: NextPage<Props> = () => {
                 <div className="row justify-content-between">
                     <div className="col-md-6">
                         <div className="wrapper">
-                            <div className="text-box">{message}</div>
-                            {!showInput && (
+                            <div className="text-box">
+                                <p className="p-0 mb-0">{message}</p>
+                            </div>
+                            <div className="drop-message-wrapper">
                                 <div
                                     className="tagline"
                                     v-show="!show"
+                                    style={{
+                                        display: showInput ? 'none' : 'block',
+                                    }}
                                     onClick={() => setShowInput(true)}
                                 >
                                     <p>DROP US A LINE</p>
                                 </div>
-                            )}
-
-                            {showInput && (
-                                <div className="feedbackInput">
+                                <div
+                                    className="feedbackInput"
+                                    style={{
+                                        display: showInput ? 'block' : 'none',
+                                    }}
+                                >
                                     <input
                                         type="text"
                                         v-model="feedbacktxt"
@@ -48,7 +56,7 @@ const Contact: NextPage<Props> = () => {
                                         &#9654;
                                     </button>
                                 </div>
-                            )}
+                            </div>
                             <br />
                             <h6>
                                 We would love to hear from you so don&lsquo;t

@@ -19,10 +19,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         };
 
         const delayHandler = () => {
-            setTimeout(() => {
+            if (router.pathname === '/') {
+                setTimeout(() => {
+                    setPageLoading(false);
+                }, 3000);
+            } else {
                 setPageLoading(false);
-            }, 3000);
+            }
         };
+
+        console.log({ pathname: router.pathname });
 
         router.events.on('routeChangeStart', handleStart);
         router.events.on('routeChangeComplete', handleComplete);
