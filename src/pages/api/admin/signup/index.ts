@@ -4,14 +4,14 @@ import validate from 'server/middlewares/validate';
 import Admin from 'server/models/Admin';
 import { adminValidator } from 'server/validators';
 
-const admin = handler.post(async (req, res, next) => {
+const signup = handler.post(async (req, res, next) => {
     const { body } = req;
 
     try {
         const admin = await Admin.create(body);
         res.status(201).json({
             success: true,
-            data: admin,
+            data: null,
             message: 'Registration successfully.',
         });
     } catch (error) {
@@ -19,4 +19,4 @@ const admin = handler.post(async (req, res, next) => {
     }
 });
 
-export default connectDB(validate(adminValidator, admin));
+export default connectDB(validate(adminValidator, signup));
