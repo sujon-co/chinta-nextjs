@@ -68,7 +68,7 @@ const Info: NextPage<Props> = () => {
     // }, [inView]);
 
     return (
-        <Element name="info" className="section info-section-wrapper">
+        <Element name="info" className="pt-30">
             <div className="container">
                 <div className="row">
                     <div className="col-md-1">

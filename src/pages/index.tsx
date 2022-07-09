@@ -25,10 +25,10 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             <Layout>
                 <main className="section-wrapper">
                     <Slider sliderImages={sliderImages} />
-                    <div className="project-section">
+                    <div className="section ">
                         <Title title="Projects" />
-                        <div className="container pt-3">
-                            <div className="projects ">
+                        <div className="container ">
+                            <div className="projects">
                                 <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
                                     {Array(30)
                                         .fill('_')
@@ -39,7 +39,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                             </div>
                         </div>
                     </div>
-                    <div className="info-section-wrapper">
+                    <div className="section ">
                         <Title title="About Me" />
                         <div className="container info-section">
                             <div className="info-item-section">
@@ -50,7 +50,7 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                             </div>
                         </div>
                     </div>
-                    <div className="contact-section">
+                    <div className="section">
                         <Title title="Contact Me" />
                         <Contact />
                     </div>

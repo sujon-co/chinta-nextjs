@@ -7,7 +7,9 @@ interface Props {}
 const ContactPage: NextPage<Props> = () => {
     return (
         <Layout>
-            <Contact />
+            <div className="pt-30">
+                <Contact />
+            </div>
         </Layout>
     );
 };

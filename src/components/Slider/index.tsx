@@ -18,7 +18,7 @@ interface Props {
 
 const Slider: NextPage<Props> = ({ sliderImages }) => {
     return (
-        <div className="section slider-section">
+        <div className="section slider-section pt-0">
             <Swiper
                 autoplay={{
                     delay: 3000,
