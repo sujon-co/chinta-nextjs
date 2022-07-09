@@ -1,7 +1,7 @@
-import { model, models, Schema } from 'mongoose';
-import { IAdmin } from 'server/interface';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { model, models, Schema } from 'mongoose';
+import { IAdmin } from 'server/interface';
 
 const adminSchema = new Schema<IAdmin>(
     {
@@ -27,7 +27,8 @@ adminSchema.pre('save', async function (next) {
     next();
 });
 
-adminSchema.methods.getToken = function () {
+adminSchema.methods.getToken = function (value: string) {
+    console.log(value);
     return jwt.sign(
         {
             _id: this._id,

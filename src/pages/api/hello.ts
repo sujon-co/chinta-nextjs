@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import authenticated from 'server/middlewares/authentication';
+import authenticated from 'server/middlewares/authenticated';
 
 type Data = {
     name: string;
