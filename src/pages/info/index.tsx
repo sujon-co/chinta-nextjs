@@ -1,15 +1,15 @@
 import { NextPage } from 'next';
+import Info from 'src/components/Info';
 import Layout from 'src/components/Layout';
-import Projects from 'src/components/Projects';
 
 interface Props {}
 
-const ProjectsPage: NextPage<Props> = () => {
+const InfoPage: NextPage<Props> = () => {
     return (
         <Layout>
-            <Projects />
+            <Info />
         </Layout>
     );
 };
 
-export default ProjectsPage;
+export default InfoPage;

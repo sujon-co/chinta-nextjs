@@ -81,17 +81,6 @@ const InfoRoutes: NextPage<IProps> = ({ routeHandler }) => {
                 >
                     Shops
                 </Link>
-                <Link
-                    activeClass="active"
-                    className="info-route-item"
-                    to="contact"
-                    id="ctn"
-                    spy={true}
-                    smooth={true}
-                    duration={250}
-                >
-                    Contacts
-                </Link>
             </div>
         </div>
     );

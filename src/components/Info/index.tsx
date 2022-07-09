@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Element } from 'react-scroll';
 import About from './about';
@@ -28,53 +28,53 @@ const Info: NextPage<Props> = () => {
     };
     const routeHandler = (route: routeTypes) => {
         setSelectedRoute(route);
-        if (route === 'award') {
-            removeActiveClass('award');
-        }
-        if (route === 'news') {
-            removeActiveClass('news');
-        }
-        if (route === 'jobs') {
-            removeActiveClass('jobs');
-        }
-        if (route === 'shops') {
-            removeActiveClass('shops');
-        }
+        // if (route === 'award') {
+        //     removeActiveClass('award');
+        // }
+        // if (route === 'news') {
+        //     removeActiveClass('news');
+        // }
+        // if (route === 'jobs') {
+        //     removeActiveClass('jobs');
+        // }
+        // if (route === 'shops') {
+        //     removeActiveClass('shops');
+        // }
 
-        const found = document.querySelectorAll('.route-item');
-        found.forEach((item) => {
-            item.classList.remove('active');
-        });
+        // const found = document.querySelectorAll('.route-item');
+        // found.forEach((item) => {
+        //     item.classList.remove('active');
+        // });
     };
 
-    useEffect(() => {
-        if (inView) {
-            if (counterRef.current <= 0) {
-                window.scrollTo({
-                    left: 0,
-                    top: document.body.scrollHeight,
-                    behavior: 'smooth',
-                });
-                document.getElementById('ctn')?.classList.add('active');
-                const found = document.querySelectorAll('.route-item');
-                found.forEach((item) => {
-                    item.classList.remove('active');
-                });
-            }
-            counterRef.current++;
-        } else {
-            document.getElementById('ctn')?.classList.remove('active');
-        }
-    }, [inView]);
+    // useEffect(() => {
+    //     if (inView) {
+    //         if (counterRef.current <= 0) {
+    //             window.scrollTo({
+    //                 left: 0,
+    //                 top: document.body.scrollHeight,
+    //                 behavior: 'smooth',
+    //             });
+    //             document.getElementById('ctn')?.classList.add('active');
+    //             const found = document.querySelectorAll('.route-item');
+    //             found.forEach((item) => {
+    //                 item.classList.remove('active');
+    //             });
+    //         }
+    //         counterRef.current++;
+    //     } else {
+    //         document.getElementById('ctn')?.classList.remove('active');
+    //     }
+    // }, [inView]);
 
     return (
         <Element name="info" className="section info-section-wrapper">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-2">
+                    <div className="col-md-1">
                         <InfoRoutes routeHandler={routeHandler} />
                     </div>
-                    <div className="col-md-10">
+                    <div className="col-md-11">
                         <Element
                             name="test7"
                             className="info-section"
@@ -98,40 +98,40 @@ const Info: NextPage<Props> = () => {
                             <Element
                                 id="award"
                                 name="award"
-                                className="info-item-section2"
-                                style={{
-                                    height: selectedRoute === 'award' ? 500 : 0,
-                                }}
+                                className="info-item-section"
+                                // style={{
+                                //     height: selectedRoute === 'award' ? 500 : 0,
+                                // }}
                             >
                                 award element inside container
                             </Element>
                             <Element
                                 id="news"
                                 name="news"
-                                className="info-item-section2"
-                                style={{
-                                    height: selectedRoute === 'news' ? 500 : 0,
-                                }}
+                                className="info-item-section"
+                                // style={{
+                                //     height: selectedRoute === 'news' ? 500 : 0,
+                                // }}
                             >
                                 news element inside container
                             </Element>
                             <Element
                                 id="jobs"
                                 name="jobs"
-                                className="info-item-section2"
-                                style={{
-                                    height: selectedRoute === 'jobs' ? 500 : 0,
-                                }}
+                                className="info-item-section"
+                                // style={{
+                                //     height: selectedRoute === 'jobs' ? 500 : 0,
+                                // }}
                             >
                                 jobs element inside container
                             </Element>
                             <Element
                                 id="shops"
                                 name="shops"
-                                className="info-item-section2"
-                                style={{
-                                    height: selectedRoute === 'shops' ? 500 : 0,
-                                }}
+                                className="info-item-section"
+                                // style={{
+                                //     height: selectedRoute === 'shops' ? 500 : 0,
+                                // }}
                             >
                                 shops element inside container
                             </Element>

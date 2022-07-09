@@ -1,12 +1,13 @@
 import type { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
-import { Element } from 'react-scroll';
 import Contact from 'src/components/Contact';
-import Info from 'src/components/Info';
+import About from 'src/components/Info/about';
+import Studio from 'src/components/Info/studio';
 import Layout from 'src/components/Layout';
-import Projects from 'src/components/Projects';
+import ProjectItem from 'src/components/ProjectItem';
 import Slider from 'src/components/Slider';
+import Title from 'src/components/Title';
 
 const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     sliderImages,
@@ -24,16 +25,35 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
             <Layout>
                 <main className="section-wrapper">
                     <Slider sliderImages={sliderImages} />
-                    <Element
-                        name="projects"
-                        className=" section project-section"
-                    >
-                        <Projects />
-                    </Element>
-                    <Info />
-                    <Element name="contact" className="contact-section">
+                    <div className="project-section">
+                        <Title title="Projects" />
+                        <div className="container pt-3">
+                            <div className="projects ">
+                                <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
+                                    {Array(30)
+                                        .fill('_')
+                                        .map((item, index) => (
+                                            <ProjectItem key={index + 1} />
+                                        ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="info-section-wrapper">
+                        <Title title="About Me" />
+                        <div className="container info-section">
+                            <div className="info-item-section">
+                                <About />
+                            </div>
+                            <div className="">
+                                <Studio />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="contact-section">
+                        <Title title="Contact Me" />
                         <Contact />
-                    </Element>
+                    </div>
                 </main>
             </Layout>
         </>

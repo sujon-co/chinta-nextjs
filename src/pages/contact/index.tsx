@@ -1,15 +1,15 @@
 import { NextPage } from 'next';
+import Contact from 'src/components/Contact';
 import Layout from 'src/components/Layout';
-import Projects from 'src/components/Projects';
 
 interface Props {}
 
-const ProjectsPage: NextPage<Props> = () => {
+const ContactPage: NextPage<Props> = () => {
     return (
         <Layout>
-            <Projects />
+            <Contact />
         </Layout>
     );
 };
 
-export default ProjectsPage;
+export default ContactPage;

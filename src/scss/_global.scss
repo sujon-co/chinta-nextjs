@@ -38,6 +38,40 @@
         width: 300px;
     }
 }
+/*** Title ***/
+.title-wrapper {
+    margin-bottom: 40px;
+    text-align: center;
+    .title {
+        color: black;
+        position: relative;
+        padding-bottom: 8px;
+        margin-bottom: 0;
+        font-weight: 400;
+        font-size: 18px;
+        &::before {
+            content: '';
+            width: 250px;
+            height: 1px;
+            background: #00000036;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+        &::after {
+            content: '';
+            width: 60px;
+            height: 2px;
+            background: #00000099;
+            position: absolute;
+            bottom: 0;
+            left: calc(50% - 30px);
+        }
+    }
+}
+
 /*** From Tailwind css classes***/
 .ease-in-out {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
 import Image from 'next/image';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { Link } from 'react-scroll';
 
 interface IProps {}
 
@@ -17,7 +16,7 @@ const Header: NextPage<IProps> = () => {
 
     const searchHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
-        push(`/projects/?search=${search}`);
+        push(`/search/?query=${search}`);
     };
 
     useEffect(() => {
@@ -34,7 +33,7 @@ const Header: NextPage<IProps> = () => {
     return (
         <header className="header">
             <nav className="container header-nav">
-                <NextLink href="/" className="header-brand">
+                <Link href="/" className="header-brand">
                     <a>
                         <Image
                             src="/logo.svg"
@@ -44,69 +43,62 @@ const Header: NextPage<IProps> = () => {
                             width={36}
                         />
                     </a>
-                </NextLink>
+                </Link>
                 <div className="header-content">
-                    {pathname === '/' && (
-                        <>
-                            <div className="header-menu-wrapper">
-                                <div
-                                    className={`header-menu ${
-                                        showMenu
-                                            ? 'menu-open-animation'
-                                            : 'menu-close-animation'
+                    <div className="header-menu-wrapper">
+                        <div
+                            className={`header-menu ${
+                                showMenu
+                                    ? 'menu-open-animation'
+                                    : 'menu-close-animation'
+                            }`}
+                            onMouseOver={() => setStay(true)}
+                            onMouseLeave={() => setStay(false)}
+                        >
+                            <Link href="/projects">
+                                <a
+                                    className={`header-menu-item ${
+                                        pathname === '/projects' ? 'active' : ''
                                     }`}
-                                    onMouseOver={() => setStay(true)}
-                                    onMouseLeave={() => setStay(false)}
                                 >
-                                    <Link
-                                        className="header-menu-item"
-                                        activeClass="active"
-                                        to="projects"
-                                        spy={true}
-                                        smooth={true}
-                                        duration={500}
-                                    >
-                                        Projects
-                                    </Link>
-                                    <Link
-                                        className="header-menu-item"
-                                        activeClass="active"
-                                        to="info"
-                                        spy={true}
-                                        smooth={true}
-                                        duration={500}
-                                    >
-                                        Info
-                                    </Link>
-                                    <Link
-                                        className="header-menu-item"
-                                        activeClass="active"
-                                        to="contact"
-                                        spy={true}
-                                        smooth={true}
-                                        duration={500}
-                                    >
-                                        Contact
-                                    </Link>
-                                </div>
-                            </div>
-                            {!showMenu && (
-                                <div
-                                    className="header-dots"
-                                    onClick={() => setShowMenu(true)}
+                                    Projects
+                                </a>
+                            </Link>
+                            <Link href="/info">
+                                <a
+                                    className={`header-menu-item ${
+                                        pathname === '/info' ? 'active' : ''
+                                    }`}
                                 >
-                                    <BsThreeDotsVertical />
-                                </div>
-                            )}
-                            {showMenu && (
-                                <div
-                                    className="bar-wrapper"
-                                    onClick={() => setShowMenu(false)}
+                                    Info
+                                </a>
+                            </Link>
+                            <Link href="/contact">
+                                <a
+                                    className={`header-menu-item ${
+                                        pathname === '/contact' ? 'active' : ''
+                                    }`}
                                 >
-                                    <div className="bar" />
-                                </div>
-                            )}
-                        </>
+                                    Contact
+                                </a>
+                            </Link>
+                        </div>
+                    </div>
+                    {!showMenu && (
+                        <div
+                            className="header-dots"
+                            onClick={() => setShowMenu(true)}
+                        >
+                            <BsThreeDotsVertical />
+                        </div>
+                    )}
+                    {showMenu && (
+                        <div
+                            className="bar-wrapper"
+                            onClick={() => setShowMenu(false)}
+                        >
+                            <div className="bar" />
+                        </div>
                     )}
                     <div className="">
                         <form
