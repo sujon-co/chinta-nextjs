@@ -17,7 +17,6 @@ interface Props {
 }
 
 const Slider: NextPage<Props> = ({ sliderImages }) => {
-    console.log({ sliderImages });
     return (
         <div className="section slider-section">
             <Swiper

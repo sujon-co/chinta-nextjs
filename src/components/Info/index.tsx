@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { Router } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Element } from 'react-scroll';
@@ -61,15 +60,12 @@ const Info: NextPage<Props> = () => {
                 found.forEach((item) => {
                     item.classList.remove('active');
                 });
-                console.log('enter', counterRef.current);
             }
             counterRef.current++;
         } else {
             document.getElementById('ctn')?.classList.remove('active');
         }
     }, [inView]);
-
-    console.log({ counter: counterRef.current });
 
     return (
         <Element name="info" className="section info-section-wrapper">

@@ -10,7 +10,6 @@ export const config = {
 
 const storage = multer.diskStorage({
     destination: (req, file, cd) => {
-        console.log(file);
         cd(null, './public/uploads');
     },
     filename: (req, file, cb) => {
@@ -35,7 +34,6 @@ const upload = multer({
 handler.use(upload.single('file'));
 
 const uploadHandler = handler.post((req, res) => {
-    console.log('body', req.body);
     // console.log('file', req.file);
 
     res.status(200).send('file upload done');

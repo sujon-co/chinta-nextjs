@@ -28,7 +28,6 @@ adminSchema.pre('save', async function (next) {
 });
 
 adminSchema.methods.getToken = function (value: string) {
-    console.log(value);
     return jwt.sign(
         {
             _id: this._id,

@@ -18,7 +18,6 @@ const Header: NextPage<IProps> = () => {
     const searchHandler = (event: React.SyntheticEvent) => {
         event.preventDefault();
         push(`/projects/?search=${search}`);
-        console.log('searching');
     };
 
     useEffect(() => {
@@ -30,9 +29,7 @@ const Header: NextPage<IProps> = () => {
                 setShowMenu(false);
             }, 10000);
         }
-        console.log({ stay, showMenu });
     }, [showMenu, stay]);
-    console.log({ search });
 
     return (
         <header className="header">
