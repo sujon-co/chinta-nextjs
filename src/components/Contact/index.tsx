@@ -21,7 +21,7 @@ const Contact: NextPage<Props> = () => {
     return (
         <>
             {showModal && <Popup setShowModal={setShowModal} />}
-            <div className="container ">
+            <div className="container">
                 <div className="row justify-content-between">
                     <div className="col-md-6">
                         <div className="wrapper">
@@ -127,6 +127,7 @@ const Contact: NextPage<Props> = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     );
 };

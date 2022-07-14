@@ -2,9 +2,9 @@ import type { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
 import Contact from 'src/components/Contact';
+import Header from 'src/components/Header';
 import About from 'src/components/Info/about';
 import Studio from 'src/components/Info/studio';
-import Layout from 'src/components/Layout';
 import ProjectItem from 'src/components/ProjectItem';
 import Slider from 'src/components/Slider';
 import Title from 'src/components/Title';
@@ -22,40 +22,39 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Layout>
-                <main className="section-wrapper">
-                    <Slider sliderImages={sliderImages} />
-                    <div className="section ">
-                        <Title title="Projects" />
-                        <div className="container ">
-                            <div className="projects">
-                                <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
-                                    {Array(30)
-                                        .fill('_')
-                                        .map((item, index) => (
-                                            <ProjectItem key={index + 1} />
-                                        ))}
-                                </div>
+            <Header />
+            <main className="section-wrapper">
+                <Slider sliderImages={sliderImages} />
+                <div className="section ">
+                    <Title title="Projects" />
+                    <div className="container ">
+                        <div className="projects">
+                            <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
+                                {Array(30)
+                                    .fill('_')
+                                    .map((item, index) => (
+                                        <ProjectItem key={index + 1} />
+                                    ))}
                             </div>
                         </div>
                     </div>
-                    <div className="section ">
-                        <Title title="About Me" />
-                        <div className="container info-section">
-                            <div className="info-item-section">
-                                <About />
-                            </div>
-                            <div className="">
-                                <Studio />
-                            </div>
+                </div>
+                <div className="section ">
+                    <Title title="About Me" />
+                    <div className="container info-section">
+                        <div className="info-item-section">
+                            <About />
+                        </div>
+                        <div className="">
+                            <Studio />
                         </div>
                     </div>
-                    <div className="section">
-                        <Title title="Contact Me" />
-                        <Contact />
-                    </div>
-                </main>
-            </Layout>
+                </div>
+                <div className="section">
+                    <Title title="Contact Me" />
+                    <Contact />
+                </div>
+            </main>
         </>
     );
 };
