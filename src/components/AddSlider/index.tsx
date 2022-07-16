@@ -49,7 +49,7 @@ const AddSlider: FC<IAddSliderProps> = ({ setIsAddSlider }) => {
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue }) => (
-                <Form>
+                <Form className="mb-3">
                     <div className="mb-3">
                         <label htmlFor="alt" className="form-label">
                             Alt Key

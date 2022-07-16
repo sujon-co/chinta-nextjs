@@ -11,14 +11,22 @@ export const config = {
 handler.use(upload.single('file'));
 
 const uploadHandler = handler
+    .get(async (req, res, next) => {
+        try {
+            const sliders = await Slider.find().sort({ createdAt: -1 });
+
+            res.status(200).json({
+                success: true,
+                data: sliders,
+                message: 'Sliders fetched successfully.',
+            });
+        } catch (error) {
+            next(error);
+        }
+    })
     .post(async (req, res, next) => {
         try {
             const { body } = req;
-
-            //@ts-ignore
-            console.log('file', req.file);
-            console.log('body', req.body);
-
             const slider = await Slider.create({
                 alt: body.alt,
                 // @ts-ignore
@@ -34,18 +42,18 @@ const uploadHandler = handler
             next(error);
         }
     })
-    .get(async (req, res, next) => {
+    .delete(async (req, res, next) => {
         try {
-            const sliders = await Slider.find().sort({ createdAt: -1 });
+            const { body } = req;
+            const slider = await Slider.findOneAndDelete(body.id);
 
             res.status(200).json({
                 success: true,
-                data: sliders,
-                message: 'Sliders fetched successfully.',
+                data: slider,
+                message: 'Slider deleted successfully.',
             });
         } catch (error) {
             next(error);
         }
     });
-
 export default uploadHandler;
