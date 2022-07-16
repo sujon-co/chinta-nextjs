@@ -18,7 +18,8 @@
             line-height: 0;
             padding: 0 20px;
             height: 53px;
-            background: orangered;
+            // background: #fff;
+            border-right: 1px solid rgb(161, 161, 161);
             img {
                 width: 30px;
             }
@@ -110,7 +111,6 @@
     -webkit-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
-    background-color: lightblue;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -144,8 +144,3 @@
         padding-left: 70px;
     }
 }
-// @media screen and (min-width: 1440px) {
-//     .is-collapsed .sidebar {
-//         width: 70px;
-//     }
-// }

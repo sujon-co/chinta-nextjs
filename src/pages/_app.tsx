@@ -1,8 +1,9 @@
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { ReactElement, ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Preloader from 'src/components/Preloader';
 import 'swiper/css/bundle';
@@ -10,7 +11,14 @@ import '../scss/main.scss';
 
 axios.defaults.baseURL = 'http://localhost:3000/api';
 
-function MyApp({ Component, pageProps }: AppProps) {
+export type NextPageWithLayout = NextPage & {
+    getLayout?: (page: ReactElement) => ReactNode;
+};
+type AppPropsWithLayout = AppProps & {
+    Component: NextPageWithLayout;
+};
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     const router = useRouter();
     const [pageLoading, setPageLoading] = useState(false);
 
@@ -41,13 +49,15 @@ function MyApp({ Component, pageProps }: AppProps) {
         };
     }, [router]);
 
+    const getLayout = Component.getLayout || ((page) => page);
+
     return (
         <>
             {pageLoading ? (
                 <Preloader />
             ) : (
                 <>
-                    <Component {...pageProps} />
+                    {getLayout(<Component {...pageProps} />)}
                     <Toaster
                         position="top-right"
                         reverseOrder={false}
