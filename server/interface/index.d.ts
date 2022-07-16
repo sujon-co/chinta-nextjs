@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { Types } from 'mongoose';
 
 interface IAdmin {
@@ -22,3 +23,13 @@ interface IStudio {
         linkedIn: string;
     };
 }
+
+interface ISlider {
+    _id: Types.ObjectId;
+    photoUrl: string;
+    alt: string;
+}
+
+type ResponseError = AxiosError & {
+    response: { data: { message: string } };
+};

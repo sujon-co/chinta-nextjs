@@ -1,10 +1,10 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Router from 'next/router';
 import toast from 'react-hot-toast';
-import { IAdmin } from 'server/interface';
+import { IAdmin, ResponseError } from 'server/interface';
 import { boolean, object, string } from 'yup';
 
 interface Props {}
@@ -30,9 +30,7 @@ const SignIn: NextPage<Props> = () => {
             formikHelpers.setSubmitting(false);
             Router.push('/admin/chinta');
         } catch (err) {
-            const error = err as AxiosError & {
-                response: { data: { message: string } };
-            };
+            const error = err as ResponseError;
             toast.error(error.response?.data?.message);
             formikHelpers.setSubmitting(false);
         }

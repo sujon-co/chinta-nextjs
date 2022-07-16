@@ -1,6 +1,8 @@
+import axios, { AxiosResponse } from 'axios';
 import type { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
+import { ISlider } from 'server/interface';
 import Contact from 'src/components/Contact';
 import Header from 'src/components/Header';
 import About from 'src/components/Info/about';
@@ -9,7 +11,7 @@ import ProjectItem from 'src/components/ProjectItem';
 import Slider from 'src/components/Slider';
 import Title from 'src/components/Title';
 
-const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
     sliderImages,
 }) => {
     return (
@@ -59,45 +61,14 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
     );
 };
 
-export const getStaticProps = async () => {
-    const images = [
-        {
-            image: '/sliders/1.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/2.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/3.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/4.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/5.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/6.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/7.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/8.jpg',
-            alt: 'alternative data',
-        },
-    ];
+export const getServerSideProps = async () => {
+    const { data: sliders } = await axios.get<AxiosResponse<ISlider[]>>(
+        '/sliders'
+    );
 
     const sliderImages = await Promise.all(
-        images.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(data.image);
+        sliders.data.map(async (data) => {
+            const { base64, img } = await getPlaiceholder(data.photoUrl);
             return {
                 ...img,
                 base64: base64,

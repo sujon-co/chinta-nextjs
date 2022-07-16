@@ -7,7 +7,7 @@
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease;
     width: 280px;
-    background-color: #444;
+    background-color: #212529;
     color: #fff;
     z-index: 9999;
 
@@ -113,8 +113,11 @@
     transition: all 0.2s ease;
 }
 
-.navbar-light .navbar-nav .nav-link {
-    color: rgba(0, 0, 0, 0.55);
+.navbar-light {
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    .navbar-nav .nav-link {
+        color: #222;
+    }
 }
 
 .navbar-expand .navbar-nav .nav-link {

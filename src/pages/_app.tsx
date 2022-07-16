@@ -49,7 +49,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         };
     }, [router]);
 
-    const getLayout = Component.getLayout || ((page) => page);
+    const getLayout = Component.getLayout || ((page: ReactNode) => page);
 
     return (
         <>
