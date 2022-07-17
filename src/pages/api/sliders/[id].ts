@@ -15,10 +15,12 @@ const sliderUpdateAndDelete = handler
     .patch(async (req, res, next) => {
         try {
             const { body, query } = req;
-            const slider = await Slider.findByIdAndUpdate(
-                query.id,
+            const { id: _id } = query;
+
+            const slider = await Slider.findOneAndUpdate(
+                { _id },
                 {
-                    alt: body?.alt,
+                    alt: body.alt,
                     // @ts-ignore
                     photoUrl: '/uploads/' + req?.file?.filename,
                 },
