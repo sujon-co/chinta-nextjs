@@ -1,6 +1,5 @@
-import multer from 'multer';
-import path from 'path';
 import handler from 'server/middlewares/handler';
+import upload from 'server/middlewares/upload';
 
 export const config = {
     api: {
@@ -8,33 +7,12 @@ export const config = {
     },
 };
 
-const storage = multer.diskStorage({
-    destination: (req, file, cd) => {
-        cd(null, './public/uploads');
-    },
-    filename: (req, file, cb) => {
-        const fileExt = path.extname(file.originalname);
-        const fileName =
-            file.originalname
-                .replace(fileExt, '')
-                .toLowerCase()
-                .split(' ')
-                .join('-') +
-            '-' +
-            Date.now();
-
-        cb(null, fileName + fileExt);
-    },
-});
-
-const upload = multer({
-    storage: storage,
-});
-
 handler.use(upload.single('file'));
 
 const uploadHandler = handler.post((req, res) => {
-    // console.log('file', req.file);
+    //@ts-ignore
+    console.log('file', req.file);
+    console.log('body', req.body);
 
     res.status(200).send('file upload done');
 });

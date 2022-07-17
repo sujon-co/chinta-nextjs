@@ -1,17 +1,19 @@
-import type { InferGetStaticPropsType, NextPage } from 'next';
+import axios, { AxiosResponse } from 'axios';
+import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
+import { ISlider } from 'server/interface';
 import Contact from 'src/components/Contact';
+import Header from 'src/components/Header';
 import About from 'src/components/Info/about';
 import Studio from 'src/components/Info/studio';
-import Layout from 'src/components/Layout';
 import ProjectItem from 'src/components/ProjectItem';
 import Slider from 'src/components/Slider';
 import Title from 'src/components/Title';
 
-const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
-    sliderImages,
-}) => {
+const Home: NextPage<
+    InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ sliderImages }) => {
     return (
         <>
             <Head>
@@ -22,83 +24,51 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Layout>
-                <main className="section-wrapper">
-                    <Slider sliderImages={sliderImages} />
-                    <div className="section ">
-                        <Title title="Projects" />
-                        <div className="container ">
-                            <div className="projects">
-                                <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
-                                    {Array(30)
-                                        .fill('_')
-                                        .map((item, index) => (
-                                            <ProjectItem key={index + 1} />
-                                        ))}
-                                </div>
+            <Header />
+            <main className="section-wrapper">
+                <Slider sliderImages={sliderImages} />
+                <div className="section ">
+                    <Title title="Projects" />
+                    <div className="container ">
+                        <div className="projects">
+                            <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
+                                {Array(30)
+                                    .fill('_')
+                                    .map((item, index) => (
+                                        <ProjectItem key={index + 1} />
+                                    ))}
                             </div>
                         </div>
                     </div>
-                    <div className="section ">
-                        <Title title="About Me" />
-                        <div className="container info-section">
-                            <div className="info-item-section">
-                                <About />
-                            </div>
-                            <div className="">
-                                <Studio />
-                            </div>
+                </div>
+                <div className="section ">
+                    <Title title="About Me" />
+                    <div className="container info-section">
+                        <div className="info-item-section">
+                            <About />
+                        </div>
+                        <div className="">
+                            <Studio />
                         </div>
                     </div>
-                    <div className="section">
-                        <Title title="Contact Me" />
-                        <Contact />
-                    </div>
-                </main>
-            </Layout>
+                </div>
+                <div className="section">
+                    <Title title="Contact Me" />
+                    <Contact />
+                </div>
+            </main>
         </>
     );
 };
 
-export const getStaticProps = async () => {
-    const images = [
-        {
-            image: '/sliders/1.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/2.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/3.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/4.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/5.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/6.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/7.jpg',
-            alt: 'alternative data',
-        },
-        {
-            image: '/sliders/8.jpg',
-            alt: 'alternative data',
-        },
-    ];
+export const getServerSideProps = async () => {
+    const { data: sliders } = await axios.get<AxiosResponse<ISlider[]>>(
+        '/sliders'
+    );
 
     const sliderImages = await Promise.all(
-        images.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(data.image);
+        sliders.data.map(async (data) => {
+            const { base64, img } = await getPlaiceholder(data.photoUrl);
             return {
                 ...img,
                 base64: base64,
