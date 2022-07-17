@@ -1,3 +1,4 @@
+import connectDB from 'server/database';
 import handler from 'server/middlewares/handler';
 import upload from 'server/middlewares/upload';
 import Slider from 'server/models/Slider';
@@ -41,19 +42,5 @@ const uploadHandler = handler
         } catch (error) {
             next(error);
         }
-    })
-    .delete(async (req, res, next) => {
-        try {
-            const { body } = req;
-            const slider = await Slider.findOneAndDelete(body.id);
-
-            res.status(200).json({
-                success: true,
-                data: slider,
-                message: 'Slider deleted successfully.',
-            });
-        } catch (error) {
-            next(error);
-        }
     });
-export default uploadHandler;
+export default connectDB(uploadHandler);

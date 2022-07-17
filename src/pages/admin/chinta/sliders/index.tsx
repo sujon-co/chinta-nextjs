@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
@@ -11,24 +12,43 @@ import AdminLayout from 'src/components/AdminLayout';
 type deleteSliderResponse = {
     message: string;
 };
+export interface ISliderPlaceholder {
+    base64: string;
+    src: string;
+    height: number;
+    width: number;
+    type?: string | undefined;
+    _id: Types.ObjectId;
+    photoUrl: string;
+    alt: string;
+}
 interface IProps {
-    sliders: {
-        base64: string;
-        alt: string;
-        src: string;
-        height: number;
-        width: number;
-        type?: string | undefined;
-    }[];
+    sliders: ISliderPlaceholder[];
 }
 
 const Sliders = ({ sliders }: IProps) => {
     const [isAddSlider, setIsAddSlider] = useState(false);
-    const sliderDeleteHandler = async (id: string) => {
-        const { data } = await axios.delete<deleteSliderResponse>('/sliders');
-        if (data) {
-            toast.success(data.message);
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [sliderPlaceholder, setSliderPlaceholder] =
+        useState<ISliderPlaceholder>({} as ISliderPlaceholder);
+
+    const sliderDeleteHandler = async (id: Types.ObjectId) => {
+        const sure = window.confirm('Are you sure!!');
+        console.log({ sure });
+        if (sure) {
+            const { data } = await axios.delete<deleteSliderResponse>(
+                '/sliders/' + id
+            );
+            if (data) {
+                toast.success(data.message);
+            }
+            window.location.reload();
         }
+    };
+    const updateHandler = (slider: ISliderPlaceholder) => {
+        setIsAddSlider(true);
+        setIsUpdate(true);
+        setSliderPlaceholder(slider);
     };
     return (
         <div className="card">
@@ -37,7 +57,10 @@ const Sliders = ({ sliders }: IProps) => {
                 {!isAddSlider && (
                     <div
                         className="btn btn-dark btn-sm"
-                        onClick={() => setIsAddSlider(true)}
+                        onClick={() => {
+                            setIsAddSlider(true);
+                            setIsUpdate(false);
+                        }}
                     >
                         Add Slider
                     </div>
@@ -48,6 +71,8 @@ const Sliders = ({ sliders }: IProps) => {
                     <AddSlider
                         isAddSlider={isAddSlider}
                         setIsAddSlider={setIsAddSlider}
+                        isUpdate={isUpdate}
+                        slider={sliderPlaceholder}
                     />
                 )}
                 {!isAddSlider && (
@@ -76,10 +101,22 @@ const Sliders = ({ sliders }: IProps) => {
                                             </small>
                                         </p>
                                         <div className="d-flex gap-1 mb-0">
-                                            <button className="btn btn-success btn-sm fs-12">
+                                            <button
+                                                className="btn btn-success btn-sm fs-12"
+                                                onClick={() =>
+                                                    updateHandler(slider)
+                                                }
+                                            >
                                                 Update
                                             </button>
-                                            <button className="btn btn-danger btn-sm fs-12">
+                                            <button
+                                                className="btn btn-danger btn-sm fs-12"
+                                                onClick={() =>
+                                                    sliderDeleteHandler(
+                                                        slider._id
+                                                    )
+                                                }
+                                            >
                                                 Delete
                                             </button>
                                         </div>
@@ -105,9 +142,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
         data.data.map(async (data) => {
             const { base64, img } = await getPlaiceholder(data.photoUrl);
             return {
+                ...data,
                 ...img,
                 base64: base64,
-                alt: data.alt,
             };
         })
     ).then((value) => value);

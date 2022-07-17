@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import type { InferGetStaticPropsType, NextPage } from 'next';
+import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
 import { ISlider } from 'server/interface';
@@ -11,9 +11,9 @@ import ProjectItem from 'src/components/ProjectItem';
 import Slider from 'src/components/Slider';
 import Title from 'src/components/Title';
 
-const Home: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
-    sliderImages,
-}) => {
+const Home: NextPage<
+    InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ sliderImages }) => {
     return (
         <>
             <Head>
