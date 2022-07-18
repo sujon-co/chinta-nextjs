@@ -76,7 +76,7 @@ const Sliders = ({ sliders }: IProps) => {
                 )}
                 {!isAddSlider && (
                     <div className="row">
-                        {sliders.map((slider) => (
+                        {sliders.length > 0 ? sliders.map((slider) => (
                             <div className="col-md-6" key={slider.src}>
                                 <div className="card p-2 d-flex gap-2 flex-row mb-3">
                                     <Image
@@ -102,19 +102,13 @@ const Sliders = ({ sliders }: IProps) => {
                                         <div className="d-flex gap-1 mb-0">
                                             <button
                                                 className="btn btn-success btn-sm fs-12"
-                                                onClick={() =>
-                                                    updateHandler(slider)
-                                                }
+                                                onClick={() => updateHandler(slider)}
                                             >
                                                 Update
                                             </button>
                                             <button
                                                 className="btn btn-danger btn-sm fs-12"
-                                                onClick={() =>
-                                                    sliderDeleteHandler(
-                                                        slider._id
-                                                    )
-                                                }
+                                                onClick={() => sliderDeleteHandler(slider._id)}
                                             >
                                                 Delete
                                             </button>
@@ -122,7 +116,10 @@ const Sliders = ({ sliders }: IProps) => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        )) :
+                            <div className="col-md-12">
+                                <h6>No Slider Found</h6>
+                            </div>}
                     </div>
                 )}
             </div>

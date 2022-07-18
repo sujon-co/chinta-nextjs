@@ -14,7 +14,6 @@ interface IStudio {
     photoUrl: string;
     alt: string;
     socialLink: {
-        facebook: string;
         instagram: string;
         linkedIn: string;
     };
