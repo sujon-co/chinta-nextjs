@@ -38,6 +38,12 @@
 .line-height-27 {
     line-height: 27px;
 }
+.form-label {
+    font-weight: 400;
+}
+.h-150 {
+    height: 150px;
+}
 
 .form-signin {
     @include flex-center;

@@ -1,8 +1,8 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
 import aboutImage from '/public/about/about.jpg';
 
-interface Props {}
+interface Props { }
 const About: NextPage<Props> = () => {
     return (
         <div className="row">
@@ -41,5 +41,12 @@ const About: NextPage<Props> = () => {
         </div>
     );
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    return {
+        props: {}
+    }
+}
+
 
 export default About;

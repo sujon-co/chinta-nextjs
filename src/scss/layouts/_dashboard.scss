@@ -134,16 +134,16 @@
     .is-collapsed .sidebar {
         width: 280px;
     }
-    .sidebar {
-        width: 70px;
-        &:hover {
-            width: 280px;
-        }
-    }
+    // .sidebar {
+    //     width: 70px;
+    //     &:hover {
+    //         width: 280px;
+    //     }
+    // }
     .is-collapsed .container-wide {
         padding-left: 280px;
     }
-    .container-wide {
-        padding-left: 70px;
-    }
+    // .container-wide {
+    //     padding-left: 70px;
+    // }
 }

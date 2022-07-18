@@ -6,11 +6,6 @@ interface IAdmin {
     email: string;
     password: string;
 }
-interface IAbout {
-    _id: Types.ObjectId;
-    photoUrl: string;
-    content: string;
-}
 
 interface IStudio {
     _id: Types.ObjectId;
@@ -27,6 +22,12 @@ interface IStudio {
 interface ISlider {
     _id: Types.ObjectId;
     photoUrl: string;
+    alt: string;
+}
+interface IAbout {
+    _id: Types.ObjectId;
+    photoUrl: string;
+    bio: string;
     alt: string;
 }
 

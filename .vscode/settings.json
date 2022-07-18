@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
         "chinta",
-        "formik"
+        "formik",
+        "Plaiceholder"
     ],
     "editor.codeActionsOnSave": {
 		"source.organizeImports": true

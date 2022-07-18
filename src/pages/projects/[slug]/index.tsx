@@ -1,12 +1,11 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useState } from 'react';
-import GalleryView from 'src/components/Gallery';
-import Layout from 'src/components/Layout';
 import BlurImage from 'src/components/BlurImage';
+import Layout from 'src/components/Common/Layout';
+import GalleryView from 'src/components/Gallery';
 
-interface Props {}
+interface Props { }
 
 const ProjectDetails: NextPage<Props> = () => {
     const [showMore, setShowMore] = useState(false);

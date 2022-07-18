@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next';
 import { ReactElement } from 'react';
-import AdminLayout from 'src/components/AdminLayout';
+import AdminLayout from 'src/components/Admin/AdminLayout';
 import { NextPageWithLayout } from 'src/pages/_app';
 
-interface IProps {}
+interface IProps { }
 
-const AddProject: NextPageWithLayout = ({}: IProps) => {
+const AddProject: NextPageWithLayout = ({ }: IProps) => {
     return <h3>AddProject</h3>;
 };
 

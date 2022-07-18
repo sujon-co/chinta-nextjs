@@ -14,19 +14,14 @@ handler.use(upload.single('file'));
 const sliderUpdateAndDelete = handler
     .patch(async (req, res, next) => {
         try {
-            const { body, query } = req;
+            /** @ts-ignore */
+            const { body, query, file } = req;
             const { id: _id } = query;
 
-            const slider = await Slider.findOneAndUpdate(
-                { _id },
-                {
-                    alt: body.alt,
-                    // @ts-ignore
-                    photoUrl: '/uploads/' + req?.file?.filename,
-                },
-                {
-                    new: true,
-                }
+            const photoUrl = file?.filename ? '/uploads/' + file?.filename : body.file;
+            const slider = await Slider.findOneAndUpdate({ _id },
+                { alt: body.alt, photoUrl },
+                { new: true, }
             );
 
             res.status(200).json({

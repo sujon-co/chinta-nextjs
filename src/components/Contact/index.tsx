@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Footer from '../Footer';
+import Footer from '../Common/Footer';
 import Popup from './Popup';
 
-interface Props {}
+interface Props { }
 
 const Contact: NextPage<Props> = () => {
     const [showInput, setShowInput] = useState(false);

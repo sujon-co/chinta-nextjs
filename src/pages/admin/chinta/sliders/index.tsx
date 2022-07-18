@@ -6,8 +6,8 @@ import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ISlider } from 'server/interface';
-import AddSlider from 'src/components/AddSlider';
-import AdminLayout from 'src/components/AdminLayout';
+import AddSlider from 'src/components/Admin/AddSlider';
+import AdminLayout from 'src/components/Admin/AdminLayout';
 
 type deleteSliderResponse = {
     message: string;
@@ -34,7 +34,6 @@ const Sliders = ({ sliders }: IProps) => {
 
     const sliderDeleteHandler = async (id: Types.ObjectId) => {
         const sure = window.confirm('Are you sure!!');
-        console.log({ sure });
         if (sure) {
             const { data } = await axios.delete<deleteSliderResponse>(
                 '/sliders/' + id

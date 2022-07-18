@@ -3,7 +3,11 @@ import { IAbout } from 'server/interface';
 
 const aboutSchema = new Schema<IAbout>(
     {
-        content: {
+        bio: {
+            type: String,
+            required: true,
+        },
+        alt: {
             type: String,
             required: true,
         },

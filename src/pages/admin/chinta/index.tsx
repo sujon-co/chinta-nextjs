@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
-import AdminLayout from 'src/components/AdminLayout';
+import AdminLayout from 'src/components/Admin/AdminLayout';
 
-interface IProps {}
+interface IProps { }
 
-const Dashboard = ({}: IProps) => {
+const Dashboard = ({ }: IProps) => {
     return <h3>Welcome to dashboard</h3>;
 };
 

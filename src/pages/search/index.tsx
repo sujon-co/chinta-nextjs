@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
 import { FaSearch } from 'react-icons/fa';
-import Layout from 'src/components/Layout';
+import Layout from 'src/components/Common/Layout';
 import ProjectItem from 'src/components/ProjectItem';
 
-interface Props {}
+interface Props { }
 
 const Search: NextPage<Props> = () => {
     return (

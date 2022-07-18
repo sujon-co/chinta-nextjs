@@ -1,8 +1,8 @@
 import { NextPage } from 'next';
-import Layout from 'src/components/Layout';
+import Layout from 'src/components/Common/Layout';
 import Projects from 'src/components/Projects';
 
-interface Props {}
+interface Props { }
 
 const ProjectsPage: NextPage<Props> = () => {
     return (
