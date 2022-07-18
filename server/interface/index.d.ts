@@ -12,6 +12,7 @@ interface IStudio {
     name: string;
     designation: string;
     photoUrl: string;
+    alt: string;
     socialLink: {
         facebook: string;
         instagram: string;

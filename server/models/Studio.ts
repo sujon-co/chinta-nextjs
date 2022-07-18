@@ -11,7 +11,11 @@ const studioSchema = new Schema<IStudio>(
             type: String,
             required: true,
         },
-        photoUrl: String,
+        alt: String,
+        photoUrl: {
+            type: String,
+            required: true,
+        },
         socialLink: {
             facebook: String,
             linkedIn: String,
