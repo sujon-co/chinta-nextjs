@@ -1,12 +1,22 @@
 import { GetServerSideProps } from 'next';
 import { ReactElement } from 'react';
+import AddProject from 'src/components/Admin/AddProject';
 import AdminLayout from 'src/components/Admin/AdminLayout';
-import { NextPageWithLayout } from 'src/pages/_app';
 
 interface IProps { }
 
-const Projects: NextPageWithLayout = ({ }: IProps) => {
-    return <h3>Projects</h3>;
+const Projects = ({ }: IProps) => {
+    return <div className="card">
+        <div className="card-header d-flex justify-content-between align-items-center  ">
+            <h5 className="card-title mb-0">Projects</h5>
+            <div className="btn btn-dark btn-sm" >
+                Add Project
+            </div>
+        </div>
+        <div className="card-body">
+            <AddProject />
+        </div>
+    </div>
 };
 
 Projects.getLayout = function getLayout(page: ReactElement) {

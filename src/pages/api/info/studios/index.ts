@@ -11,6 +11,7 @@ export const config = {
 
 handler.use(upload.single('file'));
 
+
 const studioHandler = handler
     .get(async (req, res, next) => {
         try {

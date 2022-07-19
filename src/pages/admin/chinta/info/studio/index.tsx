@@ -26,7 +26,7 @@ const Studio = ({ studios }: IProps) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
             const { data } = await axios.delete<{ message: string; }>(
-                '/sliders/' + id
+                '/info/studios/' + id
             );
             if (data) {
                 toast.success(data.message);
@@ -68,17 +68,19 @@ const Studio = ({ studios }: IProps) => {
                     <div className="row">
                         {studios.length > 0 ? studios.map((studio) => (
                             <div className="col-md-4" key={studio.src}>
-                                <div className="card p-2  mb-3">
-                                    <Image
-                                        layout="responsive"
-                                        className="rounded-1 img-fluid"
-                                        src={studio.src}
-                                        alt={studio.alt}
-                                        placeholder="blur"
-                                        blurDataURL={studio.base64}
-                                        height={studio.height}
-                                        width={studio.width}
-                                    />
+                                <div className="card p-2  mb-3" >
+                                    <div className='w-100'>
+                                        <Image
+                                            layout="responsive"
+                                            className="rounded-1 img-fluid"
+                                            src={studio.src}
+                                            alt={studio.alt}
+                                            placeholder="blur"
+                                            blurDataURL={studio.base64}
+                                            height={studio.height}
+                                            width={studio.width}
+                                        />
+                                    </div>
                                     <div className="card-body p-0">
                                         <p className="card-text mb-0">
                                             <b>{studio.name}</b>

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
@@ -38,27 +39,26 @@ const AddStudio: FC<IAddSliderProps> = ({
             formData.append('designation', values.designation);
             formData.append('file', values.photoUrl);
             formData.append('alt', values.alt);
-            formData.append("socialLink", JSON.stringify(values.socialLink));
+            formData.append('socialLink.instagram', values.socialLink.instagram);
+            formData.append('socialLink.linkedIn', values.socialLink.linkedIn);
 
 
-            console.log({ values });
+            if (isUpdate) {
+                const { data } = await axios.patch<{ message: string }>('/info/studios/' + studio._id,
+                    formData,
+                    { headers: { 'Content-Type': 'multipart/form-data' }, }
+                );
+                toast.success(data.message);
+            } else {
+                const { data } = await axios.post<{ message: string }>('/info/studios',
+                    formData,
+                    { headers: { 'Content-Type': 'multipart/form-data' }, }
+                );
+                toast.success(data.message);
+            }
 
-            // if (isUpdate) {
-            //     const { data } = await axios.patch<{ message: string }>('/info/studios/' + studio._id,
-            //         formData,
-            //         { headers: { 'Content-Type': 'multipart/form-data' }, }
-            //     );
-            //     toast.success(data.message);
-            // } else {
-            //     const { data } = await axios.post<{ message: string }>('/info/studios',
-            //         formData,
-            //         { headers: { 'Content-Type': 'multipart/form-data' }, }
-            //     );
-            //     toast.success(data.message);
-            // }
-
-            // formikHelpers.resetForm();
-            // window.location.reload();
+            formikHelpers.resetForm();
+            window.location.reload();
         } catch (err) {
             const error = err as ResponseError;
             toast.error(error.response?.data?.message);
@@ -80,7 +80,7 @@ const AddStudio: FC<IAddSliderProps> = ({
                 })
             })}
         >
-            {({ touched, errors, isSubmitting, setFieldValue }) => (
+            {({ touched, errors, isSubmitting, setFieldValue, values }) => (
                 <Form className="mb-3">
                     <div className="mb-3">
                         <label htmlFor="name" className="form-label">
@@ -169,6 +169,7 @@ const AddStudio: FC<IAddSliderProps> = ({
                             type="text"
                             className="form-control form-control-sm"
                             id="Instagram"
+                            value={values.socialLink.instagram}
                             name="socialLink.instagram"
                             placeholder="https://www.instagram.com/yourname/"
                         />
@@ -182,6 +183,7 @@ const AddStudio: FC<IAddSliderProps> = ({
                             className="form-control form-control-sm"
                             id="linkedIn"
                             name="socialLink.linkedIn"
+                            value={values.socialLink.linkedIn}
                             placeholder="https://www.linkedin.com/in/yourname/"
                         />
                     </div>
