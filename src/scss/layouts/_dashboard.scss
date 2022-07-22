@@ -147,3 +147,13 @@
     //     padding-left: 70px;
     // }
 }
+.dropdown-menu {
+    .nav-link {
+        font-size: 13px !important;
+
+        &:hover {
+            background-color: transparent !important;
+            color: red !important;
+        }
+    }
+}

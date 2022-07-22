@@ -11,7 +11,6 @@ export const config = {
 
 handler.use(upload.single('file'));
 
-
 const studioHandler = handler
     .get(async (req, res, next) => {
         try {
@@ -30,12 +29,12 @@ const studioHandler = handler
         try {
             // @ts-ignore
             const { body, file } = req;
-            const photoUrl = file?.filename ? '/uploads/' + file?.filename : "";
+            const photoUrl = file?.filename ? '/uploads/' + file?.filename : '';
 
             console.log({ body, file });
             const studio = await Studio.create({
                 ...body,
-                photoUrl
+                photoUrl,
             });
 
             res.status(200).json({

@@ -1,11 +1,61 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
 import { AiFillContacts } from 'react-icons/ai';
-import { BiBuildingHouse } from 'react-icons/bi';
-import { FaHome, FaTimesCircle, FaUserGraduate } from 'react-icons/fa';
-import { FiChevronRight } from 'react-icons/fi';
+import { BiBuildingHouse, BiNews } from 'react-icons/bi';
+import { BsFillAwardFill } from 'react-icons/bs';
+import { FaHome, FaTimesCircle, FaUserGraduate, FaUsers } from 'react-icons/fa';
+import { MdWork } from 'react-icons/md';
+
+const routers = [
+    {
+        name: 'Sliders',
+        link: 'sliders',
+        icon: <FaHome />,
+        subRoutes: []
+    },
+    {
+        name: "Projects",
+        link: "projects",
+        icon: <BiBuildingHouse />,
+    },
+    {
+        name: "About",
+        link: "info/about",
+        icon: <FaUserGraduate />,
+    },
+    {
+        name: "Studio",
+        link: "info/studio",
+        icon: <FaUsers />,
+    },
+    {
+        name: "Award",
+        link: "info/award",
+        icon: <BsFillAwardFill />,
+    },
+    {
+        name: "News",
+        link: "info/news",
+        icon: <BiNews />,
+    },
+    {
+        name: "Jobs",
+        link: "info/jobs",
+        icon: <MdWork />,
+    },
+    {
+        name: 'Contact',
+        link: 'contact',
+        icon: <AiFillContacts />,
+    },
+] as const;
+
+type Router = typeof routers[number];
 
 const Sidebar = () => {
+    useEffect(() => {
+    }, []);
     return (
         <div className="sidebar">
             <div className="sidebar-inner">
@@ -13,21 +63,6 @@ const Sidebar = () => {
                     <div className="d-flex align-items-center flex-nowrap">
                         <div className="sidebar-link text-decoration-none">
                             <div className="d-flex align-items-center flex-nowrap">
-                                <div className="logo-sm">
-                                    <div className="logo d-flex align-items-center justify-content-center">
-                                        <Link href="/" className="header-brand">
-                                            <a>
-                                                <Image
-                                                    src="/logo.svg"
-                                                    alt="brand logo"
-                                                    layout="fixed"
-                                                    height={40}
-                                                    width={36}
-                                                />
-                                            </a>
-                                        </Link>
-                                    </div>
-                                </div>
                                 <div className="logo-text d-flex align-items-center justify-content-center pt-2">
                                     <Link href="/" className="header-brand">
                                         <a>
@@ -52,112 +87,9 @@ const Sidebar = () => {
                     </div>
                 </div>
                 <ul className="sidebar-menu ps pt-3">
-                    <li className="nav-item dropdown">
-                        <Link href="/admin/chinta/sliders">
-                            <a className="nav-link wave-effect">
-                                <span className="icon-holder">
-                                    <FaHome />
-                                </span>
-                                <span className="title">Sliders</span>
-                            </a>
-                        </Link>
-                    </li>
-                    <li className="nav-item dropdown">
-                        <Link href="/admin/chinta/projects">
-                            <a className="nav-link wave-effect">
-                                <span className="icon-holder">
-                                    <BiBuildingHouse />
-                                </span>
-                                <span className="title">Projects</span>
-                                <FiChevronRight />
-                            </a>
-                        </Link>
-                        <ul
-                            className="dropdown-menu"
-                            // style={{ display: 'block' }}
-                        >
-                            <li className="nav-item">
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title">
-                                            Add Project
-                                        </span>
-                                    </a>
-                                </Link>
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title">Projects</span>
-                                    </a>
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className="nav-item dropdown">
-                        <a href="#" className="nav-link wave-effect">
-                            <span className="icon-holder">
-                                <FaUserGraduate />
-                            </span>
-                            <span className="title">Information</span>
-                            <FiChevronRight />
-                        </a>
-                        <ul
-                            className="dropdown-menu"
-                            // style={{ display: 'block' }}
-                        >
-                            <li className="nav-item">
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title"> About </span>
-                                    </a>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title"> Studio </span>
-                                    </a>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title"> Award </span>
-                                    </a>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title"> News </span>
-                                    </a>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title"> Jobs </span>
-                                    </a>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link href="#">
-                                    <a className="nav-link ">
-                                        <span className="title"> Shops </span>
-                                    </a>
-                                </Link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li className="nav-item dropdown">
-                        <Link href="/admin/chinta/projects">
-                            <a className="nav-link wave-effect">
-                                <span className="icon-holder">
-                                    <AiFillContacts />
-                                </span>
-                                <span className="title">Contact</span>
-                            </a>
-                        </Link>
-                    </li>
+                    {routers?.map((route) => (
+                        <SidebarItem route={route} key={route.name} />
+                    ))}
                 </ul>
             </div>
         </div>
@@ -165,3 +97,23 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+interface IRoute {
+    route: Router;
+}
+const SidebarItem = ({ route }: IRoute) => {
+    return (
+        <li className="nav-item dropdown">
+            <Link href={`/admin/chinta/${route.link}`}>
+                <a className="nav-link d-flex justify-content-between align-items-center" >
+                    <div className="">
+                        <span className="icon-holder">
+                            {route.icon}
+                        </span>
+                        <span className="title"> {route.name} </span>
+                    </div>
+                </a>
+            </Link>
+        </li>
+    );
+};

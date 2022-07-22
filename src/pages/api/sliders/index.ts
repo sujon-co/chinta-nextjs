@@ -1,4 +1,5 @@
 import connectDB from 'server/database';
+import authenticated from 'server/middlewares/authenticated';
 import handler from 'server/middlewares/handler';
 import upload from 'server/middlewares/upload';
 import Slider from 'server/models/Slider';
@@ -43,4 +44,4 @@ const uploadHandler = handler
             next(error);
         }
     });
-export default connectDB(uploadHandler);
+export default connectDB(authenticated(uploadHandler));

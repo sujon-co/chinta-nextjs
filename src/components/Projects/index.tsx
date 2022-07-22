@@ -4,7 +4,7 @@ import ProjectItem from '../ProjectItem';
 
 type IFilter = 'scrolling' | 'status' | 'location' | 'bar_view';
 
-interface Props {}
+interface Props { }
 
 const Projects: NextPage<Props> = () => {
     const [filter, setFilter] = useState<IFilter>('scrolling');
@@ -39,36 +39,38 @@ const Projects: NextPage<Props> = () => {
             </div>
             <ul className="project-filter">
                 <li
-                    className={`filter-item ${
-                        filter === 'scrolling' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'scrolling' ? 'active' : ''}`}
                     onClick={() => setFilter('scrolling')}
                 >
                     Scrolling-Grid
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'status' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'status' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('status')}
                 >
                     Status
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'location' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'location' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('location')}
                 >
                     Location
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'bar_view' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'bar_view' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('bar_view')}
                 >
-                    Bar View
+                    CHRONOLOGICAL
+                </li>
+                <li
+                    className={`filter-item ${filter === 'bar_view' ? 'active' : ''
+                        }`}
+                    onClick={() => setFilter('bar_view')}
+                >
+                    Programmatic
                 </li>
             </ul>
         </div>

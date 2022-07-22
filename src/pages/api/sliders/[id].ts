@@ -1,4 +1,5 @@
 import connectDB from 'server/database';
+import authenticated from 'server/middlewares/authenticated';
 import handler from 'server/middlewares/handler';
 import upload from 'server/middlewares/upload';
 import Slider from 'server/models/Slider';
@@ -16,12 +17,16 @@ const sliderUpdateAndDelete = handler
         try {
             /** @ts-ignore */
             const { body, query, file } = req;
+            console.log({ body, query, file });
             const { id: _id } = query;
 
-            const photoUrl = file?.filename ? '/uploads/' + file?.filename : body.file;
-            const slider = await Slider.findOneAndUpdate({ _id },
+            const photoUrl = file?.filename
+                ? '/uploads/' + file?.filename
+                : body.file;
+            const slider = await Slider.findOneAndUpdate(
+                { _id },
                 { alt: body.alt, photoUrl },
-                { new: true, }
+                { new: true }
             );
 
             res.status(200).json({
@@ -48,4 +53,4 @@ const sliderUpdateAndDelete = handler
         }
     });
 
-export default connectDB(sliderUpdateAndDelete);
+export default connectDB(authenticated(sliderUpdateAndDelete));

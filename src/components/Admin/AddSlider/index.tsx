@@ -34,27 +34,34 @@ const AddSlider: FC<IAddSliderProps> = ({
             formData.append('file', values.photoUrl);
 
             if (isUpdate) {
-                const { data } = await axios.patch<{ message: string }>(
+                const { data } = await axios.patch<{ message: string; }>(
                     '/sliders/' + slider._id,
                     formData,
                     {
                         headers: { 'Content-Type': 'multipart/form-data' },
                     }
                 );
-                toast.success(data.message);
+                if (data.message) {
+                    toast.success(data.message);
+                    setTimeout(() => { window.location.reload(); }, 1000);
+                }
             } else {
-                const { data } = await axios.post<{ message: string }>(
+                const { data } = await axios.post<{ message: string; }>(
                     '/sliders',
                     formData,
                     {
                         headers: { 'Content-Type': 'multipart/form-data' },
                     }
                 );
-                toast.success(data.message);
+                if (data.message) {
+                    toast.success(data.message);
+                    setTimeout(() => { window.location.reload(); }, 1000);
+                }
+
             }
 
             formikHelpers.resetForm();
-            window.location.reload();
+
         } catch (err) {
             const error = err as ResponseError;
             toast.error(error.response?.data?.message);
