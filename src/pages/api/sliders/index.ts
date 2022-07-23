@@ -1,4 +1,5 @@
 import connectDB from 'server/database';
+import removeFile from 'server/helpers/removeFile';
 import authenticated from 'server/middlewares/authenticated';
 import handler from 'server/middlewares/handler';
 import upload from 'server/middlewares/upload';
@@ -30,18 +31,23 @@ const uploadHandler = handler
         try {
             // @ts-ignore
             const { body, file } = req;
+
             const photoUrl = file?.filename ? '/uploads/' + file?.filename : '';
 
-            const slider = await Slider.create({
-                alt: body.alt,
-                photoUrl: photoUrl,
-            });
-            return res.status(200).json({
+            removeFile(file?.filename);
+
+            // const slider = await Slider.create({
+            //     alt: body.alt,
+            //     photoUrl: photoUrl,
+            // });
+            res.status(200).json({
                 success: true,
-                data: slider,
+                data: null,
                 message: 'Slider uploaded successfully.',
             });
         } catch (error) {
+            // @ts-ignore
+            removeFile(req?.file.filename);
             next(error);
         }
     });
