@@ -31,18 +31,17 @@ const uploadHandler = handler
         try {
             // @ts-ignore
             const { body, file } = req;
-
             const photoUrl = file?.filename ? '/uploads/' + file?.filename : '';
 
-            removeFile(file?.filename);
+            // removeFile(file?.filename);
 
-            // const slider = await Slider.create({
-            //     alt: body.alt,
-            //     photoUrl: photoUrl,
-            // });
+            const slider = await Slider.create({
+                alt: body.alt,
+                photoUrl: photoUrl,
+            });
             res.status(200).json({
                 success: true,
-                data: null,
+                data: slider,
                 message: 'Slider uploaded successfully.',
             });
         } catch (error) {
