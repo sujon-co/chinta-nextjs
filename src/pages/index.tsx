@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
-import { ISlider } from 'server/interface';
+import { IAbout, ISlider } from 'server/interface';
 import Header from 'src/components/Common/Header';
 import Contact from 'src/components/Contact';
 import About from 'src/components/Info/about';
@@ -13,7 +13,7 @@ import Title from 'src/components/Title';
 
 const Home: NextPage<
     InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ sliderImages }) => {
+> = ({ sliderImages, about }) => {
     return (
         <>
             <Head>
@@ -45,7 +45,7 @@ const Home: NextPage<
                     <Title title="About Me" />
                     <div className="container info-section">
                         <div className="info-item-section">
-                            <About />
+                            <About about={about} />
                         </div>
                         <div className="">
                             <Studio />
@@ -62,6 +62,7 @@ const Home: NextPage<
 };
 
 export const getServerSideProps = async () => {
+    /** Slider Data Handler */
     const { data: sliders } = await axios.get<AxiosResponse<ISlider[]>>(
         '/sliders'
     );
@@ -75,11 +76,32 @@ export const getServerSideProps = async () => {
                 alt: data.alt,
             };
         })
-    ).then((value) => value);
+    ).then((value) => {
+        console.log({ yes: "slider done" });
+        return value;
+    });
+
+
+
+    const { data: _about } = await axios.get<{ data: IAbout[]; }>('/info/about');
+    const aboutData = _about.data[0];
+
+
+    const about = await getPlaiceholder(aboutData.photoUrl).then(({ base64, img }) => {
+        console.log({ yes: "about done" });
+        return {
+            ...img,
+            ...aboutData,
+            base64: base64,
+        };
+    });
+
+
 
     return {
         props: {
             sliderImages,
+            about
         },
     };
 };

@@ -28,7 +28,6 @@ const aboutHandler = handler
     .post(async (req, res, next) => {
         try {
             const { body } = req;
-            console.log({ body });
             const about = await About.create({
                 ...body,
                 // @ts-ignore
@@ -46,12 +45,17 @@ const aboutHandler = handler
     })
     .patch(async (req, res, next) => {
         try {
-
             /* @ts-ignore */
             const { body, file } = req;
 
-            const photoUrl = file?.filename ? '/uploads/' + file?.filename : body.file;
-            const about = await About.findByIdAndUpdate(body._id, { ...body, photoUrl, }, { new: true });
+            const photoUrl = file?.filename
+                ? '/uploads/' + file?.filename
+                : body.file;
+            const about = await About.findByIdAndUpdate(
+                body._id,
+                { ...body, photoUrl },
+                { new: true }
+            );
 
             res.status(200).json({
                 success: true,

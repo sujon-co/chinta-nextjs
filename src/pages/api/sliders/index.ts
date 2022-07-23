@@ -28,14 +28,15 @@ const uploadHandler = handler
     })
     .post(async (req, res, next) => {
         try {
-            const { body } = req;
+            // @ts-ignore
+            const { body, file } = req;
+            const photoUrl = file?.filename ? '/uploads/' + file?.filename : '';
+
             const slider = await Slider.create({
                 alt: body.alt,
-                // @ts-ignore
-                photoUrl: '/uploads/' + req.file?.filename,
+                photoUrl: photoUrl,
             });
-
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 data: slider,
                 message: 'Slider uploaded successfully.',

@@ -30,7 +30,7 @@ const adminLogin = handler.post(async (req, res, next) => {
             },
             process.env.JWT_SECRET as string,
             {
-                expiresIn: passwordRemember ? '1h' : '1d',
+                expiresIn: passwordRemember ? '2h' : '15d',
             }
         );
         res.setHeader(

@@ -61,7 +61,6 @@ const AddSlider: FC<IAddSliderProps> = ({
             }
 
             formikHelpers.resetForm();
-
         } catch (err) {
             const error = err as ResponseError;
             toast.error(error.response?.data?.message);

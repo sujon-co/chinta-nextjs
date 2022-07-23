@@ -41,7 +41,7 @@ const Sliders = ({ sliders }: IProps) => {
             if (data) {
                 toast.success(data.message);
             }
-            window.location.reload();
+            setTimeout(() => { window.location.reload(); }, 1000);
         }
     };
     const updateHandler = (slider: ISliderPlaceholder) => {
@@ -132,7 +132,7 @@ Sliders.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await axios.get<{ data: ISlider[] }>('/sliders');
+    const { data } = await axios.get<{ data: ISlider[]; }>('/sliders');
 
     const sliders = await Promise.all(
         data.data.map(async (data) => {
