@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
+import path from 'path';
 import authenticated from 'server/middlewares/authenticated';
 
 type Data = {
@@ -7,6 +8,7 @@ type Data = {
 };
 
 function handler2(req: NextApiRequest, res: NextApiResponse<Data>) {
+    console.log({ path: path.join(process.cwd(), 'public', 'uploads') });
     res.status(200).json({ name: 'John Doe' });
 }
 export default authenticated(handler2);

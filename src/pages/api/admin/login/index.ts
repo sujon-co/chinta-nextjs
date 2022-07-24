@@ -27,6 +27,7 @@ const adminLogin = handler.post(async (req, res, next) => {
             {
                 _id: admin._id,
                 type: admin.email,
+                think: 'love_my_chinta',
             },
             process.env.JWT_SECRET as string,
             {
@@ -50,7 +51,7 @@ const adminLogin = handler.post(async (req, res, next) => {
             message: 'Login Successful',
         });
     } catch (err) {
-        console.log(err);
+        next(err);
     }
 });
 

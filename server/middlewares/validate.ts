@@ -7,8 +7,8 @@ export const validate = (
     handler: any
 ) => {
     return async (req: NextApiRequest, res: NextApiResponse) => {
-        const { method } = req;
-        if (['POST', 'PUT'].includes(method as string)) {
+        const { method = '' } = req;
+        if (['POST', 'PUT'].includes(method)) {
             try {
                 req.body = await schema.camelCase().validate(req.body, {
                     stripUnknown: true,

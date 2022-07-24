@@ -44,13 +44,13 @@ const AddStudio: FC<IAddSliderProps> = ({
 
 
             if (isUpdate) {
-                const { data } = await axios.patch<{ message: string }>('/info/studios/' + studio._id,
+                const { data } = await axios.patch<{ message: string; }>('/info/studios/' + studio._id,
                     formData,
                     { headers: { 'Content-Type': 'multipart/form-data' }, }
                 );
                 toast.success(data.message);
             } else {
-                const { data } = await axios.post<{ message: string }>('/info/studios',
+                const { data } = await axios.post<{ message: string; }>('/info/studios',
                     formData,
                     { headers: { 'Content-Type': 'multipart/form-data' }, }
                 );
@@ -99,7 +99,7 @@ const AddStudio: FC<IAddSliderProps> = ({
                     </div>
                     <div className="mb-3">
                         <label htmlFor="designation" className="form-label">
-                            Alt Key
+                            Designation
                         </label>
                         <Field
                             type="text"

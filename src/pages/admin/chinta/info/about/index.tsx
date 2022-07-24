@@ -20,11 +20,11 @@ export interface IAboutWithImagePlaceholder {
     type?: string | undefined;
 }
 
-interface IProps {
+interface AboutProps {
     about: IAboutWithImagePlaceholder;
 }
 
-const About = ({ about }: IProps) => {
+const About = ({ about }: AboutProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
 
     return (
@@ -82,7 +82,7 @@ About.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await axios.get<{ data: IAbout[] }>('/info/about');
+    const { data } = await axios.get<{ data: IAbout[]; }>('/info/about');
     const about = data.data[0];
 
     const { base64, img } = await getPlaiceholder(about.photoUrl);

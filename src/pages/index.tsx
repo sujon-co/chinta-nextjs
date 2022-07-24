@@ -14,6 +14,9 @@ import Title from 'src/components/Title';
 const Home: NextPage<
     InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ sliderImages, about }) => {
+
+    console.log({ about, sliderImages });
+
     return (
         <>
             <Head>
@@ -76,11 +79,7 @@ export const getServerSideProps = async () => {
                 alt: data.alt,
             };
         })
-    ).then((value) => {
-        console.log({ yes: "slider done" });
-        return value;
-    });
-
+    );
 
 
     const { data: _about } = await axios.get<{ data: IAbout[]; }>('/info/about');

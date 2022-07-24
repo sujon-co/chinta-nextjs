@@ -10,11 +10,22 @@ export const config = {
 handler.use(upload.single('file'));
 
 const uploadHandler = handler.post((req, res) => {
-    //@ts-ignore
-    console.log('file', req.file);
-    console.log('body', req.body);
+    try {
+        //@ts-ignore
+        const { body, file } = req;
 
-    res.status(200).send('file upload done');
+        console.log({ body, file });
+
+        res.status(200).send({
+            message: 'File uploaded successfully',
+            path: 'http://localhost:3000/uploads/' + file?.filename,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            error: error,
+        });
+    }
 });
 
 export default uploadHandler;

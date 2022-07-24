@@ -4,8 +4,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 const connectDB =
     (handler: any) => async (req: NextApiRequest, res: NextApiResponse) => {
         if (mongoose.connections[0].readyState) {
-            // Use current db connection
-            console.log('database connected');
             return handler(req, res);
         }
         // Use new db connection

@@ -3,7 +3,8 @@ import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
-import { IAbout, ResponseError } from 'server/interface';
+import { ErrorResponse, isAxiosError } from 'server/helpers/error';
+import { IAbout } from 'server/interface';
 import { IAboutWithImagePlaceholder } from 'src/pages/admin/chinta/info/about';
 import { object, string } from 'yup';
 
@@ -36,7 +37,7 @@ const AboutForm: FC<IAddSliderProps> = ({
             formData.append('bio', values.bio);
             formData.append('_id', values._id as any);
 
-            const { data } = await axios.patch<{ message: string }>(
+            const { data } = await axios.patch<{ message: string; }>(
                 '/info/about',
                 formData,
                 {
@@ -48,8 +49,12 @@ const AboutForm: FC<IAddSliderProps> = ({
             formikHelpers.resetForm();
             window.location.reload();
         } catch (err) {
-            const error = err as ResponseError;
-            toast.error(error.response?.data?.message);
+            if (!isAxiosError<ErrorResponse>(err) || !err.response) {
+                throw err;
+            }
+
+            toast.error(err.response.data.message);
+
         }
     };
     return (
