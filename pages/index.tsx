@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import Header from 'components/Common/Header';
 import Contact from 'components/Contact';
 import About from 'components/Info/about';
@@ -10,6 +10,7 @@ import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
 import { IAbout, ISlider } from 'server/interface';
+import instance from 'services/httpService';
 
 const Home: NextPage<
     InferGetServerSidePropsType<typeof getServerSideProps>
@@ -63,8 +64,8 @@ const Home: NextPage<
 
 export const getServerSideProps = async () => {
     /** Slider Data Handler */
-    const { data: sliders } = await axios.get<AxiosResponse<ISlider[]>>(
-        'http://localhost:3000/api/sliders'
+    const { data: sliders } = await instance.get<AxiosResponse<ISlider[]>>(
+        '/sliders'
     );
 
     const sliderImages = await Promise.all(
@@ -78,14 +79,13 @@ export const getServerSideProps = async () => {
         })
     );
 
-    const { data: _about } = await axios.get<{ data: IAbout[] }>(
-        'http://localhost:3000/api/info/about'
+    const { data: _about } = await instance.get<{ data: IAbout[] }>(
+        '/info/about'
     );
     const aboutData = _about.data[0];
 
     const about = await getPlaiceholder(aboutData.photoUrl).then(
         ({ base64, img }) => {
-            console.log({ yes: 'about done' });
             return {
                 ...img,
                 ...aboutData,

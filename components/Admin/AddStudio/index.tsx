@@ -1,9 +1,9 @@
-import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IStudio, ResponseError } from 'server/interface';
+import instance from 'services/httpService';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
@@ -13,11 +13,7 @@ interface IAddSliderProps {
     isUpdate: boolean;
 }
 
-const AddStudio: FC<IAddSliderProps> = ({
-    studio,
-    setIsAdd,
-    isUpdate,
-}) => {
+const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
     const initialValue: IStudio = {
         name: isUpdate ? studio.name : '',
         designation: isUpdate ? studio.designation : '',
@@ -26,7 +22,7 @@ const AddStudio: FC<IAddSliderProps> = ({
         socialLink: {
             instagram: isUpdate ? studio.socialLink?.instagram : '',
             linkedIn: isUpdate ? studio.socialLink?.linkedIn : '',
-        }
+        },
     } as IStudio;
 
     const onSubmitHandler = async (
@@ -39,20 +35,24 @@ const AddStudio: FC<IAddSliderProps> = ({
             formData.append('designation', values.designation);
             formData.append('file', values.photoUrl);
             formData.append('alt', values.alt);
-            formData.append('socialLink.instagram', values.socialLink.instagram);
+            formData.append(
+                'socialLink.instagram',
+                values.socialLink.instagram
+            );
             formData.append('socialLink.linkedIn', values.socialLink.linkedIn);
 
-
             if (isUpdate) {
-                const { data } = await axios.patch<{ message: string; }>('/info/studios/' + studio._id,
+                const { data } = await instance.patch<{ message: string }>(
+                    '/info/studios/' + studio._id,
                     formData,
-                    { headers: { 'Content-Type': 'multipart/form-data' }, }
+                    { headers: { 'Content-Type': 'multipart/form-data' } }
                 );
                 toast.success(data.message);
             } else {
-                const { data } = await axios.post<{ message: string; }>('/info/studios',
+                const { data } = await instance.post<{ message: string }>(
+                    '/info/studios',
                     formData,
-                    { headers: { 'Content-Type': 'multipart/form-data' }, }
+                    { headers: { 'Content-Type': 'multipart/form-data' } }
                 );
                 toast.success(data.message);
             }
@@ -77,7 +77,7 @@ const AddStudio: FC<IAddSliderProps> = ({
                     facebook: string().optional(),
                     instagram: string().optional(),
                     linkedIn: string().optional(),
-                })
+                }),
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue, values }) => (

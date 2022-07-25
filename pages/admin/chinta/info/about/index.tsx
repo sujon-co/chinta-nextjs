@@ -1,4 +1,3 @@
-import axios from 'axios';
 import AboutForm from 'components/Admin/AboutForm';
 import AdminLayout from 'components/Admin/AdminLayout';
 import { Types } from 'mongoose';
@@ -7,6 +6,7 @@ import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import { IAbout } from 'server/interface';
+import instance from 'services/httpService';
 
 export interface IAboutWithImagePlaceholder {
     base64: string;
@@ -82,7 +82,7 @@ About.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await axios.get<{ data: IAbout[] }>('/info/about');
+    const { data } = await instance.get<{ data: IAbout[] }>('/info/about');
     const about = data.data[0];
 
     const { base64, img } = await getPlaiceholder(about.photoUrl);

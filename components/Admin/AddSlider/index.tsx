@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { ISliderPlaceholder } from 'pages/admin/chinta/sliders';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { ISlider, ResponseError } from 'server/interface';
+import instance from 'services/httpService';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
@@ -34,8 +34,8 @@ const AddSlider: FC<IAddSliderProps> = ({
             formData.append('file', values.photoUrl);
 
             if (isUpdate) {
-                const { data } = await axios.patch<{ message: string }>(
-                    'http://localhost:3000/api/sliders/' + slider._id,
+                const { data } = await instance.patch<{ message: string }>(
+                    'sliders/' + slider._id,
                     formData,
                     {
                         headers: { 'Content-Type': 'multipart/form-data' },
@@ -48,8 +48,8 @@ const AddSlider: FC<IAddSliderProps> = ({
                     }, 1000);
                 }
             } else {
-                const { data } = await axios.post<{ message: string }>(
-                    'http://localhost:3000/api/api/sliders',
+                const { data } = await instance.post<{ message: string }>(
+                    '/sliders',
                     formData,
                     {
                         headers: { 'Content-Type': 'multipart/form-data' },

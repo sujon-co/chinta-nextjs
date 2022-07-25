@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { IAboutWithImagePlaceholder } from 'pages/admin/chinta/info/about';
@@ -6,6 +5,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { ErrorResponse, isAxiosError } from 'server/helpers/error';
 import { IAbout } from 'server/interface';
+import instance from 'services/httpService';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
@@ -33,7 +33,7 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
             formData.append('bio', values.bio);
             formData.append('_id', values._id as any);
 
-            const { data } = await axios.patch<{ message: string }>(
+            const { data } = await instance.patch<{ message: string }>(
                 '/info/about',
                 formData,
                 {

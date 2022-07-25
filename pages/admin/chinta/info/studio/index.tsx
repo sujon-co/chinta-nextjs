@@ -1,4 +1,3 @@
-import axios from 'axios';
 import AddStudio from 'components/Admin/AddStudio';
 import AdminLayout from 'components/Admin/AdminLayout';
 import { Types } from 'mongoose';
@@ -9,6 +8,7 @@ import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { IStudio } from 'server/interface';
+import instance from 'services/httpService';
 
 interface IProps {
     studios: IStudioWithImagePlaceholder[];
@@ -24,7 +24,7 @@ const Studio = ({ studios }: IProps) => {
     const deleteHandler = async (id: Types.ObjectId) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await axios.delete<{ message: string }>(
+            const { data } = await instance.delete<{ message: string }>(
                 '/info/studios/' + id
             );
             if (data) {
@@ -157,7 +157,7 @@ Studio.getLayout = function getLayout(page: ReactNode) {
 export const getServerSideProps: GetServerSideProps = async () => {
     const {
         data: { data },
-    } = await axios.get<{ data: IStudio[] }>('/info/studios');
+    } = await instance.get<{ data: IStudio[] }>('/info/studios');
 
     const studios = await Promise.all(
         data.map(async (studio) => {

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import AddSlider from 'components/Admin/AddSlider';
 import AdminLayout from 'components/Admin/AdminLayout';
 import { Types } from 'mongoose';
@@ -8,6 +7,7 @@ import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ISlider } from 'server/interface';
+import instance from 'services/httpService';
 
 type deleteSliderResponse = {
     message: string;
@@ -35,8 +35,8 @@ const Sliders = ({ sliders }: IProps) => {
     const sliderDeleteHandler = async (id: Types.ObjectId) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await axios.delete<deleteSliderResponse>(
-                'http://localhost:3000/sliders/' + id
+            const { data } = await instance.delete<deleteSliderResponse>(
+                'sliders/' + id
             );
             if (data) {
                 toast.success(data.message);
@@ -143,9 +143,7 @@ Sliders.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await axios.get<{ data: ISlider[] }>(
-        'http://localhost:3000/api/sliders'
-    );
+    const { data } = await instance.get<{ data: ISlider[] }>('/sliders');
 
     const sliders = await Promise.all(
         data.data.map(async (data) => {

@@ -1,10 +1,10 @@
-import axios from 'axios';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Router from 'next/router';
 import toast from 'react-hot-toast';
 import { IAdmin, ResponseError } from 'server/interface';
+import instance from 'services/httpService';
 import { boolean, object, string } from 'yup';
 
 interface Props {}
@@ -25,10 +25,7 @@ const SignIn: NextPage<Props> = () => {
         formikHelpers: FormikHelpers<ISignInForm>
     ) => {
         try {
-            const { data } = await axios.post(
-                'http://localhost:3000/api/admin/login',
-                values
-            );
+            const { data } = await instance.post('/admin/login', values);
             toast.success(data.message);
             formikHelpers.setSubmitting(false);
             Router.push('/admin/chinta');

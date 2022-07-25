@@ -1,12 +1,9 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
+import { config } from 'config';
 
-const response = (res: AxiosResponse) => res.data?.data;
+const instance = axios.create({
+    baseURL: config.baseUrl + '/api/',
+    timeout: 15000,
+});
 
-const requests = {
-    get: (url: string) => axios.get(url).then(response),
-    post: (url: string, body: object) => axios.post(url, body).then(response),
-    patch: (url: string, body: object) => axios.patch(url, body).then(response),
-    delete: (url: string) => axios.delete(url).then(response),
-};
-
-export default requests;
+export default instance;

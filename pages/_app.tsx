@@ -8,8 +8,6 @@ import { Toaster } from 'react-hot-toast';
 import 'swiper/css/bundle';
 import '../scss/main.scss';
 
-// axios.defaults.baseURL = 'http://127.0.0.1:80/api';
-
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
     Component,
     pageProps,

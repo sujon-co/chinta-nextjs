@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import connectDB from 'server/database';
-import removeFile from 'server/helpers/removeFile';
 import authenticated from 'server/middlewares/authenticated';
 import upload from 'server/middlewares/upload';
 import Slider from 'server/models/Slider';
@@ -41,7 +40,7 @@ const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
         try {
             const sliders = await Slider.find().sort({ createdAt: -1 });
 
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 data: sliders,
                 message: 'Sliders fetched successfully.',
@@ -56,20 +55,16 @@ const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
             const { body, file } = req;
             const photoUrl = file?.filename ? '/uploads/' + file?.filename : '';
 
-            // removeFile(file?.filename);
-
             const slider = await Slider.create({
                 alt: body.alt,
                 photoUrl: photoUrl,
             });
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 data: slider,
                 message: 'Slider uploaded successfully.',
             });
         } catch (error) {
-            // @ts-ignore
-            removeFile(req?.file.filename);
             next(error);
         }
     });
