@@ -1,10 +1,10 @@
+import instance from 'api/httpService';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Router from 'next/router';
 import toast from 'react-hot-toast';
 import { IAdmin, ResponseError } from 'server/interface';
-import instance from 'services/httpService';
 import { boolean, object, string } from 'yup';
 
 interface Props {}

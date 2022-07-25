@@ -1,3 +1,4 @@
+import instance from 'api/httpService';
 import AddStudio from 'components/Admin/AddStudio';
 import AdminLayout from 'components/Admin/AdminLayout';
 import { Types } from 'mongoose';
@@ -8,7 +9,6 @@ import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { IStudio } from 'server/interface';
-import instance from 'services/httpService';
 
 interface IProps {
     studios: IStudioWithImagePlaceholder[];

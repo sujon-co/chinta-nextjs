@@ -1,3 +1,4 @@
+import instance from 'api/httpService';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import Image from 'next/image';
 import { IAboutWithImagePlaceholder } from 'pages/admin/chinta/info/about';
@@ -5,7 +6,6 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { ErrorResponse, isAxiosError } from 'server/helpers/error';
 import { IAbout } from 'server/interface';
-import instance from 'services/httpService';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {

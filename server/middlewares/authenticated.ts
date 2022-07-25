@@ -1,24 +1,24 @@
-import { verify } from 'jsonwebtoken';
+import { config } from 'config';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import { verify } from 'server/helpers/token';
 
 const authenticated =
     (fn: NextApiHandler) =>
     async (req: NextApiRequest, res: NextApiResponse) => {
-        const { auth } = req.cookies;
+        const token = req.cookies['chinta_auth_token'];
         const { method } = req;
 
         if (method !== 'GET') {
-            verify(auth!, process.env.JWT_SECRET!, async (err, decoded) => {
-                if (!err && decoded) {
-                    return await fn(req, res);
-                } else {
-                    return res.status(401).json({
-                        success: false,
-                        data: null,
-                        message: 'Sorry you are not authenticated',
-                    });
-                }
-            });
+            try {
+                const result = await verify(token!, config.jwtSecret);
+                return await fn(req, res);
+            } catch (error) {
+                return res.status(401).json({
+                    success: false,
+                    data: null,
+                    message: 'Sorry you are not authenticated',
+                });
+            }
         } else {
             return await fn(req, res);
         }

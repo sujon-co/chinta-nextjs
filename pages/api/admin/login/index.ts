@@ -1,9 +1,10 @@
 import bcrypt from 'bcryptjs';
+import { config } from 'config';
 import cookie from 'cookie';
-import jwt from 'jsonwebtoken';
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import connectDB from 'server/database';
+import { sign } from 'server/helpers/token';
 import Admin from 'server/models/Admin';
 
 const adminLogin = nextConnect<NextApiRequest, NextApiResponse>({
@@ -47,20 +48,14 @@ const adminLogin = nextConnect<NextApiRequest, NextApiResponse>({
             return res.status(400).send({ message: 'Password Not Match' });
         }
 
-        const token = jwt.sign(
-            {
-                _id: admin._id,
-                type: admin.email,
-                think: 'love_my_chinta',
-            },
-            process.env.JWT_SECRET as string,
-            {
-                expiresIn: passwordRemember ? '2h' : '15d',
-            }
+        const token = await sign(
+            { _id: admin._id, email: admin.email },
+            config.jwtSecret,
+            passwordRemember ? 360 : 24
         );
         res.setHeader(
             'Set-Cookie',
-            cookie.serialize('auth', token, {
+            cookie.serialize('chinta_auth_token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',

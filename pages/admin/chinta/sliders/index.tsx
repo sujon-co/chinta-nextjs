@@ -1,3 +1,4 @@
+import instance from 'api/httpService';
 import AddSlider from 'components/Admin/AddSlider';
 import AdminLayout from 'components/Admin/AdminLayout';
 import { Types } from 'mongoose';
@@ -7,7 +8,6 @@ import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ISlider } from 'server/interface';
-import instance from 'services/httpService';
 
 type deleteSliderResponse = {
     message: string;

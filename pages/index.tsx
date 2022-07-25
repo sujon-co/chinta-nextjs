@@ -1,3 +1,4 @@
+import instance from 'api/httpService';
 import { AxiosResponse } from 'axios';
 import Header from 'components/Common/Header';
 import Contact from 'components/Contact';
@@ -10,7 +11,6 @@ import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
 import { IAbout, ISlider } from 'server/interface';
-import instance from 'services/httpService';
 
 const Home: NextPage<
     InferGetServerSidePropsType<typeof getServerSideProps>

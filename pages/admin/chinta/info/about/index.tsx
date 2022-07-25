@@ -1,3 +1,4 @@
+import instance from 'api/httpService';
 import AboutForm from 'components/Admin/AboutForm';
 import AdminLayout from 'components/Admin/AdminLayout';
 import { Types } from 'mongoose';
@@ -6,7 +7,6 @@ import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import { IAbout } from 'server/interface';
-import instance from 'services/httpService';
 
 export interface IAboutWithImagePlaceholder {
     base64: string;
