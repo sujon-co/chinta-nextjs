@@ -36,7 +36,7 @@ const Sliders = ({ sliders }: IProps) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
             const { data } = await axios.delete<deleteSliderResponse>(
-                '/sliders/' + id
+                'http://localhost:3000/sliders/' + id
             );
             if (data) {
                 toast.success(data.message);
@@ -143,7 +143,9 @@ Sliders.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await axios.get<{ data: ISlider[] }>('/sliders');
+    const { data } = await axios.get<{ data: ISlider[] }>(
+        'http://localhost:3000/api/sliders'
+    );
 
     const sliders = await Promise.all(
         data.data.map(async (data) => {

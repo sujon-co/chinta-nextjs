@@ -25,7 +25,10 @@ const SignIn: NextPage<Props> = () => {
         formikHelpers: FormikHelpers<ISignInForm>
     ) => {
         try {
-            const { data } = await axios.post('/admin/login', values);
+            const { data } = await axios.post(
+                'http://localhost:3000/api/admin/login',
+                values
+            );
             toast.success(data.message);
             formikHelpers.setSubmitting(false);
             Router.push('/admin/chinta');

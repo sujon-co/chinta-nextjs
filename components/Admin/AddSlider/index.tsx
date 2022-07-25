@@ -35,7 +35,7 @@ const AddSlider: FC<IAddSliderProps> = ({
 
             if (isUpdate) {
                 const { data } = await axios.patch<{ message: string }>(
-                    '/sliders/' + slider._id,
+                    'http://localhost:3000/api/sliders/' + slider._id,
                     formData,
                     {
                         headers: { 'Content-Type': 'multipart/form-data' },
@@ -49,7 +49,7 @@ const AddSlider: FC<IAddSliderProps> = ({
                 }
             } else {
                 const { data } = await axios.post<{ message: string }>(
-                    '/sliders',
+                    'http://localhost:3000/api/api/sliders',
                     formData,
                     {
                         headers: { 'Content-Type': 'multipart/form-data' },
