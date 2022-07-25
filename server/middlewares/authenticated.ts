@@ -1,6 +1,6 @@
-import { config } from 'config';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 import { verify } from 'server/helpers/token';
+import { config } from 'src/config';
 
 const authenticated =
     (fn: NextApiHandler) =>
