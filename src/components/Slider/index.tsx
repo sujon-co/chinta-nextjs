@@ -11,6 +11,7 @@ interface Props {
         alt: string;
         src: string;
         height: number;
+        photoUrl: string;
         width: number;
         type?: string | undefined;
     }[];
@@ -31,7 +32,7 @@ const Slider: NextPage<Props> = ({ sliderImages }) => {
                 {sliderImages.map((image) => (
                     <SwiperSlide key={image.src}>
                         <Image
-                            src={image.src}
+                            src={image.photoUrl}
                             layout="fill"
                             alt={image.alt}
                             placeholder="blur"

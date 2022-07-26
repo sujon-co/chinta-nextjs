@@ -3,9 +3,11 @@ import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Element } from 'react-scroll';
 import InfoRoutes from './routes';
-import Studio from './studio';
+import Studio, { StudioItem } from './studio';
 
-interface Props { }
+interface Props {
+    studios: StudioItem[];
+}
 
 export type routeTypes =
     | 'about'
@@ -15,7 +17,7 @@ export type routeTypes =
     | 'jobs'
     | 'shops';
 
-const Info: NextPage<Props> = () => {
+const Info: NextPage<Props> = ({ studios }) => {
     const { ref, inView, entry } = useInView({
         threshold: 0,
     });
@@ -83,24 +85,19 @@ const Info: NextPage<Props> = () => {
                                 id="about"
                                 name="about"
                                 className="info-item-section"
-                            >
-                                {/* <About /> */}
-                            </Element>
+                            ></Element>
 
                             <Element
                                 id="studio"
                                 name="studio"
                                 className="info-item-section"
                             >
-                                <Studio />
+                                <Studio studios={studios} />
                             </Element>
                             <Element
                                 id="award"
                                 name="award"
                                 className="info-item-section"
-                            // style={{
-                            //     height: selectedRoute === 'award' ? 500 : 0,
-                            // }}
                             >
                                 award element inside container
                             </Element>
@@ -108,9 +105,6 @@ const Info: NextPage<Props> = () => {
                                 id="news"
                                 name="news"
                                 className="info-item-section"
-                            // style={{
-                            //     height: selectedRoute === 'news' ? 500 : 0,
-                            // }}
                             >
                                 news element inside container
                             </Element>
@@ -118,9 +112,6 @@ const Info: NextPage<Props> = () => {
                                 id="jobs"
                                 name="jobs"
                                 className="info-item-section"
-                            // style={{
-                            //     height: selectedRoute === 'jobs' ? 500 : 0,
-                            // }}
                             >
                                 jobs element inside container
                             </Element>
@@ -128,9 +119,6 @@ const Info: NextPage<Props> = () => {
                                 id="shops"
                                 name="shops"
                                 className="info-item-section"
-                            // style={{
-                            //     height: selectedRoute === 'shops' ? 500 : 0,
-                            // }}
                             >
                                 shops element inside container
                             </Element>

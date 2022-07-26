@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
-import { IAbout, ISlider } from 'server/interface';
+import { IAbout, ISlider, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import Contact from 'src/components/Contact';
@@ -11,10 +11,11 @@ import Studio from 'src/components/Info/studio';
 import ProjectItem from 'src/components/ProjectItem';
 import Slider from 'src/components/Slider';
 import Title from 'src/components/Title';
+import { config } from 'src/config';
 
 const Home: NextPage<
     InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ sliderImages, about }) => {
+> = ({ sliderImages, about, studios }) => {
     return (
         <>
             <Head>
@@ -28,6 +29,7 @@ const Home: NextPage<
             <Header />
             <main className="section-wrapper">
                 <Slider sliderImages={sliderImages} />
+
                 <div className="section ">
                     <Title title="Projects" />
                     <div className="container ">
@@ -49,7 +51,7 @@ const Home: NextPage<
                             <About about={about} />
                         </div>
                         <div className="">
-                            <Studio />
+                            <Studio studios={studios} />
                         </div>
                     </div>
                 </div>
@@ -70,11 +72,13 @@ export const getServerSideProps = async () => {
 
     const sliderImages = await Promise.all(
         sliders.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(data.photoUrl);
+            const { base64, img } = await getPlaiceholder(
+                `${config.baseUrl}/api/public${data.photoUrl}`
+            );
             return {
                 ...img,
+                ...data,
                 base64: base64,
-                alt: data.alt,
             };
         })
     );
@@ -94,10 +98,26 @@ export const getServerSideProps = async () => {
         }
     );
 
+    const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>(
+        '/info/studios'
+    );
+
+    const studios = await Promise.all(
+        studio.data.map(async (data) => {
+            const { base64, img } = await getPlaiceholder(data.photoUrl);
+            return {
+                ...img,
+                ...data,
+                base64: base64,
+            };
+        })
+    );
+
     return {
         props: {
             sliderImages,
             about,
+            studios,
         },
     };
 };
