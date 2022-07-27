@@ -2,11 +2,13 @@ import { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { Element } from 'react-scroll';
+import About, { AboutWithImage } from './about';
 import InfoRoutes from './routes';
 import Studio, { StudioItem } from './studio';
 
 interface Props {
     studios: StudioItem[];
+    about: AboutWithImage;
 }
 
 export type routeTypes =
@@ -17,7 +19,7 @@ export type routeTypes =
     | 'jobs'
     | 'shops';
 
-const Info: NextPage<Props> = ({ studios }) => {
+const Info: NextPage<Props> = ({ studios, about }) => {
     const { ref, inView, entry } = useInView({
         threshold: 0,
     });
@@ -85,7 +87,9 @@ const Info: NextPage<Props> = ({ studios }) => {
                                 id="about"
                                 name="about"
                                 className="info-item-section"
-                            ></Element>
+                            >
+                                <About about={about} />
+                            </Element>
 
                             <Element
                                 id="studio"
