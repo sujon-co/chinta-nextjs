@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import Image from 'next/image';
 import { FC } from 'react';
+import MyImage from 'src/components/Image';
 
 export interface AboutWithImage {
     base64: string;
@@ -18,12 +18,13 @@ interface Props {
     about: AboutWithImage;
 }
 const About: FC<Props> = ({ about }) => {
+
     return (
         <div className="row">
             <div className="col-md-5 col-lg-4">
                 <div className="about-img">
-                    <Image
-                        src={about.src}
+                    <MyImage
+                        src={about.photoUrl}
                         alt={about.alt}
                         layout="responsive"
                         placeholder="blur"

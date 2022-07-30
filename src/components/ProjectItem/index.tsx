@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import projectImage from '/public/projects/image2.png';
 
-interface Props {}
+interface Props { }
 
 const ProjectItem: NextPage<Props> = () => {
     return (

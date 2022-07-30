@@ -83,34 +83,29 @@
 
     .status-item {
         min-width: 200px;
+        height: 60vh;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        max-width: 25%;
 
         .status-project {
-            height: 60vh;
             padding: 10px;
-            background-color: salmon;
             display: flex;
-            flex-wrap: wrap-reverse;
             gap: 5px;
-            // flex-wrap: wrap;
-            // flex-direction: column;
-            overflow: scroll;
-
+            flex-wrap: wrap-reverse;
             &-item {
-                width: 80px;
-                height: 80px;
-                background: aquamarine;
-                position: relative;
+                height: 70px;
+                width: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
                 &-img {
                     transition: all 0.5s linear;
-                    // position: absolute;
-                    z-index: 22;
                     &:hover {
                         transform: scale(1.5);
                     }
-                }
-                &-title {
-                    font-weight: 400;
-                    font-style: italic;
                 }
             }
         }

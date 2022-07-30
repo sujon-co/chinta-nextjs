@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import MyImage from 'src/components/Image';
 import { StudioItem } from '.';
 
 interface Props {
@@ -11,8 +11,8 @@ const StudioItem: NextPage<Props> = ({ studio }) => {
     return (
         <div className="studio-item">
             <div className="studio-item-image">
-                <Image
-                    src={studio.src}
+                <MyImage
+                    src={studio.photoUrl}
                     alt={studio.alt}
                     layout="responsive"
                     placeholder="blur"

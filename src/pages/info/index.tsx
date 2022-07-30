@@ -7,6 +7,7 @@ import Layout from 'src/components/Common/Layout';
 import Info from 'src/components/Info';
 import { AboutWithImage } from 'src/components/Info/about';
 import { StudioItem } from 'src/components/Info/studio';
+import { config } from 'src/config';
 
 interface Props {
     studios: StudioItem[];
@@ -25,7 +26,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>(
         '/info/studios'
     );
-    const { data: _about } = await instance.get<{ data: IAbout[] }>(
+    const { data: _about } = await instance.get<{ data: IAbout[]; }>(
         '/info/about'
     );
     const aboutData = _about.data[0];
@@ -33,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const [studios, about] = await Promise.all([
         await Promise.all(
             studio.data.map(async (data) => {
-                const { base64, img } = await getPlaiceholder(data.photoUrl);
+                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
                 return {
                     ...img,
                     ...data,
@@ -41,7 +42,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
                 };
             })
         ),
-        await getPlaiceholder(aboutData.photoUrl).then(({ base64, img }) => {
+        await getPlaiceholder(`${config.imageUploadUrl}${aboutData.photoUrl}`).then(({ base64, img }) => {
             return {
                 ...img,
                 ...aboutData,

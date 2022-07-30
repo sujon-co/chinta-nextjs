@@ -3,9 +3,9 @@ import { NextPage } from 'next';
 import { useState } from 'react';
 import ProjectItem from '../ProjectItem';
 
-type IFilter = 'scrolling' | 'status' | 'location' | 'bar_view';
+type IFilter = 'scrolling' | 'status' | 'location' | 'bar_view' | "programmatic";
 
-interface Props {}
+interface Props { }
 
 const Projects: NextPage<Props> = () => {
     const [filter, setFilter] = useState<IFilter>('status');
@@ -26,26 +26,24 @@ const Projects: NextPage<Props> = () => {
                     <div className="project-status">
                         <div className="status-item">
                             <div className="status-project">
-                                {Array(66)
-                                    .fill('_')
-                                    .map((item, index) => (
-                                        <div
-                                            className="status-project-item border border-dark"
-                                            key={index}
-                                        >
-                                            <img
-                                                src="/projects/18.jpeg"
-                                                className="status-project-item-img "
-                                                alt="project"
-                                                title="project"
-                                                height={50}
-                                                width={50}
-                                            />
-                                            <div className="status-project-item-title">
-                                                SKI
-                                            </div>
+                                {Array(15).fill("_").map((item, index) => (
+                                    <div
+                                        className="status-project-item"
+                                        key={index + 1}
+                                    >
+                                        <img
+                                            src="/projects/18.jpeg"
+                                            className="status-project-item-img "
+                                            alt="project"
+                                            title="project"
+                                            height={50}
+                                            width={50}
+                                        />
+                                        <div className="status-project-item-title">
+                                            SKI
                                         </div>
-                                    ))}
+                                    </div>
+                                ))}
                             </div>
                             <div className="status-title">IDEA</div>
                         </div>
@@ -65,54 +63,145 @@ const Projects: NextPage<Props> = () => {
                         </div>
                     </div>
                 )}
+                {filter === 'programmatic' && (
+                    <div className="project-status">
+                        <div className="status-item">
+                            <div className="status-project">
+                                {Array(15).fill("_").map((item, index) => (
+                                    <div
+                                        className="status-project-item"
+                                        key={index + 1}
+                                    >
+                                        <img
+                                            src="/projects/18.jpeg"
+                                            className="status-project-item-img "
+                                            alt="project"
+                                            title="project"
+                                            height={50}
+                                            width={50}
+                                        />
+                                        <div className="status-project-item-title">
+                                            SKI
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="status-title">Residential</div>
+                        </div>
+                        <div className="status-item">
+                            <div className="status-project">
+                                {Array(15).fill("_").map((item, index) => (
+                                    <div
+                                        className="status-project-item"
+                                        key={index + 1}
+                                    >
+                                        <img
+                                            src="/projects/18.jpeg"
+                                            className="status-project-item-img "
+                                            alt="project"
+                                            title="project"
+                                            height={50}
+                                            width={50}
+                                        />
+                                        <div className="status-project-item-title">
+                                            SKI
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="status-title"> Commercial</div>
+                        </div>
+                        <div className="status-item">
+                            <div className="status-project">
+                                {Array(10).fill("_").map((item, index) => (
+                                    <div
+                                        className="status-project-item"
+                                        key={index + 1}
+                                    >
+                                        <img
+                                            src="/projects/18.jpeg"
+                                            className="status-project-item-img "
+                                            alt="project"
+                                            title="project"
+                                            height={50}
+                                            width={50}
+                                        />
+                                        <div className="status-project-item-title">
+                                            SKI
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="status-title">
+                                Public Space
+                            </div>
+                        </div>
+                        <div className="status-item">
+                            <div className="status-project">
+                                {Array(5).fill("_").map((item, index) => (
+                                    <div
+                                        className="status-project-item"
+                                        key={index + 1}
+                                    >
+                                        <img
+                                            src="/projects/18.jpeg"
+                                            className="status-project-item-img "
+                                            alt="project"
+                                            title="project"
+                                            height={50}
+                                            width={50}
+                                        />
+                                        <div className="status-project-item-title">
+                                            SKI
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="status-title">Urbanism</div>
+                        </div>
+                    </div>
+                )}
                 {filter === 'location' && (
-                    <h3>Filter project base on Location</h3>
+                    <div>
+                        Under Development...
+                    </div>
                 )}
                 {filter === 'bar_view' && (
-                    <h3>Filter project base on Bar View</h3>
+                    <h3>Developer now sleeping ... :))</h3>
                 )}
             </div>
             <ul className="project-filter">
                 <li
-                    className={`filter-item ${
-                        filter === 'scrolling' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'scrolling' ? 'active' : ''}`}
                     onClick={() => setFilter('scrolling')}
                 >
                     Scrolling-Grid
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'status' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'status' ? 'active' : ''}`}
                     onClick={() => setFilter('status')}
                 >
                     Status
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'location' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'programmatic' ? 'active' : ''}`}
+                    onClick={() => setFilter('programmatic')}
+                >
+                    Programmatic
+                </li>
+                <li
+                    className={`filter-item ${filter === 'location' ? 'active' : ''}`}
                     onClick={() => setFilter('location')}
                 >
                     Location
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'bar_view' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'bar_view' ? 'active' : ''}`}
                     onClick={() => setFilter('bar_view')}
                 >
-                    CHRONOLOGICAL
+                    Chronological
                 </li>
-                <li
-                    className={`filter-item ${
-                        filter === 'bar_view' ? 'active' : ''
-                    }`}
-                    onClick={() => setFilter('bar_view')}
-                >
-                    Programmatic
-                </li>
+
             </ul>
         </div>
     );

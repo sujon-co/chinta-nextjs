@@ -70,11 +70,17 @@ export const getServerSideProps = async () => {
         '/sliders'
     );
 
+    const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>(
+        '/info/studios'
+    );
+
+    const { data: _about } = await instance.get<{ data: IAbout[]; }>(
+        '/info/about'
+    );
+
     const sliderImages = await Promise.all(
         sliders.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(
-                `${config.imageUploadUrl}${data.photoUrl}`
-            );
+            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
             return {
                 ...img,
                 ...data,
@@ -83,12 +89,8 @@ export const getServerSideProps = async () => {
         })
     );
 
-    const { data: _about } = await instance.get<{ data: IAbout[]; }>(
-        '/info/about'
-    );
     const aboutData = _about.data[0];
-
-    const about = await getPlaiceholder(aboutData.photoUrl).then(
+    const about = await getPlaiceholder(`${config.imageUploadUrl}${aboutData.photoUrl}`).then(
         ({ base64, img }) => {
             return {
                 ...img,
@@ -98,13 +100,9 @@ export const getServerSideProps = async () => {
         }
     );
 
-    const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>(
-        '/info/studios'
-    );
-
     const studios = await Promise.all(
         studio.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(data.photoUrl);
+            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
             return {
                 ...img,
                 ...data,
@@ -112,7 +110,6 @@ export const getServerSideProps = async () => {
             };
         })
     );
-
     return {
         props: {
             sliderImages,
@@ -120,6 +117,7 @@ export const getServerSideProps = async () => {
             studios,
         },
     };
+
 };
 
 export default Home;

@@ -6,16 +6,17 @@ const myLoader = ({ src }: any) => {
   return `${config.imageUploadUrl}/${src}`;
 };
 
-interface MyImage {
+type MyImage = {
   src: string;
   alt: string,
   width: number;
   height: number;
   className?: string;
-  layout?: "fixed" | "fill" | "intrinsic" | "responsive" | "raw";
+  layout: "fixed" | "fill" | "intrinsic" | "responsive" | "raw";
   placeholder?: string;
   blurDataURL?: any;
-}
+};
+
 const MyImage: FC<MyImage> = ({ src, alt, width, height, className, layout, blurDataURL }) => {
   return (
     <Image

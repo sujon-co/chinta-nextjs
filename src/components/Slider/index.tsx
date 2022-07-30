@@ -1,9 +1,9 @@
 import { NextPage } from 'next';
-import Image from 'next/image';
 import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import MyImage from '../Image';
 
 interface Props {
     sliderImages: {
@@ -29,17 +29,24 @@ const Slider: NextPage<Props> = ({ sliderImages }) => {
                 modules={[Autoplay]}
                 className="mySwiper"
             >
-                {sliderImages.map((image) => (
-                    <SwiperSlide key={image.src}>
-                        <Image
-                            src={image.photoUrl}
-                            layout="fill"
-                            alt={image.alt}
-                            placeholder="blur"
-                            blurDataURL={image.base64}
-                        />
-                    </SwiperSlide>
-                ))}
+                {sliderImages.length > 0 && (
+                    sliderImages.map((image) => (
+                        <SwiperSlide key={image.src}>
+                            <MyImage
+                                src={image.photoUrl}
+                                layout="fill"
+                                alt={image.alt}
+                                placeholder="blur"
+                                blurDataURL={image.base64}
+                                height={image.height}
+                                width={image.width}
+                            />
+                        </SwiperSlide>
+                    ))
+                )}
+                {sliderImages.length === 0 && (
+                    <h1>Upload Image from dashboard</h1>
+                )}
             </Swiper>
         </div>
     );
