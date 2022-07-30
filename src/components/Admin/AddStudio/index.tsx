@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IStudio, ResponseError } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
@@ -31,34 +31,32 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
     ) => {
         try {
             const formData = new FormData();
-            formData.append('name', values.name);
-            formData.append('designation', values.designation);
-            formData.append('file', values.photoUrl);
-            formData.append('alt', values.alt);
-            formData.append(
-                'socialLink.instagram',
-                values.socialLink.instagram
-            );
-            formData.append('socialLink.linkedIn', values.socialLink.linkedIn);
+            formData.append('image', values.photoUrl);
 
             if (isUpdate) {
-                const { data } = await instance.patch<{ message: string }>(
+                const { data } = await instance.patch<{ message: string; }>(
                     '/info/studios/' + studio._id,
                     formData,
                     { headers: { 'Content-Type': 'multipart/form-data' } }
                 );
                 toast.success(data.message);
             } else {
-                const { data } = await instance.post<{ message: string }>(
-                    '/info/studios',
-                    formData,
-                    { headers: { 'Content-Type': 'multipart/form-data' } }
-                );
-                toast.success(data.message);
+                const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData);
+                const studio: IStudio = {
+                    ...values,
+                    photoUrl: imageUrl.data,
+                };
+                const { data } = await instance.post<{ message: string; }>('/info/studios', studio);
+
+                if (data.message) {
+                    toast.success(data.message);
+                    formikHelpers.resetForm();
+                    window.location.reload();
+                }
             }
 
-            formikHelpers.resetForm();
-            window.location.reload();
+
+
         } catch (err) {
             const error = err as ResponseError;
             toast.error(error.response?.data?.message);

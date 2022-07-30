@@ -1,6 +1,5 @@
 import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -9,6 +8,8 @@ import { IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import AddStudio from 'src/components/Admin/AddStudio';
 import AdminLayout from 'src/components/Admin/AdminLayout';
+import MyImage from 'src/components/Image';
+import { config } from 'src/config';
 
 interface IProps {
     studios: IStudioWithImagePlaceholder[];
@@ -24,7 +25,7 @@ const Studio = ({ studios }: IProps) => {
     const deleteHandler = async (id: Types.ObjectId) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await instance.delete<{ message: string }>(
+            const { data } = await instance.delete<{ message: string; }>(
                 '/info/studios/' + id
             );
             if (data) {
@@ -70,10 +71,10 @@ const Studio = ({ studios }: IProps) => {
                                 <div className="col-md-4" key={studio.src}>
                                     <div className="card p-2  mb-3">
                                         <div className="w-100">
-                                            <Image
+                                            <MyImage
                                                 layout="responsive"
                                                 className="rounded-1 img-fluid"
-                                                src={studio.src}
+                                                src={studio.photoUrl}
                                                 alt={studio.alt}
                                                 placeholder="blur"
                                                 blurDataURL={studio.base64}
@@ -157,22 +158,28 @@ Studio.getLayout = function getLayout(page: ReactNode) {
 export const getServerSideProps: GetServerSideProps = async () => {
     const {
         data: { data },
-    } = await instance.get<{ data: IStudio[] }>('/info/studios');
+    } = await instance.get<{ data: IStudio[]; }>('/info/studios');
 
-    const studios = await Promise.all(
-        data.map(async (studio) => {
-            const { base64, img } = await getPlaiceholder(studio.photoUrl);
-            return {
-                ...studio,
-                ...img,
-                base64: base64,
-            };
-        })
-    ).then((value) => value);
+    if (data.length > 0) {
+        const studios = await Promise.all(
+            data.map(async (studio) => {
+                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${studio.photoUrl}`);
+                return {
+                    ...studio,
+                    ...img,
+                    base64: base64,
+                };
+            })
+        );
 
-    return {
-        props: { studios },
-    };
+        return {
+            props: { studios },
+        };
+    } else {
+        return {
+            props: { studios: [] },
+        };
+    }
 };
 
 export default Studio;

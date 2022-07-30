@@ -1,14 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import connectDB from 'server/database';
-import upload from 'server/middlewares/upload';
 import Studio from 'server/models/Studio';
 
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
 
 const studioHandler = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
@@ -34,7 +28,6 @@ const studioHandler = nextConnect<NextApiRequest, NextApiResponse>({
         });
     },
 })
-    .use(upload.single('file'))
     .get(async (req, res, next) => {
         try {
             const studios = await Studio.find({});
@@ -50,15 +43,9 @@ const studioHandler = nextConnect<NextApiRequest, NextApiResponse>({
     })
     .post(async (req, res, next) => {
         try {
-            // @ts-ignore
-            const { body, file } = req;
-            const photoUrl = file?.filename ? '/uploads/' + file?.filename : '';
+            const { body } = req;
 
-            // console.log({ body, file });
-            const studio = await Studio.create({
-                ...body,
-                photoUrl,
-            });
+            const studio = await Studio.create(body);
 
             res.status(200).json({
                 success: true,
