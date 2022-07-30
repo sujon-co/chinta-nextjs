@@ -1,6 +1,8 @@
+import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { FC } from 'react';
 import { IProject } from 'server/interface';
+import instance from 'src/api/httpService';
 import { object } from 'yup';
 
 // interface IAddSliderProps {
@@ -10,48 +12,97 @@ import { object } from 'yup';
 //     isUpdate: boolean;
 // }
 
-const AddProject: FC = ({ }) => {
+const AddProject: FC = ({}) => {
+    const initialValues: IProject = {
+        name: '',
+        type: 'residential',
+        status: 'idea',
+        principalArchitect: '',
+        designTeam: '',
+        engineer: '',
+        taskConstructionFirm: '',
+        photograph: '',
+        year: 2022,
+        description: '',
+        topImage: '',
+        portraitImage: '',
+        images: [],
+        map: {
+            getLocation: {
+                lat: 0,
+                lng: 0,
+            },
+            locationName: '',
+            zoomLevel: 12,
+            streetButton: '',
+            showMaker: true,
+        },
+    };
 
     const onSubmitHandler = async (
         values: IProject,
         formikHelpers: FormikHelpers<IProject>
     ) => {
         try {
-            // const formData = new FormData();
-            // formData.append('name', values.name);
-            // formData.append('designation', values.designation);
-            // formData.append('file', values.photoUrl);
-            // formData.append('alt', values.alt);
-            // formData.append('socialLink.instagram', values.socialLink.instagram);
-            // formData.append('socialLink.linkedIn', values.socialLink.linkedIn);
+            const formData = new FormData();
 
+            formData.append('topImage', values.topImage);
+            formData.append('portraitImage', values.portraitImage);
+            values.images.forEach((image) => {
+                formData.append('images', image);
+            });
 
-            // if (isUpdate) {
-            //     const { data } = await axios.patch<{ message: string }>('/info/studios/' + studio._id,
-            //         formData,
-            //         { headers: { 'Content-Type': 'multipart/form-data' }, }
-            //     );
+            const {
+                data: { data: imageUrl },
+            } = await axios.post(
+                'http://localhost:4000/api/upload/images',
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
+
+            const project: IProject = {
+                ...values,
+                topImage: imageUrl.topImage,
+                portraitImage: imageUrl.portraitImage,
+                images: imageUrl.images,
+            };
+
+            const { data } = await instance.post('/projects', project);
+            console.log({ data, imageUrl });
+            // if (data.success) {
             //     toast.success(data.message);
+            //     // formikHelpers.resetForm();
             // } else {
-            //     const { data } = await axios.post<{ message: string }>('/info/studios',
-            //         formData,
-            //         { headers: { 'Content-Type': 'multipart/form-data' }, }
-            //     );
-            //     toast.success(data.message);
+            //     toast.error(data.message);
             // }
-
-            // formikHelpers.resetForm();
-            // window.location.reload();
         } catch (err) {
             // const error = err as ResponseError;
             // toast.error(error.response?.data?.message);
         }
     };
+
     return (
         <Formik
-            initialValues={{} as IProject}
+            initialValues={initialValues}
             onSubmit={onSubmitHandler}
             validationSchema={object({
+                // name: string().required(),
+                // type: string().required(),
+                // status: string().required(),
+                // principalArchitect: string().required(),
+                // designTeam: string().required(),
+                // engineer: string().required(),
+                // taskConstructionFirm: string().required(),
+                // photograph: string().required(),
+                // year: number().required(),
+                // description: string().required(),
+                // topImage: string().required(),
+                // portraitImage: string().required(),
+                // images: array(string()).optional(),
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue, values }) => (
@@ -82,9 +133,10 @@ const AddProject: FC = ({ }) => {
                             name="type"
                             placeholder="Project Type"
                         >
-                            <option value="red">Red</option>
-                            <option value="green">Green</option>
-                            <option value="blue">Blue</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="publicSpace">Public Space</option>
+                            <option value="urbanism">Urbanism</option>
                         </Field>
                         <div className="text-danger">
                             <ErrorMessage name="type" />
@@ -101,16 +153,22 @@ const AddProject: FC = ({ }) => {
                             name="status"
                             placeholder="Project Status"
                         >
-                            <option value="red">Red</option>
-                            <option value="green">Green</option>
-                            <option value="blue">Blue</option>
+                            <option value="idea">Idea</option>
+                            <option value="inProgress">In Progress</option>
+                            <option value="underConstruction">
+                                Under Construction
+                            </option>
+                            <option value="completed">Completed</option>
                         </Field>
                         <div className="text-danger">
                             <ErrorMessage name="status" />
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="principalArchitect" className="form-label">
+                        <label
+                            htmlFor="principalArchitect"
+                            className="form-label"
+                        >
                             Principal Architect
                         </label>
                         <Field
@@ -155,7 +213,10 @@ const AddProject: FC = ({ }) => {
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="taskConstructionFirm" className="form-label">
+                        <label
+                            htmlFor="taskConstructionFirm"
+                            className="form-label"
+                        >
                             Task Construction Firm
                         </label>
                         <Field
@@ -178,7 +239,7 @@ const AddProject: FC = ({ }) => {
                             className="form-control form-control-sm"
                             id="photograph"
                             name="photograph"
-                            placeholder="Task Construction Firm"
+                            placeholder="Photograph"
                         />
                         <div className="text-danger">
                             <ErrorMessage name="photograph" />
@@ -232,11 +293,11 @@ const AddProject: FC = ({ }) => {
                             }}
                         />
 
-                        {/* {errors.photoUrl && touched.photoUrl && (
+                        {errors.topImage && touched.topImage && (
                             <div className="text-danger">
-                                Photo is a required field
+                                Top Image is a required field
                             </div>
-                        )} */}
+                        )}
                     </div>
                     <div className="mb-3">
                         <label htmlFor="portraitImage" className="form-label">
@@ -255,6 +316,11 @@ const AddProject: FC = ({ }) => {
                             }}
                         />
                     </div>
+                    {errors.portraitImage && touched.portraitImage && (
+                        <div className="text-danger">
+                            Portrait Image is a required field
+                        </div>
+                    )}
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
                             Images
@@ -265,10 +331,10 @@ const AddProject: FC = ({ }) => {
                             id="images"
                             name="images"
                             onChange={(event: any) => {
-                                setFieldValue(
-                                    'images',
-                                    event.currentTarget.files[0]
-                                );
+                                setFieldValue('images', [
+                                    ...values.images,
+                                    event.currentTarget.files[0],
+                                ]);
                             }}
                         />
                     </div>
@@ -276,7 +342,7 @@ const AddProject: FC = ({ }) => {
                         <button
                             type="button"
                             className="btn btn-dark btn-sm fs-12"
-                        // onClick={() => setIsAdd(false)}
+                            // onClick={() => setIsAdd(false)}
                         >
                             Cancel
                         </button>

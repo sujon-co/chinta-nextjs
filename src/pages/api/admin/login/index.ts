@@ -59,7 +59,7 @@ const adminLogin = nextConnect<NextApiRequest, NextApiResponse>({
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
-                maxAge: 3600,
+                maxAge: 3600 * (passwordRemember ? 360 : 24),
                 path: '/',
             })
         );

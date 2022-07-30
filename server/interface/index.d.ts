@@ -3,8 +3,8 @@ import { Types } from 'mongoose';
 
 interface IProject {
     name: string;
-    type: string;
-    status: "idle" | "design"
+    type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism';
+    status: 'idea' | 'inProgress' | 'underConstruction' | 'completed';
     principalArchitect: string;
     designTeam: string;
     engineer: string;
@@ -17,14 +17,14 @@ interface IProject {
     images: string[];
     map: {
         getLocation: {
-            lat: string | number,
-            lng: string | number
-        },
+            lat: string | number;
+            lng: string | number;
+        };
         locationName: string;
-        zoomLevel: number,
+        zoomLevel: number;
         streetButton: string;
         showMaker: boolean;
-    }
+    };
 }
 
 interface IAdmin {
@@ -56,7 +56,6 @@ interface IAbout {
     bio: string;
     alt: string;
 }
-
 
 type ResponseError = AxiosError & {
     response: { data: { message: string } };
