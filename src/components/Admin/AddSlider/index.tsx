@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { ISlider, ResponseError } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import { ISliderPlaceholder } from 'src/pages/admin/chinta/sliders';
 import { object, string } from 'yup';
 
@@ -30,11 +30,10 @@ const AddSlider: FC<IAddSliderProps> = ({
     ) => {
         try {
             const formData = new FormData();
-            formData.append('alt', values.alt);
-            formData.append('file', values.photoUrl);
+            formData.append('image', values.photoUrl);
 
             if (isUpdate) {
-                const { data } = await instance.patch<{ message: string }>(
+                const { data } = await instance.patch<{ message: string; }>(
                     'sliders/' + slider._id,
                     formData,
                     {
@@ -48,22 +47,24 @@ const AddSlider: FC<IAddSliderProps> = ({
                     }, 1000);
                 }
             } else {
-                const { data } = await instance.post<{ message: string }>(
-                    '/sliders',
-                    formData,
-                    {
-                        headers: { 'Content-Type': 'multipart/form-data' },
-                    }
-                );
+                const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData);
+                const slider: ISlider = {
+                    ...values,
+                    photoUrl: imageUrl.data,
+                };
+
+                const { data } = await instance.post<{ message: string; }>('/sliders', slider);
                 if (data.message) {
                     toast.success(data.message);
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    formikHelpers.resetForm();
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 1000);
                 }
+                console.log({ data });
             }
 
-            formikHelpers.resetForm();
+
         } catch (err) {
             const error = err as ResponseError;
             toast.error(error.response?.data?.message);

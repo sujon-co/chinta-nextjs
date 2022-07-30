@@ -1,6 +1,5 @@
 import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -8,6 +7,8 @@ import { ISlider } from 'server/interface';
 import instance from 'src/api/httpService';
 import AddSlider from 'src/components/Admin/AddSlider';
 import AdminLayout from 'src/components/Admin/AdminLayout';
+import MyImage from 'src/components/Image';
+import { config } from 'src/config';
 
 type deleteSliderResponse = {
     message: string;
@@ -68,6 +69,7 @@ const Sliders = ({ sliders }: IProps) => {
                 )}
             </div>
             <div className="card-body">
+                <pre> {JSON.stringify(sliders, null, 2)} </pre>
                 {isAddSlider && (
                     <AddSlider
                         isAddSlider={isAddSlider}
@@ -82,10 +84,10 @@ const Sliders = ({ sliders }: IProps) => {
                             sliders.map((slider) => (
                                 <div className="col-md-6" key={slider.src}>
                                     <div className="card p-2 d-flex gap-2 flex-row mb-3">
-                                        <Image
+                                        <MyImage
                                             layout="fixed"
                                             className="rounded-1 img-fluid"
-                                            src={slider.src}
+                                            src={slider.photoUrl}
                                             alt={slider.alt}
                                             placeholder="blur"
                                             blurDataURL={slider.base64}
@@ -143,18 +145,18 @@ Sliders.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await instance.get<{ data: ISlider[] }>('/sliders');
+    const { data } = await instance.get<{ data: ISlider[]; }>('/sliders');
 
     const sliders = await Promise.all(
         data.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(data.photoUrl);
+            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
             return {
                 ...data,
                 ...img,
                 base64: base64,
             };
         })
-    ).then((value) => value);
+    );
 
     return {
         props: { sliders },

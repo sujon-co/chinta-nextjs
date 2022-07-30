@@ -2,14 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import connectDB from 'server/database';
 import authenticated from 'server/middlewares/authenticated';
-import upload from 'server/middlewares/upload';
 import Slider from 'server/models/Slider';
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
 
 const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
@@ -35,7 +28,6 @@ const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
         });
     },
 })
-    .use(upload.single('file'))
     .get(async (req, res, next) => {
         try {
             const sliders = await Slider.find().sort({ createdAt: -1 });
@@ -51,14 +43,9 @@ const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
     })
     .post(async (req, res, next) => {
         try {
-            // @ts-ignore
-            const { body, file } = req;
-            const photoUrl = file?.filename ? '/uploads/' + file?.filename : '';
+            const { body } = req;
 
-            const slider = await Slider.create({
-                alt: body.alt,
-                photoUrl: photoUrl,
-            });
+            const slider = await Slider.create(body);
             return res.status(200).json({
                 success: true,
                 data: slider,

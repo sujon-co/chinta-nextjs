@@ -73,7 +73,7 @@ export const getServerSideProps = async () => {
     const sliderImages = await Promise.all(
         sliders.data.map(async (data) => {
             const { base64, img } = await getPlaiceholder(
-                `${config.baseUrl}/api/public${data.photoUrl}`
+                `${config.imageUploadUrl}${data.photoUrl}`
             );
             return {
                 ...img,
@@ -83,7 +83,7 @@ export const getServerSideProps = async () => {
         })
     );
 
-    const { data: _about } = await instance.get<{ data: IAbout[] }>(
+    const { data: _about } = await instance.get<{ data: IAbout[]; }>(
         '/info/about'
     );
     const aboutData = _about.data[0];
