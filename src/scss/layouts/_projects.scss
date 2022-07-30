@@ -74,3 +74,53 @@
         padding-top: 40px;
     }
 }
+
+/***** Project Status *****/
+.project-status {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+    .status-item {
+        min-width: 200px;
+
+        .status-project {
+            height: 60vh;
+            padding: 10px;
+            background-color: salmon;
+            display: flex;
+            flex-wrap: wrap-reverse;
+            gap: 5px;
+            // flex-wrap: wrap;
+            // flex-direction: column;
+            overflow: scroll;
+
+            &-item {
+                width: 80px;
+                height: 80px;
+                background: aquamarine;
+                position: relative;
+                &-img {
+                    transition: all 0.5s linear;
+                    // position: absolute;
+                    z-index: 22;
+                    &:hover {
+                        transform: scale(1.5);
+                    }
+                }
+                &-title {
+                    font-weight: 400;
+                    font-style: italic;
+                }
+            }
+        }
+    }
+    .status-title {
+        font-size: 16px;
+        font-weight: 400;
+        text-transform: uppercase;
+        margin-top: 10px;
+        border-top: 1px solid #889;
+        text-align: center;
+    }
+}
