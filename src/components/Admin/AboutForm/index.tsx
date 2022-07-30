@@ -1,10 +1,10 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { ErrorResponse, isAxiosError } from 'server/helpers/error';
 import { IAbout } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
+import MyImage from 'src/components/Image';
 import { IAboutWithImagePlaceholder } from 'src/pages/admin/chinta/info/about';
 import { object, string } from 'yup';
 
@@ -28,22 +28,29 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
     ) => {
         try {
             const formData = new FormData();
-            formData.append('alt', values.alt);
-            formData.append('file', values.photoUrl);
-            formData.append('bio', values.bio);
-            formData.append('_id', values._id as any);
+            formData.append('image', values.photoUrl);
 
-            const { data } = await instance.patch<{ message: string }>(
-                '/info/about',
-                formData,
-                {
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                }
-            );
+            let imageUrl = '';
 
-            toast.success(data.message);
-            formikHelpers.resetForm();
-            window.location.reload();
+            if (typeof values.photoUrl === 'string') {
+                imageUrl = values.photoUrl;
+            } else {
+                const { data: _imageUrl } = await imageUploadInstance.post('/upload/image', formData);
+                imageUrl = _imageUrl.data;
+            }
+
+            const about: IAbout = {
+                ...values,
+                photoUrl: imageUrl
+            };
+
+            const { data } = await instance.patch<{ message: string; }>('/info/about', about);
+            if (data.message) {
+                toast.success(data.message);
+                formikHelpers.resetForm();
+                window.location.reload();
+            }
+
         } catch (err) {
             if (!isAxiosError<ErrorResponse>(err) || !err.response) {
                 throw err;
@@ -96,10 +103,10 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
                             }}
                         />
                         {isUpdate && (
-                            <Image
+                            <MyImage
                                 layout="fixed"
                                 className=" img-fluid mt-1"
-                                src={about.src}
+                                src={about.photoUrl}
                                 alt={about.alt}
                                 placeholder="blur"
                                 blurDataURL={about.base64}

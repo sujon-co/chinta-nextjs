@@ -1,12 +1,13 @@
 import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import { IAbout } from 'server/interface';
 import instance from 'src/api/httpService';
 import AboutForm from 'src/components/Admin/AboutForm';
 import AdminLayout from 'src/components/Admin/AdminLayout';
+import MyImage from 'src/components/Image';
+import { config } from 'src/config';
 
 export interface IAboutWithImagePlaceholder {
     base64: string;
@@ -54,8 +55,8 @@ const About = ({ about }: AboutProps) => {
                     <div className="row">
                         <div className="col-md-5 col-lg-4">
                             <div className="about-img">
-                                <Image
-                                    src={about.src}
+                                <MyImage
+                                    src={about.photoUrl}
                                     alt={about.alt}
                                     layout="responsive"
                                     placeholder="blur"
@@ -82,10 +83,10 @@ About.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await instance.get<{ data: IAbout[] }>('/info/about');
+    const { data } = await instance.get<{ data: IAbout[]; }>('/info/about');
     const about = data.data[0];
 
-    const { base64, img } = await getPlaiceholder(about.photoUrl);
+    const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${about.photoUrl}`);
     return {
         props: {
             about: {
