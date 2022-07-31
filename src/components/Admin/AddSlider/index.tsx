@@ -57,9 +57,9 @@ const AddSlider: FC<IAddSliderProps> = ({
                 if (data.message) {
                     toast.success(data.message);
                     formikHelpers.resetForm();
-                    // setTimeout(() => {
-                    //     window.location.reload();
-                    // }, 1000);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 }
                 console.log({ data });
             }

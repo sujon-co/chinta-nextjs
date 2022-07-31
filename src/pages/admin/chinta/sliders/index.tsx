@@ -69,7 +69,6 @@ const Sliders = ({ sliders }: IProps) => {
                 )}
             </div>
             <div className="card-body">
-                <pre> {JSON.stringify(sliders, null, 2)} </pre>
                 {isAddSlider && (
                     <AddSlider
                         isAddSlider={isAddSlider}
@@ -147,20 +146,26 @@ Sliders.getLayout = function getLayout(page: ReactNode) {
 export const getServerSideProps: GetServerSideProps = async () => {
     const { data } = await instance.get<{ data: ISlider[]; }>('/sliders');
 
-    const sliders = await Promise.all(
-        data.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
-            return {
-                ...data,
-                ...img,
-                base64: base64,
-            };
-        })
-    );
+    if (data.data.length > 0) {
+        const sliders = await Promise.all(
+            data.data.map(async (data) => {
+                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
+                return {
+                    ...data,
+                    ...img,
+                    base64: base64,
+                };
+            })
+        );
 
-    return {
-        props: { sliders },
-    };
+        return {
+            props: { sliders },
+        };
+    } else {
+        return {
+            props: { sliders: [] },
+        };
+    }
 };
 
 export default Sliders;

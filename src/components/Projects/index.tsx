@@ -8,7 +8,7 @@ type IFilter = 'scrolling' | 'status' | 'location' | 'bar_view' | "programmatic"
 interface Props { }
 
 const Projects: NextPage<Props> = () => {
-    const [filter, setFilter] = useState<IFilter>('status');
+    const [filter, setFilter] = useState<IFilter>('scrolling');
 
     return (
         <div className="container pt-30">
