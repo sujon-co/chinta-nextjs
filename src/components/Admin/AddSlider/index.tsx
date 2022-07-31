@@ -1,9 +1,9 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
-import { ISlider, ResponseError } from 'server/interface';
+import { APIResponse, ISlider, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import MyImage from 'src/components/Image';
 import { ISliderPlaceholder } from 'src/pages/admin/chinta/sliders';
 import { object, string } from 'yup';
 
@@ -30,16 +30,29 @@ const AddSlider: FC<IAddSliderProps> = ({
     ) => {
         try {
             const formData = new FormData();
-            formData.append('image', values.photoUrl);
+
 
             if (isUpdate) {
-                const { data } = await instance.patch<{ message: string; }>(
-                    'sliders/' + slider._id,
-                    formData,
-                    {
-                        headers: { 'Content-Type': 'multipart/form-data' },
-                    }
-                );
+                let _photoUrl = "";
+
+                if (typeof values.photoUrl === 'string') {
+                    _photoUrl = values.photoUrl;
+                } else {
+                    formData.append('image', values.photoUrl);
+                    formData.append('path', slider.photoUrl);
+                    const { data: imageUrl } = await imageUploadInstance.patch('/upload/image', formData);
+
+                    _photoUrl = imageUrl.data;
+                }
+
+                console.log({ _photoUrl });
+
+                const _slider: ISlider = {
+                    ...values,
+                    photoUrl: _photoUrl
+                };
+                const { data } = await instance.patch<APIResponse<ISlider>>('sliders/' + slider._id, _slider);
+
                 if (data.message) {
                     toast.success(data.message);
                     setTimeout(() => {
@@ -47,13 +60,15 @@ const AddSlider: FC<IAddSliderProps> = ({
                     }, 1000);
                 }
             } else {
+                formData.append('image', values.photoUrl);
+
                 const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData);
                 const slider: ISlider = {
                     ...values,
                     photoUrl: imageUrl.data,
                 };
 
-                const { data } = await instance.post<{ message: string; }>('/sliders', slider);
+                const { data } = await instance.post<APIResponse<ISlider[]>>('/sliders', slider);
                 if (data.message) {
                     toast.success(data.message);
                     formikHelpers.resetForm();
@@ -61,7 +76,6 @@ const AddSlider: FC<IAddSliderProps> = ({
                         window.location.reload();
                     }, 1000);
                 }
-                console.log({ data });
             }
 
 
@@ -113,10 +127,10 @@ const AddSlider: FC<IAddSliderProps> = ({
                             }}
                         />
                         {isUpdate && (
-                            <Image
+                            <MyImage
                                 layout="fixed"
-                                className="rounded-1 img-fluid mt-1"
-                                src={slider.src}
+                                className="img-fluid mt-1"
+                                src={slider.photoUrl}
                                 alt={slider.alt}
                                 placeholder="blur"
                                 blurDataURL={slider.base64}

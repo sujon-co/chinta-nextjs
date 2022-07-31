@@ -2,14 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import connectDB from 'server/database';
 import authenticated from 'server/middlewares/authenticated';
-import upload from 'server/middlewares/upload';
 import Slider from 'server/models/Slider';
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
 
 const sliderUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
@@ -35,20 +28,13 @@ const sliderUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
         });
     },
 })
-    .use(upload.single('file'))
     .patch(async (req, res, next) => {
         try {
-            /** @ts-ignore */
-            const { body, query, file } = req;
-            // console.log({ body, query, file });
+            const { body, query } = req;
             const { id: _id } = query;
-
-            const photoUrl = file?.filename
-                ? '/uploads/' + file?.filename
-                : body.file;
             const slider = await Slider.findOneAndUpdate(
                 { _id },
-                { alt: body.alt, photoUrl },
+                { ...body },
                 { new: true }
             );
 

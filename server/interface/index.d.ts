@@ -60,3 +60,9 @@ interface IAbout {
 type ResponseError = AxiosError & {
     response: { data: { message: string } };
 };
+
+interface APIResponse<T> {
+    success: boolean;
+    data: T;
+    message: string;
+}
