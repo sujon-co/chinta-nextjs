@@ -2,20 +2,26 @@ import { AxiosResponse } from 'axios';
 import type { InferGetServerSidePropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
+import { useState } from 'react';
+import ReactPageScroller from 'react-page-scroller';
 import { IAbout, ISlider, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import Contact from 'src/components/Contact';
 import About from 'src/components/Info/about';
-import Studio from 'src/components/Info/studio';
 import ProjectItem from 'src/components/ProjectItem';
 import Slider from 'src/components/Slider';
-import Title from 'src/components/Title';
 import { config } from 'src/config';
 
 const Home: NextPage<
     InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ sliderImages, about, studios }) => {
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const handlePageChange = (pageNumber: number) => {
+        setCurrentPage(pageNumber);
+    };
+
     return (
         <>
             <Head>
@@ -28,37 +34,39 @@ const Home: NextPage<
             </Head>
             <Header />
             <main className="section-wrapper">
-                <Slider sliderImages={sliderImages} />
+                <ReactPageScroller
+                    pageOnChange={handlePageChange}
+                    customPageNumber={currentPage}
+                >
+                    <Slider sliderImages={sliderImages} />
+                    <div className="section ">
+                        <div className="container d-flex align-items-center justify-content-center h-100">
+                            <About about={about} />
+                        </div>
 
-                <div className="section ">
-                    <Title title="Projects" />
-                    <div className="container ">
-                        <div className="projects">
-                            <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
-                                {Array(30)
-                                    .fill('_')
-                                    .map((item, index) => (
-                                        <ProjectItem key={index + 1} />
-                                    ))}
+                    </div>
+                    <div className="section ">
+                        <div className="container ">
+                            <div className="projects">
+                                <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
+                                    {Array(30)
+                                        .fill('_')
+                                        .map((item, index) => (
+                                            <ProjectItem key={index + 1} />
+                                        ))}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="section ">
-                    <Title title="About Me" />
-                    <div className="container info-section">
-                        <div className="info-item-section">
-                            <About about={about} />
-                        </div>
-                        <div className="">
-                            <Studio studios={studios} />
-                        </div>
+                    <div className="section">
+                        <Contact />
                     </div>
-                </div>
-                <div className="section">
-                    <Title title="Contact Me" />
-                    <Contact />
-                </div>
+                </ReactPageScroller>
+
+
+
+
+
             </main>
         </>
     );

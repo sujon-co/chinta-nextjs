@@ -1,9 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
 import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import MyImage from '../Image';
 
 interface Props {
     sliderImages: {
@@ -20,34 +20,28 @@ interface Props {
 const Slider: NextPage<Props> = ({ sliderImages }) => {
     return (
         <div className="section slider-section pt-0">
-            <Swiper
-                autoplay={{
-                    delay: 3000,
-                }}
-                loop
-                simulateTouch={false}
-                modules={[Autoplay]}
-                className="mySwiper"
-            >
-                {sliderImages.length > 0 && (
-                    sliderImages.map((image) => (
-                        <SwiperSlide key={image.src}>
-                            <MyImage
-                                src={image.photoUrl}
-                                layout="fill"
-                                alt={image.alt}
-                                placeholder="blur"
-                                blurDataURL={image.base64}
-                                height={image.height}
-                                width={image.width}
-                            />
-                        </SwiperSlide>
-                    ))
-                )}
-                {sliderImages.length === 0 && (
-                    <h1>Upload Image from dashboard</h1>
-                )}
-            </Swiper>
+            <div className="container">
+                <Swiper
+                    autoplay={{
+                        delay: 3000,
+                    }}
+                    loop
+                    simulateTouch={false}
+                    modules={[Autoplay]}
+                    className="mySwiper"
+                >
+                    {sliderImages.length > 0 && (
+                        sliderImages.map((image) => (
+                            <SwiperSlide key={image.src}>
+                                <img className='img-fluid' src={image.src} alt={image.alt} />
+                            </SwiperSlide>
+                        ))
+                    )}
+                    {sliderImages.length === 0 && (
+                        <h1>Upload Image from dashboard</h1>
+                    )}
+                </Swiper>
+            </div>
         </div>
     );
 };

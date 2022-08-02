@@ -1,17 +1,24 @@
 .section-wrapper {
-    position: relative;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    scroll-behavior: smooth;
-    overflow: auto;
-    scroll-snap-type: y mandatory;
+    flex-direction: column;
+    // overflow: hidden;
 }
 .section {
+    // width: 100%;
+    // background-size: cover;
+    // // scroll-snap-align: start;
+    // // height: calc(100vh - 70px);
+    height: 100%;
     width: 100%;
-    background-size: cover;
-    scroll-snap-align: start;
-    height: calc(100vh - 70px);
+    display: flex;
     padding-top: 30px;
+    height: calc(100vh - 70px);
+}
+.swiper-wrapper {
+    height: calc(100vh - 70px);
 }
 .pt-30 {
     padding-top: 30px;
@@ -25,9 +32,9 @@
 .project-section {
     padding-top: 100px;
 }
-.info-section-wrapper {
-    padding-top: 100px;
-}
+// .info-section-wrapper {
+//     padding-top: 100px;
+// }
 .contact-section {
     padding-top: 100px;
 }
