@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import Footer from '../Common/Footer';
 import Popup from './Popup';
 
 interface Props { }
@@ -117,7 +116,7 @@ const Contact: NextPage<Props> = () => {
                         <div className="gmap_canvas">
                             <iframe
                                 width="100%"
-                                height="425"
+                                height="100%"
                                 id="gmap_canvas"
                                 src="https://maps.google.com/maps?q=Chinta,%20CHINTA%20STHAPATYA,%20Level-5&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                 frameBorder="0"
@@ -127,7 +126,6 @@ const Contact: NextPage<Props> = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
         </>
     );
 };

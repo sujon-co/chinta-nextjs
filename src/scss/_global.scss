@@ -7,18 +7,18 @@
     // overflow: hidden;
 }
 .section {
-    // width: 100%;
-    // background-size: cover;
-    // // scroll-snap-align: start;
-    // // height: calc(100vh - 70px);
-    height: 100%;
-    width: 100%;
-    display: flex;
-    padding-top: 30px;
-    height: calc(100vh - 70px);
+}
+.about-section,
+.project-section {
+    > .container {
+        margin-top: -70px;
+    }
+}
+.contact-container {
+    margin-top: -70px;
 }
 .swiper-wrapper {
-    height: calc(100vh - 70px);
+    // height: calc(100vh - 70px);
 }
 .pt-30 {
     padding-top: 30px;
@@ -27,10 +27,7 @@
     font-size: 12px !important;
 }
 .slider-section {
-    height: calc(100vh - 70px);
-}
-.project-section {
-    padding-top: 100px;
+    display: block !important;
 }
 // .info-section-wrapper {
 //     padding-top: 100px;
