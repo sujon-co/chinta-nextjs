@@ -21,39 +21,22 @@ const Contact: NextPage<Props> = () => {
         <>
             {showModal && <Popup setShowModal={setShowModal} />}
             <div className="container">
-                <div className="row justify-content-between">
+                <div className="row">
                     <div className="col-md-6">
                         <div className="wrapper">
-                            <div className="text-box">
-                                <p className="p-0 mb-0">{message}</p>
+                            <div className="type-writer-box">
+                                <textarea spellCheck="false" autoCorrect='false' autoComplete='false' />
+                                <button onClick={() => setShowModal(true)} >
+                                    &#9654;
+                                </button>
                             </div>
                             <div className="drop-message-wrapper">
                                 <div
                                     className="tagline"
-                                    v-show="!show"
-                                    style={{
-                                        display: showInput ? 'none' : 'block',
-                                    }}
+                                    style={{ display: showInput ? 'none' : 'block', }}
                                     onClick={() => setShowInput(true)}
                                 >
                                     <p>DROP US A LINE</p>
-                                </div>
-                                <div
-                                    className="feedbackInput"
-                                    style={{
-                                        display: showInput ? 'block' : 'none',
-                                    }}
-                                >
-                                    <input
-                                        type="text"
-                                        v-model="feedbacktxt"
-                                        onChange={(e) =>
-                                            setMessage(e.target.value)
-                                        }
-                                    />
-                                    <button onClick={() => setShowModal(true)}>
-                                        &#9654;
-                                    </button>
                                 </div>
                             </div>
                             <br />
@@ -73,28 +56,49 @@ const Contact: NextPage<Props> = () => {
                                 Dhaka 1205, Bangladesh
                             </p>
                         </div>
-                        <ul className="social-link w-75">
+                        <ul className="social-link w-50">
                             <li>
                                 <a href="#" target="_blank" rel="noopener noreferrer">
                                     Twitter
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.linkedin.com/in/kanakmahmud/" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.linkedin.com/in/kanakmahmud/" target="_blank" rel="noopener noreferrer" >
                                     LinkedIn
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.instagram.com/chintaarchitects/" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.instagram.com/chintaarchitects/" target="_blank" rel="noopener noreferrer" >
                                     Instagram
                                 </a>
                             </li>
                             <li>
-                                <a href="https://www.facebook.com/chintasthapatya" target="_blank" rel="noopener noreferrer">
+                                <a href="https://www.facebook.com/chintasthapatya" target="_blank" rel="noopener noreferrer" >
                                     Facebook
                                 </a>
                             </li>
                         </ul>
+                        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                            Launch static backdrop modal
+                        </button>
+
+                        <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex={-1} aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        ...
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" className="btn btn-primary">Understood</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="col-md-6">
                         <div className="gmap_canvas">

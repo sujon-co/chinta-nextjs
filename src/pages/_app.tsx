@@ -8,6 +8,7 @@ import Preloader from 'src/components/Preloader';
 import 'swiper/css/bundle';
 import '../scss/main.scss';
 
+
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
     Component,
     pageProps,
@@ -41,6 +42,10 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
             window.removeEventListener('load', delayHandler);
         };
     }, [router]);
+
+    useEffect(() => {
+        typeof document !== undefined ? require('bootstrap/dist/js/bootstrap.bundle') : null;
+    }, []);
 
     const getLayout = Component.getLayout || ((page: ReactNode) => page);
 
