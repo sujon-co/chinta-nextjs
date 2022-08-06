@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-interface IProps {}
+interface IProps { }
 
 const Header: NextPage<IProps> = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -33,8 +33,8 @@ const Header: NextPage<IProps> = () => {
     return (
         <header className="header">
             <nav className="container header-nav">
-                <Link href="/" className="header-brand">
-                    <a>
+                <Link href="/" >
+                    <a className="header-brand">
                         <Image
                             src="/logo.svg"
                             alt="brand logo"
@@ -47,37 +47,33 @@ const Header: NextPage<IProps> = () => {
                 <div className="header-content">
                     <div className="header-menu-wrapper">
                         <div
-                            className={`header-menu ${
-                                showMenu
+                            className={`header-menu ${showMenu
                                     ? 'menu-open-animation'
                                     : 'menu-close-animation'
-                            }`}
+                                }`}
                             onMouseOver={() => setStay(true)}
                             onMouseLeave={() => setStay(false)}
                         >
                             <Link href="/projects">
                                 <a
-                                    className={`header-menu-item ${
-                                        pathname === '/projects' ? 'active' : ''
-                                    }`}
+                                    className={`header-menu-item ${pathname === '/projects' ? 'active' : ''
+                                        }`}
                                 >
                                     Projects
                                 </a>
                             </Link>
                             <Link href="/info">
                                 <a
-                                    className={`header-menu-item ${
-                                        pathname === '/info' ? 'active' : ''
-                                    }`}
+                                    className={`header-menu-item ${pathname === '/info' ? 'active' : ''
+                                        }`}
                                 >
                                     Info
                                 </a>
                             </Link>
                             <Link href="/contact">
                                 <a
-                                    className={`header-menu-item ${
-                                        pathname === '/contact' ? 'active' : ''
-                                    }`}
+                                    className={`header-menu-item ${pathname === '/contact' ? 'active' : ''
+                                        }`}
                                 >
                                     Contact
                                 </a>
