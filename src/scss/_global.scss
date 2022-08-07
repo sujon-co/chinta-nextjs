@@ -1,10 +1,20 @@
-.section-wrapper {
+.page-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     flex-direction: column;
-    // overflow: hidden;
+    height: 100vh;
+}
+
+.container__header,
+.container__footer {
+    flex-shrink: 0;
+}
+.container__footer {
+    padding: 20px 0;
+}
+
+.container__main {
+    padding-top: 50px;
+    flex-grow: 1;
 }
 .about-section,
 .project-section {
@@ -24,9 +34,7 @@
 .slider-section {
     display: block !important;
 }
-.contact-section {
-    padding-top: 100px;
-}
+
 .fs-sm {
     font-size: 12px !important;
 }
@@ -47,10 +55,6 @@
     .login-form {
         width: 300px;
     }
-}
-.ReactModal__Overlay {
-    background-color: rgba($color: #000000, $alpha: 0.7) !important;
-    z-index: 3333;
 }
 /*** Title ***/
 .title-wrapper {
@@ -136,20 +140,35 @@
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+    .container {
+        // background-color: lightblue;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
+    .container {
+        // background-color: salmon;
+    }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
+    .container {
+        // background-color: antiquewhite;
+    }
 }
 
 @media (min-width: 1200px) and (max-width: 1399.9px) {
+    .container {
+        // background-color: orange;
+    }
 }
 @media (min-width: 1400px) {
     .container {
         max-width: 85%;
         margin-left: auto;
         margin-right: auto;
+    }
+    .container {
+        // background-color: darkorange;
     }
 }

@@ -123,10 +123,9 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id='projects' className="section project-section bg-dark">
+                        <div id='projects' className="section project-section">
                             <div className="container ">
                                 <div className="projects" style={{ height: '500px' }} onWheel={function (e) {
-                                    // console.log({ this: e.currentTarget, e })
 
                                     let flag = true;
                                     if (e.deltaY < 0 && e.currentTarget.scrollTop === 0) {

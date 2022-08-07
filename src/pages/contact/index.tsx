@@ -1,17 +1,25 @@
 import { NextPage } from 'next';
-import Layout from 'src/components/Common/Layout';
+import Footer from 'src/components/Common/Footer';
+import Header from 'src/components/Common/Header';
 import Contact from 'src/components/Contact';
 
-interface Props {}
+interface Props { }
 
 const ContactPage: NextPage<Props> = () => {
     return (
-        <Layout>
-            <div className="pt-30">
+        <div className='page-wrapper'>
+            <div className="container__header">
+                <Header />
+            </div>
+            <div className="container__main">
                 <Contact />
             </div>
-        </Layout>
+            <div className="container__footer">
+                <Footer />
+            </div>
+        </div>
     );
 };
 
 export default ContactPage;
+

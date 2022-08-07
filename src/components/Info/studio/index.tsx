@@ -30,6 +30,76 @@ const Studio: NextPage<Props> = ({ studios }) => {
                     <StudioItem studio={studio} />
                 </div>
             ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
+            {studios?.map((studio, index) => (
+                <div className="" key={(studio._id, index)}>
+                    <StudioItem studio={studio} />
+                </div>
+            ))}
         </div>
     );
 };

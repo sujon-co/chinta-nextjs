@@ -3,7 +3,6 @@
     overflow-x: hidden !important;
     height: 75vh;
     padding-right: 5px;
-    margin-top: 30px;
 
     &::-webkit-scrollbar {
         width: 3px;
@@ -46,10 +45,11 @@
 }
 
 .project-filter {
-    padding: 25px 0;
+    padding: 20px 0;
     font-weight: 400;
     padding-left: 0;
     list-style: none;
+    margin-bottom: 0;
     .filter-item {
         font-size: 14px;
         cursor: pointer;

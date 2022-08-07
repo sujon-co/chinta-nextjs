@@ -24,23 +24,26 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
             setPageLoading(false);
         };
 
-        const delayHandler = () => {
-            if (router.pathname === '/') {
-                setTimeout(() => {
-                    setPageLoading(false);
-                }, 3000);
-            } else {
-                setPageLoading(false);
-            }
-        };
+        // if (router.pathname === "/") {
+        //     window.addEventListener('load', () => {
+        //         setTimeout(() => {
+        //             handleComplete();
+        //         }, 3000);
+        //     });
+        //     return () => {
+        //         window.removeEventListener('load', handleComplete);
+        //     };
+        // }
         router.events.on('routeChangeStart', handleStart);
         router.events.on('routeChangeComplete', handleComplete);
         router.events.on('routeChangeError', handleComplete);
-        window.addEventListener('load', delayHandler);
-
+        window.addEventListener('load', () => {
+            handleComplete();
+        });
         return () => {
-            window.removeEventListener('load', delayHandler);
+            window.removeEventListener('load', handleComplete);
         };
+
     }, [router]);
 
     useEffect(() => {
@@ -48,7 +51,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
     }, []);
 
     const getLayout = Component.getLayout || ((page: ReactNode) => page);
-
+    console.log({ pageLoading });
     return (
         <>
             {pageLoading ? (
@@ -63,14 +66,12 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
                         containerClassName=""
                         containerStyle={{}}
                         toastOptions={{
-                            // Define default options
                             className: '',
                             duration: 5000,
                             style: {
                                 background: '#363636',
                                 color: '#fff',
                             },
-                            // Default options for specific types
                             success: {
                                 duration: 3000,
                                 theme: {

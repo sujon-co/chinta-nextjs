@@ -1,14 +1,23 @@
 import { NextPage } from 'next';
-import Layout from 'src/components/Common/Layout';
+import Footer from 'src/components/Common/Footer';
+import Header from 'src/components/Common/Header';
 import Projects from 'src/components/Projects';
 
-interface Props {}
+interface Props { }
 
 const ProjectsPage: NextPage<Props> = () => {
     return (
-        <Layout>
-            <Projects />
-        </Layout>
+        <div className="page-wrapper">
+            <div className="container__header">
+                <Header />
+            </div>
+            <div className="container__main">
+                <Projects />
+            </div>
+            <div className="container__footer">
+                <Footer />
+            </div>
+        </div>
     );
 };
 

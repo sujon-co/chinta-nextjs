@@ -11,8 +11,8 @@ const Projects: NextPage<Props> = () => {
     const [filter, setFilter] = useState<IFilter>('scrolling');
 
     return (
-        <div className="container pt-30">
-            <div className="projects ">
+        <div className="container">
+            <div className="projects" style={{ height: '500px' }}>
                 {filter === 'scrolling' && (
                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
                         {Array(30)

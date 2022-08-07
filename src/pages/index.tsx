@@ -89,7 +89,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id='projects' className="section project-section bg-dark">
+                        <div id='projects' className="section project-section">
                             <div className="container ">
                                 <div className="projects" onWheel={scrollHandler}>
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
