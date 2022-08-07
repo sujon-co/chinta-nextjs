@@ -21,7 +21,8 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "src/components/Image/index.jssx"
+        "src/components/Image/index.jssx",
+        "src/utils/sum.ts"
     ],
     "exclude": ["node_modules"]
 }
