@@ -2,10 +2,10 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
-import { useState } from 'react';
-import { IAbout, IStudio } from 'server/interface';
+import { Fragment, useState } from 'react';
+import { IAbout, IAward, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
-import Layout from 'src/components/Common/Layout';
+import Header from 'src/components/Common/Header';
 import About, { AboutWithImage } from 'src/components/Info/about';
 import Studio, { StudioItem } from 'src/components/Info/studio';
 import { config } from 'src/config';
@@ -22,6 +22,7 @@ const pluginWrapper = () => {
 interface Props {
     studios: StudioItem[];
     about: AboutWithImage;
+    awards: IAward[];
 }
 const originalColors = [
     'salmon',
@@ -33,7 +34,7 @@ const originalColors = [
     'yellow',
 ];
 
-const InfoPage: NextPage<Props> = ({ studios, about }) => {
+const InfoPage: NextPage<Props> = ({ studios, about, awards }) => {
     const [sectionsColor, setSectionsColor] = useState(originalColors);
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
@@ -50,25 +51,32 @@ const InfoPage: NextPage<Props> = ({ studios, about }) => {
 
 
     return (
-        <Layout>
+        <Fragment>
+            <Header />
             <div className='container'>
-                <div style={{ position: 'fixed', left: '0px', top: '100px', width: '100px', height: '400px', background: "red" }}>
-                    <li> <a href='#info-about'>About</a> </li>
-                    <li> <a href='#info-studio'>Studio</a> </li>
-                    <li> <a href='#info-award'>Award</a> </li>
-                    <li> <a href='#info-jobs'>Jobs</a> </li>
-                    <li> <a href='#info-shops'>Shops</a> </li>
-                </div>
+                <ul id="myMenu" style={{ position: 'fixed', left: '0px', top: '100px', width: '100px', height: '400px', background: "lightblue" }}>
+                    <li data-menuanchor="info-about"> <a href='#info-about'>About</a> </li>
+                    <li data-menuanchor="info-studio"> <a href='#info-studio'>Studio</a> </li>
+                    <li data-menuanchor="info-award"> <a href='#info-award'>Award</a> </li>
+                    <li data-menuanchor="info-jobs"> <a href='#info-jobs'>Jobs</a> </li>
+                    <li data-menuanchor="info-shops"> <a href='#info-shops'>Shops</a> </li>
+                </ul>
                 <ReactFullpage
                     pluginWrapper={pluginWrapper}
                     onLeave={onLeave}
                     scrollBar={false}
                     autoScrolling
-                    scrollOverflowReset
-                    scrollOverflow
-                    sectionsColor={sectionsColor}
+                    licenseKey='YOUR_KEY_HERE'
+                    // autoScrolling
+                    // fitToSection
+                    // scrollOverflowReset
+                    // menu='#myMenu'
+                    // css3
+                    // anchors={['info-about', 'info-studio', 'info-award', 'info-jobs', 'info-shops']}
+                    // fadingEffect={'sections'}
+                    // sectionsColor={sectionsColor}
                     render={(comp) =>
-                        <ReactFullpage.Wrapper>
+                        <ReactFullpage.Wrapper  >
                             <div className="section" id='info-about'>
                                 <div className="info-section" >
                                     <About about={about} />
@@ -82,16 +90,31 @@ const InfoPage: NextPage<Props> = ({ studios, about }) => {
                                 </div>
                             </div>
                             <div className="section" id='info-award'>
-                                <h1>Section Award</h1>
+                                <div className="">
+                                    {awards.map((award) => (
+                                        <div className="d-flex gap-2" key={award.awardName}>
+                                            <span> {award.year} </span>
+                                            <span> {award.awardName} </span>
+                                            <a href={award.programUrl} target="_blank" rel="noreferrer">
+                                                {award.programName}
+                                            </a>
+                                            <span> Organized by</span>
+                                            <a href={award.organizationUrl} target="_blank" rel="noreferrer"> {award.organizedBy} </a>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                             <div className="section" id='info-jobs'>
                                 <h1>Section Jobs</h1>
+                            </div>
+                            <div className="section" id='info-shops'>
+                                <h1>Section Shops</h1>
                             </div>
                         </ReactFullpage.Wrapper>
                     }
                 />
             </div>
-        </Layout>
+        </Fragment>
     );
 };
 
@@ -103,6 +126,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
         '/info/about'
     );
     const aboutData = _about.data[0];
+
+    const { data: awards } = await instance.get<{ data: IAward[]; }>('/info/awards');
 
     const [studios, about] = await Promise.all([
         await Promise.all(
@@ -128,6 +153,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
         props: {
             studios,
             about,
+            awards: awards.data,
         },
     };
 };

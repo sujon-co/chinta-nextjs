@@ -56,6 +56,15 @@ interface IAbout {
     bio: string;
     alt: string;
 }
+interface IAward {
+    _id: Types.ObjectId;
+    awardName: string;
+    programName: string;
+    programUrl: string;
+    year: number;
+    organizedBy: string;
+    organizationUrl: string;
+}
 
 type ResponseError = AxiosError & {
     response: { data: { message: string } };

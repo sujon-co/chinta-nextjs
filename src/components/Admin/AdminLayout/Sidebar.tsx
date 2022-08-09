@@ -45,8 +45,8 @@ const routers = [
         icon: <MdWork />,
     },
     {
-        name: 'Contact',
-        link: 'contact',
+        name: 'Shops',
+        link: 'info/shops',
         icon: <AiFillContacts />,
     },
 ] as const;
@@ -54,7 +54,7 @@ const routers = [
 type Router = typeof routers[number];
 
 const Sidebar = () => {
-    useEffect(() => {}, []);
+    useEffect(() => { }, []);
     return (
         <div className="sidebar">
             <div className="sidebar-inner">

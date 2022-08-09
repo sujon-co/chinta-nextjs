@@ -1,9 +1,9 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import Image from 'next/image';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IStudio, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import MyImage from 'src/components/Image';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
@@ -34,11 +34,7 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
             formData.append('image', values.photoUrl);
 
             if (isUpdate) {
-                const { data } = await instance.patch<{ message: string; }>(
-                    '/info/studios/' + studio._id,
-                    formData,
-                    { headers: { 'Content-Type': 'multipart/form-data' } }
-                );
+                const { data } = await instance.patch<{ message: string; }>('/info/studios/' + studio._id, formData,);
                 toast.success(data.message);
             } else {
                 const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData);
@@ -142,7 +138,7 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                             }}
                         />
                         {isUpdate && (
-                            <Image
+                            <MyImage
                                 layout="fixed"
                                 className="rounded-1 img-fluid mt-1"
                                 src={studio.src}
