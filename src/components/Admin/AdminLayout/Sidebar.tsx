@@ -58,13 +58,13 @@ const Sidebar = () => {
     return (
         <div className="sidebar">
             <div className="sidebar-inner">
-                <div className="sidebar-logo">
+                <div className="sidebar-logo bg-success">
                     <div className="d-flex align-items-center flex-nowrap">
                         <div className="sidebar-link text-decoration-none">
                             <div className="d-flex align-items-center flex-nowrap">
-                                <div className="logo-text d-flex align-items-center justify-content-center pt-2">
-                                    <Link href="/" className="header-brand">
-                                        <a>
+                                <div className="logo-text">
+                                    <Link href="/" >
+                                        <a className="header-brand  d-flex align-items-center justify-content-center pt-2  text-decoration-none">
                                             <Image
                                                 src="/logo.svg"
                                                 alt="brand logo"

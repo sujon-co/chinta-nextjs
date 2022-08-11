@@ -65,6 +65,17 @@ interface IAward {
     organizedBy: string;
     organizationUrl: string;
 }
+interface IShop {
+    _id: Types.ObjectId;
+    title: string;
+    url?: string;
+    shortDescription: string;
+    description?: string;
+    previousPrice?: number;
+    price: number;
+    stock: number;
+    images: [string];
+}
 
 type ResponseError = AxiosError & {
     response: { data: { message: string } };

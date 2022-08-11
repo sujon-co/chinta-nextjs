@@ -70,11 +70,11 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards }) => {
                     // autoScrolling
                     // fitToSection
                     // scrollOverflowReset
-                    // menu='#myMenu'
-                    // css3
-                    // anchors={['info-about', 'info-studio', 'info-award', 'info-jobs', 'info-shops']}
+                    menu='#myMenu'
+                    css3
+                    anchors={['info-about', 'info-studio', 'info-award', 'info-jobs', 'info-shops']}
                     // fadingEffect={'sections'}
-                    // sectionsColor={sectionsColor}
+                    sectionsColor={sectionsColor}
                     render={(comp) =>
                         <ReactFullpage.Wrapper  >
                             <div className="section" id='info-about'>
