@@ -17,3 +17,12 @@
 .custom-section {
     padding-top: calc(70px + 50px);
 }
+.swiper-wrapper {
+    margin-top: 70px !important;
+}
+.fp-watermark {
+    display: none !important;
+    height: 0;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}

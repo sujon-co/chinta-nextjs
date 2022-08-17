@@ -12,7 +12,6 @@ import ProjectItem from 'src/components/ProjectItem';
 import { config } from 'src/config';
 import { scrollHandler } from 'src/utils';
 
-import { Autoplay } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -62,7 +61,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 sectionSelector={SECTION_SEL}
                 render={(comp) =>
                     <ReactFullpage.Wrapper>
-                        <div className={`${SEL}`} style={{ paddingTop: '70px' }}>
+                        <div className={`${SEL} pt-0`}>
                             <div className="container">
                                 <Swiper
                                     autoplay={{
@@ -70,7 +69,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                     }}
                                     loop
                                     simulateTouch={false}
-                                    modules={[Autoplay]}
+                                    // modules={[Autoplay]}
                                     className="mySwiper"
                                 >
                                     {sliderImages.length > 0 && (

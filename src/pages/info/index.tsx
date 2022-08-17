@@ -56,7 +56,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
         <Fragment>
             <Header />
             <div className='container'>
-                <ul id="myMenu" style={{ position: 'fixed', left: '0px', top: '100px', width: '100px', height: '400px', /* background: "lightblue"  */ }}>
+                <ul id="myMenu">
                     <li data-menuanchor="info-about"> <a href='#info-about'>About</a> </li>
                     <li data-menuanchor="info-studio"> <a href='#info-studio'>Studio</a> </li>
                     <li data-menuanchor="info-award"> <a href='#info-award'>Award</a> </li>
