@@ -51,7 +51,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                 <div className="col-md-9">
                     <div className="shop-item-content">
                         <h6>{shop.title}</h6>
-                        <p> Price: ৳{shop.price}  200
+                        <p> Price: ৳{shop.currentPrice}
                             {shop.previousPrice && <span className="text-secondary text-decoration-line-through ms-2"> ৳{shop.previousPrice} </span>}
                         </p>
                         <p> {shop.shortDescription} </p>
@@ -100,8 +100,10 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                     </div>
                     <div className="col-md-7">
                         <div className="shop-item-content">
-                            <h6>{shop.title}</h6>
-                            <p> <b>Price: ৳{shop.price} 200</b>
+                            <h6>
+                                <a href="#" target="_blank"  >{shop.title}</a>
+                            </h6>
+                            <p> <b>Price: ৳{shop.currentPrice} 200</b>
                                 {shop.previousPrice && <span className="text-secondary text-decoration-line-through ms-2"> ৳{shop.previousPrice} </span>}
                             </p>
                             <p> {shop.shortDescription} </p>

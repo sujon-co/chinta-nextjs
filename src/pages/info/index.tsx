@@ -38,7 +38,7 @@ export type ShopItem = {
     shortDescription: string;
     description?: string | undefined;
     previousPrice?: number | undefined;
-    price: number;
+    currentPrice: number;
     stock: number;
 };
 interface Props {

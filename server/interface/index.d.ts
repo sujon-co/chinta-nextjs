@@ -72,7 +72,7 @@ interface IShop {
     shortDescription: string;
     description?: string;
     previousPrice?: number;
-    price: number;
+    currentPrice: number;
     stock: number;
     images: [string];
 }

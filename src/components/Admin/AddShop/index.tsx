@@ -4,6 +4,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IShop, ResponseError } from 'server/interface';
 import instance from 'src/api/httpService';
+import { ShopItem } from 'src/pages/info';
 import { array, object, string } from 'yup';
 
 function slugify(str: string) {
@@ -19,81 +20,63 @@ function slugify(str: string) {
 };
 
 interface IAddShop {
-    shop: IShop;
+    shop: ShopItem;
     setIsAdd: Dispatch<SetStateAction<boolean>>;
     isUpdate: boolean;
 }
 
 const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
-    const initialValue: IShop = {
+    const initialValue = {
         title: isUpdate ? shop.title : '',
         url: isUpdate ? shop.url : '',
         shortDescription: isUpdate ? shop.shortDescription : '',
         description: isUpdate ? shop.description : '',
         previousPrice: isUpdate ? shop.previousPrice : '',
-        price: isUpdate ? shop.price : '',
+        currentPrice: isUpdate ? shop.currentPrice : '',
         stock: isUpdate ? shop.stock : '',
         images: isUpdate ? shop.images : [],
-    } as IShop;
+    } as unknown as IShop;
 
     const onSubmitHandler = async (
         values: IShop,
         formikHelpers: FormikHelpers<IShop>
     ) => {
         try {
-            console.log({ values });
-            const formData = new FormData();
-            values.images.forEach((image) => {
-                formData.append('images', image);
-            });
+            if (isUpdate) {
+                console.log({ values });
+            } else {
+                const formData = new FormData();
+                values.images.forEach((image) => {
+                    formData.append('images', image);
+                });
+                console.log({ values });
 
-            const {
-                data: { data: imageUrl },
-            } = await axios.post(
-                'http://localhost:4000/api/upload/images',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
+                const {
+                    data: { data: imageUrl },
+                } = await axios.post(
+                    'http://localhost:4000/api/upload/images',
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    }
+                );
+                const shop: IShop = {
+                    ...values,
+                    url: slugify(values.title),
+                    images: imageUrl.images,
+                };
+                // console.log({ shop });
+                const { data } = await instance.post<{ message: string; }>('/info/shops', shop);
+                if (data.message) {
+                    toast.success(data.message);
+                    formikHelpers.resetForm();
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 1000);
                 }
-            );
-            console.log({ imageUrl });
-            const shop: IShop = {
-                ...values,
-                url: slugify(values.title),
-                images: imageUrl.images,
-            };
-            const { data } = await instance.post<{ message: string; }>('/info/shops', shop);
-            if (data.message) {
-                toast.success(data.message);
-                formikHelpers.resetForm();
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
             }
-
-            // if (isUpdate) {
-            //     const { data } = await instance.patch<{ message: string; }>('/info/awards/' + shop._id, values);
-
-            //     if (data.message) {
-            //         toast.success(data.message);
-            //         formikHelpers.resetForm();
-            //         setTimeout(() => {
-            //             window.location.reload();
-            //         }, 1000);
-            //     }
-            // } else {
-            //     const { data } = await instance.post<{ message: string; }>('/info/awards', values);
-
-            //     if (data.message) {
-            //         toast.success(data.message);
-            //         formikHelpers.resetForm();
-            //         setTimeout(() => {
-            //             window.location.reload();
-            //         }, 1000);
-            //     }
-            // }
         } catch (err) {
             const error = err as ResponseError;
             toast.error(error.response?.data?.message);
@@ -142,18 +125,18 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                         />
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="price" className="form-label">
+                        <label htmlFor="currentPrice" className="form-label">
                             Product Price
                         </label>
                         <Field
                             type="number"
                             className="form-control form-control-sm"
-                            id="price"
-                            name="price"
+                            id="currentPrice"
+                            name="currentPrice"
                             placeholder="Add Product  Price"
                         />
                         <div className="text-danger">
-                            <ErrorMessage name="price" />
+                            <ErrorMessage name="currentPrice" />
                         </div>
                     </div>
 
