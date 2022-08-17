@@ -26,3 +26,8 @@
     visibility: hidden !important;
     opacity: 0 !important;
 }
+
+.ReactModal__Overlay--after-open {
+    z-index: 101 !important;
+    background-color: rgb(31 31 31 / 75%) !important;
+}

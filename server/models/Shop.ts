@@ -17,6 +17,10 @@ const shopSchema = new Schema<IShop>(
         },
         description: String,
         previousPrice: Number,
+        price: {
+            type: Number,
+            required: true,
+        },
         stock: Number,
         images: [String],
     },

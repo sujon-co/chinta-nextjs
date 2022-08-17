@@ -110,7 +110,7 @@
     top: 35%;
     width: 100px;
     // background: red;
-    z-index: 1000;
+    z-index: 100;
     transform: translate(-0%, -35%);
     list-style: none;
     padding: 10px;
@@ -128,6 +128,18 @@
                 text-decoration: underline;
                 transition: all 0.2s ease-in;
             }
+        }
+    }
+}
+
+/*** Shop Item ***/
+
+.shop-item {
+    .see-more {
+        cursor: pointer;
+        color: $primary;
+        &:hover {
+            text-decoration: underline;
         }
     }
 }

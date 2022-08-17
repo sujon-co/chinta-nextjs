@@ -34,7 +34,7 @@ const AdminLayout: FC<IAdminLayoutProps> = ({ children }) => {
                         </li>
                         <li className="nav-item">
                             <Link href="/admin/chinta">
-                                <a className="nav-link">Dashboard</a>
+                                <a className="nav-link fw-bolder ">Dashboard</a>
                             </Link>
                         </li>
                     </ul>

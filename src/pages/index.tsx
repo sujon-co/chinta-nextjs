@@ -11,6 +11,7 @@ import About from 'src/components/Info/about';
 import ProjectItem from 'src/components/ProjectItem';
 import { config } from 'src/config';
 import { scrollHandler } from 'src/utils';
+import { Autoplay } from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -69,7 +70,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                     }}
                                     loop
                                     simulateTouch={false}
-                                    // modules={[Autoplay]}
+                                    modules={[Autoplay]}
                                     className="mySwiper"
                                 >
                                     {sliderImages.length > 0 && (

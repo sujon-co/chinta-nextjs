@@ -1,5 +1,6 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
+import { Types } from 'mongoose';
 import { GetServerSideProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
 import { Fragment, useState } from 'react';
@@ -7,6 +8,7 @@ import { IAbout, IAward, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import About, { AboutWithImage } from 'src/components/Info/about';
+import ShopItem from 'src/components/Info/shop/ShopItem';
 import Studio, { StudioItem } from 'src/components/Info/studio';
 import { config } from 'src/config';
 import { scrollHandler } from 'src/utils';
@@ -20,11 +22,30 @@ const pluginWrapper = () => {
 const SEL = "custom-section";
 const SECTION_SEL = `.${SEL}`;
 
+type ImageItem = {
+    base64: string;
+    src: string;
+    height: number;
+    width: number;
+    photoUrl: string;
+    type?: string | undefined;
+};
+export type ShopItem = {
+    images: ImageItem[];
+    _id: Types.ObjectId;
+    title: string;
+    url?: string | undefined;
+    shortDescription: string;
+    description?: string | undefined;
+    previousPrice?: number | undefined;
+    price: number;
+    stock: number;
+};
 interface Props {
     studios: StudioItem[];
     about: AboutWithImage;
     awards: IAward[];
-    shops: IShop[];
+    shops: ShopItem[];
 }
 const originalColors = [
     'salmon',
@@ -60,8 +81,9 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
                     <li data-menuanchor="info-about"> <a href='#info-about'>About</a> </li>
                     <li data-menuanchor="info-studio"> <a href='#info-studio'>Studio</a> </li>
                     <li data-menuanchor="info-award"> <a href='#info-award'>Award</a> </li>
-                    <li data-menuanchor="info-jobs"> <a href='#info-jobs'>Jobs</a> </li>
                     <li data-menuanchor="info-shops"> <a href='#info-shops'>Shop</a> </li>
+                    <li data-menuanchor="info-jobs"> <a href='#info-jobs'>Jobs</a> </li>
+                    <li data-menuanchor="info-news"> <a href='#info-news'>News</a> </li>
                 </ul>
                 <ReactFullpage
                     pluginWrapper={pluginWrapper}
@@ -69,11 +91,11 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
                     scrollBar={false}
                     licenseKey='YOUR_KEY_HERE'
                     sectionSelector={SECTION_SEL}
-                    anchors={['info-about', 'info-studio', 'info-award', 'info-jobs', 'info-shops']}
+                    anchors={['info-about', 'info-studio', 'info-award', 'info-shops', 'info-jobs', 'info-news']}
                     css3={true}
                     menu="#myMenu"
                     autoScrolling={true}
-                    sectionsColor={sectionsColor}
+                    // sectionsColor={sectionsColor}
                     render={(comp) =>
                         <ReactFullpage.Wrapper  >
                             <div className={SEL} >
@@ -104,10 +126,15 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
                                 </div>
                             </div>
                             <div className={SEL} >
+                                {shops.map(shop => (
+                                    <ShopItem shop={shop} key={shop.title} />
+                                ))}
+                            </div>
+                            <div className={SEL} >
                                 <h1>Section Jobs</h1>
                             </div>
                             <div className={SEL} >
-                                <pre>{JSON.stringify(shops, null, 4)}</pre>
+                                <h1>Section News</h1>
                             </div>
                         </ReactFullpage.Wrapper>
                     }
@@ -155,6 +182,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
                         const obj = {
                             ...img,
                             base64: base64,
+                            photoUrl: image
                         };
                         return obj;
                     })
