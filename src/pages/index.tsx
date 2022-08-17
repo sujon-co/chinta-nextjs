@@ -17,6 +17,9 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+const SEL = "custom-section";
+const SECTION_SEL = `.${SEL}`;
+
 
 
 // NOTE: if using fullpage extensions/plugins put them here and pass it as props.
@@ -36,8 +39,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
 
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
-        // arguments are mapped in order of fullpage.js callback arguments do something
-        // with the event
     };
 
     const moveSectionDown = () => {
@@ -58,9 +59,10 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 autoScrolling
                 scrollOverflowReset
                 scrollOverflow
+                sectionSelector={SECTION_SEL}
                 render={(comp) =>
                     <ReactFullpage.Wrapper>
-                        <div className="section slider-section">
+                        <div className={`${SEL}`} style={{ paddingTop: '70px' }}>
                             <div className="container">
                                 <Swiper
                                     autoplay={{
@@ -84,12 +86,12 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 </Swiper>
                             </div>
                         </div>
-                        <div className="section about-section">
+                        <div className={SEL}>
                             <div className="container ">
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id='projects' className="section project-section">
+                        <div id='projects' className={SEL}>
                             <div className="container ">
                                 <div className="projects" onWheel={scrollHandler}>
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
@@ -102,11 +104,9 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 </div>
                             </div>
                         </div>
-                        <div className="section ">
+                        <div className={SEL}>
                             <HomePageContact />
-
                         </div>
-
                     </ReactFullpage.Wrapper>
                 }
             />

@@ -8,11 +8,11 @@ import AddShop from 'src/components/Admin/AddShop';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 
 
-interface AwardProps {
+interface ShopProps {
     shops: IShop[];
 }
 
-const Shops = ({ shops }: AwardProps) => {
+const Shops = ({ shops }: ShopProps) => {
     const [isAdd, setIsAdd] = useState(false);
     const [isUpdate, setIsUpdate] = useState(false);
     const [shop, setShop] = useState<IShop>({} as IShop);

@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
 import { Fragment, useState } from 'react';
-import { IAbout, IAward, IStudio } from 'server/interface';
+import { IAbout, IAward, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import About, { AboutWithImage } from 'src/components/Info/about';
@@ -17,12 +17,14 @@ const pluginWrapper = () => {
      * require('../static/fullpage.scrollHorizontally.min.js'); // Optional. Required when using the "scrollHorizontally" extension.
      */
 };
-
+const SEL = "custom-section";
+const SECTION_SEL = `.${SEL}`;
 
 interface Props {
     studios: StudioItem[];
     about: AboutWithImage;
     awards: IAward[];
+    shops: IShop[];
 }
 const originalColors = [
     'salmon',
@@ -34,7 +36,7 @@ const originalColors = [
     'yellow',
 ];
 
-const InfoPage: NextPage<Props> = ({ studios, about, awards }) => {
+const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
     const [sectionsColor, setSectionsColor] = useState(originalColors);
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
@@ -47,49 +49,46 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards }) => {
         fullpage_api.moveSectionDown();
     };
 
-
+    console.log({ shops });
 
 
     return (
         <Fragment>
             <Header />
             <div className='container'>
-                <ul id="myMenu" style={{ position: 'fixed', left: '0px', top: '100px', width: '100px', height: '400px', background: "lightblue" }}>
+                <ul id="myMenu" style={{ position: 'fixed', left: '0px', top: '100px', width: '100px', height: '400px', /* background: "lightblue"  */ }}>
                     <li data-menuanchor="info-about"> <a href='#info-about'>About</a> </li>
                     <li data-menuanchor="info-studio"> <a href='#info-studio'>Studio</a> </li>
                     <li data-menuanchor="info-award"> <a href='#info-award'>Award</a> </li>
                     <li data-menuanchor="info-jobs"> <a href='#info-jobs'>Jobs</a> </li>
-                    <li data-menuanchor="info-shops"> <a href='#info-shops'>Shops</a> </li>
+                    <li data-menuanchor="info-shops"> <a href='#info-shops'>Shop</a> </li>
                 </ul>
                 <ReactFullpage
                     pluginWrapper={pluginWrapper}
                     onLeave={onLeave}
                     scrollBar={false}
-                    autoScrolling
                     licenseKey='YOUR_KEY_HERE'
-                    // autoScrolling
-                    // fitToSection
-                    // scrollOverflowReset
-                    menu='#myMenu'
-                    css3
+                    sectionSelector={SECTION_SEL}
                     anchors={['info-about', 'info-studio', 'info-award', 'info-jobs', 'info-shops']}
-                    // fadingEffect={'sections'}
+                    css3={true}
+                    menu="#myMenu"
+                    autoScrolling={true}
                     sectionsColor={sectionsColor}
                     render={(comp) =>
                         <ReactFullpage.Wrapper  >
-                            <div className="section" id='info-about'>
+                            <div className={SEL} >
                                 <div className="info-section" >
                                     <About about={about} />
                                 </div>
                             </div>
-                            <div className="section" id='info-studio'>
+                            <div className={SEL} >
                                 <div className="info-section scroll" style={{ height: '80vh', overflowY: 'scroll', }} onWheel={scrollHandler} >
                                     <div className="pb-1">
                                         <Studio studios={studios} />
                                     </div>
                                 </div>
                             </div>
-                            <div className="section" id='info-award'>
+                            <div className={SEL}>
                                 <div className="">
                                     {awards.map((award) => (
                                         <div className="d-flex gap-2" key={award.awardName}>
@@ -104,11 +103,11 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards }) => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="section" id='info-jobs'>
+                            <div className={SEL} >
                                 <h1>Section Jobs</h1>
                             </div>
-                            <div className="section" id='info-shops'>
-                                <h1>Section Shops</h1>
+                            <div className={SEL} >
+                                <pre>{JSON.stringify(shops, null, 4)}</pre>
                             </div>
                         </ReactFullpage.Wrapper>
                     }
@@ -128,8 +127,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const aboutData = _about.data[0];
 
     const { data: awards } = await instance.get<{ data: IAward[]; }>('/info/awards');
+    const { data: _shops } = await instance.get<{ data: IShop[]; }>('/info/shops');
 
-    const [studios, about] = await Promise.all([
+    const [studios, about, shops] = await Promise.all([
         await Promise.all(
             studio.data.map(async (data) => {
                 const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
@@ -147,6 +147,23 @@ export const getServerSideProps: GetServerSideProps = async () => {
                 base64: base64,
             };
         }),
+        await Promise.all(
+            _shops.data.map(async (shop) => {
+                const images = await Promise.all(
+                    shop.images.map(async (image) => {
+                        const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
+                        const obj = {
+                            ...img,
+                            base64: base64,
+                        };
+                        return obj;
+                    })
+                );
+                return {
+                    ...shop,
+                    images
+                };
+            }))
     ]);
 
     return {
@@ -154,6 +171,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
             studios,
             about,
             awards: awards.data,
+            shops
         },
     };
 };

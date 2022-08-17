@@ -9,6 +9,11 @@
     border: 1px solid #000;
 }
 
-.fp-watermark {
-    // display: none !important;
+/*** full page scroll ***/
+.fp-table {
+    display: block !important;
+}
+
+.custom-section {
+    padding-top: calc(70px + 50px);
 }

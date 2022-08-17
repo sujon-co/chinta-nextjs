@@ -16,23 +16,12 @@
     padding-top: 50px;
     flex-grow: 1;
 }
-.about-section,
-.project-section {
-    > .container {
-        margin-top: -70px;
-    }
-}
-.contact-container {
-    margin-top: -70px;
-}
+
 .pt-30 {
     padding-top: 30px;
 }
 .fs-12 {
     font-size: 12px !important;
-}
-.slider-section {
-    display: block !important;
 }
 
 .fs-sm {
@@ -54,39 +43,6 @@
     min-height: 100vh;
     .login-form {
         width: 300px;
-    }
-}
-/*** Title ***/
-.title-wrapper {
-    margin-bottom: 40px;
-    text-align: center;
-    .title {
-        color: black;
-        position: relative;
-        padding-bottom: 8px;
-        margin-bottom: 0;
-        font-weight: 400;
-        font-size: 18px;
-        &::before {
-            content: '';
-            width: 250px;
-            height: 1px;
-            background: #00000036;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-        }
-        &::after {
-            content: '';
-            width: 60px;
-            height: 2px;
-            background: #00000099;
-            position: absolute;
-            bottom: 0;
-            left: calc(50% - 30px);
-        }
     }
 }
 
