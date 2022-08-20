@@ -11,6 +11,11 @@
         }
     }
 }
+.image-wrapper {
+    > span {
+        height: 90vh !important;
+    }
+}
 
 /*** Project Details ****/
 .react-photo-gallery--gallery {

@@ -15,6 +15,7 @@ import { number, object, string } from 'yup';
 
 const AddProject: FC = ({ }) => {
     const initialValues: IProject = {
+        _id: "",
         name: '',
         type: 'residential',
         status: 'idea',
@@ -27,6 +28,8 @@ const AddProject: FC = ({ }) => {
         description: '',
         topImage: '',
         portraitImage: '',
+        landscape: '',
+        size: '',
         images: [],
         map: {
             getLocation: {
@@ -205,6 +208,21 @@ const AddProject: FC = ({ }) => {
                         </div>
                     </div>
                     <div className="mb-3">
+                        <label htmlFor="landscape" className="form-label">
+                            Landscape
+                        </label>
+                        <Field
+                            type="text"
+                            className="form-control form-control-sm"
+                            id="landscape"
+                            name="landscape"
+                            placeholder="Add Landscape"
+                        />
+                        <div className="text-danger">
+                            <ErrorMessage name="landscape" />
+                        </div>
+                    </div>
+                    <div className="mb-3">
                         <label htmlFor="engineer" className="form-label">
                             Engineer
                         </label>
@@ -250,6 +268,21 @@ const AddProject: FC = ({ }) => {
                         />
                         <div className="text-danger">
                             <ErrorMessage name="photograph" />
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="size" className="form-label">
+                            Size
+                        </label>
+                        <Field
+                            type="text"
+                            className="form-control form-control-sm"
+                            id="size"
+                            name="size"
+                            placeholder="Add Size"
+                        />
+                        <div className="text-danger">
+                            <ErrorMessage name="size" />
                         </div>
                     </div>
 

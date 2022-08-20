@@ -15,9 +15,10 @@ type MyImage = {
   layout: "fixed" | "fill" | "intrinsic" | "responsive" | "raw";
   placeholder?: string;
   blurDataURL?: any;
+  objectFit?: "contain" | "cover" | "fill" | "none" | "scale-down";
 };
 
-const MyImage: FC<MyImage> = ({ src, alt, width, height, className, layout, blurDataURL }) => {
+const MyImage: FC<MyImage> = ({ src, alt, width, height, className, layout, blurDataURL, objectFit }) => {
   return (
     <Image
       loader={myLoader}
@@ -29,6 +30,7 @@ const MyImage: FC<MyImage> = ({ src, alt, width, height, className, layout, blur
       layout={layout}
       placeholder="blur"
       blurDataURL={blurDataURL}
+      objectFit={objectFit}
     />
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import Carousel, { Modal, ModalGateway } from 'react-images';
 import Gallery from 'react-photo-gallery';
 
@@ -68,7 +68,7 @@ const GalleryView = () => {
     };
     return (
         <div className='container'>
-            <h3 className='my-3' >Project Gallery</h3>
+            <h4 className='my-3' >Project Gallery</h4>
             <Gallery photos={photos} onClick={openLightbox} />
             <ModalGateway>
                 {viewerIsOpen ? (

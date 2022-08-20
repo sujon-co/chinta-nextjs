@@ -1,19 +1,18 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import { getPlaiceholder } from 'plaiceholder';
 import { useState } from 'react';
-import BlurImage from 'src/components/BlurImage';
+import { IProject } from 'server/interface';
+import instance from 'src/api/httpService';
 import Layout from 'src/components/Common/Layout';
 import GalleryView from 'src/components/Gallery';
+import MyImage from 'src/components/Image';
+import { config } from 'src/config';
 
-interface Props {}
-
-const ProjectDetails: NextPage<Props> = () => {
+interface Props { }
+// @ts-ignore
+const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = ({ project }) => {
     const [showMore, setShowMore] = useState(false);
-    const images = [
-        '/projects/18.jpeg',
-        '/projects/19.gif',
-        '/projects/20.jpeg',
-    ];
 
     return (
         <>
@@ -25,37 +24,40 @@ const ProjectDetails: NextPage<Props> = () => {
                     <div className="container mx-auto">
                         <div className="row">
                             <div className="col-12">
-                                <BlurImage
-                                    src="/projects/17.jpeg"
-                                    alt="using placeholder without blurDataUrl should work"
-                                    layout="responsive"
-                                    height={250}
-                                    width={400}
-                                    objectFit="contain"
-                                    className="img-fluid"
-                                />
-
+                                <div className="image-wrapper">
+                                    <MyImage
+                                        className="img-fluid"
+                                        src={project.topImage.photoUrl}
+                                        alt={project.title}
+                                        layout="responsive"
+                                        placeholder="blur"
+                                        blurDataURL={project?.topImage?.base64}
+                                        height={project?.topImage?.height}
+                                        width={project?.topImage?.width}
+                                    />
+                                </div>
                                 <div className="content">
-                                    <h4>Aloks&apos;s Vacation House</h4>
+                                    <h4> {project.title} </h4>
                                     <div className="other">
-                                        <b>Type:</b> Residential
+                                        <b>Type:</b> {project.type}
                                     </div>
                                     <div className="other">
-                                        <b>Status:</b> Idea
+                                        <b>Status:</b> {project.status}
                                     </div>
                                     <div className="other">
-                                        <b>Principal Archite</b>ct: Mahmudul
-                                        Gani Kanak
+                                        <b>Principal Architect:</b> {project.principalArchitect}
                                     </div>
                                     <div className="other">
-                                        <b>Deasign Team:</b> Argha Mitra
-                                        Chowdhury Ahsan Habib Puja Bashak
+                                        <b>Deasign Team:</b> {project.designTeam}
                                     </div>
+                                    {project.landscape && (
+                                        <div className="other">
+                                            <b>Landscape:</b> {project.landscape}
+                                        </div>
+                                    )}
+
                                     <div className="other">
-                                        <b>Landscape:</b> Majeda Tumpa
-                                    </div>
-                                    <div className="other">
-                                        <b>Engineer:</b> Task
+                                        <b>Engineer:</b> {project.engineer}
                                     </div>
                                     <div
                                         className="height-wrapper"
@@ -64,22 +66,23 @@ const ProjectDetails: NextPage<Props> = () => {
                                         }}
                                     >
                                         <div className="other">
-                                            <b>Task Construction Firm:</b>
-                                            Anything Here
+                                            <b>Task Construction Firm: </b>
+                                            {project.taskConstructionFirm}
                                         </div>
                                         <div className="other">
-                                            <b>Photograph: </b>
-                                            Anything Here
+                                            <b>Photograph: </b> {project.photograph}
                                         </div>
                                         <div className="other">
                                             <b>Location:</b> Bashundhara, Dhaka,
                                             Bangladesh
                                         </div>
+                                        {project.size && (
+                                            <div className="other">
+                                                <b>Size: </b> {project.size}
+                                            </div>
+                                        )}
                                         <div className="other">
-                                            <b>Size:</b> 7200sft
-                                        </div>
-                                        <div className="other">
-                                            <b>Year:</b>2021
+                                            <b>Year:</b> {project.year}
                                         </div>
                                     </div>
                                     {!showMore && (
@@ -101,102 +104,38 @@ const ProjectDetails: NextPage<Props> = () => {
 
                                     <div className="row g-3 mt-3 align-items-center">
                                         <div className="col-6 ">
-                                            <p>
-                                                Lorem ipsum dolor sit amet
-                                                consectetur adipisicing elit.
-                                                Quibusdam quos dolor tempora
-                                                iusto ex nam fugiat veritatis,
-                                                obcaecati rerum soluta et
-                                                nostrum. Animi ab placeat
-                                                corrupti quaerat repudiandae
-                                                unde ullam, possimus quasi.
-                                                Necessitatibus odio a nam?
-                                                Aperiam quas nam quod suscipit
-                                                at, exercitationem molestiae
-                                                ratione, saepe distinctio
-                                                aliquid illum tempora autem
-                                                laboriosam odit, cumque iste
-                                                architecto facilis eaque atque
-                                                dolorem sapiente corrupti dicta
-                                                debitis? Tempora possimus
-                                                sapiente recusandae ex officia.
-                                                Nostrum ullam architecto et
-                                                dolorum impedit, consequuntur,
-                                                quidem suscipit nulla facere hic
-                                                a dolores exercitationem iure
-                                                magni quos sit cupiditate!
-                                                Placeat, atque? Explicabo vel,
-                                                voluptate eveniet, reprehenderit
-                                                obcaecati nisi natus molestiae
-                                                qui accusantium mollitia
-                                                debitis, quibusdam consectetur.
-                                                Facilis est quae, voluptatem
-                                                voluptates omnis perspiciatis,
-                                                possimus aut eos eius dolores
-                                                exercitationem? Lorem ipsum
-                                                dolor sit amet, consectetur
-                                                adipisicing elit. Ratione natus
-                                                possimus tempore officiis
-                                                eligendi minus iusto mollitia
-                                                est consequuntur, a cumque
-                                                repudiandae ab cum veritatis,
-                                                eaque soluta corrupti labore
-                                                vitae.
-                                            </p>
+                                            <p> {project.description} </p>
                                         </div>
                                         <div className="col-6">
-                                            <BlurImage
-                                                src="/projects/port.jpeg"
-                                                layout="responsive"
-                                                height={300}
-                                                width={250}
-                                                alt="project item"
-                                            />
+                                            <div className="mb-3 image-wrapper">
+                                                <MyImage
+                                                    src={project.portraitImage.photoUrl}
+                                                    alt={project.title}
+                                                    layout="responsive"
+                                                    placeholder="blur"
+                                                    blurDataURL={project?.portraitImage?.base64}
+                                                    height={project?.portraitImage?.height}
+                                                    width={project?.portraitImage?.width}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="images">
-                                    <div className="image-item">
-                                        <BlurImage
-                                            src="/projects/18.jpeg"
-                                            alt="alt"
-                                            layout="responsive"
-                                            height={250}
-                                            width={400}
-                                            objectFit="contain"
-                                        />
-                                    </div>
-                                    <div className="image-item">
-                                        <BlurImage
-                                            src="/projects/19.gif"
-                                            alt="alt"
-                                            layout="responsive"
-                                            height={250}
-                                            width={400}
-                                            objectFit="contain"
-                                        />
-                                    </div>
+                                    {project.images?.map((image: any, index: any) => (
+                                        <div className="image-item image-wrapper" key={index}>
+                                            <MyImage
 
-                                    <div className="image-item">
-                                        <BlurImage
-                                            src="/projects/20.jpeg"
-                                            alt="alt"
-                                            layout="responsive"
-                                            height={250}
-                                            width={400}
-                                            objectFit="contain"
-                                        />
-                                    </div>
-                                    <div className="image-item">
-                                        <BlurImage
-                                            src="/projects/21.jpeg"
-                                            alt="alt"
-                                            layout="responsive"
-                                            height={250}
-                                            width={400}
-                                            objectFit="contain"
-                                        />
-                                    </div>
+                                                src={image.photoUrl}
+                                                alt={project.title}
+                                                layout="responsive"
+                                                placeholder="blur"
+                                                blurDataURL={image?.base64}
+                                                height={image?.height}
+                                                width={image?.width}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
@@ -207,5 +146,48 @@ const ProjectDetails: NextPage<Props> = () => {
         </>
     );
 };
+
+export const getServerSideProps = async (ctx: any) => {
+    const { data } = await instance.get<{ data: IProject; }>(`/projects/${ctx.params?.slug}`);
+    const _project = data.data;
+
+    const _topImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.topImage}`);
+    const _portraitImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.portraitImage}`);
+
+    const images = await Promise.all(
+        _project.images.map(async (image) => {
+            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
+            const obj = {
+                ...img,
+                base64: base64,
+                photoUrl: image
+            };
+            return obj;
+        })
+    );
+
+    const project = {
+        ..._project,
+        topImage: {
+            ..._topImage.img,
+            base64: _topImage.base64,
+            photoUrl: _project.topImage
+        },
+        portraitImage: {
+            ..._portraitImage.img,
+            base64: _portraitImage.base64,
+            photoUrl: _project.portraitImage
+        },
+        images: images
+    };
+
+    return {
+        props: {
+            project: project
+        }
+
+    };
+};
+
 
 export default ProjectDetails;

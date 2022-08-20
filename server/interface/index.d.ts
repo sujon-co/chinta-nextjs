@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { Types } from 'mongoose';
 
 interface IProject {
-    _id: Types.ObjectId;
+    _id: Types.ObjectId | string;
     name: string;
     type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism';
     status: 'idea' | 'inProgress' | 'underConstruction' | 'completed';
@@ -16,6 +16,8 @@ interface IProject {
     topImage: string;
     portraitImage: string;
     images: string[];
+    landscape?: string;
+    size?: string;
     // gallery: string[];
     map: {
         getLocation: {
