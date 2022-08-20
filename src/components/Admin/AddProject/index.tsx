@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { FC } from 'react';
+import toast from 'react-hot-toast';
 import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
-import { object } from 'yup';
+import { number, object, string } from 'yup';
 
 // interface IAddSliderProps {
 //     studio: IStudioWithImagePlaceholder;
@@ -12,7 +13,7 @@ import { object } from 'yup';
 //     isUpdate: boolean;
 // }
 
-const AddProject: FC = ({}) => {
+const AddProject: FC = ({ }) => {
     const initialValues: IProject = {
         name: '',
         type: 'residential',
@@ -44,6 +45,7 @@ const AddProject: FC = ({}) => {
         formikHelpers: FormikHelpers<IProject>
     ) => {
         try {
+            console.log({ values });
             const formData = new FormData();
 
             formData.append('topImage', values.topImage);
@@ -63,6 +65,7 @@ const AddProject: FC = ({}) => {
                     },
                 }
             );
+            console.log({ values, imageUrl });
 
             const project: IProject = {
                 ...values,
@@ -72,13 +75,13 @@ const AddProject: FC = ({}) => {
             };
 
             const { data } = await instance.post('/projects', project);
-            console.log({ data, imageUrl });
-            // if (data.success) {
-            //     toast.success(data.message);
-            //     // formikHelpers.resetForm();
-            // } else {
-            //     toast.error(data.message);
-            // }
+            if (data.success) {
+                toast.success(data.message);
+                console.log(data);
+                // formikHelpers.resetForm();
+            } else {
+                toast.error(data.message);
+            }
         } catch (err) {
             // const error = err as ResponseError;
             // toast.error(error.response?.data?.message);
@@ -90,21 +93,25 @@ const AddProject: FC = ({}) => {
             initialValues={initialValues}
             onSubmit={onSubmitHandler}
             validationSchema={object({
-                // name: string().required(),
-                // type: string().required(),
-                // status: string().required(),
-                // principalArchitect: string().required(),
-                // designTeam: string().required(),
-                // engineer: string().required(),
-                // taskConstructionFirm: string().required(),
-                // photograph: string().required(),
-                // year: number().required(),
-                // description: string().required(),
-                // topImage: string().required(),
-                // portraitImage: string().required(),
-                // images: array(string()).optional(),
+                name: string().required('Name is required'),
+                type: string().required('Type is required'),
+                status: string().required('Status is required'),
+                principalArchitect: string().required('Principal architect is required'),
+                designTeam: string().required('Design team is required'),
+                engineer: string().required('Engineer is required'),
+                taskConstructionFirm: string().required('Task construction firm is required'),
+                photograph: string().required('Photograph is required'),
+                year: number().required('Year is required'),
+                description: string().required('Description is required'),
+                topImage: string().required('Top image is required'),
+                portraitImage: string().required('Portrait image is required'),
+                // images: array(any).required('Images is required'),
+                // gallery: array().required('Gallery is required'),
             })}
         >
+
+
+
             {({ touched, errors, isSubmitting, setFieldValue, values }) => (
                 <Form className="mb-3">
                     <div className="mb-3">
@@ -258,7 +265,7 @@ const AddProject: FC = ({}) => {
                             placeholder="year"
                         />
                         <div className="text-danger">
-                            <ErrorMessage name="photograph" />
+                            <ErrorMessage name="year" />
                         </div>
                     </div>
                     <div className="mb-3">
@@ -338,11 +345,39 @@ const AddProject: FC = ({}) => {
                             }}
                         />
                     </div>
+                    {errors.images && touched.images && (
+                        <div className="text-danger">
+                            Images is a required field
+                        </div>
+                    )}
+                    {/* <div className="mb-3">
+                        <label htmlFor="gallery" className="form-label">
+                            Gallery
+                        </label>
+                        <input
+                            type="file"
+                            className="form-control form-control-sm"
+                            id="gallery"
+                            name="gallery"
+                            onChange={(event: any) => {
+                                setFieldValue('gallery', [
+                                    ...values.gallery,
+                                    event.currentTarget.files[0],
+                                ]);
+                            }}
+                        />
+                    </div>
+                    {errors.gallery && touched.gallery && (
+                        <div className="text-danger">
+                            Gallery  is a required field
+                        </div>
+                    )} */}
+                    <pre>{JSON.stringify(errors, null, 2)} </pre>
                     <div className="d-flex gap-1 mb-0">
                         <button
                             type="button"
                             className="btn btn-dark btn-sm fs-12"
-                            // onClick={() => setIsAdd(false)}
+                        // onClick={() => setIsAdd(false)}
                         >
                             Cancel
                         </button>

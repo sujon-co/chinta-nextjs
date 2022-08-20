@@ -1,25 +1,64 @@
+import { Types } from 'mongoose';
 import { NextPage } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
-import projectImage from '/public/projects/image2.png';
+import MyImage from '../Image';
 
-interface Props { }
+interface IProjectItem {
+    _id: Types.ObjectId;
+    name: string;
+    type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism';
+    status: 'idea' | 'inProgress' | 'underConstruction' | 'completed';
+    principalArchitect: string;
+    designTeam: string;
+    engineer: string;
+    taskConstructionFirm: string;
+    photograph: string;
+    year: number;
+    description: string;
+    portraitImage: string;
+    images: string[];
+    map: {
+        getLocation: {
+            lat: string | number;
+            lng: string | number;
+        };
+        locationName: string;
+        zoomLevel: number;
+        streetButton: string;
+        showMaker: boolean;
+    };
+    updatedAt?: any;
+    topImage: {
+        base64: string;
+        photoUrl: string;
+        src: string;
+        height: number;
+        width: number;
+        type?: string | undefined;
+    };
+}
+interface Props {
+    project: IProjectItem;
+}
 
-const ProjectItem: NextPage<Props> = () => {
+const ProjectItem: NextPage<Props> = ({ project }) => {
     return (
-        <Link href={'/projects/project-item'}>
+        <Link href={`/projects/${project._id}`}>
             <a className="project-item">
                 <div className="project-item-img">
-                    <Image
+                    <MyImage
                         className="img-fluid"
-                        src={projectImage}
+                        src={project.topImage.photoUrl}
                         layout="responsive"
-                        alt="project"
+                        alt={project.name}
+                        height={project.topImage.height}
+                        width={project.topImage.width}
+                        blurDataURL={project.topImage.base64}
                     />
                     <div className="project-item-overlay">
-                        <h6>This is a Project</h6>
+                        <h6> {project.name} </h6>
                         <div className="fs-sm">Location: Dhaka, Bangladesh</div>
-                        <div className="fs-sm">Data: 15/06/22</div>
+                        <div className="fs-sm">Data: {project.updatedAt} </div>
                     </div>
                 </div>
             </a>

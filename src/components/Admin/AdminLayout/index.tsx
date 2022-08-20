@@ -20,7 +20,7 @@ const AdminLayout: FC<IAdminLayoutProps> = ({ children }) => {
             </Head>
             <Sidebar />
             <div className="container-wide">
-                <nav className="navbar navbar-expand navbar-light bg-light">
+                <nav className="navbar navbar-expand navbar-light bg-light ">
                     <ul className="navbar-nav me-auto">
                         <li className="nav-item active">
                             <a

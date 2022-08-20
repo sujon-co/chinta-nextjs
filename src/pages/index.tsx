@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
-import { IAbout, ISlider } from 'server/interface';
+import { IAbout, IProject, ISlider } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
@@ -29,13 +29,7 @@ const pluginWrapper = () => {
      */
 };
 
-interface Props {
-
-
-}
-
-
-const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliderImages, about }) => {
+const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliderImages, about, projects }) => {
 
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
@@ -45,6 +39,8 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         //@ts-ignore
         fullpage_api.moveSectionDown();
     };
+
+
 
     return (
         <div className="App">
@@ -95,14 +91,15 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                             <div className="container ">
                                 <div className="projects" onWheel={scrollHandler}>
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
-                                        {Array(30)
-                                            .fill('_')
-                                            .map((item, index) => (
-                                                <ProjectItem key={index + 1} />
-                                            ))}
+                                        {projects.map((project, index) => (
+                                            <ProjectItem project={project} key={index + 1} />
+                                        ))}
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div className={SEL}>
+                            <pre> {JSON.stringify(projects, null, 4)}</pre>
                         </div>
                         <div className={SEL}>
                             <HomePageContact />
@@ -122,6 +119,7 @@ export const getServerSideProps = async () => {
     const { data: _about } = await instance.get<{ data: IAbout[]; }>(
         '/info/about'
     );
+    const { data: _projects } = await instance.get<{ data: IProject[]; }>('/projects');
 
     const sliderImages = await Promise.all(
         sliders.data.map(async (data) => {
@@ -144,10 +142,25 @@ export const getServerSideProps = async () => {
             };
         }
     );
+
+    const projects = await Promise.all(
+        _projects.data.map(async (data) => {
+            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.topImage}`);
+            return {
+                ...data,
+                topImage: {
+                    ...img,
+                    base64: base64,
+                    photoUrl: data.topImage,
+                }
+            };
+        })
+    );
     return {
         props: {
             sliderImages,
-            about
+            about,
+            projects,
         }
     };
 };

@@ -90,7 +90,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
             validationSchema={object({
                 title: string().required('Title is required'),
                 shortDescription: string().required('Short description is required'),
-                price: string().required('Price is required'),
+                currentPrice: string().required('Price is required'),
                 stock: string().required('Stock is required'),
                 images: array().required('Images is required'),
             })}

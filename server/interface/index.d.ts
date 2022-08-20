@@ -2,6 +2,7 @@ import { AxiosError } from 'axios';
 import { Types } from 'mongoose';
 
 interface IProject {
+    _id: Types.ObjectId;
     name: string;
     type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism';
     status: 'idea' | 'inProgress' | 'underConstruction' | 'completed';
@@ -15,6 +16,7 @@ interface IProject {
     topImage: string;
     portraitImage: string;
     images: string[];
+    // gallery: string[];
     map: {
         getLocation: {
             lat: string | number;
@@ -25,6 +27,7 @@ interface IProject {
         streetButton: string;
         showMaker: boolean;
     };
+    updatedAt?: any;
 }
 
 interface IAdmin {
