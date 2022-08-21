@@ -11,7 +11,6 @@ import MyImage from 'src/components/Image';
 import { config } from 'src/config';
 import { ShopItem } from 'src/pages/info';
 
-
 interface ShopProps {
     shops: ShopItem[];
 }
@@ -24,7 +23,9 @@ const Shops = ({ shops }: ShopProps) => {
     const deleteHandler = async (id: Types.ObjectId) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await instance.delete<{ message: string; }>(`/info/shops/${id}`);
+            const { data } = await instance.delete<{ message: string }>(
+                `/info/shops/${id}`
+            );
             if (data.message) {
                 toast.success(data.message);
                 window.location.reload();
@@ -80,26 +81,36 @@ const Shops = ({ shops }: ShopProps) => {
                                             <td>৳ {shop.currentPrice} </td>
                                             <td>
                                                 <MyImage
-                                                    src={shop.images[0].photoUrl}
+                                                    src={
+                                                        shop.images[0].photoUrl
+                                                    }
                                                     alt={shop.title}
-                                                    layout="responsive"
+                                                    layout="fixed"
                                                     placeholder="blur"
-                                                    blurDataURL={shop.images[0].base64}
-                                                    height={shop.images[0].height}
-                                                    width={shop.images[0].width}
+                                                    blurDataURL={
+                                                        shop.images[0].base64
+                                                    }
+                                                    height={50}
+                                                    width={50}
                                                 />
                                             </td>
                                             <td>
                                                 <div className="d-flex gap-1 mb-0">
                                                     <button
                                                         className="btn btn-success btn-sm fs-12"
-                                                        onClick={() => updateHandler(shop)}
+                                                        onClick={() =>
+                                                            updateHandler(shop)
+                                                        }
                                                     >
                                                         Update
                                                     </button>
                                                     <button
                                                         className="btn btn-danger btn-sm fs-12"
-                                                        onClick={() => deleteHandler(shop._id)}
+                                                        onClick={() =>
+                                                            deleteHandler(
+                                                                shop._id
+                                                            )
+                                                        }
                                                     >
                                                         Delete
                                                     </button>
@@ -107,7 +118,6 @@ const Shops = ({ shops }: ShopProps) => {
                                             </td>
                                         </tr>
                                     ))}
-
                                 </tbody>
                             </table>
                         </div>
@@ -122,28 +132,31 @@ Shops.getLayout = function getLayout(page: ReactNode) {
     return <AdminLayout>{page}</AdminLayout>;
 };
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await instance.get<{ data: IShop[]; }>('/info/shops');
+    const { data } = await instance.get<{ data: IShop[] }>('/info/shops');
     const shops = await Promise.all(
         data.data.map(async (shop) => {
             const images = await Promise.all(
                 shop.images.map(async (image) => {
-                    const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
+                    const { base64, img } = await getPlaiceholder(
+                        `${config.imageUploadUrl}${image}`
+                    );
                     const obj = {
                         ...img,
                         base64: base64,
-                        photoUrl: image
+                        photoUrl: image,
                     };
                     return obj;
                 })
             );
             return {
                 ...shop,
-                images
+                images,
             };
-        }));
+        })
+    );
     return {
         props: {
-            shops
+            shops,
         },
     };
 };

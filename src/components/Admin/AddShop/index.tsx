@@ -12,12 +12,12 @@ function slugify(str: string) {
         .toString()
         .trim()
         .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w-]+/g, "")
-        .replace(/--+/g, "-")
-        .replace(/^-+/, "")
-        .replace(/-+$/, "");
-};
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-')
+        .replace(/^-+/, '')
+        .replace(/-+$/, '');
+}
 
 interface IAddShop {
     shop: ShopItem;
@@ -49,7 +49,6 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                 values.images.forEach((image) => {
                     formData.append('images', image);
                 });
-                console.log({ values });
 
                 const {
                     data: { data: imageUrl },
@@ -67,21 +66,22 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                     url: slugify(values.title),
                     images: imageUrl.images,
                 };
-                // console.log({ shop });
-                const { data } = await instance.post<{ message: string; }>('/info/shops', shop);
+                const { data } = await instance.post<{ message: string }>(
+                    '/info/shops',
+                    shop
+                );
                 if (data.message) {
                     toast.success(data.message);
                     formikHelpers.resetForm();
-                    // setTimeout(() => {
-                    //     window.location.reload();
-                    // }, 1000);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 }
             }
         } catch (err) {
             const error = err as ResponseError;
             toast.error(error.response?.data?.message);
         }
-
     };
     return (
         <Formik
@@ -89,7 +89,9 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
             onSubmit={onSubmitHandler}
             validationSchema={object({
                 title: string().required('Title is required'),
-                shortDescription: string().required('Short description is required'),
+                shortDescription: string().required(
+                    'Short description is required'
+                ),
                 currentPrice: string().required('Price is required'),
                 stock: string().required('Stock is required'),
                 images: array().required('Images is required'),
@@ -156,7 +158,10 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                         </div>
                     </div>
                     <div className="mb-3">
-                        <label htmlFor="shortDescription" className="form-label">
+                        <label
+                            htmlFor="shortDescription"
+                            className="form-label"
+                        >
                             Short Description
                         </label>
                         <Field
@@ -212,7 +217,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                             </div>
                         )}
                     </div>
-                    <div className='mb-3'>
+                    <div className="mb-3">
                         {values.images.map((image: any, index: number) => (
                             <div key={index}> {image.name}</div>
                         ))}

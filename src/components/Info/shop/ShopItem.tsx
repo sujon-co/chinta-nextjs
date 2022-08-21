@@ -51,14 +51,20 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                 <div className="col-md-9">
                     <div className="shop-item-content">
                         <h6>{shop.title}</h6>
-                        <p> Price: ৳{shop.currentPrice}
-                            {shop.previousPrice && <span className="text-secondary text-decoration-line-through ms-2"> ৳{shop.previousPrice} </span>}
+                        <p>
+                            Price: ৳{shop.currentPrice}
+                            {shop.previousPrice && (
+                                <span className="text-secondary text-decoration-line-through ms-2">
+                                    ৳{shop.previousPrice}
+                                </span>
+                            )}
                         </p>
                         <p> {shop.shortDescription} </p>
-                        <span className="see-more" onClick={openModal} >See More</span>
+                        <span className="see-more" onClick={openModal}>
+                            See More
+                        </span>
                     </div>
                 </div>
-
             </div>
             <Modal
                 isOpen={modalIsOpen}
@@ -66,7 +72,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <div className="text-danger close-btn" onClick={closeModal} >
+                <div className="text-danger close-btn" onClick={closeModal}>
                     <FaTimes />
                 </div>
                 <div className="row mb-3 shop-item">
@@ -83,32 +89,42 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                     width={shop.images[0].width}
                                 />
                             </div>
-                            {shop.images.slice(1).length > 0 && shop.images.slice(1).map((image, index) => (
-                                <div className="col-6" key={index}>
-                                    <MyImage
-                                        src={image.photoUrl}
-                                        alt={shop.title}
-                                        layout="responsive"
-                                        placeholder="blur"
-                                        blurDataURL={image.base64}
-                                        height={image.height}
-                                        width={image.width}
-                                    />
-                                </div>
-                            ))}
+                            {shop.images.slice(1).length > 0 &&
+                                shop.images.slice(1).map((image, index) => (
+                                    <div className="col-6" key={index}>
+                                        <MyImage
+                                            src={image.photoUrl}
+                                            alt={shop.title}
+                                            layout="responsive"
+                                            placeholder="blur"
+                                            blurDataURL={image.base64}
+                                            height={image.height}
+                                            width={image.width}
+                                        />
+                                    </div>
+                                ))}
                         </div>
                     </div>
                     <div className="col-md-7">
                         <div className="shop-item-content">
                             <h6>
-                                <a href="#" target="_blank"  >{shop.title}</a>
+                                <a href="#" target="_blank">
+                                    {shop.title}
+                                </a>
                             </h6>
-                            <p> <b>Price: ৳{shop.currentPrice} 200</b>
-                                {shop.previousPrice && <span className="text-secondary text-decoration-line-through ms-2"> ৳{shop.previousPrice} </span>}
+                            <p>
+                                <b>Price: ৳{shop.currentPrice} 200</b>
+                                {shop.previousPrice && (
+                                    <span className="text-secondary text-decoration-line-through ms-2">
+                                        ৳{shop.previousPrice}
+                                    </span>
+                                )}
                             </p>
                             <p> {shop.shortDescription} </p>
                             <p> Estimated Shipping Time: 5-7 days</p>
-                            <a href="tel:+01980653626"> <b>Buy Book (Contact)</b> </a>
+                            <a href="tel:+01980653626">
+                                <b>Buy Book (Contact)</b>
+                            </a>
                         </div>
                     </div>
                 </div>
