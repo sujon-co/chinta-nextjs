@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
@@ -22,6 +23,7 @@ export interface ISliderPlaceholder {
     _id: Types.ObjectId;
     photoUrl: string;
     alt: string;
+    updatedAt: any;
 }
 interface IProps {
     sliders: ISliderPlaceholder[];
@@ -100,7 +102,10 @@ const Sliders = ({ sliders }: IProps) => {
                                             </p>
                                             <p className="card-text">
                                                 <small className="text-muted">
-                                                    Last updated 3 mins ago
+                                                    Last updated{' '}
+                                                    {moment(
+                                                        slider.updatedAt
+                                                    ).fromNow()}
                                                 </small>
                                             </p>
                                             <div className="d-flex gap-1 mb-0">
@@ -144,12 +149,14 @@ Sliders.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await instance.get<{ data: ISlider[]; }>('/sliders');
+    const { data } = await instance.get<{ data: ISlider[] }>('/sliders');
 
     if (data.data.length > 0) {
         const sliders = await Promise.all(
             data.data.map(async (data) => {
-                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
+                const { base64, img } = await getPlaiceholder(
+                    `${config.imageUploadUrl}${data.photoUrl}`
+                );
                 return {
                     ...data,
                     ...img,

@@ -1,10 +1,11 @@
+import moment from 'moment';
 import { Types } from 'mongoose';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import MyImage from '../Image';
 
-interface IProjectItem {
-    _id: Types.ObjectId;
+export interface IProjectItem {
+    _id: Types.ObjectId | string;
     name: string;
     type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism';
     status: 'idea' | 'inProgress' | 'underConstruction' | 'completed';
@@ -58,7 +59,12 @@ const ProjectItem: NextPage<Props> = ({ project }) => {
                     <div className="project-item-overlay">
                         <h6> {project.name} </h6>
                         <div className="fs-sm">Location: Dhaka, Bangladesh</div>
-                        <div className="fs-sm">Data: {project.updatedAt} </div>
+                        <div className="fs-sm">
+                            Data:{' '}
+                            {moment(project.updatedAt)
+                                .toDate()
+                                .toLocaleDateString()}
+                        </div>
                     </div>
                 </div>
             </a>

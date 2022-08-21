@@ -17,10 +17,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-const SEL = "custom-section";
+const SEL = 'custom-section';
 const SECTION_SEL = `.${SEL}`;
-
-
 
 // NOTE: if using fullpage extensions/plugins put them here and pass it as props.
 const pluginWrapper = () => {
@@ -29,8 +27,11 @@ const pluginWrapper = () => {
      */
 };
 
-const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliderImages, about, projects }) => {
-
+const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
+    sliderImages,
+    about,
+    projects,
+}) => {
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
     };
@@ -39,8 +40,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         //@ts-ignore
         fullpage_api.moveSectionDown();
     };
-
-
 
     return (
         <div className="App">
@@ -56,7 +55,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 scrollOverflowReset
                 scrollOverflow
                 sectionSelector={SECTION_SEL}
-                render={(comp) =>
+                render={(comp) => (
                     <ReactFullpage.Wrapper>
                         <div className={`${SEL} pt-0`}>
                             <div className="container">
@@ -69,15 +68,20 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                     modules={[Autoplay]}
                                     className="mySwiper"
                                 >
-                                    {sliderImages.length > 0 && (
+                                    {sliderImages.length > 0 &&
                                         sliderImages.map((image) => (
                                             <SwiperSlide key={image.src}>
-                                                <img className='img-fluid' src={image.src} alt={image.alt} />
+                                                <img
+                                                    className="img-fluid"
+                                                    src={image.src}
+                                                    alt={image.alt}
+                                                />
                                             </SwiperSlide>
-                                        ))
-                                    )}
+                                        ))}
                                     {sliderImages.length === 0 && (
-                                        <h1>Please, Upload Image from dashboard</h1>
+                                        <h1>
+                                            Please, Upload Image from dashboard
+                                        </h1>
                                     )}
                                 </Swiper>
                             </div>
@@ -87,27 +91,29 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id='projects' className={SEL}>
+                        <div id="projects" className={SEL}>
                             <div className="container ">
-                                <div className="projects" onWheel={scrollHandler}>
+                                <div
+                                    className="projects"
+                                    onWheel={scrollHandler}
+                                >
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
                                         {projects.map((project, index) => (
-                                            <ProjectItem project={project} key={index + 1} />
+                                            <ProjectItem
+                                                project={project}
+                                                key={index + 1}
+                                            />
                                         ))}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className={SEL}>
-                            <pre> {JSON.stringify(projects, null, 4)}</pre>
-                        </div>
-                        <div className={SEL}>
                             <HomePageContact />
                         </div>
                     </ReactFullpage.Wrapper>
-                }
+                )}
             />
-
         </div>
     );
 };
@@ -116,14 +122,18 @@ export const getServerSideProps = async () => {
     const { data: sliders } = await instance.get<AxiosResponse<ISlider[]>>(
         '/sliders'
     );
-    const { data: _about } = await instance.get<{ data: IAbout[]; }>(
+    const { data: _about } = await instance.get<{ data: IAbout[] }>(
         '/info/about'
     );
-    const { data: _projects } = await instance.get<{ data: IProject[]; }>('/projects');
+    const { data: _projects } = await instance.get<{ data: IProject[] }>(
+        '/projects'
+    );
 
     const sliderImages = await Promise.all(
         sliders.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
+            const { base64, img } = await getPlaiceholder(
+                `${config.imageUploadUrl}${data.photoUrl}`
+            );
             return {
                 ...img,
                 ...data,
@@ -133,26 +143,28 @@ export const getServerSideProps = async () => {
     );
 
     const aboutData = _about.data[0];
-    const about = await getPlaiceholder(`${config.imageUploadUrl}${aboutData.photoUrl}`).then(
-        ({ base64, img }) => {
-            return {
-                ...img,
-                ...aboutData,
-                base64: base64,
-            };
-        }
-    );
+    const about = await getPlaiceholder(
+        `${config.imageUploadUrl}${aboutData.photoUrl}`
+    ).then(({ base64, img }) => {
+        return {
+            ...img,
+            ...aboutData,
+            base64: base64,
+        };
+    });
 
     const projects = await Promise.all(
         _projects.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.topImage}`);
+            const { base64, img } = await getPlaiceholder(
+                `${config.imageUploadUrl}${data.topImage}`
+            );
             return {
                 ...data,
                 topImage: {
                     ...img,
                     base64: base64,
                     photoUrl: data.topImage,
-                }
+                },
             };
         })
     );
@@ -161,10 +173,8 @@ export const getServerSideProps = async () => {
             sliderImages,
             about,
             projects,
-        }
+        },
     };
 };
 
 export default Final;
-
-
