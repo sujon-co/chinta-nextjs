@@ -1,36 +1,35 @@
 import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IProject } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import { number, object, string } from 'yup';
 
-// interface IAddSliderProps {
-//     studio: IStudioWithImagePlaceholder;
-//     isAdd: boolean;
-//     setIsAdd: Dispatch<SetStateAction<boolean>>;
-//     isUpdate: boolean;
-// }
+interface IAddProjectProps {
+    project: IProject;
+    setIsAdd: Dispatch<SetStateAction<boolean>>;
+    isUpdate: boolean;
+}
 
-const AddProject: FC = ({ }) => {
+const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
     const initialValues: IProject = {
-        _id: "",
-        name: '',
-        type: 'residential',
-        status: 'idea',
-        principalArchitect: '',
-        designTeam: '',
-        engineer: '',
-        taskConstructionFirm: '',
-        photograph: '',
-        year: 2022,
-        description: '',
-        topImage: '',
-        portraitImage: '',
-        landscape: '',
-        size: '',
-        images: [],
+        _id: isUpdate ? project._id : '',
+        name: isUpdate ? project.name : '',
+        type: isUpdate ? project.type : 'residential',
+        status: isUpdate ? project.status : 'idea',
+        principalArchitect: isUpdate ? project.principalArchitect : '',
+        designTeam: isUpdate ? project.designTeam : '',
+        engineer: isUpdate ? project.engineer : '',
+        taskConstructionFirm: isUpdate ? project.taskConstructionFirm : '',
+        photograph: isUpdate ? project.photograph : '',
+        year: isUpdate ? project.year : 2022,
+        description: isUpdate ? project.description : '',
+        topImage: isUpdate ? project.topImage : '',
+        portraitImage: isUpdate ? project.portraitImage : '',
+        landscape: isUpdate ? project.landscape : '',
+        size: isUpdate ? project.size : '',
+        images: isUpdate ? project.images : [],
         map: {
             getLocation: {
                 lat: 0,
@@ -48,42 +47,111 @@ const AddProject: FC = ({ }) => {
         formikHelpers: FormikHelpers<IProject>
     ) => {
         try {
-            console.log({ values });
-            const formData = new FormData();
+            if (!isUpdate) {
+                console.log({ values });
+                const formData = new FormData();
 
-            formData.append('topImage', values.topImage);
-            formData.append('portraitImage', values.portraitImage);
-            values.images.forEach((image) => {
-                formData.append('images', image);
-            });
+                formData.append('topImage', values.topImage);
+                formData.append('portraitImage', values.portraitImage);
+                values.images.forEach((image) => {
+                    formData.append('images', image);
+                });
 
-            const {
-                data: { data: imageUrl },
-            } = await axios.post(
-                'http://localhost:4000/api/upload/images',
-                formData,
-                {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
+                const {
+                    data: { data: imageUrl },
+                } = await axios.post(
+                    'http://localhost:4000/api/upload/images',
+                    formData,
+                    {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    }
+                );
+
+                const project: IProject = {
+                    ...values,
+                    topImage: imageUrl.topImage,
+                    portraitImage: imageUrl.portraitImage,
+                    images: imageUrl.images,
+                };
+
+                // @ts-ignore
+                delete project._id;
+
+                const { data } = await instance.post('/projects', project);
+                if (data.success) {
+                    toast.success(data.message);
+                    formikHelpers.resetForm();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    toast.error(data.message);
                 }
-            );
-            console.log({ values, imageUrl });
-
-            const project: IProject = {
-                ...values,
-                topImage: imageUrl.topImage,
-                portraitImage: imageUrl.portraitImage,
-                images: imageUrl.images,
-            };
-
-            const { data } = await instance.post('/projects', project);
-            if (data.success) {
-                toast.success(data.message);
-                console.log(data);
-                // formikHelpers.resetForm();
             } else {
-                toast.error(data.message);
+                const formData = new FormData();
+
+                let _topImage = '';
+                let _portraitImage = '';
+
+                if (typeof values.topImage === 'string') {
+                    _topImage = values.topImage;
+                } else {
+                    formData.append('topImage', values.topImage);
+                    formData.append('topImagePath', project.topImage);
+                }
+
+                if (typeof values.portraitImage === 'string') {
+                    _portraitImage = values.portraitImage;
+                } else {
+                    formData.append('portraitImage', values.portraitImage);
+                    formData.append('portraitImagePath', project.portraitImage);
+                }
+
+                values.images.forEach((image) => {
+                    if (typeof image !== 'string') {
+                        formData.append('images', image);
+                    } else {
+                        console.log('String file');
+                    }
+                });
+
+                const { data: imageUrl } = await imageUploadInstance.patch(
+                    '/upload/images',
+                    formData
+                );
+
+                _topImage = imageUrl.data.topImage
+                    ? imageUrl.data.topImage
+                    : project.topImage;
+                _portraitImage = imageUrl.data.portraitImage
+                    ? imageUrl.data.portraitImage
+                    : project.portraitImage;
+
+                const _project: IProject = {
+                    ...values,
+                    topImage: _topImage,
+                    portraitImage: _portraitImage,
+                    images: imageUrl.images,
+                };
+
+                // @ts-ignore
+                delete _project._id;
+
+                console.log({ _topImage, _portraitImage });
+                console.log({ _project, imageUrl });
+
+                const { data } = await instance.patch(
+                    `/projects/${project._id}`,
+                    _project
+                );
+                if (data.success) {
+                    toast.success(data.message);
+                    // formikHelpers.resetForm();
+                    // setTimeout(() => { window.location.reload(); }, 1000);
+                }
+                console.log(data);
             }
         } catch (err) {
             // const error = err as ResponseError;
@@ -99,10 +167,14 @@ const AddProject: FC = ({ }) => {
                 name: string().required('Name is required'),
                 type: string().required('Type is required'),
                 status: string().required('Status is required'),
-                principalArchitect: string().required('Principal architect is required'),
+                principalArchitect: string().required(
+                    'Principal architect is required'
+                ),
                 designTeam: string().required('Design team is required'),
                 engineer: string().required('Engineer is required'),
-                taskConstructionFirm: string().required('Task construction firm is required'),
+                taskConstructionFirm: string().required(
+                    'Task construction firm is required'
+                ),
                 photograph: string().required('Photograph is required'),
                 year: number().required('Year is required'),
                 description: string().required('Description is required'),
@@ -112,9 +184,6 @@ const AddProject: FC = ({ }) => {
                 // gallery: array().required('Gallery is required'),
             })}
         >
-
-
-
             {({ touched, errors, isSubmitting, setFieldValue, values }) => (
                 <Form className="mb-3">
                     <div className="mb-3">
@@ -339,6 +408,7 @@ const AddProject: FC = ({ }) => {
                             </div>
                         )}
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="portraitImage" className="form-label">
                             Portrait Image
@@ -355,12 +425,13 @@ const AddProject: FC = ({ }) => {
                                 );
                             }}
                         />
+                        {errors.portraitImage && touched.portraitImage && (
+                            <div className="text-danger">
+                                Portrait Image is a required field
+                            </div>
+                        )}
                     </div>
-                    {errors.portraitImage && touched.portraitImage && (
-                        <div className="text-danger">
-                            Portrait Image is a required field
-                        </div>
-                    )}
+
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
                             Images
@@ -377,12 +448,13 @@ const AddProject: FC = ({ }) => {
                                 ]);
                             }}
                         />
+                        {errors.images && touched.images && (
+                            <div className="text-danger">
+                                Images is a required field
+                            </div>
+                        )}
                     </div>
-                    {errors.images && touched.images && (
-                        <div className="text-danger">
-                            Images is a required field
-                        </div>
-                    )}
+
                     {/* <div className="mb-3">
                         <label htmlFor="gallery" className="form-label">
                             Gallery
@@ -405,12 +477,11 @@ const AddProject: FC = ({ }) => {
                             Gallery  is a required field
                         </div>
                     )} */}
-                    <pre>{JSON.stringify(errors, null, 2)} </pre>
                     <div className="d-flex gap-1 mb-0">
                         <button
                             type="button"
                             className="btn btn-dark btn-sm fs-12"
-                        // onClick={() => setIsAdd(false)}
+                            onClick={() => setIsAdd(false)}
                         >
                             Cancel
                         </button>

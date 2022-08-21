@@ -31,3 +31,16 @@
     z-index: 101 !important;
     background-color: rgb(31 31 31 / 75%) !important;
 }
+
+/** table modified **/
+.modified-table {
+    thead,
+    tbody {
+        tr {
+            th,
+            td {
+                min-width: 140px;
+            }
+        }
+    }
+}

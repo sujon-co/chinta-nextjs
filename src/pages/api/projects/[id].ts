@@ -3,7 +3,6 @@ import nextConnect from 'next-connect';
 import connectDB from 'server/database';
 import authenticated from 'server/middlewares/authenticated';
 import Project from 'server/models/Project';
-import Slider from 'server/models/Slider';
 
 const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
@@ -45,17 +44,17 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
     .patch(async (req, res, next) => {
         try {
             const { body, query } = req;
-            // const { id: _id } = query;
-            // const slider = await Slider.findOneAndUpdate(
-            //     { _id },
-            //     { ...body },
-            //     { new: true }
-            // );
+            const { id: _id } = query;
+            const slider = await Project.findOneAndUpdate(
+                { _id },
+                { ...body },
+                { new: true }
+            );
 
             res.status(200).json({
                 success: true,
-                data: null,
-                message: 'Slider updated successfully.',
+                data: slider,
+                message: 'Project updated successfully.',
             });
         } catch (error) {
             next(error);
@@ -64,12 +63,12 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
     .delete(async (req, res, next) => {
         try {
             const { id: _id } = req.query;
-            const slider = await Slider.findOneAndDelete({ _id });
+            const slider = await Project.findOneAndDelete({ _id });
 
             res.status(200).json({
                 success: true,
                 data: slider,
-                message: 'Slider deleted successfully.',
+                message: 'Project deleted successfully.',
             });
         } catch (error) {
             next(error);

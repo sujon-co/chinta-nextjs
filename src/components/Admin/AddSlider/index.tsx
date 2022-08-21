@@ -45,7 +45,6 @@ const AddSlider: FC<IAddSliderProps> = ({
                     _photoUrl = imageUrl.data;
                 }
 
-                console.log({ _photoUrl });
 
                 const _slider: ISlider = {
                     ...values,

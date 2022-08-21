@@ -24,16 +24,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
             setPageLoading(false);
         };
 
-        // if (router.pathname === "/") {
-        //     window.addEventListener('load', () => {
-        //         setTimeout(() => {
-        //             handleComplete();
-        //         }, 3000);
-        //     });
-        //     return () => {
-        //         window.removeEventListener('load', handleComplete);
-        //     };
-        // }
         router.events.on('routeChangeStart', handleStart);
         router.events.on('routeChangeComplete', handleComplete);
         router.events.on('routeChangeError', handleComplete);
@@ -51,7 +41,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
     }, []);
 
     const getLayout = Component.getLayout || ((page: ReactNode) => page);
-    console.log({ pageLoading });
     return (
         <>
             {pageLoading ? (
@@ -88,3 +77,4 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
 };
 
 export default MyApp;
+

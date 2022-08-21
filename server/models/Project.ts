@@ -25,8 +25,14 @@ const projectSchema = new Schema<IProject>(
             type: String,
             required: true,
         },
-        landscape: String,
-        size: String,
+        landscape: {
+            type: String,
+            required: true,
+        },
+        size: {
+            type: String,
+            required: true,
+        },
         engineer: {
             type: String,
             required: true,
