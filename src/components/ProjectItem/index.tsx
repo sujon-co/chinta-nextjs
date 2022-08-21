@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-img-element */
 import moment from 'moment';
 import { Types } from 'mongoose';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { config } from 'src/config';
 import MyImage from '../Image';
 
 export interface IProjectItem {
@@ -40,22 +42,32 @@ export interface IProjectItem {
 }
 interface Props {
     project: IProjectItem;
+    isNextImage?: boolean;
 }
 
-const ProjectItem: NextPage<Props> = ({ project }) => {
+const ProjectItem: NextPage<Props> = ({ project, isNextImage = true }) => {
     return (
         <Link as={`/projects/${project._id}`} href="/projects/[slug]">
             <a className="project-item">
                 <div className="project-item-img">
-                    <MyImage
-                        className="img-fluid"
-                        src={project.topImage.photoUrl}
-                        layout="responsive"
-                        alt={project.name}
-                        height={project.topImage.height}
-                        width={project.topImage.width}
-                        blurDataURL={project.topImage.base64}
-                    />
+                    {!isNextImage && (
+                        <img
+                            className="img-fluid"
+                            src={`${config.imageUploadUrl}/${project.topImage}`}
+                            alt={project.name}
+                        />
+                    )}
+                    {isNextImage && (
+                        <MyImage
+                            className="img-fluid"
+                            src={project.topImage.photoUrl}
+                            layout="responsive"
+                            alt={project.name}
+                            height={project.topImage.height}
+                            width={project.topImage.width}
+                            blurDataURL={project.topImage.base64}
+                        />
+                    )}
                     <div className="project-item-overlay">
                         <h6> {project.name} </h6>
                         <div className="fs-sm">Location: Dhaka, Bangladesh</div>

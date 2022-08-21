@@ -69,7 +69,12 @@ const projectSchema = new Schema<IProject>(
     { timestamps: true }
 );
 
-projectSchema.index({ name: 'text', year: 'text', principalArchitect: 'text' });
+projectSchema.index({
+    name: 'text',
+    principalArchitect: 'text',
+    designTeam: 'text',
+    engineer: 'text',
+});
 
 const Project = models.Project || model<IProject>('Project', projectSchema);
 export default Project;
