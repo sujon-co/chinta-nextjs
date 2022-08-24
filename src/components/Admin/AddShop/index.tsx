@@ -66,7 +66,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                     url: slugify(values.title),
                     images: imageUrl.images,
                 };
-                const { data } = await instance.post<{ message: string }>(
+                const { data } = await instance.post<{ message: string; }>(
                     '/info/shops',
                     shop
                 );
