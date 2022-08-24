@@ -4,6 +4,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IProject } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import { config } from 'src/config';
 import { number, object, string } from 'yup';
 
 interface IAddProjectProps {
@@ -60,7 +61,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 const {
                     data: { data: imageUrl },
                 } = await axios.post(
-                    'http://localhost:4000/api/upload/images',
+                    `${config.imageUploadUrl}/api/upload/images`,
                     formData,
                     {
                         headers: {

@@ -4,6 +4,7 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IShop, ResponseError } from 'server/interface';
 import instance from 'src/api/httpService';
+import { config } from 'src/config';
 import { ShopItem } from 'src/pages/info';
 import { array, object, string } from 'yup';
 
@@ -53,7 +54,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                 const {
                     data: { data: imageUrl },
                 } = await axios.post(
-                    'http://localhost:4000/api/upload/images',
+                    `${config.imageUploadUrl}/api/upload/images`,
                     formData,
                     {
                         headers: {
