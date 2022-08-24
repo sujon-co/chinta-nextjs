@@ -18,7 +18,6 @@ interface IProject {
     images: string[];
     landscape?: string;
     size?: string;
-    // gallery: string[];
     map: {
         getLocation: {
             lat: string | number;
@@ -80,6 +79,14 @@ interface IShop {
     currentPrice: number;
     stock: number;
     images: [string];
+}
+interface INews {
+    _id: Types.ObjectId | string;
+    title: string;
+    description: string;
+    image: string;
+    url: string;
+    createdAt?: any;
 }
 
 type ResponseError = AxiosError & {

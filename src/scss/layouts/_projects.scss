@@ -16,6 +16,11 @@
         background: lightgray;
     }
 }
+.news-section {
+    &::-webkit-scrollbar {
+        display: none !important;
+    }
+}
 .project-item {
     position: relative;
     cursor: pointer;

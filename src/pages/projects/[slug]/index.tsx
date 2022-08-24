@@ -37,7 +37,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     />
                                 </div>
                                 <div className="content">
-                                    <h4> {project.title} </h4>
+                                    <h5 className="pt-2"> {project.name} </h5>
                                     <div className="other">
                                         <b>Type:</b> {project.type}
                                     </div>

@@ -82,9 +82,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 const { data } = await instance.post('/projects', project);
                 if (data.success) {
                     toast.success(data.message);
-                    formikHelpers.resetForm();
+                    // formikHelpers.resetForm();
                     setTimeout(() => {
-                        window.location.reload();
+                        // window.location.reload();
                     }, 1000);
                 } else {
                     toast.error(data.message);

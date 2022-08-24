@@ -4,12 +4,13 @@ import { Types } from 'mongoose';
 import { GetServerSideProps, NextPage } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
 import { Fragment, useState } from 'react';
-import { IAbout, IAward, IShop, IStudio } from 'server/interface';
+import { IAbout, IAward, INews, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import About, { AboutWithImage } from 'src/components/Info/about';
 import ShopItem from 'src/components/Info/shop/ShopItem';
 import Studio, { StudioItem } from 'src/components/Info/studio';
+import NewsItem from 'src/components/NewsItem';
 import { config } from 'src/config';
 import { scrollHandler } from 'src/utils';
 
@@ -41,11 +42,27 @@ export type ShopItem = {
     currentPrice: number;
     stock: number;
 };
+
+export type NewsItem = {
+    _id: string | Types.ObjectId;
+    title: string;
+    description: string;
+    image: string;
+    url: string;
+    createdAt?: any;
+    src: string;
+    height: number;
+    width: number;
+    base64: string;
+    type?: string | undefined;
+};
+
 interface Props {
     studios: StudioItem[];
     about: AboutWithImage;
     awards: IAward[];
     shops: ShopItem[];
+    news: NewsItem[];
 }
 const originalColors = [
     'salmon',
@@ -57,7 +74,7 @@ const originalColors = [
     'yellow',
 ];
 
-const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
+const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
     const [sectionsColor, setSectionsColor] = useState(originalColors);
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
@@ -131,10 +148,15 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
                                 ))}
                             </div>
                             <div className={SEL} >
-                                <h1>Section Jobs</h1>
+                                <h4>Section Jobs</h4>
                             </div>
                             <div className={SEL} >
-                                <h1>Section News</h1>
+                                <div className='news-section' onWheel={scrollHandler}>
+                                    {news.map(news => (
+                                        <NewsItem news={news} key={news.title} />
+                                    ))}
+                                </div>
+
                             </div>
                         </ReactFullpage.Wrapper>
                     }
@@ -145,18 +167,15 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>(
-        '/info/studios'
-    );
-    const { data: _about } = await instance.get<{ data: IAbout[]; }>(
-        '/info/about'
-    );
+    const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>('/info/studios');
+    const { data: _about } = await instance.get<{ data: IAbout[]; }>('/info/about');
     const aboutData = _about.data[0];
 
     const { data: awards } = await instance.get<{ data: IAward[]; }>('/info/awards');
     const { data: _shops } = await instance.get<{ data: IShop[]; }>('/info/shops');
+    const { data: _news } = await instance.get<{ data: INews[]; }>('/info/news');
 
-    const [studios, about, shops] = await Promise.all([
+    const [studios, about, shops, news] = await Promise.all([
         await Promise.all(
             studio.data.map(async (data) => {
                 const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
@@ -191,7 +210,17 @@ export const getServerSideProps: GetServerSideProps = async () => {
                     ...shop,
                     images
                 };
-            }))
+            })),
+        await Promise.all(
+            _news.data.map(async (data) => {
+                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.image}`);
+                return {
+                    ...img,
+                    ...data,
+                    base64: base64,
+                };
+            })
+        ),
     ]);
 
     return {
@@ -199,7 +228,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
             studios,
             about,
             awards: awards.data,
-            shops
+            shops,
+            news,
         },
     };
 };
