@@ -27,11 +27,14 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
         router.events.on('routeChangeStart', handleStart);
         router.events.on('routeChangeComplete', handleComplete);
         router.events.on('routeChangeError', handleComplete);
-        window.addEventListener('load', () => {
-            handleComplete();
-        });
+        // window.addEventListener('load', () => {
+        //     handleComplete();
+        // });
         return () => {
             window.removeEventListener('load', handleComplete);
+            router.events.off('routeChangeStart', handleStart);
+            router.events.off('routeChangeComplete', handleComplete);
+            router.events.off('routeChangeError', handleComplete);
         };
 
     }, [router]);

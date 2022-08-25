@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { config } from 'src/config';
 
-const myLoader = ({ src }: any) => {
+const myLoader = ({ src, quality }: any) => {
     return `${config.imageUploadUrl}${src}`;
 };
 
