@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { IProject } from 'server/interface';
@@ -29,42 +30,47 @@ const Search: NextPage<Props> = () => {
     console.log({ projects, isLoading, query: router.query.query });
 
     return (
-        <Layout>
-            <div
-                className="container search-section"
-                style={{ paddingTop: 120 }}
-            >
-                <div className="search-result">
-                    {isLoading && (
-                        <div className="d-flex justify-content-center">
-                            <div className="spinner-border" role="status">
-                                <span className="visually-hidden">
-                                    Loading...
-                                </span>
-                            </div>
-                        </div>
-                    )}
-                    {!isLoading && (
-                        <>
-                            {projects.length > 0 ? (
-                                <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-5 ">
-                                    {projects.map((project: IProject) => (
-                                        <ProjectItem
-                                            project={project}
-                                            key={project.portraitImage}
-                                        />
-                                    ))}
+        <>
+            <Head>
+                <title>Chinta Sthapatya - Search</title>
+            </Head>
+            <Layout>
+                <div
+                    className="container search-section"
+                    style={{ paddingTop: 120 }}
+                >
+                    <div className="search-result">
+                        {isLoading && (
+                            <div className="d-flex justify-content-center">
+                                <div className="spinner-border" role="status">
+                                    <span className="visually-hidden">
+                                        Loading...
+                                    </span>
                                 </div>
-                            ) : (
-                                <h5 className="text-center">
-                                    No Result Found!
-                                </h5>
-                            )}
-                        </>
-                    )}
+                            </div>
+                        )}
+                        {!isLoading && (
+                            <>
+                                {projects.length > 0 ? (
+                                    <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-5 ">
+                                        {projects.map((project: IProject) => (
+                                            <ProjectItem
+                                                project={project}
+                                                key={project.portraitImage}
+                                            />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <h5 className="text-center">
+                                        No Result Found!
+                                    </h5>
+                                )}
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </>
     );
 };
 

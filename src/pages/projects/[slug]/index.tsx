@@ -17,7 +17,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
     return (
         <>
             <Head>
-                <title>Aloks&apos;s Vacation House</title>
+                <title> {project.name} </title>
             </Head>
             <Layout>
                 <section className="project-details-section">

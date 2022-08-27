@@ -1,6 +1,7 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { Fragment, useState } from 'react';
 import { IAbout, IAward, INews, IShop, IStudio } from 'server/interface';
@@ -57,6 +58,9 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
 
     return (
         <Fragment>
+            <Head>
+                <title>Chinta Sthapatya</title>
+            </Head>
             <Header />
             <div className='container'>
                 <ul id="myMenu">
