@@ -3,6 +3,7 @@ import moment from 'moment';
 import { Types } from 'mongoose';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { IProject } from 'server/interface';
 import { config } from 'src/config';
 import MyImage from '../Image';
 
@@ -41,7 +42,7 @@ export interface IProjectItem {
     };
 }
 interface Props {
-    project: IProjectItem;
+    project: IProject;
     isNextImage?: boolean;
 }
 
@@ -60,12 +61,11 @@ const ProjectItem: NextPage<Props> = ({ project, isNextImage = true }) => {
                     {isNextImage && (
                         <MyImage
                             className="img-fluid"
-                            src={project.topImage.photoUrl}
+                            src={project.topImage}
                             layout="responsive"
                             alt={project.name}
-                            height={project.topImage.height}
-                            width={project.topImage.width}
-                            blurDataURL={project.topImage.base64}
+                            height={200}
+                            width={200}
                         />
                     )}
                     <div className="project-item-overlay">

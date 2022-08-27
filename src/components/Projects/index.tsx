@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
 import { useState } from 'react';
+import { IProject } from 'server/interface';
 import ProjectItem, { IProjectItem } from '../ProjectItem';
 
 type IFilter =
@@ -11,7 +12,7 @@ type IFilter =
     | 'programmatic';
 
 interface Props {
-    projects: IProjectItem[];
+    projects: IProject[];
 }
 
 const Projects: NextPage<Props> = ({ projects }) => {
@@ -184,41 +185,36 @@ const Projects: NextPage<Props> = ({ projects }) => {
             </div>
             <ul className="project-filter">
                 <li
-                    className={`filter-item ${
-                        filter === 'scrolling' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'scrolling' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('scrolling')}
                 >
                     Scrolling-Grid
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'status' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'status' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('status')}
                 >
                     Status
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'programmatic' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'programmatic' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('programmatic')}
                 >
                     Programmatic
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'location' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'location' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('location')}
                 >
                     Location
                 </li>
                 <li
-                    className={`filter-item ${
-                        filter === 'bar_view' ? 'active' : ''
-                    }`}
+                    className={`filter-item ${filter === 'bar_view' ? 'active' : ''
+                        }`}
                     onClick={() => setFilter('bar_view')}
                 >
                     Chronological

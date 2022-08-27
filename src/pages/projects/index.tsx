@@ -26,27 +26,13 @@ const ProjectsPage: NextPage<
 };
 
 export const getServerSideProps = async () => {
-    const { data: _projects } = await instance.get<{ data: IProject[] }>(
+    const { data: _projects } = await instance.get<{ data: IProject[]; }>(
         '/projects'
     );
-    const projects = await Promise.all(
-        _projects.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(
-                `${config.imageUploadUrl}${data.topImage}`
-            );
-            return {
-                ...data,
-                topImage: {
-                    ...img,
-                    base64: base64,
-                    photoUrl: data.topImage,
-                },
-            };
-        })
-    );
+
     return {
         props: {
-            projects,
+            projects: _projects.data,
         },
     };
 };

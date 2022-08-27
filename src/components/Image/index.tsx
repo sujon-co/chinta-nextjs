@@ -2,15 +2,15 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { config } from 'src/config';
 
-const myLoader = ({ src, quality }: any) => {
+const myLoader = ({ src }: any) => {
     return `${config.imageUploadUrl}${src}`;
 };
 
 type MyImage = {
     src: string;
     alt: string;
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
     className?: string;
     layout: 'fixed' | 'fill' | 'intrinsic' | 'responsive' | 'raw';
     placeholder?: string;
@@ -25,7 +25,6 @@ const MyImage: FC<MyImage> = ({
     height,
     className,
     layout,
-    blurDataURL,
     objectFit,
 }) => {
     return (
@@ -38,7 +37,7 @@ const MyImage: FC<MyImage> = ({
             height={height}
             layout={layout}
             placeholder="blur"
-            blurDataURL={blurDataURL}
+            blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAQAAAAHUWYVAAABKUlEQVR42u3RMQEAAAjDsE051jHBwZFKaJqJHlUgQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQICYAERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABAQIECACAkRAgAgIEAEBIiACAkRAgAgIEAEBIiACAkRAgOiyBW92ZAHvNWp5AAAAAElFTkSuQmCC"}
             objectFit={objectFit}
         />
     );
