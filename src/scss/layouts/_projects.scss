@@ -7,6 +7,7 @@
     &::-webkit-scrollbar {
         width: 3px;
         height: 3px;
+        display: block;
     }
     &::-webkit-scrollbar-thumb {
         background-color: red;
@@ -16,11 +17,7 @@
         background: lightgray;
     }
 }
-.news-section {
-    &::-webkit-scrollbar {
-        display: none !important;
-    }
-}
+
 .project-item {
     position: relative;
     cursor: pointer;

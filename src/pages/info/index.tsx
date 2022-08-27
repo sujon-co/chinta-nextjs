@@ -2,6 +2,7 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
 import { Types } from 'mongoose';
 import { GetServerSideProps, NextPage } from 'next';
+import Image from 'next/image';
 import { getPlaiceholder } from 'plaiceholder';
 import { Fragment, useState } from 'react';
 import { IAbout, IAward, INews, IShop, IStudio } from 'server/interface';
@@ -130,7 +131,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                             <div className={SEL}>
                                 <div className="">
                                     {awards.map((award) => (
-                                        <div className="d-flex gap-2" key={award.awardName}>
+                                        <div className="d-flex gap-2 mb-2" key={award.awardName}>
                                             <span> {award.year} </span>
                                             <span> {award.awardName} </span>
                                             <a href={award.programUrl} target="_blank" rel="noreferrer">
@@ -148,13 +149,25 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                                 ))}
                             </div>
                             <div className={SEL} >
-                                <h4>Section Jobs</h4>
+                                <div className="jobs-section" onWheel={scrollHandler}>
+                                    <div className="col-md-10 mx-auto">
+                                        <p>Our journey started in Copenhagen in 2005, followed by an office in NYC in 2010, London in 2016 and Barcelona in 2019. We have completed about 35 buildings in 10+ countries and never limit ourselves to a specific region – we go where the projects are – even if its Mars!</p>
+
+                                        <Image src="/jobs.jpeg" alt='jobs' layout='responsive' width={400} height={200} />
+
+                                        <p>Over the last two decades, we have grown organically to a 500+ person family worldwide. Working on new projects, typologies and challenges – we are joined by new BIGsters with the skills, experience and expertise our projects need! This is how we continue to grow and get better at what we do.
+                                            If you are interested in joining Chinta , view our current opportunities
+                                            <a className='px-1' href="" style={{ color: '#0087ca' }}> Apply Here </a> . We look forward to hearing from you!</p>
+                                    </div>
+                                </div>
                             </div>
                             <div className={SEL} >
-                                <div className='news-section' onWheel={scrollHandler}>
-                                    {news.map(news => (
-                                        <NewsItem news={news} key={news.title} />
-                                    ))}
+                                <div className="col-md-10 mx-auto">
+                                    <div className='news-section' onWheel={scrollHandler}>
+                                        {news.map(news => (
+                                            <NewsItem news={news} key={news.title} />
+                                        ))}
+                                    </div>
                                 </div>
 
                             </div>
@@ -162,7 +175,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                     }
                 />
             </div>
-        </Fragment>
+        </Fragment >
     );
 };
 

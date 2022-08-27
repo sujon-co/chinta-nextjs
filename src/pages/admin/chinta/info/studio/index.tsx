@@ -68,7 +68,7 @@ const Studio = ({ studios }: IProps) => {
                     <div className="row">
                         {studios.length > 0 ? (
                             studios.map((studio) => (
-                                <div className="col-md-4" key={studio.src}>
+                                <div className="col-md-3" key={studio.src}>
                                     <div className="card p-2  mb-3">
                                         <div className="w-100">
                                             <MyImage

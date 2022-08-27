@@ -3,7 +3,6 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { IStudio, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
-import MyImage from 'src/components/Image';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
@@ -137,7 +136,7 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                                 );
                             }}
                         />
-                        {isUpdate && (
+                        {/* {isUpdate && (
                             <MyImage
                                 layout="fixed"
                                 className="rounded-1 img-fluid mt-1"
@@ -148,7 +147,7 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                                 height={50}
                                 width={50}
                             />
-                        )}
+                        )} */}
                         {errors.photoUrl && touched.photoUrl && (
                             <div className="text-danger">
                                 Photo is a required field
