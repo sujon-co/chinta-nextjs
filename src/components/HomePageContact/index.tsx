@@ -42,11 +42,11 @@ const HomePageContact: FC<Props> = () => {
                         <div className="wrapper">
                             <div className="type-writer-box">
                                 <textarea spellCheck="false" autoCorrect='false' autoComplete='false' onWheel={scrollHandler} />
-                                <button onClick={openModal}>
+                                <button className='send-btn' onClick={openModal}>
                                     &#9654;
                                 </button>
                             </div>
-                            <div className="drop-message-wrapper">
+                            {/* <div className="drop-message-wrapper">
                                 <div
                                     className="tagline"
                                     style={{ display: showInput ? 'none' : 'block', }}
@@ -54,7 +54,7 @@ const HomePageContact: FC<Props> = () => {
                                 >
                                     <p>DROP US A LINE</p>
                                 </div>
-                            </div>
+                            </div> */}
                             <br />
                             <h6> We would love to hear from you so don&lsquo;t hesitate to say hi! </h6>
 
@@ -122,7 +122,7 @@ const HomePageContact: FC<Props> = () => {
                                 name="name"
                                 placeholder="Your Name"
                             />
-                            <span className="error">this is a error message</span>
+                            {/* <span className="error pt-1">This is a error message</span> */}
                         </div>
                         <div className="input-group">
                             <input
@@ -153,8 +153,8 @@ const HomePageContact: FC<Props> = () => {
                             />
                         </div>
                         <div className="text-end">
-                            <button className=" btn btn-outline-secondary btn-sm py-0 px-1">
-                                &#10004;
+                            <button className='send-btn'>
+                                &#9654;
                             </button>
                         </div>
                     </form>

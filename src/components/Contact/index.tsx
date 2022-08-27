@@ -12,11 +12,11 @@ const Contact: NextPage<Props> = () => {
                     <div className="wrapper">
                         <div className="type-writer-box">
                             <textarea spellCheck="false" autoCorrect='false' autoComplete='false' />
-                            <button  >
+                            <button className='send-btn' >
                                 &#9654;
                             </button>
                         </div>
-                        <div className="drop-message-wrapper">
+                        {/* <div className="drop-message-wrapper">
                             <div
                                 className="tagline"
                                 style={{ display: showInput ? 'none' : 'block', }}
@@ -24,7 +24,7 @@ const Contact: NextPage<Props> = () => {
                             >
                                 <p>DROP US A LINE</p>
                             </div>
-                        </div>
+                        </div> */}
                         <br />
                         <h6>
                             We would love to hear from you so don&lsquo;t
