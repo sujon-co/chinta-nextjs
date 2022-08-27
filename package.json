@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.26",
+    "@popperjs/core": "^2.10.2",
     "axios": "^0.27.2",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.1.3",
