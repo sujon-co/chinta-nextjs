@@ -2,7 +2,7 @@
 import { NextPage } from 'next';
 import { useState } from 'react';
 import { IProject } from 'server/interface';
-import ProjectItem, { IProjectItem } from '../ProjectItem';
+import ProjectItem from '../ProjectItem';
 
 type IFilter =
     | 'scrolling'

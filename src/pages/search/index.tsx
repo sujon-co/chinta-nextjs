@@ -1,11 +1,12 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
 import Layout from 'src/components/Common/Layout';
-import ProjectItem, { IProjectItem } from 'src/components/ProjectItem';
+import ProjectItem from 'src/components/ProjectItem';
 
-interface Props {}
+interface Props { }
 
 const Search: NextPage<Props> = () => {
     const router = useRouter();
@@ -16,7 +17,7 @@ const Search: NextPage<Props> = () => {
         if (router.query.query) {
             setIsLoading(true);
             (async () => {
-                const { data } = await instance.get<{ data: any }>(
+                const { data } = await instance.get<{ data: any; }>(
                     `projects/search/${router.query.query}`
                 );
                 setProjects(data.data);
@@ -46,12 +47,11 @@ const Search: NextPage<Props> = () => {
                     {!isLoading && (
                         <>
                             {projects.length > 0 ? (
-                                <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 ">
-                                    {projects.map((project: IProjectItem) => (
+                                <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-5 ">
+                                    {projects.map((project: IProject) => (
                                         <ProjectItem
                                             project={project}
                                             key={project.portraitImage}
-                                            isNextImage={false}
                                         />
                                     ))}
                                 </div>

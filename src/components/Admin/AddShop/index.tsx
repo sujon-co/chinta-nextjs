@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import { IShop, ResponseError } from 'server/interface';
 import instance from 'src/api/httpService';
 import { config } from 'src/config';
-import { ShopItem } from 'src/pages/info';
 import { array, object, string } from 'yup';
 
 function slugify(str: string) {
@@ -21,7 +20,7 @@ function slugify(str: string) {
 }
 
 interface IAddShop {
-    shop: ShopItem;
+    shop: IShop;
     setIsAdd: Dispatch<SetStateAction<boolean>>;
     isUpdate: boolean;
 }
