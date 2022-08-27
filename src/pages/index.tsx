@@ -2,14 +2,13 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
-import { getPlaiceholder } from 'plaiceholder';
 import { IAbout, IProject, ISlider } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
+import MyImage from 'src/components/Image';
 import About from 'src/components/Info/about';
 import ProjectItem from 'src/components/ProjectItem';
-import { config } from 'src/config';
 import { scrollHandler } from 'src/utils';
 import { Autoplay } from 'swiper';
 
@@ -28,7 +27,7 @@ const pluginWrapper = () => {
 };
 
 const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
-    sliderImages,
+    sliders,
     about,
     projects,
 }) => {
@@ -58,7 +57,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
                 render={(comp) => (
                     <ReactFullpage.Wrapper>
                         <div className={`${SEL} pt-0`}>
-                            <div className="container">
+                            <div className="container" style={{ maxHeight: '2160px', height: '100vh' }}>
                                 <Swiper
                                     autoplay={{
                                         delay: 3000,
@@ -68,17 +67,24 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
                                     modules={[Autoplay]}
                                     className="mySwiper"
                                 >
-                                    {sliderImages.length > 0 &&
-                                        sliderImages.map((image) => (
-                                            <SwiperSlide key={image.src}>
-                                                <img
+                                    {sliders.length > 0 &&
+                                        sliders.map((image) => (
+                                            <SwiperSlide key={image.photoUrl}>
+                                                {/* <img
                                                     className="img-fluid"
-                                                    src={image.src}
+                                                    src={`${config.imageUploadUrl}${image.photoUrl}`}
                                                     alt={image.alt}
+                                                /> */}
+                                                <MyImage
+                                                    src={image.photoUrl}
+                                                    alt={image.alt}
+                                                    layout="fill"
+                                                    width={3840}
+                                                    height={2160}
                                                 />
                                             </SwiperSlide>
                                         ))}
-                                    {sliderImages.length === 0 && (
+                                    {sliders.length === 0 && (
                                         <h1>
                                             Please, Upload Image from dashboard
                                         </h1>
@@ -119,60 +125,15 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
 };
 
 export const getServerSideProps = async () => {
-    const { data: sliders } = await instance.get<AxiosResponse<ISlider[]>>(
-        '/sliders'
-    );
-    const { data: _about } = await instance.get<{ data: IAbout[] }>(
-        '/info/about'
-    );
-    const { data: _projects } = await instance.get<{ data: IProject[] }>(
-        '/projects'
-    );
+    const { data: sliders } = await instance.get<AxiosResponse<ISlider[]>>('/sliders');
+    const { data: _about } = await instance.get<{ data: IAbout[]; }>('/info/about');
+    const { data: projects } = await instance.get<{ data: IProject[]; }>('/projects');
 
-    const sliderImages = await Promise.all(
-        sliders.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(
-                `${config.imageUploadUrl}${data.photoUrl}`
-            );
-            return {
-                ...img,
-                ...data,
-                base64: base64,
-            };
-        })
-    );
-
-    const aboutData = _about.data[0];
-    const about = await getPlaiceholder(
-        `${config.imageUploadUrl}${aboutData.photoUrl}`
-    ).then(({ base64, img }) => {
-        return {
-            ...img,
-            ...aboutData,
-            base64: base64,
-        };
-    });
-
-    const projects = await Promise.all(
-        _projects.data.map(async (data) => {
-            const { base64, img } = await getPlaiceholder(
-                `${config.imageUploadUrl}${data.topImage}`
-            );
-            return {
-                ...data,
-                topImage: {
-                    ...img,
-                    base64: base64,
-                    photoUrl: data.topImage,
-                },
-            };
-        })
-    );
     return {
         props: {
-            sliderImages,
-            about,
-            projects,
+            sliders: sliders.data,
+            about: _about.data[0],
+            projects: projects.data,
         },
     };
 };

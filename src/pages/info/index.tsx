@@ -1,18 +1,15 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
-import { Types } from 'mongoose';
 import { GetServerSideProps, NextPage } from 'next';
 import Image from 'next/image';
-import { getPlaiceholder } from 'plaiceholder';
 import { Fragment, useState } from 'react';
 import { IAbout, IAward, INews, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
-import About, { AboutWithImage } from 'src/components/Info/about';
+import About from 'src/components/Info/about';
 import ShopItem from 'src/components/Info/shop/ShopItem';
-import Studio, { StudioItem } from 'src/components/Info/studio';
+import Studio from 'src/components/Info/studio';
 import NewsItem from 'src/components/NewsItem';
-import { config } from 'src/config';
 import { scrollHandler } from 'src/utils';
 
 // NOTE: if using fullpage extensions/plugins put them here and pass it as props.
@@ -24,46 +21,13 @@ const pluginWrapper = () => {
 const SEL = "custom-section";
 const SECTION_SEL = `.${SEL}`;
 
-type ImageItem = {
-    base64: string;
-    src: string;
-    height: number;
-    width: number;
-    photoUrl: string;
-    type?: string | undefined;
-};
-export type ShopItem = {
-    images: ImageItem[];
-    _id: Types.ObjectId;
-    title: string;
-    url?: string | undefined;
-    shortDescription: string;
-    description?: string | undefined;
-    previousPrice?: number | undefined;
-    currentPrice: number;
-    stock: number;
-};
-
-export type NewsItem = {
-    _id: string | Types.ObjectId;
-    title: string;
-    description: string;
-    image: string;
-    url: string;
-    createdAt?: any;
-    src: string;
-    height: number;
-    width: number;
-    base64: string;
-    type?: string | undefined;
-};
 
 interface Props {
-    studios: StudioItem[];
-    about: AboutWithImage;
+    studios: IStudio[];
+    about: IAbout;
     awards: IAward[];
-    shops: ShopItem[];
-    news: NewsItem[];
+    shops: IShop[];
+    news: INews[];
 }
 const originalColors = [
     'salmon',
@@ -152,9 +116,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                                 <div className="jobs-section" onWheel={scrollHandler}>
                                     <div className="col-md-10 mx-auto">
                                         <p>Our journey started in Copenhagen in 2005, followed by an office in NYC in 2010, London in 2016 and Barcelona in 2019. We have completed about 35 buildings in 10+ countries and never limit ourselves to a specific region – we go where the projects are – even if its Mars!</p>
-
                                         <Image src="/jobs.jpeg" alt='jobs' layout='responsive' width={400} height={200} />
-
                                         <p>Over the last two decades, we have grown organically to a 500+ person family worldwide. Working on new projects, typologies and challenges – we are joined by new BIGsters with the skills, experience and expertise our projects need! This is how we continue to grow and get better at what we do.
                                             If you are interested in joining Chinta , view our current opportunities
                                             <a className='px-1' href="" style={{ color: '#0087ca' }}> Apply Here </a> . We look forward to hearing from you!</p>
@@ -182,67 +144,18 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
 export const getServerSideProps: GetServerSideProps = async () => {
     const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>('/info/studios');
     const { data: _about } = await instance.get<{ data: IAbout[]; }>('/info/about');
-    const aboutData = _about.data[0];
 
     const { data: awards } = await instance.get<{ data: IAward[]; }>('/info/awards');
     const { data: _shops } = await instance.get<{ data: IShop[]; }>('/info/shops');
     const { data: _news } = await instance.get<{ data: INews[]; }>('/info/news');
 
-    const [studios, about, shops, news] = await Promise.all([
-        await Promise.all(
-            studio.data.map(async (data) => {
-                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.photoUrl}`);
-                return {
-                    ...img,
-                    ...data,
-                    base64: base64,
-                };
-            })
-        ),
-        await getPlaiceholder(`${config.imageUploadUrl}${aboutData.photoUrl}`).then(({ base64, img }) => {
-            return {
-                ...img,
-                ...aboutData,
-                base64: base64,
-            };
-        }),
-        await Promise.all(
-            _shops.data.map(async (shop) => {
-                const images = await Promise.all(
-                    shop.images.map(async (image) => {
-                        const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
-                        const obj = {
-                            ...img,
-                            base64: base64,
-                            photoUrl: image
-                        };
-                        return obj;
-                    })
-                );
-                return {
-                    ...shop,
-                    images
-                };
-            })),
-        await Promise.all(
-            _news.data.map(async (data) => {
-                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${data.image}`);
-                return {
-                    ...img,
-                    ...data,
-                    base64: base64,
-                };
-            })
-        ),
-    ]);
-
     return {
         props: {
-            studios,
-            about,
+            studios: studio.data,
+            about: _about.data[0],
             awards: awards.data,
-            shops,
-            news,
+            shops: _shops.data,
+            news: _news.data,
         },
     };
 };

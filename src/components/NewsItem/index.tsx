@@ -1,9 +1,9 @@
 import { FC } from 'react';
-import { NewsItem } from 'src/pages/info';
+import { INews } from 'server/interface';
 import MyImage from '../Image';
 
 interface INewsItemProps {
-    news: NewsItem;
+    news: INews;
 }
 
 
@@ -15,9 +15,8 @@ const NewsItem: FC<INewsItemProps> = ({ news }) => {
                 alt={news.title}
                 layout="responsive"
                 placeholder="blur"
-                blurDataURL={news.base64}
-                height={news.height}
-                width={news.width}
+                height={550}
+                width={1000}
             />
         </a>
         <h5 className='mb-1 pt-2'>

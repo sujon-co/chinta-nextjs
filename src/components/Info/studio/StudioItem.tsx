@@ -1,10 +1,10 @@
 import { NextPage } from 'next';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { IStudio } from 'server/interface';
 import MyImage from 'src/components/Image';
-import { StudioItem } from '.';
 
 interface Props {
-    studio: StudioItem;
+    studio: IStudio;
 }
 
 const StudioItem: NextPage<Props> = ({ studio }) => {
@@ -15,10 +15,8 @@ const StudioItem: NextPage<Props> = ({ studio }) => {
                     src={studio.photoUrl}
                     alt={studio.alt}
                     layout="responsive"
-                    placeholder="blur"
-                    blurDataURL={studio.base64}
-                    height={studio.height}
-                    width={studio.width}
+                    width={200}
+                    height={260}
                 />
             </div>
             <div className="studio-item-content">

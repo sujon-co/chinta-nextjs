@@ -1,21 +1,11 @@
-import { Types } from 'mongoose';
 import { FC } from 'react';
+import { IAbout } from 'server/interface';
 import MyImage from 'src/components/Image';
 
-export interface AboutWithImage {
-    base64: string;
-    _id: Types.ObjectId;
-    photoUrl: string;
-    bio: string;
-    alt: string;
-    src: string;
-    height: number;
-    width: number;
-    type?: string | undefined;
-}
+
 
 interface Props {
-    about: AboutWithImage;
+    about: IAbout;
 }
 const About: FC<Props> = ({ about }) => {
 
@@ -27,10 +17,8 @@ const About: FC<Props> = ({ about }) => {
                         src={about.photoUrl}
                         alt={about.alt}
                         layout="responsive"
-                        placeholder="blur"
-                        blurDataURL={about.base64}
-                        height={about.height}
-                        width={about.width}
+                        width={400}
+                        height={500}
                     />
                 </div>
             </div>

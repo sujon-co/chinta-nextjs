@@ -73,10 +73,7 @@ const ProjectItem: NextPage<Props> = ({ project, isNextImage = true }) => {
                         <div className="fs-sm">Location: Dhaka, Bangladesh</div>
                         <div className="fs-sm">
                             Data:{' '}
-                            {moment(project.updatedAt)
-                                .toDate()
-                                .toLocaleDateString()}
-                        </div>
+                            {moment(project.updatedAt).toDate().toLocaleDateString()} </div>
                     </div>
                 </div>
             </a>

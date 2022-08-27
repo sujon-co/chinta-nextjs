@@ -1,11 +1,11 @@
 import { FC, Fragment, useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import Modal from 'react-modal';
+import { IShop } from 'server/interface';
 import MyImage from 'src/components/Image';
-import { ShopItem } from 'src/pages/info';
 
 interface IShopItemProps {
-    shop: ShopItem;
+    shop: IShop;
 }
 
 const customStyles = {
@@ -39,13 +39,12 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
             <div className="row mb-3 shop-item">
                 <div className="col-md-3">
                     <MyImage
-                        src={shop.images[0].photoUrl}
+                        src={shop.images[0]}
                         alt={shop.title}
                         layout="responsive"
                         placeholder="blur"
-                        blurDataURL={shop.images[0].base64}
-                        height={shop.images[0].height}
-                        width={shop.images[0].width}
+                        width={300}
+                        height={250}
                     />
                 </div>
                 <div className="col-md-9">
@@ -80,26 +79,24 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                         <div className="row g-3">
                             <div className="col-12">
                                 <MyImage
-                                    src={shop.images[0].photoUrl}
+                                    src={shop.images[0]}
                                     alt={shop.title}
                                     layout="responsive"
                                     placeholder="blur"
-                                    blurDataURL={shop.images[0].base64}
-                                    height={shop.images[0].height}
-                                    width={shop.images[0].width}
+                                    height={300}
+                                    width={300}
                                 />
                             </div>
                             {shop.images.slice(1).length > 0 &&
                                 shop.images.slice(1).map((image, index) => (
                                     <div className="col-6" key={index}>
                                         <MyImage
-                                            src={image.photoUrl}
+                                            src={image}
                                             alt={shop.title}
                                             layout="responsive"
                                             placeholder="blur"
-                                            blurDataURL={image.base64}
-                                            height={image.height}
-                                            width={image.width}
+                                            height={300}
+                                            width={300}
                                         />
                                     </div>
                                 ))}
