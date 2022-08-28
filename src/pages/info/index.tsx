@@ -53,9 +53,6 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
         fullpage_api.moveSectionDown();
     };
 
-    console.log({ shops });
-
-
     return (
         <Fragment>
             <Head>
@@ -117,8 +114,8 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                                 ))}
                             </div>
                             <div className={SEL} >
-                                <div className="jobs-section" onWheel={scrollHandler}>
-                                    <div className="col-md-10 mx-auto">
+                                <div className="col-md-10 mx-auto">
+                                    <div className="jobs-section" onWheel={scrollHandler}>
                                         <p>Our journey started in Copenhagen in 2005, followed by an office in NYC in 2010, London in 2016 and Barcelona in 2019. We have completed about 35 buildings in 10+ countries and never limit ourselves to a specific region – we go where the projects are – even if its Mars!</p>
                                         <Image src="/jobs.jpeg" alt='jobs' layout='responsive' width={400} height={200} />
                                         <p>Over the last two decades, we have grown organically to a 500+ person family worldwide. Working on new projects, typologies and challenges – we are joined by new BIGsters with the skills, experience and expertise our projects need! This is how we continue to grow and get better at what we do.

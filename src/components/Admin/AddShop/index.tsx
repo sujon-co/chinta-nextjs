@@ -2,8 +2,8 @@ import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
-import { IShop, ResponseError } from 'server/interface';
-import instance from 'src/api/httpService';
+import { APIResponse, IShop, ResponseError } from 'server/interface';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import { config } from 'src/config';
 import { array, object, string } from 'yup';
 
@@ -43,7 +43,29 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
     ) => {
         try {
             if (isUpdate) {
-                console.log({ values });
+                const formData = new FormData();
+
+                values.images.forEach((image) => {
+                    if (typeof image !== 'string') {
+                        formData.append('images', image);
+                    }
+                });
+                const { data: imageUrl } = await imageUploadInstance.patch('upload/images', formData);
+
+                const _shop: IShop = {
+                    ...values,
+                    images: imageUrl.images?.length > 0 ? imageUrl.images : values.images,
+                };
+
+                const { data } = await instance.patch<APIResponse<IShop>>('/info/shops/' + shop._id, _shop);
+
+                if (data.message) {
+                    toast.success(data.message);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                }
+
             } else {
                 const formData = new FormData();
                 values.images.forEach((image) => {

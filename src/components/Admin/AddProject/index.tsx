@@ -49,7 +49,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
     ) => {
         try {
             if (!isUpdate) {
-                console.log({ values });
                 const formData = new FormData();
 
                 formData.append('topImage', values.topImage);
@@ -113,8 +112,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 values.images.forEach((image) => {
                     if (typeof image !== 'string') {
                         formData.append('images', image);
-                    } else {
-                        console.log('String file');
                     }
                 });
 
@@ -140,8 +137,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 // @ts-ignore
                 delete _project._id;
 
-                console.log({ _topImage, _portraitImage });
-                console.log({ _project, imageUrl });
 
                 const { data } = await instance.patch(
                     `/projects/${project._id}`,

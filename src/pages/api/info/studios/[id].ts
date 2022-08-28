@@ -1,14 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import connectDB from 'server/database';
-import upload from 'server/middlewares/upload';
 import Studio from 'server/models/Studio';
-
-export const config = {
-    api: {
-        bodyParser: false,
-    },
-};
 
 const studioUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
@@ -34,19 +27,13 @@ const studioUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
         });
     },
 })
-    .use(upload.single('file'))
     .patch(async (req, res, next) => {
         try {
-            /** @ts-ignore */
-            const { body, query, file } = req;
+            const { body, query } = req;
             const { id: _id } = query;
-
-            const photoUrl = file?.filename
-                ? '/uploads/' + file?.filename
-                : body.file;
             const studio = await Studio.findOneAndUpdate(
                 { _id },
-                { ...body, photoUrl },
+                { ...body },
                 { new: true }
             );
 

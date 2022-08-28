@@ -28,7 +28,6 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
     },
 }).get(async (req, res, next) => {
     try {
-        console.log(req.query);
         // @ts-ignore
         const projects = await Project.find({
             $text: { $search: req.query.query },

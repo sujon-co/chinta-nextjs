@@ -1,7 +1,6 @@
 import moment from 'moment';
 import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
-import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ISlider } from 'server/interface';
@@ -9,38 +8,24 @@ import instance from 'src/api/httpService';
 import AddSlider from 'src/components/Admin/AddSlider';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
-import { config } from 'src/config';
 
 type deleteSliderResponse = {
     message: string;
 };
-export interface ISliderPlaceholder {
-    base64: string;
-    src: string;
-    height: number;
-    width: number;
-    type?: string | undefined;
-    _id: Types.ObjectId;
-    photoUrl: string;
-    alt: string;
-    updatedAt: any;
-}
 interface IProps {
-    sliders: ISliderPlaceholder[];
+    sliders: ISlider[];
 }
 
 const Sliders = ({ sliders }: IProps) => {
     const [isAddSlider, setIsAddSlider] = useState(false);
     const [isUpdate, setIsUpdate] = useState(false);
     const [sliderPlaceholder, setSliderPlaceholder] =
-        useState<ISliderPlaceholder>({} as ISliderPlaceholder);
+        useState<ISlider>({} as ISlider);
 
     const sliderDeleteHandler = async (id: Types.ObjectId) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await instance.delete<deleteSliderResponse>(
-                'sliders/' + id
-            );
+            const { data } = await instance.delete<deleteSliderResponse>('sliders/' + id);
             if (data) {
                 toast.success(data.message);
             }
@@ -49,7 +34,7 @@ const Sliders = ({ sliders }: IProps) => {
             }, 1000);
         }
     };
-    const updateHandler = (slider: ISliderPlaceholder) => {
+    const updateHandler = (slider: ISlider) => {
         setIsAddSlider(true);
         setIsUpdate(true);
         setSliderPlaceholder(slider);
@@ -83,7 +68,7 @@ const Sliders = ({ sliders }: IProps) => {
                     <div className="row">
                         {sliders.length > 0 ? (
                             sliders.map((slider) => (
-                                <div className="col-md-6" key={slider.src}>
+                                <div className="col-md-6" key={slider.photoUrl}>
                                     <div className="card p-2 d-flex gap-2 flex-row mb-3">
                                         <MyImage
                                             layout="fixed"
@@ -91,7 +76,6 @@ const Sliders = ({ sliders }: IProps) => {
                                             src={slider.photoUrl}
                                             alt={slider.alt}
                                             placeholder="blur"
-                                            blurDataURL={slider.base64}
                                             height={100}
                                             width={100}
                                         />
@@ -103,27 +87,19 @@ const Sliders = ({ sliders }: IProps) => {
                                             <p className="card-text">
                                                 <small className="text-muted">
                                                     Last updated{' '}
-                                                    {moment(
-                                                        slider.updatedAt
-                                                    ).fromNow()}
+                                                    {moment(slider.updatedAt).fromNow()}
                                                 </small>
                                             </p>
                                             <div className="d-flex gap-1 mb-0">
                                                 <button
                                                     className="btn btn-success btn-sm fs-12"
-                                                    onClick={() =>
-                                                        updateHandler(slider)
-                                                    }
+                                                    onClick={() => updateHandler(slider)}
                                                 >
                                                     Update
                                                 </button>
                                                 <button
                                                     className="btn btn-danger btn-sm fs-12"
-                                                    onClick={() =>
-                                                        sliderDeleteHandler(
-                                                            slider._id
-                                                        )
-                                                    }
+                                                    onClick={() => sliderDeleteHandler(slider._id)}
                                                 >
                                                     Delete
                                                 </button>
@@ -149,30 +125,12 @@ Sliders.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await instance.get<{ data: ISlider[] }>('/sliders');
-
-    if (data.data.length > 0) {
-        const sliders = await Promise.all(
-            data.data.map(async (data) => {
-                const { base64, img } = await getPlaiceholder(
-                    `${config.imageUploadUrl}${data.photoUrl}`
-                );
-                return {
-                    ...data,
-                    ...img,
-                    base64: base64,
-                };
-            })
-        );
-
-        return {
-            props: { sliders },
-        };
-    } else {
-        return {
-            props: { sliders: [] },
-        };
-    }
+    const { data } = await instance.get<{ data: ISlider[]; }>('/sliders');
+    return {
+        props: {
+            sliders: data.data
+        }
+    };
 };
 
 export default Sliders;

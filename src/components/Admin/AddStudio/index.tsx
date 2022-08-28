@@ -1,8 +1,9 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
-import { IStudio, ResponseError } from 'server/interface';
+import { APIResponse, IStudio, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import MyImage from 'src/components/Image';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
@@ -33,8 +34,30 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
             formData.append('image', values.photoUrl);
 
             if (isUpdate) {
-                const { data } = await instance.patch<{ message: string; }>('/info/studios/' + studio._id, formData,);
-                toast.success(data.message);
+                let _photoUrl = "";
+
+                if (typeof values.photoUrl === 'string') {
+                    _photoUrl = values.photoUrl;
+                } else {
+                    formData.append('image', values.photoUrl);
+                    formData.append('path', studio.photoUrl);
+                    const { data: imageUrl } = await imageUploadInstance.patch('/upload/image', formData);
+
+                    _photoUrl = imageUrl.data;
+                }
+
+                const _studio: IStudio = {
+                    ...values,
+                    photoUrl: _photoUrl
+                };
+                const { data } = await instance.patch<APIResponse<IStudio>>('/info/studios/' + studio._id, _studio);
+
+                if (data.message) {
+                    toast.success(data.message);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                }
             } else {
                 const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData);
                 const studio: IStudio = {
@@ -136,18 +159,17 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                                 );
                             }}
                         />
-                        {/* {isUpdate && (
+                        {isUpdate && (
                             <MyImage
                                 layout="fixed"
                                 className="rounded-1 img-fluid mt-1"
-                                src={studio.src}
+                                src={studio.photoUrl}
                                 alt={studio.alt}
                                 placeholder="blur"
-                                blurDataURL={studio.base64}
-                                height={50}
-                                width={50}
+                                height={90}
+                                width={80}
                             />
-                        )} */}
+                        )}
                         {errors.photoUrl && touched.photoUrl && (
                             <div className="text-danger">
                                 Photo is a required field

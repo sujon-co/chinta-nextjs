@@ -53,6 +53,7 @@ interface ISlider {
     _id: Types.ObjectId;
     photoUrl: string;
     alt: string;
+    updatedAt?: any;
 }
 interface IAbout {
     _id: Types.ObjectId;

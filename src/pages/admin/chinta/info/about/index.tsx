@@ -1,28 +1,15 @@
-import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
-import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import { IAbout } from 'server/interface';
 import instance from 'src/api/httpService';
 import AboutForm from 'src/components/Admin/AboutForm';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
-import { config } from 'src/config';
 
-export interface IAboutWithImagePlaceholder {
-    base64: string;
-    _id: Types.ObjectId;
-    photoUrl: string;
-    bio: string;
-    alt: string;
-    src: string;
-    height: number;
-    width: number;
-    type?: string | undefined;
-}
+
 
 interface AboutProps {
-    about: IAboutWithImagePlaceholder;
+    about: IAbout;
 }
 
 const About = ({ about }: AboutProps) => {
@@ -60,9 +47,8 @@ const About = ({ about }: AboutProps) => {
                                     alt={about.alt}
                                     layout="responsive"
                                     placeholder="blur"
-                                    blurDataURL={about.base64}
-                                    height={about.height}
-                                    width={about.width}
+                                    width={400}
+                                    height={500}
                                 />
                             </div>
                         </div>
@@ -86,14 +72,9 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const { data } = await instance.get<{ data: IAbout[]; }>('/info/about');
     const about = data.data[0];
 
-    const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${about.photoUrl}`);
     return {
         props: {
-            about: {
-                ...img,
-                ...about,
-                base64: base64,
-            },
+            about
         },
     };
 };

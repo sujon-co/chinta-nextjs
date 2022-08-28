@@ -1,6 +1,5 @@
 import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
-import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { IShop } from 'server/interface';
@@ -8,7 +7,6 @@ import instance from 'src/api/httpService';
 import AddShop from 'src/components/Admin/AddShop';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
-import { config } from 'src/config';
 
 interface ShopProps {
     shops: IShop[];
@@ -122,30 +120,9 @@ Shops.getLayout = function getLayout(page: ReactNode) {
 };
 export const getServerSideProps: GetServerSideProps = async () => {
     const { data } = await instance.get<{ data: IShop[]; }>('/info/shops');
-    const shops = await Promise.all(
-        data.data.map(async (shop) => {
-            const images = await Promise.all(
-                shop.images.map(async (image) => {
-                    const { base64, img } = await getPlaiceholder(
-                        `${config.imageUploadUrl}${image}`
-                    );
-                    const obj = {
-                        ...img,
-                        base64: base64,
-                        photoUrl: image,
-                    };
-                    return obj;
-                })
-            );
-            return {
-                ...shop,
-                images,
-            };
-        })
-    );
     return {
         props: {
-            shops,
+            shops: data.data
         },
     };
 };

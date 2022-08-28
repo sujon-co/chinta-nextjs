@@ -27,7 +27,6 @@ const Search: NextPage<Props> = () => {
         }
     }, [router.query.query]);
 
-    console.log({ projects, isLoading, query: router.query.query });
 
     return (
         <>

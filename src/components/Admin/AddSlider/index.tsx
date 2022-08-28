@@ -4,11 +4,10 @@ import toast from 'react-hot-toast';
 import { APIResponse, ISlider, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
 import MyImage from 'src/components/Image';
-import { ISliderPlaceholder } from 'src/pages/admin/chinta/sliders';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
-    slider: ISliderPlaceholder;
+    slider: ISlider;
     isAddSlider: boolean;
     setIsAddSlider: Dispatch<SetStateAction<boolean>>;
     isUpdate: boolean;
@@ -132,9 +131,8 @@ const AddSlider: FC<IAddSliderProps> = ({
                                 src={slider.photoUrl}
                                 alt={slider.alt}
                                 placeholder="blur"
-                                blurDataURL={slider.base64}
-                                height={50}
-                                width={50}
+                                height={80}
+                                width={80}
                             />
                         )}
                         {errors.photoUrl && touched.photoUrl && (

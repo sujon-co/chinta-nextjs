@@ -43,7 +43,6 @@ const shopHandler = nextConnect<NextApiRequest, NextApiResponse>({
     .post(async (req, res, next) => {
         try {
             const { body } = req;
-            console.log({ body });
 
             const shop = await Shop.create(body);
 
