@@ -17,6 +17,11 @@
 .custom-section {
     padding-top: calc(70px + 50px);
 }
+.about-section-overwrite {
+    padding-top: 75px !important;
+    display: flex !important;
+}
+
 .swiper-wrapper {
     margin-top: 70px !important;
 }

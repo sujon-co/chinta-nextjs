@@ -10,7 +10,7 @@ import MyImage from 'src/components/Image';
 import About from 'src/components/Info/about';
 import ProjectItem from 'src/components/ProjectItem';
 import { scrollHandler } from 'src/utils';
-import { Autoplay } from 'swiper';
+// import { Autoplay } from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -56,15 +56,15 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
                 sectionSelector={SECTION_SEL}
                 render={(comp) => (
                     <ReactFullpage.Wrapper>
-                        <div className={`${SEL} pt-0`}>
-                            <div className="container" style={{ maxHeight: '2160px', height: '100vh' }}>
+                        <div className={`${SEL} py-50`}>
+                            <div className="container" style={{ height: '100%' }}>
                                 <Swiper
                                     autoplay={{
                                         delay: 3000,
                                     }}
                                     loop
                                     simulateTouch={false}
-                                    modules={[Autoplay]}
+                                    // modules={[Autoplay]}
                                     className="mySwiper"
                                 >
                                     {sliders.length > 0 &&
@@ -92,7 +92,8 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
                                 </Swiper>
                             </div>
                         </div>
-                        <div className={SEL}>
+
+                        <div className={`${SEL} about-section-overwrite`}>
                             <div className="container ">
                                 <About about={about} />
                             </div>

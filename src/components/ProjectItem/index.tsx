@@ -19,7 +19,7 @@ const ProjectItem: NextPage<Props> = ({ project }) => {
                         src={project.topImage}
                         layout="responsive"
                         alt={project.name}
-                        height={200}
+                        height={155}
                         width={200}
                     />
                     <div className="project-item-overlay">
