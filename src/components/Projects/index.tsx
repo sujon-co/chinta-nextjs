@@ -20,7 +20,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
     return (
         <div className="container">
-            <div className="projects" style={{ height: '500px' }}>
+            <div className="projects">
                 {filter === 'scrolling' && (
                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
                         {projects.map((project, index) => (

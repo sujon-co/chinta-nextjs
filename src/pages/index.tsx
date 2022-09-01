@@ -70,11 +70,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
                                     {sliders.length > 0 &&
                                         sliders.map((image) => (
                                             <SwiperSlide key={image.photoUrl}>
-                                                {/* <img
-                                                    className="img-fluid"
-                                                    src={`${config.imageUploadUrl}${image.photoUrl}`}
-                                                    alt={image.alt}
-                                                /> */}
                                                 <MyImage
                                                     src={image.photoUrl}
                                                     alt={image.alt}
@@ -98,7 +93,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id="projects" className={SEL}>
+                        <div id="projects" className={SEL} >
                             <div className="container ">
                                 <div
                                     className="projects"
