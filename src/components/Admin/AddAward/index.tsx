@@ -61,24 +61,22 @@ const AddAward: FC<IAddAward> = ({ setIsAdd, isUpdate, award }) => {
             validationSchema={object({
                 awardName: string().required('Award name is required'),
                 programName: string().required('Program name is required'),
-                programUrl: string().required('Program url is required'),
                 year: number().required('Year is required'),
                 organizedBy: string().required('Organized by is required'),
-                organizationUrl: string().required('Organization url is required'),
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue }) => (
                 <Form className="mb-3">
                     <div className="mb-3">
                         <label htmlFor="awardName" className="form-label">
-                            Award Name
+                            Award Status
                         </label>
                         <Field
                             type="text"
                             className="form-control form-control-sm"
                             id="awardName"
                             name="awardName"
-                            placeholder="Award Name"
+                            placeholder="Add Award Status"
                         />
                         <div className="text-danger">
                             <ErrorMessage name="awardName" />
@@ -116,7 +114,7 @@ const AddAward: FC<IAddAward> = ({ setIsAdd, isUpdate, award }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="programUrl" className="form-label">
-                            Program Url
+                            Program Url (Optional)
                         </label>
                         <Field
                             type="text"
@@ -125,9 +123,6 @@ const AddAward: FC<IAddAward> = ({ setIsAdd, isUpdate, award }) => {
                             name="programUrl"
                             placeholder="Program Url"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="programUrl" />
-                        </div>
                     </div>
 
                     <div className="mb-3">
@@ -147,7 +142,7 @@ const AddAward: FC<IAddAward> = ({ setIsAdd, isUpdate, award }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="organizationUrl" className="form-label">
-                            Organization Url
+                            Organization Url (Optional)
                         </label>
                         <Field
                             type="text"
@@ -156,9 +151,6 @@ const AddAward: FC<IAddAward> = ({ setIsAdd, isUpdate, award }) => {
                             name="organizationUrl"
                             placeholder="Organization Url"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="organizationUrl" />
-                        </div>
                     </div>
                     <div className="d-flex gap-1 mb-0">
                         <button
