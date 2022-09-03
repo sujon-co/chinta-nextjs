@@ -23,7 +23,7 @@ const About: FC<Props> = ({ about }) => {
                 </div>
             </div>
             <div className="col-md-7">
-                <div className="d-flex align-items-center justify-content-center h-100 ">
+                <div className="d-flex align-items-end justify-content-center h-100 ">
                     <div className="">{about.bio}</div>
                 </div>
             </div>

@@ -4,6 +4,17 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.info-footer-wrapper {
+    .footer-section {
+        background-color: #fff;
+        position: fixed;
+        /* background: red; */
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 35px;
+    }
+}
 .contact-container {
     height: 100%;
     display: flex;

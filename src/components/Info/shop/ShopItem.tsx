@@ -36,15 +36,15 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
 
     return (
         <Fragment>
-            <div className="row mb-3 shop-item">
-                <div className="col-md-3">
+            <div className="row mb-4 shop-item">
+                <div className="col-md-2">
                     <MyImage
                         src={shop.images[0]}
                         alt={shop.title}
                         layout="responsive"
                         placeholder="blur"
-                        width={300}
-                        height={250}
+                        width={200}
+                        height={160}
                     />
                 </div>
                 <div className="col-md-9">
@@ -75,7 +75,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                     <FaTimes />
                 </div>
                 <div className="row mb-3 shop-item">
-                    <div className="col-md-5">
+                    <div className="col-md-4">
                         <div className="row g-3">
                             <div className="col-12">
                                 <MyImage
@@ -83,8 +83,8 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                     alt={shop.title}
                                     layout="responsive"
                                     placeholder="blur"
-                                    height={300}
-                                    width={300}
+                                    height={200}
+                                    width={200}
                                 />
                             </div>
                             {shop.images.slice(1).length > 0 &&
@@ -95,8 +95,8 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                             alt={shop.title}
                                             layout="responsive"
                                             placeholder="blur"
-                                            height={300}
-                                            width={300}
+                                            height={200}
+                                            width={200}
                                         />
                                     </div>
                                 ))}

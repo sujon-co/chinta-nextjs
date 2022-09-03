@@ -6,9 +6,8 @@ interface INewsItemProps {
     news: INews;
 }
 
-
 const NewsItem: FC<INewsItemProps> = ({ news }) => {
-    return <div className="mb-5">
+    return <div className="news-item">
         <a href={news.url}>
             <MyImage
                 src={news.image}

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Fragment, useState } from 'react';
 import { IAbout, IAward, INews, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
+import Footer from 'src/components/Common/Footer';
 import Header from 'src/components/Common/Header';
 import About from 'src/components/Info/about';
 import ShopItem from 'src/components/Info/shop/ShopItem';
@@ -87,14 +88,14 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                                 </div>
                             </div>
                             <div className={SEL} >
-                                <div className="info-section scroll" style={{ height: '80vh', overflowY: 'scroll', }} onWheel={scrollHandler} >
+                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
                                     <div className="pb-1">
                                         <Studio studios={studios} />
                                     </div>
                                 </div>
                             </div>
                             <div className={SEL}>
-                                <div className="">
+                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
                                     {awards.map((award) => (
                                         <div className="d-flex gap-2 mb-2" key={award.awardName}>
                                             <span> {award.year} </span>
@@ -109,34 +110,34 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                                 </div>
                             </div>
                             <div className={SEL} >
-                                {shops.map(shop => (
-                                    <ShopItem shop={shop} key={shop.title} />
-                                ))}
-                            </div>
-                            <div className={SEL} >
-                                <div className="col-md-10 mx-auto">
-                                    <div className="jobs-section" onWheel={scrollHandler}>
-                                        <p>Our journey started in Copenhagen in 2005, followed by an office in NYC in 2010, London in 2016 and Barcelona in 2019. We have completed about 35 buildings in 10+ countries and never limit ourselves to a specific region – we go where the projects are – even if its Mars!</p>
-                                        <Image src="/jobs.jpeg" alt='jobs' layout='responsive' width={400} height={200} />
-                                        <p>Over the last two decades, we have grown organically to a 500+ person family worldwide. Working on new projects, typologies and challenges – we are joined by new BIGsters with the skills, experience and expertise our projects need! This is how we continue to grow and get better at what we do.
-                                            If you are interested in joining Chinta , view our current opportunities
-                                            <a className='px-1' href="" style={{ color: '#0087ca' }}> Apply Here </a> . We look forward to hearing from you!</p>
-                                    </div>
+                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                    {shops.map(shop => (
+                                        <ShopItem shop={shop} key={shop.title} />
+                                    ))}
                                 </div>
                             </div>
                             <div className={SEL} >
-                                <div className="col-md-10 mx-auto">
-                                    <div className='news-section' onWheel={scrollHandler}>
-                                        {news.map(news => (
-                                            <NewsItem news={news} key={news.title} />
-                                        ))}
-                                    </div>
+                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                    <p>Our journey started in Copenhagen in 2005, followed by an office in NYC in 2010, London in 2016 and Barcelona in 2019. We have completed about 35 buildings in 10+ countries and never limit ourselves to a specific region – we go where the projects are – even if its Mars!</p>
+                                    <Image src="/jobs.jpeg" alt='jobs' layout='responsive' width={400} height={175} />
+                                    <p>Over the last two decades, we have grown organically to a 500+ person family worldwide. Working on new projects, typologies and challenges – we are joined by new BIGsters with the skills, experience and expertise our projects need! This is how we continue to grow and get better at what we do.
+                                        If you are interested in joining Chinta , view our current opportunities
+                                        <a className='px-1' href="" style={{ color: '#0087ca' }}> Apply Here </a> . We look forward to hearing from you!</p>
                                 </div>
-
+                            </div>
+                            <div className={SEL} >
+                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                    {news.map(news => (
+                                        <NewsItem news={news} key={news.title} />
+                                    ))}
+                                </div>
                             </div>
                         </ReactFullpage.Wrapper>
                     }
                 />
+            </div>
+            <div className="info-footer-wrapper">
+                <Footer />
             </div>
         </Fragment >
     );
