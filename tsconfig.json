@@ -21,8 +21,7 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        "src/components/Image/index.jssx",
-        "src/utils/sum.ts"
+        "src/components/CkEditor/CkEditor.jsx"
     ],
     "exclude": ["node_modules"]
 }

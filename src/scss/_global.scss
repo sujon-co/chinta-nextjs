@@ -49,6 +49,21 @@
         width: 300px;
     }
 }
+.file-name {
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: flex;
+    span {
+        display: block;
+    }
+    .remove {
+        font-size: 16px;
+        padding-left: 10px;
+        margin-top: -5px;
+        cursor: pointer;
+        color: red;
+    }
+}
 
 /*** From Tailwind css classes***/
 .ease-in-out {

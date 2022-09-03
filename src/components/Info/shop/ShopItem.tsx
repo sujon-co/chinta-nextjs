@@ -58,7 +58,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                 </span>
                             )}
                         </p>
-                        <p> {shop.shortDescription} </p>
+                        <div dangerouslySetInnerHTML={{ __html: shop.shortDescription }} />
                         <span className="see-more" onClick={openModal}>
                             See More
                         </span>
@@ -117,7 +117,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                     </span>
                                 )}
                             </p>
-                            <p> {shop.shortDescription} </p>
+                            <div dangerouslySetInnerHTML={{ __html: shop.description || "" }} />
                             <p> Estimated Shipping Time: 5-7 days</p>
                             <a href="tel:+01980653626">
                                 <b>Buy Book (Contact)</b>

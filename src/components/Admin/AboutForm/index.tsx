@@ -4,12 +4,12 @@ import toast from 'react-hot-toast';
 import { ErrorResponse, isAxiosError } from 'server/helpers/error';
 import { IAbout } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import CKEditor from 'src/components/CkEditor/CkEditor';
 import MyImage from 'src/components/Image';
-import { IAboutWithImagePlaceholder } from 'src/pages/admin/chinta/info/about';
 import { object, string } from 'yup';
 
 interface IAddSliderProps {
-    about: IAboutWithImagePlaceholder;
+    about: IAbout;
     setIsUpdate: Dispatch<SetStateAction<boolean>>;
     isUpdate: boolean;
 }
@@ -21,6 +21,7 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
         alt: about.alt,
         _id: about._id,
     } as IAbout;
+
 
     const onSubmitHandler = async (
         values: IAbout,
@@ -86,6 +87,7 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
                             <ErrorMessage name="alt" />
                         </div>
                     </div>
+
                     <div className="mb-3">
                         <label htmlFor="photoUrl" className="form-label">
                             Photo
@@ -109,9 +111,8 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
                                 src={about.photoUrl}
                                 alt={about.alt}
                                 placeholder="blur"
-                                blurDataURL={about.base64}
-                                height={50}
-                                width={50}
+                                height={80}
+                                width={65}
                             />
                         )}
                         {errors.photoUrl && touched.photoUrl && (
@@ -124,14 +125,12 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
                         <label htmlFor="bio" className="form-label">
                             Bio
                         </label>
-                        <Field
-                            as="textarea"
-                            type="text"
-                            className="form-control form-control-sm h-150"
-                            id="bio"
-                            name="bio"
-                            placeholder="Your Bio"
+                        <CKEditor
+                            value={about.bio}
+                            fieldName="bio"
+                            setFieldValue={setFieldValue}
                         />
+
                         <div className="text-danger">
                             <ErrorMessage name="bio" />
                         </div>

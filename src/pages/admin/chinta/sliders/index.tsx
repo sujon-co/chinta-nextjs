@@ -76,15 +76,15 @@ const Sliders = ({ sliders }: IProps) => {
                                             src={slider.photoUrl}
                                             alt={slider.alt}
                                             placeholder="blur"
-                                            height={100}
                                             width={100}
+                                            height={80}
                                         />
                                         <div className="card-body p-0">
                                             <p className="card-text mb-0">
                                                 <b>Alt: </b>
                                                 <span>{slider.alt}</span>
                                             </p>
-                                            <p className="card-text">
+                                            <p className="card-text mb-2">
                                                 <small className="text-muted">
                                                     Last updated{' '}
                                                     {moment(slider.updatedAt).fromNow()}

@@ -4,7 +4,8 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
 import { APIResponse, INews, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
-import { config } from 'src/config';
+import CKEditor from 'src/components/CkEditor/CkEditor';
+import MyImage from 'src/components/Image';
 import { object, string } from 'yup';
 
 interface IAddNewProps {
@@ -131,13 +132,10 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
                         <label htmlFor="description" className="form-label">
                             Description
                         </label>
-                        <Field
-                            as="textarea"
-                            type="text"
-                            className="form-control form-control-sm h-150"
-                            id="description"
-                            name="description"
-                            placeholder="Add Description"
+                        <CKEditor
+                            value={initialValue.description}
+                            fieldName="description"
+                            setFieldValue={setFieldValue}
                         />
                         <div className="text-danger">
                             <ErrorMessage name="description" />
@@ -160,10 +158,14 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
                             }}
                         />
                         {isUpdate && (
-                            <img
-                                src={`${config.imageUploadUrl}/${news.image}`}
-                                alt="news"
-                                width="100"
+                            <MyImage
+                                className='mt-2'
+                                src={news.image}
+                                alt={news.title}
+                                layout="fixed"
+                                placeholder="blur"
+                                width={80}
+                                height={50}
                             />
                         )}
                         {errors.image && touched.image && (

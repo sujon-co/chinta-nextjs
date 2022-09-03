@@ -82,9 +82,8 @@ const Shops = ({ shops }: ShopProps) => {
                                                     alt={shop.title}
                                                     layout="fixed"
                                                     placeholder="blur"
-                                                    blurDataURL={shop.images[0]}
+                                                    width={80}
                                                     height={50}
-                                                    width={50}
                                                 />
                                             </td>
                                             <td>

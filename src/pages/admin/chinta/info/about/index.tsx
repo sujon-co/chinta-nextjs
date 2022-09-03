@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { IAbout } from 'server/interface';
 import instance from 'src/api/httpService';
 import AboutForm from 'src/components/Admin/AboutForm';
@@ -14,6 +14,13 @@ interface AboutProps {
 
 const About = ({ about }: AboutProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
+    const bioRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (bioRef.current) {
+            bioRef.current.innerHTML = about.bio;
+        }
+    }, [about.bio]);
 
     return (
         <div className="card">
@@ -54,7 +61,7 @@ const About = ({ about }: AboutProps) => {
                         </div>
                         <div className="col-md-7">
                             <div className="d-flex align-items-center justify-content-center h-100 ">
-                                <div className="">{about.bio}</div>
+                                <div className="" ref={bioRef} />
                             </div>
                         </div>
                     </div>

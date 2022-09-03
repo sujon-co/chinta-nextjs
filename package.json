@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^35.1.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@fullpage/react-fullpage": "^0.1.26",
     "@popperjs/core": "^2.10.2",
     "axios": "^0.27.2",
@@ -17,6 +19,7 @@
     "clsx": "^1.1.1",
     "cookie": "^0.5.0",
     "formik": "^2.2.9",
+    "install": "^0.13.0",
     "jose": "^4.8.3",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",

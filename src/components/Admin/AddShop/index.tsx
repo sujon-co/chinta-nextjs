@@ -2,8 +2,11 @@ import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import { APIResponse, IShop, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import CKEditor from 'src/components/CkEditor/CkEditor';
+import MyImage from 'src/components/Image';
 import { config } from 'src/config';
 import { array, object, string } from 'yup';
 
@@ -186,14 +189,10 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                         >
                             Short Description
                         </label>
-                        <Field
-                            as="textarea"
-                            type="text"
-                            className="form-control form-control-sm"
-                            id="shortDescription"
-                            name="shortDescription"
-                            placeholder="Add Short Description"
-                            style={{ height: '100px' }}
+                        <CKEditor
+                            value={initialValue.shortDescription}
+                            fieldName="shortDescription"
+                            setFieldValue={setFieldValue}
                         />
                         <div className="text-danger">
                             <ErrorMessage name="shortDescription" />
@@ -203,14 +202,10 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                         <label htmlFor="description" className="form-label">
                             Description (optional)
                         </label>
-                        <Field
-                            as="textarea"
-                            type="text"
-                            className="form-control form-control-sm"
-                            id="description"
-                            name="description"
-                            placeholder="Add Description"
-                            style={{ height: '120px' }}
+                        <CKEditor
+                            value={initialValue.description}
+                            fieldName="description"
+                            setFieldValue={setFieldValue}
                         />
                         <div className="text-danger">
                             <ErrorMessage name="description" />
@@ -226,6 +221,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                             className="form-control form-control-sm"
                             id="images"
                             name="images"
+                            multiple
                             onChange={(event: any) => {
                                 setFieldValue('images', [
                                     ...values.images,
@@ -238,12 +234,36 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                                 Minimum one image required
                             </div>
                         )}
+                        <div className='mb-2 mt-1'>
+                            {values.images?.map((image: any, index: number) => (
+                                <div className='file-name' key={index} onClick={() => {
+                                    const newImages = values.images.filter((img: any) => img.name !== image.name);
+                                    setFieldValue('images', newImages);
+
+                                }}>
+                                    <span> {image?.name}</span>
+                                    {image?.name && <span className='remove'> <FaRegTimesCircle /> </span>}
+                                </div>
+                            ))}
+                        </div>
+                        {isUpdate && (
+                            <div className='d-flex gap-2'>
+                                {shop.images?.map((image: any, index: number) => (
+                                    <MyImage
+                                        src={image}
+                                        alt={shop.title}
+                                        layout="fixed"
+                                        placeholder="blur"
+                                        width={80}
+                                        height={50}
+                                        key={index}
+                                    />
+                                ))}
+
+                            </div>
+                        )}
                     </div>
-                    <div className="mb-3">
-                        {values.images.map((image: any, index: number) => (
-                            <div key={index}> {image.name}</div>
-                        ))}
-                    </div>
+
 
                     <div className="d-flex gap-1 mb-0">
                         <button

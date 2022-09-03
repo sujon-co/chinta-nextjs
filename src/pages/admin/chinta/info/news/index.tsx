@@ -57,11 +57,11 @@ const Studio = ({ news }: IProps) => {
                     />
                 )}
                 {!isAdd && (
-                    <div className="row">
+                    <div className="row g-3">
                         {news.length > 0 ? (
                             news.map((newsItem) => (
-                                <div className="col-md-4" key={newsItem.title}>
-                                    <div className="card p-2  mb-3">
+                                <div className="col-md-6" key={newsItem.title}>
+                                    <div className="card p-2  mb-3 h-100">
                                         <div className="w-100">
                                             <img
                                                 className="img-fluid"
@@ -70,16 +70,10 @@ const Studio = ({ news }: IProps) => {
                                             />
                                         </div>
                                         <div className="card-body p-0">
-                                            <p className="card-text mb-0">
+                                            <p className="card-text mb-0 mt-2">
                                                 <b>{newsItem.title}</b>
                                             </p>
-                                            <p className="card-text mb-0">
-                                                {newsItem.description.substring(
-                                                    0,
-                                                    90
-                                                ) + '...'}
-                                            </p>
-
+                                            <div className="card-text mb-2 " dangerouslySetInnerHTML={{ __html: newsItem.description }} />
                                             <div className="d-flex gap-1 mb-0">
                                                 <button
                                                     className="btn btn-success btn-sm fs-12"
@@ -121,7 +115,7 @@ Studio.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await instance.get<{ data: INews[] }>('/info/news');
+    const { data } = await instance.get<{ data: INews[]; }>('/info/news');
 
     return {
         props: {

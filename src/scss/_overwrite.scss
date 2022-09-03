@@ -37,6 +37,16 @@
     background-color: rgb(31 31 31 / 75%) !important;
 }
 
+.ck-editor__editable,
+.ck-toolbar {
+    border: 1px solid #000 !important;
+}
+.ck-toolbar {
+    border-bottom: none !important;
+}
+.ck-editor__editable {
+    min-height: 150px;
+}
 /** table modified **/
 .modified-table {
     thead,

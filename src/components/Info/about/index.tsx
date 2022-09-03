@@ -1,13 +1,17 @@
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { IAbout } from 'server/interface';
 import MyImage from 'src/components/Image';
-
-
 
 interface Props {
     about: IAbout;
 }
 const About: FC<Props> = ({ about }) => {
+    const bioRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        if (bioRef.current) {
+            bioRef.current.innerHTML = about.bio;
+        }
+    }, [about.bio]);
 
     return (
         <div className="row">
@@ -24,7 +28,7 @@ const About: FC<Props> = ({ about }) => {
             </div>
             <div className="col-md-7">
                 <div className="d-flex align-items-end justify-content-center h-100 ">
-                    <div className="">{about.bio}</div>
+                    <div className="" ref={bioRef}></div>
                 </div>
             </div>
         </div>
