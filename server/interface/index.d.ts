@@ -90,6 +90,14 @@ interface INews {
     createdAt?: any;
 }
 
+interface IJob {
+    _id: Types.ObjectId | string;
+    title: string;
+    requirements: string;
+    description: string;
+    image: string;
+}
+
 type ResponseError = AxiosError & {
     response: { data: { message: string } };
 };

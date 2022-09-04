@@ -27,33 +27,17 @@ const newsHandler = nextConnect<NextApiRequest, NextApiResponse>({
             message: `Method ${req.method} Not Allowed! `,
         });
     },
-})
-    .get(async (req, res, next) => {
-        try {
-            const news = await News.find({});
+}).get(async (req, res, next) => {
+    try {
+        const news = await News.find({});
 
-            res.status(200).json({
-                success: true,
-                data: news,
-                message: 'News fetched successfully.',
-            });
-        } catch (error) {
-            next(error);
-        }
-    })
-    .post(async (req, res, next) => {
-        try {
-            const { body } = req;
-
-            const news = await News.create(body);
-
-            res.status(200).json({
-                success: true,
-                data: news,
-                message: 'News Item uploaded successfully.',
-            });
-        } catch (error) {
-            next(error);
-        }
-    });
+        res.status(200).json({
+            success: true,
+            data: news,
+            message: 'News fetched successfully.',
+        });
+    } catch (error) {
+        next(error);
+    }
+});
 export default connectDB(authenticated(newsHandler));

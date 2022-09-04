@@ -1,13 +1,12 @@
 import ReactFullpage from '@fullpage/react-fullpage';
-import { AxiosResponse } from 'axios';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import { Fragment, useState } from 'react';
-import { IAbout, IAward, INews, IShop, IStudio } from 'server/interface';
+import { APIResponse, IAbout, IAward, IJob, INews, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Footer from 'src/components/Common/Footer';
 import Header from 'src/components/Common/Header';
+import MyImage from 'src/components/Image';
 import About from 'src/components/Info/about';
 import ShopItem from 'src/components/Info/shop/ShopItem';
 import Studio from 'src/components/Info/studio';
@@ -30,6 +29,7 @@ interface Props {
     awards: IAward[];
     shops: IShop[];
     news: INews[];
+    job: IJob;
 }
 const originalColors = [
     'salmon',
@@ -41,13 +41,15 @@ const originalColors = [
     'yellow',
 ];
 
-const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
+const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job }) => {
     const [sectionsColor, setSectionsColor] = useState(originalColors);
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
         // arguments are mapped in order of fullpage.js callback arguments do something
         // with the event
     };
+
+    console.log({ job });
 
     const moveSectionDown = () => {
         //@ts-ignore
@@ -118,11 +120,31 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
                             </div>
                             <div className={SEL} >
                                 <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                    <p>Our journey started in Copenhagen in 2005, followed by an office in NYC in 2010, London in 2016 and Barcelona in 2019. We have completed about 35 buildings in 10+ countries and never limit ourselves to a specific region – we go where the projects are – even if its Mars!</p>
-                                    <Image src="/jobs.jpeg" alt='jobs' layout='responsive' width={400} height={175} />
-                                    <p>Over the last two decades, we have grown organically to a 500+ person family worldwide. Working on new projects, typologies and challenges – we are joined by new BIGsters with the skills, experience and expertise our projects need! This is how we continue to grow and get better at what we do.
-                                        If you are interested in joining Chinta , view our current opportunities
-                                        <a className='px-1' href="" style={{ color: '#0087ca' }}> Apply Here </a> . We look forward to hearing from you!</p>
+                                    <div className="jobs">
+
+                                        <div className="row">
+                                            <div className="col-md-12 mb-3">
+                                                <MyImage
+                                                    layout="responsive"
+                                                    className=" img-fluid mt-1"
+                                                    src={job.image}
+                                                    alt={job.title}
+                                                    placeholder="blur"
+                                                    height={280}
+                                                    width={450}
+                                                />
+                                            </div>
+                                            <div className="jobs-title mb-3">
+                                                <h4>{job.title}</h4>
+                                            </div>
+                                            <div className="col-md-12 jobs-description">
+                                                <div className="" dangerouslySetInnerHTML={{ __html: job.requirements }} />
+                                            </div>
+                                            <div className="col-md-12 jobs-description">
+                                                <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className={SEL} >
@@ -144,12 +166,13 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data: studio } = await instance.get<AxiosResponse<IStudio[]>>('/info/studios');
-    const { data: _about } = await instance.get<{ data: IAbout[]; }>('/info/about');
+    const { data: studio } = await instance.get<APIResponse<IStudio[]>>('/info/studios');
+    const { data: _about } = await instance.get<APIResponse<IAbout[]>>('/info/about');
 
     const { data: awards } = await instance.get<{ data: IAward[]; }>('/info/awards');
     const { data: _shops } = await instance.get<{ data: IShop[]; }>('/info/shops');
     const { data: _news } = await instance.get<{ data: INews[]; }>('/info/news');
+    const { data: _job } = await instance.get<APIResponse<IJob[]>>('/info/jobs');
 
     return {
         props: {
@@ -158,6 +181,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
             awards: awards.data,
             shops: _shops.data,
             news: _news.data,
+            job: _job.data[0]
         },
     };
 };
