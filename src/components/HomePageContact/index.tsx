@@ -1,6 +1,8 @@
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, SyntheticEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 import { FaTimes } from 'react-icons/fa';
 import Modal from 'react-modal';
+import { imageUploadInstance } from 'src/api/httpService';
 import { scrollHandler } from 'src/utils';
 import Footer from '../Common/Footer';
 
@@ -26,13 +28,42 @@ Modal.setAppElement('#__next');
 const HomePageContact: FC<Props> = () => {
     const [showInput, setShowInput] = useState(false);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [message, setMessage] = useState("");
+    const [data, setData] = useState({});
+
+    const inputHandler = (event: any) => {
+        const { name, value } = event.target;
+
+        setData((prevState) => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
     function openModal() {
         setIsOpen(true);
     }
-
     function closeModal() {
         setIsOpen(false);
     }
+    const mailSubmitHandler = async (event: SyntheticEvent) => {
+        event.preventDefault();
+        try {
+            const newData = {
+                ...data,
+                message
+            };
+
+            const mail = await imageUploadInstance.post<{ message: string; }>('/mail/send', newData);
+            if (mail.data.message) {
+                toast.success('Mail Send Successfully!');
+            }
+
+
+        } catch (error) {
+            toast.error('Email send Failed !');
+        }
+
+    };
 
     return (
         <Fragment>
@@ -42,7 +73,7 @@ const HomePageContact: FC<Props> = () => {
                         <div className="col-md-6">
                             <div className="wrapper">
                                 <div className="type-writer-box">
-                                    <textarea spellCheck="false" autoCorrect='false' autoComplete='false' onWheel={scrollHandler} />
+                                    <textarea spellCheck="false" autoCorrect='false' autoComplete='false' onChange={(e) => setMessage(e.target.value)} onWheel={scrollHandler} />
                                     <button className='send-btn' onClick={openModal}>
                                         &#9654;
                                     </button>
@@ -119,20 +150,22 @@ const HomePageContact: FC<Props> = () => {
                 </div>
                 <div className="popup-inner">
 
-                    <form className="user-form">
+                    <form className="user-form" onSubmit={mailSubmitHandler}>
                         <div className="input-group">
                             <input
                                 type="text"
                                 name="name"
                                 placeholder="Your Name"
+                                required
+                                onChange={inputHandler}
                             />
-                            {/* <span className="error pt-1">This is a error message</span> */}
                         </div>
                         <div className="input-group">
                             <input
                                 type="text"
                                 name="company"
                                 placeholder="Company Name"
+                                onChange={inputHandler}
                             />
                         </div>
                         <div className="input-group">
@@ -140,6 +173,7 @@ const HomePageContact: FC<Props> = () => {
                                 type="text"
                                 name="subject"
                                 placeholder="Subject"
+                                onChange={inputHandler}
                             />
                         </div>
                         <div className="input-group">
@@ -147,17 +181,20 @@ const HomePageContact: FC<Props> = () => {
                                 type="text"
                                 name="email"
                                 placeholder="Email Address"
+                                required
+                                onChange={inputHandler}
                             />
                         </div>
                         <div className="input-group">
                             <input
                                 type="text"
-                                name="contact"
+                                name="number"
                                 placeholder="Contact Number(Optional)"
+                                onChange={inputHandler}
                             />
                         </div>
                         <div className="text-end">
-                            <button className='send-btn'>
+                            <button type='submit' className='send-btn'>
                                 &#9654;
                             </button>
                         </div>

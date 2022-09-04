@@ -14,6 +14,7 @@ interface Props { }
 const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = ({ project }) => {
     const [showMore, setShowMore] = useState(false);
 
+
     return (
         <>
             <Head>
@@ -122,10 +123,9 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     </div>
                                 </div>
                                 <div className="images">
-                                    {project.images?.map((image: any, index: any) => (
+                                    {project.images?.slice(0, 3).map((image: any, index: any) => (
                                         <div className="image-item image-wrapper" key={index}>
                                             <MyImage
-
                                                 src={image.photoUrl}
                                                 alt={project.title}
                                                 layout="responsive"
@@ -140,7 +140,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                             </div>
                         </div>
                     </div>
-                    <GalleryView />
+                    <GalleryView gallery={project.images} />
                 </section>
             </Layout>
         </>

@@ -50,7 +50,7 @@ export const photos = [
     },
 ];
 
-const GalleryView = () => {
+const GalleryView = ({ gallery }) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
@@ -69,13 +69,13 @@ const GalleryView = () => {
     return (
         <div className='container'>
             <h4 className='my-3' >Project Gallery</h4>
-            <Gallery photos={photos} onClick={openLightbox} />
+            <Gallery photos={gallery} onClick={openLightbox} />
             <ModalGateway>
                 {viewerIsOpen ? (
                     <Modal onClose={closeLightbox}>
                         <Carousel
                             currentIndex={currentImage}
-                            views={photos.map((x) => ({
+                            views={gallery.map((x) => ({
                                 ...x,
                                 srcset: x.srcSet,
                                 caption: x.title,
