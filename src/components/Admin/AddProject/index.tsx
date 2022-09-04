@@ -2,10 +2,13 @@ import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { Dispatch, FC, SetStateAction } from 'react';
 import toast from 'react-hot-toast';
-import { IProject } from 'server/interface';
+import { FaRegTimesCircle } from 'react-icons/fa';
+import { IProject, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import CKEditor from 'src/components/CkEditor/CkEditor';
+import MyImage from 'src/components/Image';
 import { config } from 'src/config';
-import { number, object, string } from 'yup';
+import { array, number, object, string } from 'yup';
 
 interface IAddProjectProps {
     project: IProject;
@@ -47,6 +50,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         values: IProject,
         formikHelpers: FormikHelpers<IProject>
     ) => {
+
+
         try {
             if (!isUpdate) {
                 const formData = new FormData();
@@ -82,9 +87,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 const { data } = await instance.post('/projects', project);
                 if (data.success) {
                     toast.success(data.message);
-                    // formikHelpers.resetForm();
+                    formikHelpers.resetForm();
                     setTimeout(() => {
-                        // window.location.reload();
+                        window.location.reload();
                     }, 1000);
                 } else {
                     toast.error(data.message);
@@ -144,14 +149,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 );
                 if (data.success) {
                     toast.success(data.message);
-                    // formikHelpers.resetForm();
-                    // setTimeout(() => { window.location.reload(); }, 1000);
+                    formikHelpers.resetForm();
+                    setTimeout(() => { window.location.reload(); }, 1000);
                 }
                 console.log(data);
             }
         } catch (err) {
-            // const error = err as ResponseError;
-            // toast.error(error.response?.data?.message);
+            const error = err as ResponseError;
+            toast.error(error.response?.data?.message);
         }
     };
 
@@ -166,17 +171,15 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 principalArchitect: string().required(
                     'Principal architect is required'
                 ),
-                designTeam: string().required('Design team is required'),
-                engineer: string().required('Engineer is required'),
-                taskConstructionFirm: string().required(
-                    'Task construction firm is required'
-                ),
-                photograph: string().required('Photograph is required'),
+                // designTeam: string().required('Design team is required'),
+                // engineer: string().required('Engineer is required'),
+                // taskConstructionFirm: string().required( 'Task construction firm is required' ),
+                // photograph: string().required('Photograph is required'),
                 year: number().required('Year is required'),
                 description: string().required('Description is required'),
                 topImage: string().required('Top image is required'),
                 portraitImage: string().required('Portrait image is required'),
-                // images: array(any).required('Images is required'),
+                images: array().min(1).required('Images is required'),
                 // gallery: array().required('Gallery is required'),
             })}
         >
@@ -274,7 +277,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="landscape" className="form-label">
-                            Landscape
+                            Landscape Architect
                         </label>
                         <Field
                             type="text"
@@ -307,7 +310,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             htmlFor="taskConstructionFirm"
                             className="form-label"
                         >
-                            Task Construction Firm
+                            Task Construction Firm / Company Name
                         </label>
                         <Field
                             type="text"
@@ -322,7 +325,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="photograph" className="form-label">
-                            Photograph
+                            Photographer
                         </label>
                         <Field
                             type="text"
@@ -370,12 +373,10 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         <label htmlFor="description" className="form-label">
                             Description
                         </label>
-                        <Field
-                            as="textarea"
-                            className="form-control form-control-sm h-150"
-                            id="description"
-                            name="description"
-                            placeholder="description"
+                        <CKEditor
+                            value={initialValues.description}
+                            fieldName="description"
+                            setFieldValue={setFieldValue}
                         />
                         <div className="text-danger">
                             <ErrorMessage name="description" />
@@ -403,6 +404,17 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                 Top Image is a required field
                             </div>
                         )}
+                        {isUpdate && (
+                            <MyImage
+                                className='mt-2'
+                                src={project.topImage}
+                                alt={project.name}
+                                layout="fixed"
+                                placeholder="blur"
+                                width={80}
+                                height={50}
+                            />
+                        )}
                     </div>
 
                     <div className="mb-3">
@@ -426,6 +438,17 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                 Portrait Image is a required field
                             </div>
                         )}
+                        {isUpdate && (
+                            <MyImage
+                                className='mt-2'
+                                src={project.portraitImage}
+                                alt={project.name}
+                                layout="fixed"
+                                placeholder="blur"
+                                width={80}
+                                height={50}
+                            />
+                        )}
                     </div>
 
                     <div className="mb-3">
@@ -437,6 +460,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="form-control form-control-sm"
                             id="images"
                             name="images"
+                            multiple
                             onChange={(event: any) => {
                                 setFieldValue('images', [
                                     ...values.images,
@@ -449,30 +473,39 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                 Images is a required field
                             </div>
                         )}
+                        <div className='mb-2 mt-1'>
+                            {values.images?.map((image: any, index: number) => (
+                                <>
+                                    {image.name && (
+                                        <div className='file-name' key={index} onClick={() => {
+                                            const newImages = values.images.filter((img: any) => img.name !== image.name);
+                                            setFieldValue('images', newImages);
+                                        }}>
+                                            <span> {image?.name}</span>
+                                            {image?.name && <span className='remove'> <FaRegTimesCircle /> </span>}
+                                        </div>
+                                    )}
+                                </>
+                            ))}
+                        </div>
+                        {isUpdate && (
+                            <div className='d-flex flex-wrap gap-2'>
+                                {project.images?.map((image: any, index: number) => (
+                                    <MyImage
+                                        src={image}
+                                        alt={project.name}
+                                        layout="fixed"
+                                        placeholder="blur"
+                                        width={80}
+                                        height={50}
+                                        key={index}
+                                    />
+                                ))}
+
+                            </div>
+                        )}
                     </div>
 
-                    {/* <div className="mb-3">
-                        <label htmlFor="gallery" className="form-label">
-                            Gallery
-                        </label>
-                        <input
-                            type="file"
-                            className="form-control form-control-sm"
-                            id="gallery"
-                            name="gallery"
-                            onChange={(event: any) => {
-                                setFieldValue('gallery', [
-                                    ...values.gallery,
-                                    event.currentTarget.files[0],
-                                ]);
-                            }}
-                        />
-                    </div>
-                    {errors.gallery && touched.gallery && (
-                        <div className="text-danger">
-                            Gallery  is a required field
-                        </div>
-                    )} */}
                     <div className="d-flex gap-1 mb-0">
                         <button
                             type="button"

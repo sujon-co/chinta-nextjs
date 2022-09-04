@@ -61,7 +61,7 @@ const Award = ({ awards }: AwardProps) => {
                 {!isAdd && (
                     <div className="row">
                         <ol className="list-group list-group-numbered">
-                            {awards.map((award: IAward) => (
+                            {awards.length > 0 ? awards.map((award: IAward) => (
                                 <li className="list-group-item" key={award.awardName}>
                                     <div className="d-flex gap-2">
                                         <span> {award.year} </span>
@@ -87,7 +87,9 @@ const Award = ({ awards }: AwardProps) => {
                                         </div>
                                     </div>
                                 </li>
-                            ))}
+                            )) : (
+                                <h3> No Awards Founds</h3>
+                            )}
                         </ol>
                     </div>
                 )}

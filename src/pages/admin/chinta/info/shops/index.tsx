@@ -72,7 +72,7 @@ const Shops = ({ shops }: ShopProps) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {shops.map((shop) => (
+                                    {shops.length > 0 ? shops.map((shop) => (
                                         <tr key={shop.title}>
                                             <td>{shop.title} </td>
                                             <td>৳ {shop.currentPrice} </td>
@@ -103,7 +103,9 @@ const Shops = ({ shops }: ShopProps) => {
                                                 </div>
                                             </td>
                                         </tr>
-                                    ))}
+                                    )) : (
+                                        <h3>No Shop Item Found, Please add someone</h3>
+                                    )}
                                 </tbody>
                             </table>
                         </div>

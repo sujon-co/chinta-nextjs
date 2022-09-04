@@ -141,7 +141,7 @@ const Studio = ({ studios }: IProps) => {
                             ))
                         ) : (
                             <div className="col-md-12">
-                                <h6>No Studio Found</h6>
+                                <h6>No Studio Found, Please Add Someone :) </h6>
                             </div>
                         )}
                     </div>

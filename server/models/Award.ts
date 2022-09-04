@@ -20,10 +20,7 @@ const awardSchema = new Schema<IAward>(
             type: String,
             required: true,
         },
-        organizationUrl: {
-            type: String,
-            required: true,
-        },
+        organizationUrl: String,
     },
     { timestamps: true }
 );
