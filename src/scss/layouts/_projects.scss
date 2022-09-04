@@ -1,8 +1,9 @@
 .projects {
     overflow-y: auto;
     overflow-x: hidden !important;
-    height: 76vh;
+    height: 70vh;
     padding-right: 5px;
+    // background: red;
 
     &::-webkit-scrollbar {
         width: 3px;
@@ -83,14 +84,17 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    height: 100%;
 
     .status-item {
         min-width: 200px;
-        height: 60vh;
         display: flex;
         justify-content: flex-end;
         flex-direction: column;
-        max-width: 25%;
+        max-width: 20%;
+        height: 100%;
+        // background: green;
+        margin: 0 auto;
 
         .status-project {
             padding: 10px;
@@ -107,7 +111,7 @@
                 &-img {
                     transition: all 0.5s linear;
                     &:hover {
-                        transform: scale(1.5);
+                        transform: scale(2);
                     }
                 }
             }
@@ -116,9 +120,8 @@
     .status-title {
         font-size: 16px;
         font-weight: 400;
-        text-transform: uppercase;
+        text-transform: capitalize;
         margin-top: 10px;
-        border-top: 1px solid #889;
         text-align: center;
     }
 }
