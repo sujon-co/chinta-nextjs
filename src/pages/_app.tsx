@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { NextComponentType } from 'next';
 import { AppContext, AppInitialProps, AppLayoutProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Preloader from 'src/components/Preloader';
 import 'swiper/css/bundle';
@@ -15,14 +15,12 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
 }) => {
     const router = useRouter();
     const [pageLoading, setPageLoading] = useState(true);
-    const [homePageLoading, setHomePageLoading] = useState(true);
-    const counterRef = useRef(0);
 
     useEffect(() => {
         if (router.pathname === '/') {
             setTimeout(() => {
                 setPageLoading(false);
-            }, 3000);
+            }, 6000);
         } else {
             setPageLoading(false);
         }

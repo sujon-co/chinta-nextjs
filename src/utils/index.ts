@@ -9,11 +9,6 @@ export const scrollHandler = function (e: any) {
     ) {
         flag = false;
     }
-    console.log({
-        h: e.currentTarget.scrollHeight,
-        t: e.currentTarget.scrollTop,
-        tc: e.currentTarget.scrollTop + e.currentTarget.clientHeight + 3,
-    });
     if (flag) {
         e.stopPropagation();
     }

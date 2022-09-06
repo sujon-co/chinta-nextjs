@@ -31,7 +31,15 @@
             overflow: auto;
             padding: 0;
             position: relative;
+
             li {
+                &.active {
+                    a {
+                        color: #fff;
+                        text-decoration: none;
+                        background-color: #668;
+                    }
+                }
                 a {
                     color: #fff;
                     -webkit-transition: all 0.3s ease;
@@ -43,6 +51,7 @@
                         background-color: #668;
                     }
                 }
+
                 .icon-holder {
                     border-radius: 6px;
                     display: inline-block;

@@ -22,7 +22,15 @@ const Projects: NextPage<Props> = ({ projects }) => {
     const [inProgress, setInProgress] = useState<IProject[]>([]);
     const [underConstruction, setUnderConstruction] = useState<IProject[]>([]);
     const [completed, setCompleted] = useState<IProject[]>([]);
+    const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
 
+
+    useEffect(() => {
+        const imageItem = document.querySelector('.project-item-img .img-fluid');
+        const imageItemHeight = imageItem?.clientHeight;
+        const totalHeight = imageItemHeight ? imageItemHeight * 3 + (14 * 3) : 180 * 3 + (16 * 3);
+        setProjectHeight(totalHeight);
+    }, []);
 
     useEffect(() => {
         const _ideaData = projects.filter((project) => project.status === 'idea');
@@ -40,7 +48,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
     return (
         <div className="container">
-            <div className="projects">
+            <div className="projects" style={{ height: projectHeight }}>
                 {filter === 'scrolling' && (
                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
                         {projects.map((project, index) => (

@@ -21,6 +21,7 @@ const ProjectItem: NextPage<Props> = ({ project }) => {
                         alt={project.name}
                         height={155}
                         width={200}
+                        objectFit="cover"
                     />
                     <div className="project-item-overlay">
                         <h6> {project.name} </h6>

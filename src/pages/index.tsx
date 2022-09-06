@@ -2,6 +2,7 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import { IAbout, IProject, ISlider } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
@@ -25,14 +26,19 @@ const pluginWrapper = () => {
      */
 };
 
-const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
-    sliders,
-    about,
-    projects,
-}) => {
+const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliders, about, projects, }) => {
+    const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
+
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
     };
+
+    useEffect(() => {
+        const imageItem = document.querySelector('.project-item-img .img-fluid');
+        const imageItemHeight = imageItem?.clientHeight;
+        const totalHeight = imageItemHeight ? imageItemHeight * 3 + (14 * 3) : 180 * 3 + (16 * 3);
+        setProjectHeight(totalHeight);
+    }, []);
 
     return (
         <div className="App">
@@ -91,6 +97,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({
                             <div className="container ">
                                 <div
                                     className="projects"
+                                    style={{ height: projectHeight }}
                                     onWheel={scrollHandler}
                                 >
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
