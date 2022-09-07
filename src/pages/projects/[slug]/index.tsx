@@ -14,7 +14,7 @@ interface Props { }
 const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = ({ project }) => {
     const [showMore, setShowMore] = useState(false);
 
-
+    console.log({ project });
     return (
         <>
             <Head>
@@ -140,7 +140,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                             </div>
                         </div>
                     </div>
-                    <GalleryView gallery={project.images} />
+                    <GalleryView gallery={project.gallery} />
                 </section>
             </Layout>
         </>
@@ -150,12 +150,24 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
 export const getServerSideProps = async (ctx: any) => {
     const { data } = await instance.get<{ data: IProject; }>(`/projects/${ctx.params?.slug}`);
     const _project = data.data;
+    console.log({ _project });
 
     const _topImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.topImage}`);
     const _portraitImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.portraitImage}`);
 
     const images = await Promise.all(
         _project.images.map(async (image) => {
+            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
+            const obj = {
+                ...img,
+                base64: base64,
+                photoUrl: image
+            };
+            return obj;
+        })
+    );
+    const gallery = await Promise.all(
+        _project.gallery.map(async (image) => {
             const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
             const obj = {
                 ...img,
@@ -178,7 +190,8 @@ export const getServerSideProps = async (ctx: any) => {
             base64: _portraitImage.base64,
             photoUrl: _project.portraitImage
         },
-        images: images
+        images: images,
+        gallery: gallery
     };
 
     return {

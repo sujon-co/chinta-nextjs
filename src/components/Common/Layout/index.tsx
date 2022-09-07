@@ -8,7 +8,9 @@ const Layout = ({ children }: IProps) => {
         <>
             <Header />
             {children}
-            <Footer />
+            <div className="mt-3 mb-2">
+                <Footer />
+            </div>
         </>
     );
 };

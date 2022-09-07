@@ -186,8 +186,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 description: string().required('Description is required'),
                 topImage: string().required('Top image is required'),
                 portraitImage: string().required('Portrait image is required'),
-                images: array().min(1).required('Images is required'),
-                // gallery: array().min(1).required('Images is required'),
+                // images: array().min(1).required('Images is required'),
+                gallery: array().min(1).required('Images is required'),
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue, values }) => (
@@ -483,9 +483,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         <div className='mb-2 mt-1'>
                             {values.images?.map((image: any, index: number) => (
                                 <>
-                                    {image.name && (
+                                    {image?.name && (
                                         <div className='file-name' key={index} onClick={() => {
-                                            const newImages = values.images.filter((img: any) => img.name !== image.name);
+                                            const newImages = values.images?.filter((img: any) => img.name !== image.name);
                                             setFieldValue('images', newImages);
                                         }}>
                                             <span> {image?.name}</span>
@@ -538,9 +538,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         <div className='mb-2 mt-1'>
                             {values.gallery?.map((image: any, index: number) => (
                                 <>
-                                    {image.name && (
+                                    {image?.name && (
                                         <div className='file-name' key={index} onClick={() => {
-                                            const newImages = values.gallery.filter((img: any) => img.name !== image.name);
+                                            const newImages = values.gallery?.filter((img: any) => img.name !== image.name);
                                             setFieldValue('gallery', newImages);
                                         }}>
                                             <span> {image?.name}</span>
