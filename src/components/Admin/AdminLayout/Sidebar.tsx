@@ -106,7 +106,6 @@ interface IRoute {
 const SidebarItem = ({ route }: IRoute) => {
     const router = useRouter();
     const isActive = router.pathname.includes(route.link);
-    console.log({ isActive });
     return (
         <li className={`nav-item dropdown ${isActive ? 'active' : ''}`}>
             <Link href={`/admin/chinta/${route.link}`}>

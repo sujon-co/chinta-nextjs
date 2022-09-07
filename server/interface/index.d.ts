@@ -16,6 +16,7 @@ interface IProject {
     topImage: string;
     portraitImage: string;
     images: string[];
+    gallery: string[];
     landscape?: string;
     size?: string;
     map: {

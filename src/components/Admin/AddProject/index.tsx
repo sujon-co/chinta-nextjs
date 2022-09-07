@@ -34,6 +34,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         landscape: isUpdate ? project.landscape : '',
         size: isUpdate ? project.size : '',
         images: isUpdate ? project.images : [],
+        gallery: isUpdate ? project.gallery : [],
         map: {
             getLocation: {
                 lat: 0,
@@ -61,12 +62,11 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 values.images.forEach((image) => {
                     formData.append('images', image);
                 });
+                values.gallery.forEach((image) => {
+                    formData.append('gallery', image);
+                });
 
-                const {
-                    data: { data: imageUrl },
-                } = await axios.post(
-                    `${config.imageUploadUrl}/api/upload/images`,
-                    formData,
+                const { data: { data: imageUrl } } = await axios.post(`${config.imageUploadUrl}/api/upload/images`, formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data',
@@ -74,23 +74,28 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     }
                 );
 
+                console.log({ imageUrl });
+
                 const project: IProject = {
                     ...values,
                     topImage: imageUrl.topImage,
                     portraitImage: imageUrl.portraitImage,
                     images: imageUrl.images,
+                    gallery: imageUrl.gallery,
                 };
+                console.log({ project });
 
                 // @ts-ignore
                 delete project._id;
 
                 const { data } = await instance.post('/projects', project);
+                console.log({ data });
                 if (data.success) {
                     toast.success(data.message);
-                    formikHelpers.resetForm();
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    // formikHelpers.resetForm();
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 1000);
                 } else {
                     toast.error(data.message);
                 }
@@ -119,11 +124,13 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         formData.append('images', image);
                     }
                 });
+                values.gallery.forEach((image) => {
+                    if (typeof image !== 'string') {
+                        formData.append('gallery', image);
+                    }
+                });
 
-                const { data: imageUrl } = await imageUploadInstance.patch(
-                    '/upload/images',
-                    formData
-                );
+                const { data: imageUrl } = await imageUploadInstance.patch('/upload/images', formData);
 
                 _topImage = imageUrl.data.topImage
                     ? imageUrl.data.topImage
@@ -137,6 +144,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     topImage: _topImage,
                     portraitImage: _portraitImage,
                     images: imageUrl.images,
+                    gallery: imageUrl.gallery,
                 };
 
                 // @ts-ignore
@@ -152,7 +160,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     formikHelpers.resetForm();
                     setTimeout(() => { window.location.reload(); }, 1000);
                 }
-                console.log(data);
             }
         } catch (err) {
             const error = err as ResponseError;
@@ -180,7 +187,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 topImage: string().required('Top image is required'),
                 portraitImage: string().required('Portrait image is required'),
                 images: array().min(1).required('Images is required'),
-                // gallery: array().required('Gallery is required'),
+                // gallery: array().min(1).required('Images is required'),
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue, values }) => (
@@ -491,6 +498,61 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         {isUpdate && (
                             <div className='d-flex flex-wrap gap-2'>
                                 {project.images?.map((image: any, index: number) => (
+                                    <MyImage
+                                        src={image}
+                                        alt={project.name}
+                                        layout="fixed"
+                                        placeholder="blur"
+                                        width={80}
+                                        height={50}
+                                        key={index}
+                                    />
+                                ))}
+
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="mb-3">
+                        <label htmlFor="gallery" className="form-label">
+                            Gallery
+                        </label>
+                        <input
+                            type="file"
+                            className="form-control form-control-sm"
+                            id="gallery"
+                            name="gallery"
+                            multiple
+                            onChange={(event: any) => {
+                                setFieldValue('gallery', [
+                                    ...values.gallery,
+                                    event.currentTarget.files[0],
+                                ]);
+                            }}
+                        />
+                        {errors.gallery && touched.gallery && (
+                            <div className="text-danger">
+                                Gallery is a required field
+                            </div>
+                        )}
+                        <div className='mb-2 mt-1'>
+                            {values.gallery?.map((image: any, index: number) => (
+                                <>
+                                    {image.name && (
+                                        <div className='file-name' key={index} onClick={() => {
+                                            const newImages = values.gallery.filter((img: any) => img.name !== image.name);
+                                            setFieldValue('gallery', newImages);
+                                        }}>
+                                            <span> {image?.name}</span>
+                                            {image?.name && <span className='remove'> <FaRegTimesCircle /> </span>}
+                                        </div>
+                                    )}
+                                </>
+                            ))}
+                        </div>
+                        {isUpdate && (
+                            <div className='d-flex flex-wrap gap-2'>
+                                {project.gallery?.map((image: any, index: number) => (
                                     <MyImage
                                         src={image}
                                         alt={project.name}

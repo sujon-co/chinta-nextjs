@@ -60,6 +60,9 @@ const projectSchema = new Schema<IProject>(
         },
         images: {
             type: [String],
+        },
+        gallery: {
+            type: [String],
             required: true,
         },
     },
