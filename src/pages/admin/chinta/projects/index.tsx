@@ -6,7 +6,7 @@ import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
 import AddProject from 'src/components/Admin/AddProject';
 import AdminLayout from 'src/components/Admin/AdminLayout';
-import { config } from 'src/config/index';
+import MyImage from 'src/components/Image';
 
 interface IProps {
     projects: IProject[];
@@ -20,7 +20,7 @@ const Projects = ({ projects }: IProps) => {
     const deleteHandler = async (id: any) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await instance.delete<{ message: string }>(
+            const { data } = await instance.delete<{ message: string; }>(
                 `/projects/${id}`
             );
             if (data.message) {
@@ -70,73 +70,93 @@ const Projects = ({ projects }: IProps) => {
                                         <th scope="col">Design Team</th>
                                         <th scope="col">Landscape</th>
                                         <th scope="col">Engineer</th>
-                                        <th scope="col">
-                                            Task Construction Firm
-                                        </th>
+                                        <th scope="col"> Task Construction Firm </th>
                                         <th scope="col">Photograph</th>
                                         <th scope="col">Size</th>
                                         <th scope="col">Year</th>
                                         <th scope="col">Top Image</th>
                                         <th scope="col">Portrait Image</th>
                                         <th scope="col">Images</th>
+                                        <th scope="col">Gallery</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {projects.map((project) => (
                                         <tr key={project.topImage}>
-                                            <td>{project.name}</td>
+                                            <td> <span className='fw-bolder'>{project.name}</span> </td>
                                             <td>{project.type} </td>
-                                            <td>
-                                                {project.principalArchitect}{' '}
-                                            </td>
+                                            <td> {project.principalArchitect}{' '} </td>
                                             <td>{project.designTeam} </td>
                                             <td>{project.landscape} </td>
                                             <td>{project.engineer} </td>
-                                            <td>
-                                                {project.taskConstructionFirm}{' '}
-                                            </td>
+                                            <td> {project.taskConstructionFirm}{' '} </td>
                                             <td>{project.photograph} </td>
                                             <td>{project.size} </td>
                                             <td>{project.year} </td>
                                             <td>
-                                                <img
-                                                    style={{
-                                                        width: 50,
-                                                        height: 50,
-                                                    }}
-                                                    className="img-fluid"
-                                                    src={`${config.imageUploadUrl}${project.topImage}`}
-                                                    alt={project.topImage}
+                                                <MyImage
+                                                    className='img-fluid'
+                                                    src={project.topImage}
+                                                    alt={project.name}
+                                                    layout="fixed"
+                                                    placeholder="blur"
+                                                    width={80}
+                                                    height={50}
+                                                    objectFit="cover"
                                                 />
                                             </td>
                                             <td>
-                                                <img
-                                                    style={{
-                                                        width: 50,
-                                                        height: 50,
-                                                    }}
-                                                    className="img-fluid"
-                                                    src={`${config.imageUploadUrl}${project.portraitImage}`}
-                                                    alt={project.portraitImage}
+                                                <MyImage
+                                                    className='img-fluid'
+                                                    src={project.portraitImage}
+                                                    alt={project.name}
+                                                    layout="fixed"
+                                                    placeholder="blur"
+                                                    width={80}
+                                                    height={50}
+                                                    objectFit="cover"
                                                 />
                                             </td>
                                             <td>
                                                 <div
                                                     className="d-flex gap-1 flex-wrap"
-                                                    style={{ width: 215 }}
+                                                    style={{ width: 300 }}
                                                 >
-                                                    {project.images.map(
-                                                        (image) => (
-                                                            <img
-                                                                key={image}
-                                                                style={{
-                                                                    width: 50,
-                                                                    height: 50,
-                                                                }}
-                                                                className="img-fluid"
-                                                                src={`${config.imageUploadUrl}${image}`}
-                                                                alt={image}
+                                                    {project.images?.map(
+                                                        (image, index) => (
+                                                            <MyImage
+                                                                key={image + index}
+                                                                className='img-fluid'
+                                                                src={image}
+                                                                alt={project.name}
+                                                                layout="fixed"
+                                                                placeholder="blur"
+                                                                width={80}
+                                                                height={50}
+                                                                objectFit="cover"
+                                                            />
+                                                        )
+                                                    )}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div
+                                                    className="d-flex gap-1 flex-wrap"
+                                                    style={{ width: 300 }}
+                                                >
+                                                    {project.gallery?.map(
+                                                        (image, index) => (
+                                                            <MyImage
+                                                                key={image + index}
+                                                                className='img-fluid'
+                                                                src={image}
+                                                                alt={project.name}
+                                                                layout="fixed"
+                                                                placeholder="blur"
+                                                                width={80}
+                                                                height={50}
+                                                                objectFit="cover"
                                                             />
                                                         )
                                                     )}
@@ -146,21 +166,13 @@ const Projects = ({ projects }: IProps) => {
                                                 <div className="d-flex gap-1 mb-0">
                                                     <button
                                                         className="btn btn-success btn-sm fs-12"
-                                                        onClick={() =>
-                                                            updateHandler(
-                                                                project
-                                                            )
-                                                        }
+                                                        onClick={() => updateHandler(project)}
                                                     >
                                                         Update
                                                     </button>
                                                     <button
                                                         className="btn btn-danger btn-sm fs-12"
-                                                        onClick={() =>
-                                                            deleteHandler(
-                                                                project._id
-                                                            )
-                                                        }
+                                                        onClick={() => deleteHandler(project._id)}
                                                     >
                                                         Delete
                                                     </button>
@@ -183,7 +195,7 @@ Projects.getLayout = function getLayout(page: ReactElement) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const { data } = await instance.get<{ data: IProject[] }>('/projects');
+    const { data } = await instance.get<{ data: IProject[]; }>('/projects');
     return {
         props: {
             projects: data.data,

@@ -22,26 +22,11 @@ const projectSchema = new Schema<IProject>(
             required: true,
         },
         designTeam: String,
-        landscape: {
-            type: String,
-            required: true,
-        },
-        size: {
-            type: String,
-            required: true,
-        },
-        engineer: {
-            type: String,
-            required: true,
-        },
-        taskConstructionFirm: {
-            type: String,
-            required: true,
-        },
-        photograph: {
-            type: String,
-            required: true,
-        },
+        landscape: String,
+        size: String,
+        engineer: String,
+        taskConstructionFirm: String,
+        photograph: String,
         year: {
             type: Number,
             required: true,
@@ -58,13 +43,8 @@ const projectSchema = new Schema<IProject>(
             type: String,
             required: true,
         },
-        images: {
-            type: [String],
-        },
-        gallery: {
-            type: [String],
-            required: true,
-        },
+        images: [String],
+        gallery: [String],
     },
     { timestamps: true }
 );

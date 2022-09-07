@@ -44,6 +44,7 @@ const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
     .post(async (req, res, next) => {
         try {
             const { body } = req;
+            console.log({ body });
             const project = await Project.create(body);
 
             return res.status(200).json({
