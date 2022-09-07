@@ -11,6 +11,10 @@ const studioSchema = new Schema<IStudio>(
             type: String,
             required: true,
         },
+        position: {
+            type: Number,
+            required: true,
+        },
         alt: String,
         photoUrl: {
             type: String,

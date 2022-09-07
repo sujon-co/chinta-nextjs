@@ -44,6 +44,7 @@ interface IStudio {
     designation: string;
     photoUrl: string;
     alt: string;
+    position: number;
     socialLink: {
         instagram: string;
         linkedIn: string;

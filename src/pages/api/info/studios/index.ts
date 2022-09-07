@@ -3,7 +3,6 @@ import nextConnect from 'next-connect';
 import connectDB from 'server/database';
 import Studio from 'server/models/Studio';
 
-
 const studioHandler = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
         if (err.message) {
@@ -30,7 +29,7 @@ const studioHandler = nextConnect<NextApiRequest, NextApiResponse>({
 })
     .get(async (req, res, next) => {
         try {
-            const studios = await Studio.find({});
+            const studios = await Studio.find({}).sort({ position: 1 });
 
             res.status(200).json({
                 success: true,

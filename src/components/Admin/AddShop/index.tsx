@@ -214,7 +214,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
 
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
-                            Images
+                            Images (Max 3MB)
                         </label>
                         <input
                             type="file"
@@ -237,7 +237,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                         <div className='mb-2 mt-1'>
                             {values.images?.map((image: any, index: number) => (
                                 <div className='file-name' key={index} onClick={() => {
-                                    const newImages = values.images.filter((img: any) => img.name !== image.name);
+                                    const newImages = values.images?.filter((img: any) => img.name !== image.name);
                                     setFieldValue('images', newImages);
 
                                 }}>

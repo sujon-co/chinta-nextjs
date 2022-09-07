@@ -391,7 +391,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="topImage" className="form-label">
-                            Top Image
+                            Top Image (Max 3MB)
                         </label>
                         <input
                             type="file"
@@ -426,7 +426,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
 
                     <div className="mb-3">
                         <label htmlFor="portraitImage" className="form-label">
-                            Portrait Image
+                            Portrait Image (Max 3MB)
                         </label>
                         <input
                             type="file"
@@ -460,7 +460,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
 
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
-                            Images
+                            Images (Max 3MB)
                         </label>
                         <input
                             type="file"
@@ -515,7 +515,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
 
                     <div className="mb-3">
                         <label htmlFor="gallery" className="form-label">
-                            Gallery
+                            Gallery (Max 3MB)
                         </label>
                         <input
                             type="file"

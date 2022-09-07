@@ -4,10 +4,10 @@ import toast from 'react-hot-toast';
 import { APIResponse, IStudio, ResponseError } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
 import MyImage from 'src/components/Image';
-import { object, string } from 'yup';
+import { number, object, string } from 'yup';
 
 interface IAddSliderProps {
-    studio: IStudioWithImagePlaceholder;
+    studio: IStudio;
     isAdd: boolean;
     setIsAdd: Dispatch<SetStateAction<boolean>>;
     isUpdate: boolean;
@@ -19,11 +19,13 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
         designation: isUpdate ? studio.designation : '',
         photoUrl: isUpdate ? studio.photoUrl : '',
         alt: isUpdate ? studio.alt : '',
+        position: isUpdate ? studio.position : 100,
         socialLink: {
             instagram: isUpdate ? studio.socialLink?.instagram : '',
             linkedIn: isUpdate ? studio.socialLink?.linkedIn : '',
         },
     } as IStudio;
+
 
     const onSubmitHandler = async (
         values: IStudio,
@@ -85,10 +87,11 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
             initialValues={initialValue}
             onSubmit={onSubmitHandler}
             validationSchema={object({
-                name: string().required(),
-                designation: string().required(),
-                photoUrl: string().required(),
+                name: string().required('Name is required'),
+                designation: string().required('Designation is required'),
+                photoUrl: string().required('Photo is required'),
                 alt: string().required(),
+                position: number().required(),
                 socialLink: object({
                     facebook: string().optional(),
                     instagram: string().optional(),
@@ -129,6 +132,21 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                         </div>
                     </div>
                     <div className="mb-3">
+                        <label htmlFor="position" className="form-label">
+                            Position Number (Rank)
+                        </label>
+                        <Field
+                            type="number"
+                            className="form-control form-control-sm"
+                            id="position"
+                            name="position"
+                            placeholder="Position Number"
+                        />
+                        <div className="text-danger">
+                            <ErrorMessage name="position" />
+                        </div>
+                    </div>
+                    <div className="mb-3">
                         <label htmlFor="alt" className="form-label">
                             Alt Key
                         </label>
@@ -166,7 +184,7 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                                 src={studio.photoUrl}
                                 alt={studio.alt}
                                 placeholder="blur"
-                                height={90}
+                                height={100}
                                 width={80}
                             />
                         )}
