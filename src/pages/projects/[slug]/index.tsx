@@ -48,31 +48,34 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     <div className="other">
                                         <b>Principal Architect:</b> {project.principalArchitect}
                                     </div>
-                                    <div className="other">
-                                        <b>Deasign Team:</b> {project.designTeam}
-                                    </div>
+                                    {project.designTeam && (
+                                        <div className="other">
+                                            <b>Deasign Team:</b> {project.designTeam}
+                                        </div>
+                                    )}
+
                                     {project.landscape && (
                                         <div className="other">
                                             <b>Landscape:</b> {project.landscape}
                                         </div>
                                     )}
-
-                                    <div className="other">
-                                        <b>Engineer:</b> {project.engineer}
-                                    </div>
-                                    <div
-                                        className="height-wrapper"
-                                        style={{
-                                            height: showMore ? 105 : 0,
-                                        }}
-                                    >
+                                    {project.engineer && (
                                         <div className="other">
-                                            <b>Task Construction Firm: </b>
-                                            {project.taskConstructionFirm}
+                                            <b>Engineer:</b> {project.engineer}
                                         </div>
-                                        <div className="other">
-                                            <b>Photograph: </b> {project.photograph}
-                                        </div>
+                                    )}
+                                    <div className="height-wrapper" style={{ maxHeight: showMore ? 105 : 0, }} >
+                                        {project.taskConstructionFirm && (
+                                            <div className="other">
+                                                <b>Task Construction Firm: </b>
+                                                {project.taskConstructionFirm}
+                                            </div>
+                                        )}
+                                        {project.photograph && (
+                                            <div className="other">
+                                                <b>Photograph: </b> {project.photograph}
+                                            </div>
+                                        )}
                                         <div className="other">
                                             <b>Location:</b> Bashundhara, Dhaka,
                                             Bangladesh
@@ -87,25 +90,19 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                         </div>
                                     </div>
                                     {!showMore && (
-                                        <div
-                                            className="show-more"
-                                            onClick={() => setShowMore(true)}
-                                        >
+                                        <div className="show-more" onClick={() => setShowMore(true)} >
                                             Show More
                                         </div>
                                     )}
                                     {showMore && (
-                                        <div
-                                            className="show-less"
-                                            onClick={() => setShowMore(false)}
-                                        >
+                                        <div className="show-less" onClick={() => setShowMore(false)} >
                                             Show Less
                                         </div>
                                     )}
 
                                     <div className="row g-3 mt-3 align-items-center">
                                         <div className="col-6 ">
-                                            <p> {project.description} </p>
+                                            <div dangerouslySetInnerHTML={{ __html: project.description }} />
                                         </div>
                                         <div className="col-6">
                                             <div className="mb-3 image-wrapper">
@@ -123,7 +120,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     </div>
                                 </div>
                                 <div className="images">
-                                    {project.images?.slice(0, 3).map((image: any, index: any) => (
+                                    {project.images?.map((image: any, index: any) => (
                                         <div className="image-item image-wrapper" key={index}>
                                             <MyImage
                                                 src={image.photoUrl}
