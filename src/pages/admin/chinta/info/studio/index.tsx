@@ -1,6 +1,5 @@
 import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
-import { getPlaiceholder } from 'plaiceholder';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
@@ -9,18 +8,15 @@ import instance from 'src/api/httpService';
 import AddStudio from 'src/components/Admin/AddStudio';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
-import { config } from 'src/config';
 
 interface IProps {
-    studios: IStudioWithImagePlaceholder[];
+    studios: IStudio[];
 }
 
 const Studio = ({ studios }: IProps) => {
     const [isAdd, setIsAdd] = useState(false);
     const [isUpdate, setIsUpdate] = useState(false);
-    const [studio, setStudio] = useState<IStudioWithImagePlaceholder>(
-        {} as IStudioWithImagePlaceholder
-    );
+    const [studio, setStudio] = useState<IStudio>({} as IStudio);
 
     const deleteHandler = async (id: Types.ObjectId) => {
         const sure = window.confirm('Are you sure!!');
@@ -34,7 +30,7 @@ const Studio = ({ studios }: IProps) => {
             window.location.reload();
         }
     };
-    const updateHandler = (studio: IStudioWithImagePlaceholder) => {
+    const updateHandler = (studio: IStudio) => {
         setIsAdd(true);
         setIsUpdate(true);
         setStudio(studio);
@@ -68,7 +64,7 @@ const Studio = ({ studios }: IProps) => {
                     <div className="row">
                         {studios.length > 0 ? (
                             studios.map((studio) => (
-                                <div className="col-md-3" key={studio.src}>
+                                <div className="col-md-3" key={studio.name}>
                                     <div className="card p-2  mb-3">
                                         <div className="w-100">
                                             <MyImage
@@ -77,9 +73,8 @@ const Studio = ({ studios }: IProps) => {
                                                 src={studio.photoUrl}
                                                 alt={studio.alt}
                                                 placeholder="blur"
-                                                blurDataURL={studio.base64}
-                                                height={studio.height}
-                                                width={studio.width}
+                                                width={244}
+                                                height={317}
                                             />
                                         </div>
                                         <div className="card-body p-0">
@@ -156,30 +151,12 @@ Studio.getLayout = function getLayout(page: ReactNode) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const {
-        data: { data },
-    } = await instance.get<{ data: IStudio[]; }>('/info/studios');
-
-    if (data.length > 0) {
-        const studios = await Promise.all(
-            data.map(async (studio) => {
-                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${studio.photoUrl}`);
-                return {
-                    ...studio,
-                    ...img,
-                    base64: base64,
-                };
-            })
-        );
-
-        return {
-            props: { studios },
-        };
-    } else {
-        return {
-            props: { studios: [] },
-        };
-    }
+    const { data: { data }, } = await instance.get<{ data: IStudio[]; }>('/info/studios');
+    return {
+        props: {
+            studios: data,
+        },
+    };
 };
 
 export default Studio;
