@@ -101,11 +101,13 @@ const HomePageContact = () => {
                                         &#9654;
                                     </button>
                                 </div> */}
-                            <div className="type-writer-box-3">
-                                <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
-                                <button className='send-btn' onClick={openModal} >
-                                    <FaAngleRight />
-                                </button>
+                            <div className="type-writer-wrapper">
+                                <div className="type-writer-box-3">
+                                    <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
+                                    <button className='send-btn' onClick={openModal} >
+                                        <FaAngleRight />
+                                    </button>
+                                </div>
                             </div>
                             <h6> We would love to hear from you so don&lsquo;t hesitate to say hi! </h6>
 
