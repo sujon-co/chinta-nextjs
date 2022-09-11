@@ -1,8 +1,7 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
-import Footer from 'src/components/Common/Footer';
 import Header from 'src/components/Common/Header';
-import Contact from 'src/components/Contact';
+import HomePageContact from 'src/components/HomePageContact';
 
 interface Props { }
 
@@ -17,10 +16,10 @@ const ContactPage: NextPage<Props> = () => {
                     <Header />
                 </div>
                 <div className="container__main">
-                    <Contact />
+                    <HomePageContact />
                 </div>
                 <div className="container__footer">
-                    <Footer />
+                    {/* <Footer /> */}
                 </div>
             </div>
         </>

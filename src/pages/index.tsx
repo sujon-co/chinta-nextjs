@@ -112,7 +112,9 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                             </div>
                         </div>
                         <div className={SEL}>
-                            <HomePageContact />
+                            <div className="footer-wrapper">
+                                <HomePageContact />
+                            </div>
                         </div>
                     </ReactFullpage.Wrapper>
                 )}

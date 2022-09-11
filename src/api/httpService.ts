@@ -10,5 +10,5 @@ export default instance;
 
 export const imageUploadInstance = axios.create({
     baseURL: `${config.imageUploadUrl}/api`,
-    timeout: 10000,
+    timeout: 15000,
 });
