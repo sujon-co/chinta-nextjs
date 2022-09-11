@@ -157,8 +157,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 );
                 if (data.success) {
                     toast.success(data.message);
-                    formikHelpers.resetForm();
-                    setTimeout(() => { window.location.reload(); }, 1000);
+                    // formikHelpers.resetForm();
+                    // setTimeout(() => { window.location.reload(); }, 1000);
                 }
             }
         } catch (err) {
@@ -222,6 +222,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             <option value="commercial">Commercial</option>
                             <option value="publicSpace">Public Space</option>
                             <option value="urbanism">Urbanism</option>
+                            <option value="interior">Interior</option>
                         </Field>
                         <div className="text-danger">
                             <ErrorMessage name="type" />

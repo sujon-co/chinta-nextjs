@@ -91,31 +91,11 @@
         display: flex;
         justify-content: flex-end;
         flex-direction: column;
-        max-width: 20%;
+        max-width: 25%;
+        min-width: 20%;
         height: 100%;
         // background: green;
         margin: 0 auto;
-
-        .status-project {
-            padding: 10px;
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap-reverse;
-            &-item {
-                height: 70px;
-                width: 60px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                flex-direction: column;
-                &-img {
-                    transition: all 0.5s linear;
-                    &:hover {
-                        transform: scale(2);
-                    }
-                }
-            }
-        }
     }
     .status-title {
         font-size: 16px;
@@ -123,5 +103,48 @@
         text-transform: capitalize;
         margin-top: 10px;
         text-align: center;
+    }
+}
+
+.status-project {
+    padding: 10px;
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap-reverse;
+}
+.status-project-item {
+    height: 70px;
+    width: 60px;
+    transition: all 0.4s linear;
+
+    &-img {
+        transition: all 0.5s linear;
+    }
+    span {
+        display: none;
+    }
+    &:hover {
+        cursor: pointer;
+        position: relative;
+
+        span {
+            position: absolute;
+            z-index: 100;
+            top: 50%;
+            display: block;
+            padding: 3px;
+            background: #212529;
+            color: #fff;
+            font-size: 10px;
+            border-radius: 2px;
+            font-weight: 400;
+            text-decoration: none;
+            min-width: 135px;
+            text-align: center;
+        }
+
+        .status-project-item-img {
+            transform: scale(2);
+        }
     }
 }

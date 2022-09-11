@@ -5,23 +5,20 @@ import { IProject } from 'server/interface';
 import ProjectItem from '../ProjectItem';
 import ProjectList from './List';
 
-type IFilter =
-    | 'scrolling'
-    | 'status'
-    | 'location'
-    | 'bar_view'
-    | 'programmatic';
+type IFilter = 'scrolling' | 'status' | 'location' | 'chronological' | 'programmatic';
 
+type status = {
+    name: string;
+    data: IProject[];
+};
 interface Props {
     projects: IProject[];
 }
 
 const Projects: NextPage<Props> = ({ projects }) => {
     const [filter, setFilter] = useState<IFilter>('scrolling');
-    const [ideaData, setIdeaData] = useState<IProject[]>([]);
-    const [inProgress, setInProgress] = useState<IProject[]>([]);
-    const [underConstruction, setUnderConstruction] = useState<IProject[]>([]);
-    const [completed, setCompleted] = useState<IProject[]>([]);
+    const [status, setStatus] = useState<status[]>([]);
+    const [programmatic, setProgrammatic] = useState<status[]>([]);
     const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
 
 
@@ -33,18 +30,57 @@ const Projects: NextPage<Props> = ({ projects }) => {
     }, []);
 
     useEffect(() => {
-        const _ideaData = projects.filter((project) => project.status === 'idea');
-        const _inProgress = projects.filter((project) => project.status === 'inProgress');
-        const _underConstruction = projects.filter((project) => project.status === 'underConstruction');
-        const _completed = projects.filter((project) => project.status === 'completed');
 
-        setIdeaData(_ideaData);
-        setInProgress(_inProgress);
-        setUnderConstruction(_underConstruction);
-        setCompleted(_completed);
+        /*** filter data status */
+        const _idea: status = { name: 'Idea', data: [] };
+        const _inProgress: status = { name: 'In Progress', data: [] };
+        const _underConstruction: status = { name: 'Under Construction', data: [] };
+        const _completed: status = { name: 'Completed', data: [] };
+
+        projects.forEach((project) => {
+            if (project.status === 'idea') {
+                _idea.data.push(project);
+            } else if (project.status === 'inProgress') {
+                _inProgress.data.push(project);
+            } else if (project.status === 'underConstruction') {
+                _underConstruction.data.push(project);
+            } else if (project.status === 'completed') {
+                _completed.data.push(project);
+            }
+        });
+
+        const statusData = [_idea, _inProgress, _underConstruction, _completed];
+        setStatus(statusData);
+
+        /** filter data by programmatic */
+        // 'residential' | 'commercial' | 'publicSpace' | 'urbanism' | 'interior'
+        const _residential: status = { name: 'Residential', data: [] };
+        const _commercial: status = { name: 'Commercial', data: [] };
+        const _publicSpace: status = { name: 'Public Space', data: [] };
+        const _urbanism: status = { name: 'Urbanism', data: [] };
+        const _interior: status = { name: 'Interior', data: [] };
+
+        projects.forEach((project) => {
+            if (project.type === 'residential') {
+                _residential.data.push(project);
+            } else if (project.type === 'commercial') {
+                _commercial.data.push(project);
+            } else if (project.type === 'publicSpace') {
+                _publicSpace.data.push(project);
+            } else if (project.type === 'urbanism') {
+                _urbanism.data.push(project);
+            } else if (project.type === 'interior') {
+                _interior.data.push(project);
+            }
+        });
+
+        const programmaticData = [_residential, _commercial, _publicSpace, _urbanism, _interior];
+        setProgrammatic(programmaticData);
+
+
 
     }, [projects, filter]);
-
+    console.log({ status });
 
     return (
         <div className="container">
@@ -61,140 +97,31 @@ const Projects: NextPage<Props> = ({ projects }) => {
                 )}
                 {filter === 'status' && (
                     <div className="project-status">
-                        <div className="status-item">
-                            <div className="status-project">
-                                <ProjectList projects={ideaData.slice(0, 14)} />
+                        {status.map((status, index) => (
+                            <div className="status-item" key={index}>
+                                <div className="status-project">
+                                    <ProjectList projects={status.data} />
+                                </div>
+                                <div className="status-title"> {status.name} </div>
                             </div>
-                            <div className="status-title">Idea</div>
-                        </div>
-                        <div className="status-item">
-                            <div className="status-project">
-                                <ProjectList projects={inProgress} />
-                            </div>
-                            <div className="status-title"> In Progress</div>
-                        </div>
-                        <div className="status-item">
-                            <div className="status-project">
-                                <ProjectList projects={underConstruction} />
-                            </div>
-                            <div className="status-title">
-                                Under Construction
-                            </div>
-                        </div>
-                        <div className="status-item">
-                            <div className="status-project">
-                                <ProjectList projects={completed} />
-                            </div>
-                            <div className="status-title">Completed</div>
-                        </div>
+                        ))}
                     </div>
                 )}
                 {filter === 'programmatic' && (
                     <div className="project-status">
-                        <div className="status-item">
-                            <div className="status-project">
-                                {Array(15)
-                                    .fill('_')
-                                    .map((item, index) => (
-                                        <div
-                                            className="status-project-item"
-                                            key={index + 1}
-                                        >
-                                            <img
-                                                src="/projects/18.jpeg"
-                                                className="status-project-item-img "
-                                                alt="project"
-                                                title="project"
-                                                height={50}
-                                                width={50}
-                                            />
-                                            <div className="status-project-item-title">
-                                                SKI
-                                            </div>
-                                        </div>
-                                    ))}
+                        {programmatic.map((status, index) => (
+                            <div className="status-item" key={index}>
+                                <div className="status-project">
+                                    <ProjectList projects={status.data} />
+                                </div>
+                                <div className="status-title"> {status.name} </div>
                             </div>
-                            <div className="status-title">Residential</div>
-                        </div>
-                        <div className="status-item">
-                            <div className="status-project">
-                                {Array(15)
-                                    .fill('_')
-                                    .map((item, index) => (
-                                        <div
-                                            className="status-project-item"
-                                            key={index + 1}
-                                        >
-                                            <img
-                                                src="/projects/18.jpeg"
-                                                className="status-project-item-img "
-                                                alt="project"
-                                                title="project"
-                                                height={50}
-                                                width={50}
-                                            />
-                                            <div className="status-project-item-title">
-                                                SKI
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
-                            <div className="status-title"> Commercial</div>
-                        </div>
-                        <div className="status-item">
-                            <div className="status-project">
-                                {Array(10)
-                                    .fill('_')
-                                    .map((item, index) => (
-                                        <div
-                                            className="status-project-item"
-                                            key={index + 1}
-                                        >
-                                            <img
-                                                src="/projects/18.jpeg"
-                                                className="status-project-item-img "
-                                                alt="project"
-                                                title="project"
-                                                height={50}
-                                                width={50}
-                                            />
-                                            <div className="status-project-item-title">
-                                                SKI
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
-                            <div className="status-title">Public Space</div>
-                        </div>
-                        <div className="status-item">
-                            <div className="status-project">
-                                {Array(5)
-                                    .fill('_')
-                                    .map((item, index) => (
-                                        <div
-                                            className="status-project-item"
-                                            key={index + 1}
-                                        >
-                                            <img
-                                                src="/projects/18.jpeg"
-                                                className="status-project-item-img "
-                                                alt="project"
-                                                title="project"
-                                                height={50}
-                                                width={50}
-                                            />
-                                            <div className="status-project-item-title">
-                                                SKI
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
-                            <div className="status-title">Urbanism</div>
-                        </div>
+                        ))}
+
                     </div>
                 )}
                 {filter === 'location' && <div>Under Development...</div>}
-                {filter === 'bar_view' && (
+                {filter === 'chronological' && (
                     <div className="container">
                         <div className="projects">
                             <div>Under Developer up coming </div>
@@ -228,8 +155,8 @@ const Projects: NextPage<Props> = ({ projects }) => {
                     Location
                 </li> */}
                 <li
-                    className={`filter-item ${filter === 'bar_view' ? 'active' : ''}`}
-                    onClick={() => setFilter('bar_view')}
+                    className={`filter-item ${filter === 'chronological' ? 'active' : ''}`}
+                    onClick={() => setFilter('chronological')}
                 >
                     Chronological
                 </li>

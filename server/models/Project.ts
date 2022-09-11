@@ -10,7 +10,7 @@ const projectSchema = new Schema<IProject>(
         type: {
             type: String,
             required: true,
-            enum: ['residential', 'commercial', 'publicSpace', 'urbanism'],
+            enum: ['residential', 'commercial', 'publicSpace', 'urbanism', 'interior'],
         },
         status: {
             type: String,

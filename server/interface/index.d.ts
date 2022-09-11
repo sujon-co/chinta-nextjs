@@ -4,7 +4,7 @@ import { Types } from 'mongoose';
 interface IProject {
     _id: Types.ObjectId | string;
     name: string;
-    type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism';
+    type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism' | 'interior';
     status: 'idea' | 'inProgress' | 'underConstruction' | 'completed';
     principalArchitect: string;
     designTeam: string;
@@ -101,7 +101,7 @@ interface IJob {
 }
 
 type ResponseError = AxiosError & {
-    response: { data: { message: string } };
+    response: { data: { message: string; }; };
 };
 
 interface APIResponse<T> {

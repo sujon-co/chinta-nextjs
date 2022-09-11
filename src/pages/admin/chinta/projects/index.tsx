@@ -25,7 +25,7 @@ const Projects = ({ projects }: IProps) => {
             );
             if (data.message) {
                 toast.success(data.message);
-                window.location.reload();
+                // window.location.reload();
             }
         }
     };

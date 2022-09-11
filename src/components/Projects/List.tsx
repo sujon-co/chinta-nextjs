@@ -16,13 +16,10 @@ const ProjectList: FC<IProjectListProps> = ({ projects }) => {
                         src={`${config.imageUploadUrl}${project.topImage}`}
                         className="status-project-item-img "
                         alt={project.name}
-                        title={project.name}
                         height={50}
                         width={50}
                     />
-                    <div className="status-project-item-title">
-                        SKI
-                    </div>
+                    <span> {project.name} </span>
                 </a>
             </Link>
         ))}
