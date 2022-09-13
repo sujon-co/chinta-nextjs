@@ -32,8 +32,8 @@
     font-size: 12px !important;
 }
 
-.line-height-27 {
-    line-height: 27px;
+.line-height-25 {
+    line-height: 25px;
 }
 .form-label {
     font-weight: 400;
@@ -110,6 +110,12 @@
     height: 20px;
 }
 /*** Responsive ***/
+@media (max-width: 991.98px) {
+    .container__main {
+        padding-top: 90px;
+        background-color: red;
+    }
+}
 
 @media (max-width: 575.98px) {
 }

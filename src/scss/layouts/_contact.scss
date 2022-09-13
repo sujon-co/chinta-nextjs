@@ -21,6 +21,11 @@
     flex-direction: column;
     justify-content: center;
 }
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .gmap_canvas {
     height: 100%;
 }
@@ -230,6 +235,7 @@
         padding-left: 10px;
         padding-right: 45px;
         resize: none;
+        padding-top: 3px;
     }
     .send-btn {
         transition: all 0.5s ease-in-out;
@@ -237,11 +243,45 @@
         position: absolute;
         right: 8px;
         bottom: 10px;
-        padding-top: 3px;
         // display: flex;
         // align-items: center;
         // justify-content: center;
         // height: 25px;
         // font-size: 20px;
     }
+}
+
+/******** Responsive ********/
+@media (max-width: 575.98px) {
+    .footer-wrapper {
+        .footer-section {
+            margin-top: 40px;
+        }
+    }
+    .footer {
+        text-align: center;
+        .social-icons {
+            display: none;
+        }
+    }
+    .type-writer-box-3 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .type-writer-box-3 {
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+@media (min-width: 1200px) and (max-width: 1399.9px) {
+}
+@media (min-width: 1400px) {
 }

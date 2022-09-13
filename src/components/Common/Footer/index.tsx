@@ -3,7 +3,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 const Footer = () => {
     return (
         <footer className="container footer-section">
-            <div className="d-flex align-content-center justify-content-between">
+            <div className="footer">
                 <div className="social-icons">
                     <a href="#" className="social-icons-item">
                         <FaFacebookF />
@@ -15,7 +15,7 @@ const Footer = () => {
                         <FaLinkedinIn />
                     </a>
                 </div>
-                <div className="line-height-27">
+                <div className="line-height-25">
                     Copyright © {new Date().getFullYear()} Chinta Sthapatya. All
                     Rights Reserved
                 </div>

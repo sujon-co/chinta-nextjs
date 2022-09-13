@@ -92,8 +92,8 @@ const HomePageContact = () => {
         <Fragment>
 
             <div className="container contact-container">
-                <div className="row">
-                    <div className="col-md-6">
+                <div className="row g-3">
+                    <div className="col-lg-6">
                         <div className="wrapper">
                             {/* <div className="type-writer-box">
                                     <textarea spellCheck="false" autoCorrect='false' autoComplete='false' onChange={(e) => setMessage(e.target.value)} onWheel={scrollHandler} />
@@ -140,7 +140,7 @@ const HomePageContact = () => {
                             </li>
                         </ul>
                     </div>
-                    <div className="col-md-6" >
+                    <div className="col-lg-6" >
                         <div className="gmap_canvas">
                             <iframe
                                 width="100%"

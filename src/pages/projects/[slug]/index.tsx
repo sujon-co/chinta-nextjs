@@ -101,10 +101,10 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     )}
 
                                     <div className="row g-3 mt-3 align-items-center">
-                                        <div className="col-6 ">
+                                        <div className="col-md-6 ">
                                             <div dangerouslySetInnerHTML={{ __html: project.description }} />
                                         </div>
-                                        <div className="col-6">
+                                        <div className="col-md-6">
                                             <div className="mb-3 image-wrapper">
                                                 <MyImage
                                                     src={project.portraitImage.photoUrl}

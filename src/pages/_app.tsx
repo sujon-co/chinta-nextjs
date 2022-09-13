@@ -17,13 +17,14 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
     const [pageLoading, setPageLoading] = useState(true);
 
     useEffect(() => {
-        if (router.pathname === '/') {
-            setTimeout(() => {
-                setPageLoading(false);
-            }, 6000);
-        } else {
-            setPageLoading(false);
-        }
+        // if (router.pathname === '/') {
+        //     setTimeout(() => {
+        //         setPageLoading(false);
+        //     }, 6000);
+        // } else {
+        //     setPageLoading(false);
+        // }
+        setPageLoading(false);
     }, [router.pathname]);
 
 
