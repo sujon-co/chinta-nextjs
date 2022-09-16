@@ -73,7 +73,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                                 <MyImage
                                                     src={image.photoUrl}
                                                     alt={image.alt}
-                                                    layout="fill"
+                                                    layout="intrinsic"
                                                     width={3840}
                                                     height={2160}
                                                 />

@@ -3,7 +3,16 @@
     flex-direction: column;
     height: 100vh;
 }
+body {
+    height: 1000vh;
+}
 
+@media screen and (max-width: 768px) {
+    ::-webkit-scrollbar {
+        -webkit-appearance: none !important;
+        display: none !important;
+    }
+}
 .container__header,
 .container__footer {
     flex-shrink: 0;
