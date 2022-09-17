@@ -10,12 +10,16 @@
 }
 
 /*** full page scroll ***/
+
 .fp-table {
     display: block !important;
 }
+.d-flex {
+    display: flex !important;
+}
 
 .custom-section {
-    padding-top: calc(70px + 50px);
+    padding-top: calc(70px + 25px);
 }
 .about-section-overwrite {
     padding-top: 75px !important;

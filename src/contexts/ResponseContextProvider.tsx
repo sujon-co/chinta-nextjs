@@ -1,17 +1,25 @@
 /* eslint-disable prefer-rest-params */
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-export const SizeContext = createContext(null);
+export const SizeContext = createContext({
+    size: 6,
+    width: 0,
+    height: 0,
+    isDesktop: true,
+    isMobile: true,
+
+});
 
 interface IProps {
     children: React.ReactNode;
 }
 
 const SizeContextProvider = ({ children }: IProps) => {
-    const [width, setWidth] = useState(window.innerWidth);
-    const [size, setSize] = useState(6);
-    const [isMobile, setIsMobile] = useState(true);
-    const [isDesktop, setIsDesktop] = useState(true);
+    const [width, setWidth] = useState<number>(window.innerWidth);
+    const [height, setHeight] = useState<number>(window.innerHeight);
+    const [size, setSize] = useState<number>(6);
+    const [isMobile, setIsMobile] = useState<boolean>(true);
+    const [isDesktop, setIsDesktop] = useState<boolean>(true);
 
     function debounce(fn: any, ms: any) {
         let timer: any;
@@ -30,12 +38,14 @@ const SizeContextProvider = ({ children }: IProps) => {
             setWidth(window.innerWidth);
         }, 0);
 
+        setHeight(window.innerHeight);
+
         window.addEventListener('resize', debouncedHandleResize);
 
         return () => {
             window.removeEventListener('resize', debouncedHandleResize);
         };
-    });
+    }, []);
 
     useEffect(() => {
         if (width <= 575) {
@@ -63,7 +73,7 @@ const SizeContextProvider = ({ children }: IProps) => {
 
     return (
         // @ts-ignore
-        <SizeContext.Provider value={{ size, width, isDesktop, isMobile }}>
+        <SizeContext.Provider value={{ size, width, isDesktop, isMobile, height }}>
             {children}
         </SizeContext.Provider>
     );
