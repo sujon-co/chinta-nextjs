@@ -6,6 +6,7 @@ import { APIResponse, IAbout, IAward, IJob, INews, IShop, IStudio } from 'server
 import instance from 'src/api/httpService';
 import Footer from 'src/components/Common/Footer';
 import Header from 'src/components/Common/Header';
+import HomePageContact from 'src/components/HomePageContact';
 import MyImage from 'src/components/Image';
 import About from 'src/components/Info/about';
 import ShopItem from 'src/components/Info/shop/ShopItem';
@@ -60,6 +61,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                     <li data-menuanchor="info-shops"> <a href='#info-shops'>Shop</a> </li>
                     <li data-menuanchor="info-jobs"> <a href='#info-jobs'>Jobs</a> </li>
                     <li data-menuanchor="info-news"> <a href='#info-news'>News</a> </li>
+                    <li data-menuanchor="info-contact"> <a href='#info-contact'>Contact</a> </li>
                 </ul>
                 <div className='container'>
                     <ReactFullpage
@@ -68,7 +70,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                         scrollBar={false}
                         licenseKey='YOUR_KEY_HERE'
                         sectionSelector={SECTION_SEL}
-                        anchors={['info-about', 'info-studio', 'info-award', 'info-shops', 'info-jobs', 'info-news']}
+                        anchors={['info-about', 'info-studio', 'info-award', 'info-shops', 'info-jobs', 'info-news', 'info-contact']}
                         css3={true}
                         menu="#myMenu"
                         autoScrolling={true}
@@ -138,10 +140,15 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                     </div>
                                 </div>
                                 <div className={SEL} >
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                    <div className="info-section scroll" onWheel={scrollHandler} >
                                         {news.map(news => (
                                             <NewsItem news={news} key={news.title} />
                                         ))}
+                                    </div>
+                                </div>
+                                <div className={SEL} >
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                        <HomePageContact showFooter={false} />
                                     </div>
                                 </div>
                             </ReactFullpage.Wrapper>

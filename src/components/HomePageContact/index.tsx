@@ -6,8 +6,11 @@ import { scrollHandler } from 'src/utils';
 import Footer from '../Common/Footer';
 import MailPop from '../Modal';
 
+interface Props {
+    showFooter?: boolean;
+}
 
-const HomePageContact = () => {
+const HomePageContact = ({ showFooter = true }: Props) => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [data, setData] = useState({});
@@ -129,9 +132,12 @@ const HomePageContact = () => {
                 </div>
 
             </div>
-            <div className="pb-4">
-                <Footer />
-            </div>
+            {showFooter &&
+                <div className="pb-4">
+                    <Footer />
+                </div>
+            }
+
 
             <MailPop
                 inputHandler={inputHandler}
