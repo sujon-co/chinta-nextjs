@@ -101,7 +101,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id="projects" className={`${SEL} d-flex`} style={{ paddingTop: '70px', alignItems: "center", justifyContent: 'content' }} >
+                        <div id="projects" className={`${SEL} d-flex`} style={{ paddingTop: '54px', alignItems: "center", justifyContent: 'content' }} >
                             <div className="container ">
                                 <div
                                     className="projects"
