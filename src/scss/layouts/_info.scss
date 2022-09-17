@@ -1,8 +1,8 @@
 .info-page-wrapper {
     height: 100%;
     position: relative;
-    width: 90%;
     margin: 0 auto;
+    max-width: 1485px;
 }
 .info-route {
     border-right: 1px solid red;
@@ -121,7 +121,6 @@
     list-style: none;
     height: 50%;
     text-align: right;
-    // border-right: 1px solid red;
     padding-right: 10px;
 
     li {
@@ -163,5 +162,32 @@
 .jobs {
     &-description {
         line-height: 15px;
+    }
+}
+
+/******** Responsive ********/
+@media (max-width: 575.98px) {
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .info-page-wrapper {
+        max-width: 1120px;
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1399.9px) {
+    .info-page-wrapper {
+        max-width: 1320px;
+    }
+}
+@media (min-width: 1400px) {
+    .info-page-wrapper {
+        max-width: 1485px;
     }
 }
