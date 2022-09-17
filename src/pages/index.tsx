@@ -57,7 +57,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 render={(comp) => (
                     <ReactFullpage.Wrapper>
                         <div className={`${SEL} py-50`}>
-                            <div className="container" style={{ height: '100%' }}>
+                            <div className="container slider-height">
                                 <Swiper
                                     autoplay={{
                                         delay: 3000,
