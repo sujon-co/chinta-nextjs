@@ -29,7 +29,13 @@
     padding-top: 60px !important;
     display: flex !important;
 }
-
+.info-about-overwrite {
+    height: 100%;
+    background: red;
+    display: flex;
+    align-items: center;
+    padding-bottom: 35px;
+}
 .swiper-wrapper {
     margin-top: 70px !important;
 }

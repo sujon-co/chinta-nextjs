@@ -71,6 +71,7 @@
 }
 
 .header-content {
+    height: 23px;
     display: flex;
     align-items: center;
     .header-menu-wrapper {
@@ -98,16 +99,63 @@
                     height: 1px;
                     bottom: 0;
                     left: 0;
-                    background-color: $primary;
                     transform-origin: bottom right;
                     transition: transform 0.25s ease-out;
                 }
+
                 &.active,
                 &:hover {
                     &::after {
                         content: '';
                         transform: scaleX(1);
                         transform-origin: bottom left;
+                    }
+                }
+
+                &.RED {
+                    color: gray;
+                    &::after {
+                        content: '';
+                        background-color: red;
+                    }
+                }
+                &.red {
+                    &:hover {
+                        &::after {
+                            content: '';
+                            background-color: red;
+                        }
+                    }
+                }
+                &.BLUE {
+                    color: gray;
+                    &::after {
+                        content: '';
+                        background-color: #0678d0;
+                    }
+                }
+                &.blue {
+                    &:hover {
+                        &::after {
+                            content: '';
+                            background-color: #0678d0;
+                        }
+                    }
+                }
+
+                &.YELLOW {
+                    color: gray;
+                    &::after {
+                        content: '';
+                        background-color: #f4cf0d;
+                    }
+                }
+                &.yellow {
+                    &:hover {
+                        &::after {
+                            content: '';
+                            background-color: #f4cf0d;
+                        }
                     }
                 }
             }
@@ -154,7 +202,7 @@
     .bar {
         height: 14px;
         width: 2px;
-        background-color: red;
+        background-color: black;
         margin-top: 2px;
     }
 }

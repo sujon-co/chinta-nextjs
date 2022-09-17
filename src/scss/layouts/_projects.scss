@@ -3,20 +3,6 @@
     overflow-x: hidden !important;
     height: 70vh;
     padding-right: 5px;
-    // background: red;
-
-    &::-webkit-scrollbar {
-        width: 3px;
-        height: 3px;
-        display: block;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: red;
-        border-radius: 20px;
-    }
-    &::-webkit-scrollbar-track {
-        background: lightgray;
-    }
 }
 
 .project-item {
@@ -93,7 +79,6 @@
         flex-direction: column;
         max-width: 20%;
         height: 100%;
-        // background: green;
         margin: 0 auto;
     }
     .status-title {

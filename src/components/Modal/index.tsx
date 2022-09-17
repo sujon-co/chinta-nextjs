@@ -1,5 +1,6 @@
 import { FC, SyntheticEvent } from 'react';
-import { FaAngleRight, FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
+import { FiChevronRight } from 'react-icons/fi';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -80,7 +81,7 @@ const MailPop: FC<IModalProps> = ({ closeModal, mailSubmitHandler, inputHandler,
                 </div>
                 <div className="text-end">
                     <button type='submit' className='send-btn'  >
-                        <FaAngleRight />
+                        <FiChevronRight />
                     </button>
                 </div>
             </form>

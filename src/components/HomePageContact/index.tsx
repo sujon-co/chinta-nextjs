@@ -1,6 +1,6 @@
 import { Fragment, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaAngleRight } from 'react-icons/fa';
+import { FiChevronRight } from 'react-icons/fi';
 import { imageUploadInstance } from 'src/api/httpService';
 import { scrollHandler } from 'src/utils';
 import Footer from '../Common/Footer';
@@ -97,40 +97,22 @@ const HomePageContact = () => {
                                 <div className="type-writer-box-3">
                                     <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
                                     <button className='send-btn' onClick={openModal} >
-                                        <FaAngleRight />
+                                        <FiChevronRight />
                                     </button>
                                 </div>
                             </div>
-                            <h6> We would love to hear from you so don&lsquo;t hesitate to say hi! </h6>
+                            <h6 className='mb-2'> We would love to hear from you so don&lsquo;t hesitate to say hi! </h6>
 
                             <div className="mb-2">
-                                <div className="">+8801970785096</div>
-                                <div>info@chintaarchitects.com</div>
+                                <div className="">
+                                    <a style={{ textDecoration: 'none' }} href="tel:+8801670785096">+8801670785096</a>
+                                </div>
+                                <div>
+                                    <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }} href="mailto:info@chintaarchitects.com">info@chintaarchitects.com</a>
+                                </div>
                             </div>
                             <p className='mb-0'> CHINTA STHAPATYA, Level-5, House-25/2, Road No-15 (new) 28 (old) <br /> Dhaka 1205, Bangladesh </p>
                         </div>
-                        {/* <ul className="social-link w-50">
-                            <li>
-                                <a href="#" target="_blank" rel="noopener noreferrer">
-                                    Twitter
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.linkedin.com/in/kanakmahmud/" target="_blank" rel="noopener noreferrer" >
-                                    LinkedIn
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.instagram.com/chintaarchitects/" target="_blank" rel="noopener noreferrer" >
-                                    Instagram
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://www.facebook.com/chintasthapatya" target="_blank" rel="noopener noreferrer" >
-                                    Facebook
-                                </a>
-                            </li>
-                        </ul> */}
                     </div>
                     <div className="col-lg-6" >
                         <div className="gmap_canvas">

@@ -74,7 +74,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                     render={(comp) =>
                         <ReactFullpage.Wrapper  >
                             <div className={SEL} >
-                                <div className="info-section" >
+                                <div className="info-section info-about-overwrite" >
                                     <About about={about} />
                                 </div>
                             </div>

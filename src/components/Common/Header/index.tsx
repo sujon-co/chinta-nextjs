@@ -48,33 +48,24 @@ const Header: NextPage<IProps> = () => {
                     <div className="header-menu-wrapper">
                         <div
                             className={`header-menu ${showMenu
-                                    ? 'menu-open-animation'
-                                    : 'menu-close-animation'
+                                ? 'menu-open-animation'
+                                : 'menu-close-animation'
                                 }`}
                             onMouseOver={() => setStay(true)}
                             onMouseLeave={() => setStay(false)}
                         >
                             <Link href="/projects">
-                                <a
-                                    className={`header-menu-item ${pathname === '/projects' ? 'active' : ''
-                                        }`}
-                                >
+                                <a className={`header-menu-item  red ${pathname === '/projects' ? 'active  RED' : ''}`} >
                                     Projects
                                 </a>
                             </Link>
                             <Link href="/info">
-                                <a
-                                    className={`header-menu-item ${pathname === '/info' ? 'active' : ''
-                                        }`}
-                                >
+                                <a className={`header-menu-item blue ${pathname === '/info' ? 'active  BLUE' : ''}`} >
                                     Info
                                 </a>
                             </Link>
                             <Link href="/contact">
-                                <a
-                                    className={`header-menu-item ${pathname === '/contact' ? 'active' : ''
-                                        }`}
-                                >
+                                <a className={`header-menu-item yellow ${pathname === '/contact' ? 'active  YELLOW' : ''}`} >
                                     Contact
                                 </a>
                             </Link>
