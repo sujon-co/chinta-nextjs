@@ -119,7 +119,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 </div>
                             </div>
                         </div>
-                        <div className={SEL}>
+                        <div className={`${SEL} contact-section-overwrite`}>
                             <div className="footer-wrapper">
                                 <HomePageContact />
                             </div>

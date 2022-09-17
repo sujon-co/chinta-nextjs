@@ -47,14 +47,13 @@ const HomePageContact = () => {
     };
 
     const fetchData = async (): Promise<unknown> => {
-        // fetch('https://chintasthapatya.com/api/contact')
         const newData = { ...data, message };
         return await imageUploadInstance.post('/mail/send', newData);
     };
 
     const mailSubmitHandler = async (event: SyntheticEvent) => {
         event.preventDefault();
-
+        toast.success('Mail Send Successfully!');
         toast.promise(
             fetchData(),
             {
@@ -84,7 +83,7 @@ const HomePageContact = () => {
 
     useEffect(() => {
         if (!message && textAreaRef.current) {
-            textAreaRef.current.style.height = 34 + 'px';
+            textAreaRef.current.style.height = 30 + 'px';
         }
     }, [message]);
 
@@ -94,12 +93,6 @@ const HomePageContact = () => {
                 <div className="row g-3">
                     <div className="col-lg-6">
                         <div className="wrapper">
-                            {/* <div className="type-writer-box">
-                                    <textarea spellCheck="false" autoCorrect='false' autoComplete='false' onChange={(e) => setMessage(e.target.value)} onWheel={scrollHandler} />
-                                    <button className='send-btn' onClick={openModal}>
-                                        &#9654;
-                                    </button>
-                                </div> */}
                             <div className="type-writer-wrapper">
                                 <div className="type-writer-box-3">
                                     <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
@@ -114,9 +107,9 @@ const HomePageContact = () => {
                                 <div className="">+8801970785096</div>
                                 <div>info@chintaarchitects.com</div>
                             </div>
-                            <p> CHINTA STHAPATYA, Level-5, House-25/2, Road No-15 (new) 28 (old) <br /> Dhaka 1205, Bangladesh </p>
+                            <p className='mb-0'> CHINTA STHAPATYA, Level-5, House-25/2, Road No-15 (new) 28 (old) <br /> Dhaka 1205, Bangladesh </p>
                         </div>
-                        <ul className="social-link w-50">
+                        {/* <ul className="social-link w-50">
                             <li>
                                 <a href="#" target="_blank" rel="noopener noreferrer">
                                     Twitter
@@ -137,7 +130,7 @@ const HomePageContact = () => {
                                     Facebook
                                 </a>
                             </li>
-                        </ul>
+                        </ul> */}
                     </div>
                     <div className="col-lg-6" >
                         <div className="gmap_canvas">
