@@ -52,7 +52,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                 <title>Chinta Sthapatya</title>
             </Head>
             <Header />
-            <div className='container'>
+            <div className="info-page-wrapper">
                 <ul id="myMenu">
                     <li data-menuanchor="info-about"> <a href='#info-about'>About</a> </li>
                     <li data-menuanchor="info-studio"> <a href='#info-studio'>Studio</a> </li>
@@ -61,91 +61,93 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                     <li data-menuanchor="info-jobs"> <a href='#info-jobs'>Jobs</a> </li>
                     <li data-menuanchor="info-news"> <a href='#info-news'>News</a> </li>
                 </ul>
-                <ReactFullpage
-                    pluginWrapper={pluginWrapper}
-                    onLeave={onLeave}
-                    scrollBar={false}
-                    licenseKey='YOUR_KEY_HERE'
-                    sectionSelector={SECTION_SEL}
-                    anchors={['info-about', 'info-studio', 'info-award', 'info-shops', 'info-jobs', 'info-news']}
-                    css3={true}
-                    menu="#myMenu"
-                    autoScrolling={true}
-                    render={(comp) =>
-                        <ReactFullpage.Wrapper  >
-                            <div className={SEL} >
-                                <div className="info-section info-about-overwrite" >
-                                    <About about={about} />
-                                </div>
-                            </div>
-                            <div className={SEL} >
-                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                    <div className="pb-1">
-                                        <Studio studios={studios} />
+                <div className='container'>
+                    <ReactFullpage
+                        pluginWrapper={pluginWrapper}
+                        onLeave={onLeave}
+                        scrollBar={false}
+                        licenseKey='YOUR_KEY_HERE'
+                        sectionSelector={SECTION_SEL}
+                        anchors={['info-about', 'info-studio', 'info-award', 'info-shops', 'info-jobs', 'info-news']}
+                        css3={true}
+                        menu="#myMenu"
+                        autoScrolling={true}
+                        render={(comp) =>
+                            <ReactFullpage.Wrapper  >
+                                <div className={SEL} >
+                                    <div className="info-section info-about-overwrite" >
+                                        <About about={about} />
                                     </div>
                                 </div>
-                            </div>
-                            <div className={SEL}>
-                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                    {awards.map((award) => (
-                                        <div className="d-flex gap-2 mb-2" key={award.awardName}>
-                                            <span> {award.year} </span>
-                                            <span> {award.awardName} </span>
-                                            <a href={award.programUrl} target="_blank" rel="noreferrer">
-                                                {award.programName}
-                                            </a>
-                                            <span> Organized by</span>
-                                            <a href={award.organizationUrl} target="_blank" rel="noreferrer"> {award.organizedBy} </a>
+                                <div className={SEL} >
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                        <div className="pb-1">
+                                            <Studio studios={studios} />
                                         </div>
-                                    ))}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={SEL} >
-                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                    {shops.map(shop => (
-                                        <ShopItem shop={shop} key={shop.title} />
-                                    ))}
+                                <div className={SEL}>
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                        {awards.map((award) => (
+                                            <div className="d-flex gap-2 mb-2" key={award.awardName}>
+                                                <span> {award.year} </span>
+                                                <span> {award.awardName} </span>
+                                                <a href={award.programUrl} target="_blank" rel="noreferrer">
+                                                    {award.programName}
+                                                </a>
+                                                <span> Organized by</span>
+                                                <a href={award.organizationUrl} target="_blank" rel="noreferrer"> {award.organizedBy} </a>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={SEL} >
-                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                    <div className="jobs">
+                                <div className={SEL} >
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                        {shops.map(shop => (
+                                            <ShopItem shop={shop} key={shop.title} />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className={SEL} >
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                        <div className="jobs">
 
-                                        <div className="row">
-                                            <div className="col-md-12 mb-3">
-                                                <MyImage
-                                                    layout="responsive"
-                                                    className=" img-fluid mt-1"
-                                                    src={job.image}
-                                                    alt={job.title}
-                                                    placeholder="blur"
-                                                    height={280}
-                                                    width={450}
-                                                />
-                                            </div>
-                                            <div className="jobs-title mb-3">
-                                                <h4>{job.title}</h4>
-                                            </div>
-                                            <div className="col-md-12 jobs-description">
-                                                <div className="" dangerouslySetInnerHTML={{ __html: job.requirements }} />
-                                            </div>
-                                            <div className="col-md-12 jobs-description">
-                                                <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
+                                            <div className="row">
+                                                <div className="col-md-12 mb-3">
+                                                    <MyImage
+                                                        layout="responsive"
+                                                        className=" img-fluid mt-1"
+                                                        src={job.image}
+                                                        alt={job.title}
+                                                        placeholder="blur"
+                                                        height={280}
+                                                        width={450}
+                                                    />
+                                                </div>
+                                                <div className="jobs-title mb-3">
+                                                    <h4>{job.title}</h4>
+                                                </div>
+                                                <div className="col-md-12 jobs-description">
+                                                    <div className="" dangerouslySetInnerHTML={{ __html: job.requirements }} />
+                                                </div>
+                                                <div className="col-md-12 jobs-description">
+                                                    <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className={SEL} >
-                                <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                    {news.map(news => (
-                                        <NewsItem news={news} key={news.title} />
-                                    ))}
+                                <div className={SEL} >
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                        {news.map(news => (
+                                            <NewsItem news={news} key={news.title} />
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </ReactFullpage.Wrapper>
-                    }
-                />
+                            </ReactFullpage.Wrapper>
+                        }
+                    />
+                </div>
             </div>
             <div className="info-footer-wrapper">
                 <Footer />

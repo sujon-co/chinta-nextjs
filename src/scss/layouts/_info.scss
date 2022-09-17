@@ -1,3 +1,9 @@
+.info-page-wrapper {
+    height: 100%;
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+}
 .info-route {
     border-right: 1px solid red;
     margin-left: auto;
@@ -106,15 +112,17 @@
 }
 
 #myMenu {
-    position: fixed;
-    left: 5%;
-    top: 164px;
-    width: 100px;
+    position: absolute;
+    left: 0;
+    top: 235px;
+    width: 90px;
     z-index: 100;
     transform: translate(0%, -35%);
     list-style: none;
-    padding: 10px;
-    padding-left: 15px;
+    height: 50%;
+    text-align: right;
+    // border-right: 1px solid red;
+    padding-right: 10px;
 
     li {
         a {
