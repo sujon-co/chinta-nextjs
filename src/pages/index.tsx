@@ -10,6 +10,7 @@ import HomePageContact from 'src/components/HomePageContact';
 import MyImage from 'src/components/Image';
 import About from 'src/components/Info/about';
 import ProjectItem from 'src/components/ProjectItem';
+import { useSizeContext } from 'src/contexts/ResponseContextProvider';
 import { scrollHandler } from 'src/utils';
 import { Autoplay } from 'swiper';
 
@@ -28,6 +29,9 @@ const pluginWrapper = () => {
 
 const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliders, about, projects, }) => {
     const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
+    const { height } = useSizeContext();
+
+    // console.log({ responsive });
 
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
@@ -35,10 +39,16 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
 
     useEffect(() => {
         const imageItem = document.querySelector('.project-item-img .img-fluid');
-        const imageItemHeight = imageItem?.clientHeight;
-        const totalHeight = imageItemHeight ? imageItemHeight * 3 + (14 * 3) : 180 * 3 + (16 * 3);
+        const imageItemHeight = imageItem?.clientHeight || 180;
+        const images = (height - 145) / imageItemHeight;
+        const imageCount = Math.floor(images);
+        console.log({ imageCount, imageItemHeight, height });
+
+
+        const totalHeight = imageItemHeight * imageCount + (14 * 3);
+        // console.log({ images: parseInt(images), totalHeight });
         setProjectHeight(totalHeight);
-    }, []);
+    }, [height]);
 
     return (
         <div className="App">
@@ -57,11 +67,9 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 render={(comp) => (
                     <ReactFullpage.Wrapper>
                         <div className={`${SEL} py-50`}>
-                            <div className="container" style={{ height: '100%' }}>
+                            <div className="container slider-height">
                                 <Swiper
-                                    autoplay={{
-                                        delay: 3000,
-                                    }}
+                                    autoplay={{ delay: 3000, }}
                                     loop
                                     simulateTouch={false}
                                     modules={[Autoplay]}
@@ -93,7 +101,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id="projects" className={SEL} >
+                        <div id="projects" className={`${SEL} d-flex`} style={{ paddingTop: '70px', alignItems: "center", justifyContent: 'content' }} >
                             <div className="container ">
                                 <div
                                     className="projects"

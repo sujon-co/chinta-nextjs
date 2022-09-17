@@ -1,7 +1,7 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { APIResponse, IAbout, IAward, IJob, INews, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Footer from 'src/components/Common/Footer';
@@ -31,18 +31,8 @@ interface Props {
     news: INews[];
     job: IJob;
 }
-const originalColors = [
-    'salmon',
-    'lightblue',
-    '#fc6c7c',
-    '#435b71',
-    'orange',
-    'purple',
-    'yellow',
-];
 
 const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job }) => {
-    const [sectionsColor, setSectionsColor] = useState(originalColors);
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
         // arguments are mapped in order of fullpage.js callback arguments do something
@@ -81,7 +71,6 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                     css3={true}
                     menu="#myMenu"
                     autoScrolling={true}
-                    // sectionsColor={sectionsColor}
                     render={(comp) =>
                         <ReactFullpage.Wrapper  >
                             <div className={SEL} >

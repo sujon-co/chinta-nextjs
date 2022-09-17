@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Preloader from 'src/components/Preloader';
+import SizeContextProvider from 'src/contexts/ResponseContextProvider';
 import 'swiper/css/bundle';
 import '../scss/main.scss';
 
@@ -57,7 +58,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
             {pageLoading ? (
                 <Preloader />
             ) : (
-                <>
+                <SizeContextProvider>
                     {getLayout(<Component {...pageProps} />)}
                     <Toaster
                         position="top-right"
@@ -81,7 +82,7 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
                             },
                         }}
                     />
-                </>
+                </SizeContextProvider>
             )}
         </>
     );

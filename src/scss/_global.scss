@@ -4,6 +4,12 @@
     height: 100vh;
 }
 
+@media screen and (max-width: 768px) {
+    ::-webkit-scrollbar {
+        -webkit-appearance: none !important;
+        display: none !important;
+    }
+}
 .container__header,
 .container__footer {
     flex-shrink: 0;
@@ -21,7 +27,7 @@
     padding-top: 30px;
 }
 .py-50 {
-    padding-top: 50px !important ;
+    padding-top: 25px !important ;
     padding-bottom: 50px !important ;
 }
 .fs-12 {
