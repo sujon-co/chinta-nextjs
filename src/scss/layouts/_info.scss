@@ -2,7 +2,6 @@
     height: 100%;
     position: relative;
     margin: 0 auto;
-    max-width: 1485px;
 }
 .info-route {
     border-right: 1px solid red;
@@ -177,13 +176,13 @@
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
     .info-page-wrapper {
-        max-width: 1135px;
+        max-width: 100%;
     }
 }
 
 @media (min-width: 1200px) and (max-width: 1399.9px) {
     .info-page-wrapper {
-        max-width: 1335px;
+        max-width: 100%;
     }
 }
 @media (min-width: 1400px) {
