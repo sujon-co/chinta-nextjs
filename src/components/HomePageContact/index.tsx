@@ -133,7 +133,7 @@ const HomePageContact = ({ showFooter = true }: Props) => {
 
             </div>
             {showFooter &&
-                <div className="pb-4">
+                <div className="pb-4 contact-footer">
                     <Footer />
                 </div>
             }

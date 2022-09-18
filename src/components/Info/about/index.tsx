@@ -14,7 +14,7 @@ const About: FC<Props> = ({ about }) => {
     }, [about.bio]);
 
     return (
-        <div className="row">
+        <div className="row g-4">
             <div className="col-md-5 col-lg-4">
                 <div className="about-img">
                     <MyImage

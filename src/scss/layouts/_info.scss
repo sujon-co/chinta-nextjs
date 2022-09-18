@@ -109,14 +109,23 @@
         }
     }
 }
+.info-contact {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .contact-footer {
+        margin-top: auto;
+    }
+}
 
 #myMenu {
     position: absolute;
     left: 0;
-    top: 235px;
+    top: 85px;
     width: 90px;
     z-index: 100;
-    transform: translate(0%, -35%);
     list-style: none;
     height: 50%;
     text-align: right;

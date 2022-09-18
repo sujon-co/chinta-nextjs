@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { Fragment } from 'react';
 import { APIResponse, IAbout, IAward, IJob, INews, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
-import Footer from 'src/components/Common/Footer';
 import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
 import MyImage from 'src/components/Image';
@@ -76,7 +75,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                         autoScrolling={true}
                         render={(comp) =>
                             <ReactFullpage.Wrapper  >
-                                <div className={SEL} >
+                                <div className={`${SEL} about-section-overwrite`} >
                                     <div className="info-section info-about-overwrite" >
                                         <About about={about} />
                                     </div>
@@ -140,24 +139,21 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                     </div>
                                 </div>
                                 <div className={SEL} >
-                                    <div className="info-section scroll" onWheel={scrollHandler} >
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
                                         {news.map(news => (
                                             <NewsItem news={news} key={news.title} />
                                         ))}
                                     </div>
                                 </div>
                                 <div className={SEL} >
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                        <HomePageContact showFooter={false} />
+                                    <div className="info-section scroll info-contact" onWheel={scrollHandler} >
+                                        <HomePageContact />
                                     </div>
                                 </div>
                             </ReactFullpage.Wrapper>
                         }
                     />
                 </div>
-            </div>
-            <div className="info-footer-wrapper">
-                <Footer />
             </div>
         </Fragment >
     );

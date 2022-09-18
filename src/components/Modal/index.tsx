@@ -75,7 +75,7 @@ const MailPop: FC<IModalProps> = ({ closeModal, mailSubmitHandler, inputHandler,
                     <input
                         type="text"
                         name="number"
-                        placeholder="Contact Number(Optional)"
+                        placeholder="Contact Number (Optional)"
                         onChange={inputHandler}
                     />
                 </div>
