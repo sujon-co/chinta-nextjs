@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { IProject } from 'server/interface';
+import MyImage from 'src/components/Image';
 import ProjectItem from '../ProjectItem';
-import ProjectList from './List';
 
 type IFilter = 'scrolling' | 'status' | 'location' | 'chronological' | 'programmatic';
 
@@ -19,6 +20,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
     const [filter, setFilter] = useState<IFilter>('scrolling');
     const [status, setStatus] = useState<status[]>([]);
     const [programmatic, setProgrammatic] = useState<status[]>([]);
+    const [chronological, setChronological] = useState<status[]>([]);
     const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
 
 
@@ -77,10 +79,23 @@ const Projects: NextPage<Props> = ({ projects }) => {
         const programmaticData = [_residential, _commercial, _publicSpace, _urbanism, _interior];
         setProgrammatic(programmaticData);
 
+        /** Chronological */
+        const _projects: IProject[] = projects.sort((a, b) => {
+            return a.year - b.year;
+        });
 
+        const years = _projects.reduce((total, item) => {
+            if (total[item.year]) {
+                total[item.year].data.push(item);
+            } else {
+                total[item.year] = { name: item.year, data: [item] };
+            }
+            return total;
+        }, {} as any);
+        setChronological(Object.values(years));
 
     }, [projects, filter]);
-    console.log({ status });
+
 
     return (
         <div className="container">
@@ -96,36 +111,24 @@ const Projects: NextPage<Props> = ({ projects }) => {
                     </div>
                 )}
                 {filter === 'status' && (
-                    <div className="project-status">
-                        {status.map((status, index) => (
-                            <div className="status-item" key={index}>
-                                <div className="status-project">
-                                    <ProjectList projects={status.data} />
-                                </div>
-                                <div className="status-title"> {status.name} </div>
-                            </div>
+                    <div className="grids slide-left" >
+                        {status.map((data, index) => (
+                            <GirdItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
                 {filter === 'programmatic' && (
-                    <div className="project-status">
-                        {programmatic.map((status, index) => (
-                            <div className="status-item" key={index}>
-                                <div className="status-project">
-                                    <ProjectList projects={status.data} />
-                                </div>
-                                <div className="status-title"> {status.name} </div>
-                            </div>
+                    <div className="grids " >
+                        {programmatic.map((data, index) => (
+                            <GirdItem item={data} key={index} height={projectHeight} />
                         ))}
-
                     </div>
                 )}
-                {filter === 'location' && <div>Under Development...</div>}
                 {filter === 'chronological' && (
-                    <div className="container">
-                        <div className="projects">
-                            <div>Under Developer up coming </div>
-                        </div>
+                    <div className="grids slide-right" >
+                        {chronological.map((data, index) => (
+                            <GirdItem item={data} key={index} height={projectHeight} />
+                        ))}
                     </div>
                 )}
             </div>
@@ -148,17 +151,17 @@ const Projects: NextPage<Props> = ({ projects }) => {
                 >
                     Programmatic
                 </li>
-                {/* <li
-                    className={`filter-item ${filter === 'location' ? 'active' : '' }`}
-                    onClick={() => setFilter('location')}
-                >
-                    Location
-                </li> */}
                 <li
                     className={`filter-item ${filter === 'chronological' ? 'active' : ''}`}
                     onClick={() => setFilter('chronological')}
                 >
                     Chronological
+                </li>
+                <li
+                    className={`filter-item ${filter === 'location' ? 'active' : ''}`}
+                // onClick={() => setFilter('location')}
+                >
+                    Location
                 </li>
             </ul>
         </div>
@@ -166,3 +169,51 @@ const Projects: NextPage<Props> = ({ projects }) => {
 };
 
 export default Projects;
+
+interface gridProps {
+    item: status;
+    height: number;
+}
+const GirdItem = ({ item, height }: gridProps) => {
+    const [width, setWidth] = useState(0);
+    const [length, setLength] = useState(0);
+
+    useEffect(() => {
+        const _length = item.data.length;
+        setLength(_length);
+    }, [item.data.length]);
+
+    useEffect(() => {
+        const column = Math.ceil(length / 8);
+        const width = column * 60 + (column * 10);
+        console.log({ column, width });
+        setWidth(width);
+    }, [length]);
+
+    console.log({ width });
+
+    return (
+        <div className="grids-item" >
+            <ul className='grids-list' style={{ width, height: (height - 50) }}>
+                {item.data.map((project, index) => (
+                    <li className='grids-list-item' key={index}>
+                        <Link as={`/projects/${project._id}`} href="/projects/[slug]" key={index + 1}>
+                            <a className='grids-list-item-link'>
+                                <MyImage
+                                    src={project.topImage}
+                                    alt='project'
+                                    width={60}
+                                    height={50}
+                                    layout='fixed'
+                                    objectFit="cover"
+                                />
+                                <div className="grids-list-item-link-title"> {project.name} </div>
+                            </a>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+            <div className="status-title"> {item.name} </div>
+        </div>
+    );
+};
