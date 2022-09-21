@@ -59,25 +59,16 @@ const Projects = ({ projects }: IProps) => {
                     />
                 )}
                 {!isAdd && (
-                    <div className="">
+                    <div className="pe-3" style={{ height: '70vh', overflowY: 'auto' }}>
                         <div className="table-responsive modified-table">
                             <table className="table">
                                 <thead className="table-dark">
                                     <tr>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Type</th>
                                         <th scope="col">Principal Architect</th>
-                                        <th scope="col">Design Team</th>
-                                        <th scope="col">Landscape</th>
                                         <th scope="col">Engineer</th>
-                                        <th scope="col"> Task Construction Firm </th>
-                                        <th scope="col">Photograph</th>
-                                        <th scope="col">Size</th>
                                         <th scope="col">Year</th>
                                         <th scope="col">Top Image</th>
-                                        <th scope="col">Portrait Image</th>
-                                        <th scope="col">Images</th>
-                                        <th scope="col">Gallery</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -85,14 +76,8 @@ const Projects = ({ projects }: IProps) => {
                                     {projects.map((project) => (
                                         <tr key={project.topImage}>
                                             <td> <span className='fw-bolder'>{project.name}</span> </td>
-                                            <td>{project.type} </td>
                                             <td> {project.principalArchitect}{' '} </td>
-                                            <td>{project.designTeam} </td>
-                                            <td>{project.landscape} </td>
                                             <td>{project.engineer} </td>
-                                            <td> {project.taskConstructionFirm}{' '} </td>
-                                            <td>{project.photograph} </td>
-                                            <td>{project.size} </td>
                                             <td>{project.year} </td>
                                             <td>
                                                 <MyImage
@@ -105,62 +90,6 @@ const Projects = ({ projects }: IProps) => {
                                                     height={50}
                                                     objectFit="cover"
                                                 />
-                                            </td>
-                                            <td>
-                                                <MyImage
-                                                    className='img-fluid'
-                                                    src={project.portraitImage}
-                                                    alt={project.name}
-                                                    layout="fixed"
-                                                    placeholder="blur"
-                                                    width={80}
-                                                    height={50}
-                                                    objectFit="cover"
-                                                />
-                                            </td>
-                                            <td>
-                                                <div
-                                                    className="d-flex gap-1 flex-wrap"
-                                                    style={{ width: 300 }}
-                                                >
-                                                    {project.images?.map(
-                                                        (image, index) => (
-                                                            <MyImage
-                                                                key={image + index}
-                                                                className='img-fluid'
-                                                                src={image}
-                                                                alt={project.name}
-                                                                layout="fixed"
-                                                                placeholder="blur"
-                                                                width={80}
-                                                                height={50}
-                                                                objectFit="cover"
-                                                            />
-                                                        )
-                                                    )}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div
-                                                    className="d-flex gap-1 flex-wrap"
-                                                    style={{ width: 300 }}
-                                                >
-                                                    {project.gallery?.map(
-                                                        (image, index) => (
-                                                            <MyImage
-                                                                key={image + index}
-                                                                className='img-fluid'
-                                                                src={image}
-                                                                alt={project.name}
-                                                                layout="fixed"
-                                                                placeholder="blur"
-                                                                width={80}
-                                                                height={50}
-                                                                objectFit="cover"
-                                                            />
-                                                        )
-                                                    )}
-                                                </div>
                                             </td>
                                             <td>
                                                 <div className="d-flex gap-1 mb-0">

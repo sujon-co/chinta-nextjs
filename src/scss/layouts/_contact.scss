@@ -109,7 +109,7 @@
 /*** Popup ***/
 
 .user-form {
-    padding: 10px 15px;
+    padding: 25px 15px;
     background: #ffffff;
     width: 360px;
 
@@ -133,6 +133,11 @@
             color: red;
             font-size: 11px;
         }
+    }
+    .send-btn {
+        position: absolute;
+        right: 4px;
+        bottom: 18px;
     }
 }
 

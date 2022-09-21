@@ -1,0 +1,66 @@
+import { GetServerSideProps } from 'next';
+import { ReactNode, useState } from 'react';
+import { IContact } from 'server/interface';
+import instance from 'src/api/httpService';
+import AddContact from 'src/components/Admin/AddContact';
+import AdminLayout from 'src/components/Admin/AdminLayout';
+
+
+
+interface ContactProps {
+    contact: IContact;
+}
+
+const Contact = ({ contact }: ContactProps) => {
+    const [isUpdate, setIsUpdate] = useState(false);
+
+
+    return (
+        <div className="card">
+            <div className="card-header d-flex justify-content-between align-items-center">
+                <h5 className="card-title mb-0">Contact</h5>
+                {!isUpdate && (
+                    <div
+                        className="btn btn-dark btn-sm"
+                        onClick={() => setIsUpdate(true)}
+                    >
+                        Update
+                    </div>
+                )}
+            </div>
+            <div className="card-body">
+                {isUpdate && (
+                    <AddContact
+                        isUpdate={isUpdate}
+                        contact={contact}
+                        setIsUpdate={setIsUpdate}
+                    />
+                )}
+                {!isUpdate && (
+                    <div className="row">
+                        <li>Email:</li>
+                        <li>Phone: </li>
+                        <li>Address: </li>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+};
+
+Contact.getLayout = function getLayout(page: ReactNode) {
+    return <AdminLayout>{page}</AdminLayout>;
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const { data } = await instance.get<{ data: IContact[]; }>('/contact');
+    const contact = data.data[0];
+
+    return {
+        props: {
+            contact
+        },
+    };
+};
+
+export default Contact;

@@ -100,6 +100,12 @@ interface IJob {
     image: string;
 }
 
+interface IContact {
+    _id: Types.ObjectId | string;
+    phone: string;
+    email: string;
+    address: string;
+}
 type ResponseError = AxiosError & {
     response: { data: { message: string; }; };
 };

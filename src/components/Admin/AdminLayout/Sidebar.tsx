@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { AiFillContacts } from 'react-icons/ai';
 import { BiBuildingHouse, BiNews } from 'react-icons/bi';
-import { BsFillAwardFill } from 'react-icons/bs';
+import { BsFillAwardFill, BsFillBagCheckFill } from 'react-icons/bs';
 import { FaHome, FaTimesCircle, FaUserGraduate, FaUsers } from 'react-icons/fa';
 import { MdWork } from 'react-icons/md';
 
@@ -48,6 +48,11 @@ const routers = [
     {
         name: 'Shops',
         link: 'info/shops',
+        icon: <BsFillBagCheckFill />,
+    },
+    {
+        name: 'Contact',
+        link: 'contact',
         icon: <AiFillContacts />,
     },
 ] as const;
