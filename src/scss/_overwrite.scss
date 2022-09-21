@@ -1,3 +1,6 @@
+p {
+    margin-bottom: 4px;
+}
 .form-control,
 .btn {
     &:focus {
@@ -60,6 +63,9 @@
 .ck-editor__editable {
     min-height: 150px;
     line-height: 15px;
+    p {
+        margin-bottom: 8px;
+    }
 }
 /** table modified **/
 .modified-table {

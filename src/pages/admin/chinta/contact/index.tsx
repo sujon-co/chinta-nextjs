@@ -14,7 +14,6 @@ interface ContactProps {
 const Contact = ({ contact }: ContactProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
 
-
     return (
         <div className="card">
             <div className="card-header d-flex justify-content-between align-items-center">
@@ -38,9 +37,12 @@ const Contact = ({ contact }: ContactProps) => {
                 )}
                 {!isUpdate && (
                     <div className="row">
-                        <li>Email:</li>
-                        <li>Phone: </li>
-                        <li>Address: </li>
+                        <li className='d-flex gap-2 mb-2'>
+                            <b>Phone:</b>
+                            <div>{contact.phone}</div>
+                        </li>
+                        <li className='d-flex gap-2 mb-2'> <b>Email:</b> <div>{contact.email} </div> </li>
+                        <li className='d-flex gap-2 mb-2'> <b>Address:</b> <div dangerouslySetInnerHTML={{ __html: contact.address }} ></div> </li>
                     </div>
                 )}
             </div>

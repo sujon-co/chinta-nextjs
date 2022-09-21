@@ -1,7 +1,8 @@
 import { Fragment, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FiChevronRight } from 'react-icons/fi';
-import { imageUploadInstance } from 'src/api/httpService';
+import { IContact } from 'server/interface';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import { scrollHandler } from 'src/utils';
 import Footer from '../Common/Footer';
 import MailPop from '../Modal';
@@ -15,6 +16,7 @@ const HomePageContact = ({ showFooter = true }: Props) => {
     const [message, setMessage] = useState("");
     const [data, setData] = useState({});
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const [contact, setContact] = useState<IContact>({} as IContact);
 
     function openModal() { setIsOpen(true); }
     function closeModal() { setIsOpen(false); }
@@ -33,7 +35,6 @@ const HomePageContact = ({ showFooter = true }: Props) => {
 
     const inputHandler = (event: any) => {
         const { name, value } = event.target;
-
         setData((prevState) => ({
             ...prevState,
             [name]: value
@@ -48,6 +49,13 @@ const HomePageContact = ({ showFooter = true }: Props) => {
         }
 
     };
+
+    useEffect(() => {
+        instance.get('/contact')
+            .then((data) => { setContact(data.data?.data[0]); })
+            .catch((err) => { console.log(err); });
+    }, []);
+
 
     const fetchData = async (): Promise<unknown> => {
         const newData = { ...data, message };
@@ -71,17 +79,6 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                 }
             },
         );
-        // try {
-        //     const newData = { ...data, message };
-        //     const mail = await imageUploadInstance.post<{ message: string; }>('/mail/send', newData);
-        //     if (mail.data.message) {
-        //         toast.success('Mail Send Successfully!');
-        //     }
-        //     closeModal();
-        // } catch (error) {
-        //     toast.error('Email send Failed!, Please Try Again');
-        // }
-
     };
 
     useEffect(() => {
@@ -108,13 +105,13 @@ const HomePageContact = ({ showFooter = true }: Props) => {
 
                             <div className="mb-2">
                                 <div className="">
-                                    <a style={{ textDecoration: 'none' }} href="tel:+8801670785096">+8801670785096</a>
+                                    <a style={{ textDecoration: 'none' }} href={`tel:${contact.phone}`}>{contact.phone}</a>
                                 </div>
                                 <div>
-                                    <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }} href="mailto:info@chintaarchitects.com">info@chintaarchitects.com</a>
+                                    <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }} href={`mailto:${contact.email}`}> {contact.email} </a>
                                 </div>
                             </div>
-                            <p className='mb-0'> CHINTA STHAPATYA, Level-5, House-25/2, Road No-15 (new) 28 (old) <br /> Dhaka 1205, Bangladesh </p>
+                            <p className='mb-0'> <div dangerouslySetInnerHTML={{ __html: contact.address }} /> </p>
                         </div>
                     </div>
                     <div className="col-lg-6" >

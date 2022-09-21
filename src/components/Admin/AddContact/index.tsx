@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { ErrorResponse, isAxiosError } from 'server/helpers/error';
 import { IContact } from 'server/interface';
 import instance from 'src/api/httpService';
+import CKEditor from 'src/components/CkEditor/CkEditor';
 import { object, string } from 'yup';
 
 interface IAddContactProps {
@@ -14,6 +15,7 @@ interface IAddContactProps {
 
 const AddContact: FC<IAddContactProps> = ({ setIsUpdate, isUpdate, contact }) => {
     const initialValue: IContact = {
+        _id: contact._id,
         phone: contact.phone,
         email: contact.email,
         address: contact.address,
@@ -25,11 +27,6 @@ const AddContact: FC<IAddContactProps> = ({ setIsUpdate, isUpdate, contact }) =>
         formikHelpers: FormikHelpers<IContact>
     ) => {
         try {
-
-            console.log({ values });
-            return null;
-
-
             const { data } = await instance.patch<{ message: string; }>('/contact', values);
             if (data.message) {
                 toast.success(data.message);
@@ -91,12 +88,10 @@ const AddContact: FC<IAddContactProps> = ({ setIsUpdate, isUpdate, contact }) =>
                         <label htmlFor="address" className="form-label">
                             Address
                         </label>
-                        <Field
-                            type="text"
-                            className="form-control form-control-sm"
-                            id="address"
-                            name="address"
-                            placeholder="Enter Address"
+                        <CKEditor
+                            value={contact.address}
+                            fieldName="address"
+                            setFieldValue={setFieldValue}
                         />
                         <div className="text-danger">
                             <ErrorMessage name="address" />
