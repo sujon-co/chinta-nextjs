@@ -111,21 +111,21 @@ const Projects: NextPage<Props> = ({ projects }) => {
                     </div>
                 )}
                 {filter === 'status' && (
-                    <div className="grids slide-left" >
+                    <div className="grids" >
                         {status.map((data, index) => (
                             <GirdItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
                 {filter === 'programmatic' && (
-                    <div className="grids " >
+                    <div className="grids" >
                         {programmatic.map((data, index) => (
                             <GirdItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
                 {filter === 'chronological' && (
-                    <div className="grids slide-right" >
+                    <div className="grids" >
                         {chronological.map((data, index) => (
                             <GirdItem item={data} key={index} height={projectHeight} />
                         ))}

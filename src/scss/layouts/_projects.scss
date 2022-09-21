@@ -83,10 +83,9 @@
     }
 }
 .status-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     text-transform: uppercase;
-    margin-top: 10px;
     text-align: center;
 }
 
@@ -138,12 +137,12 @@
     min-width: 100%;
     display: flex;
     gap: 40px;
-    overflow-x: visible;
+    overflow-x: hidden;
     overflow-y: hidden;
     text-align: center;
     padding-left: 50px;
     padding-right: 50px;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 .grids-item {
     // background-color: salmon;
@@ -159,7 +158,8 @@
     height: 500px;
     gap: 5px;
     margin: 0 auto;
-    animation: overflow-x-hidden 1s linear;
+
+    // animation: overflow-x-hidden 1s linear;
 }
 .grids-list-item {
     // background-color: salmon;
@@ -170,8 +170,6 @@
     justify-content: center;
     transition: all 0.4s ease-in-out;
     position: relative;
-
-    // width: 60px;
 
     &-title {
         position: absolute;
@@ -189,14 +187,14 @@
         text-align: center;
         transform: scale(0.6);
         display: none;
-        left: 0;
-        bottom: 0;
+        bottom: -10%;
     }
 
     &:hover {
         .grids-list-item-link-title {
             transform: scale(0.6);
             display: block;
+            left: -30%;
         }
 
         text-decoration: none;
@@ -209,42 +207,13 @@
     }
 }
 
-.slide-left {
-    animation: slide-left 1.5s ease-out;
-}
-
-.slide-right {
-    animation: slide-right 1s ease-in-out;
-}
-
-@keyframes slide-left {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-@keyframes slide-right {
-    0% {
-        opacity: 0;
-        transform: translateX(100%);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes overflow-x-hidden {
-    0% {
-        opacity: 0;
-        overflow-x: hidden;
-    }
-    100% {
-        opacity: 1;
-        overflow-x: auto;
-    }
-}
+// @keyframes overflow-x-hidden {
+//     0% {
+//         opacity: 0;
+//         overflow-x: hidden;
+//     }
+//     100% {
+//         opacity: 1;
+//         overflow-x: hidden;
+//     }
+// }
