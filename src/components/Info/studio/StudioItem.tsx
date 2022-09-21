@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { RiLinksFill } from 'react-icons/ri';
 import { IStudio } from 'server/interface';
 import MyImage from 'src/components/Image';
 
@@ -23,22 +24,37 @@ const StudioItem: NextPage<Props> = ({ studio }) => {
                 <h6 className="name"> {studio.name} </h6>
                 <div className="position"> {studio.designation} </div>
                 <div className="social-icons">
-                    <a
-                        href={studio?.socialLink.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="social-icons-item"
-                    >
-                        <FaInstagram />
-                    </a>
-                    <a
-                        href={studio?.socialLink.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="social-icons-item"
-                    >
-                        <FaLinkedinIn />
-                    </a>
+                    {studio?.socialLink.instagram && (
+                        <a
+                            href={studio?.socialLink.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="social-icons-item"
+                        >
+                            <FaInstagram />
+                        </a>
+                    )}
+                    {studio?.socialLink.instagram && (
+                        <a
+                            href={studio?.socialLink.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="social-icons-item"
+                        >
+                            <FaLinkedinIn />
+                        </a>
+                    )}
+                    {studio?.socialLink.website && (
+                        <a
+                            href={studio?.socialLink.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="social-icons-item"
+                        >
+                            <RiLinksFill />
+                        </a>
+                    )}
+
                 </div>
             </div>
         </div>

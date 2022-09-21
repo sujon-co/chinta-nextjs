@@ -3,6 +3,7 @@ import { GetServerSideProps } from 'next';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { RiLinksFill } from 'react-icons/ri';
 import { IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import AddStudio from 'src/components/Admin/AddStudio';
@@ -86,28 +87,36 @@ const Studio = ({ studios }: IProps) => {
                                             </p>
                                             <div className="card-text pb-2">
                                                 <div className="social-icons">
-                                                    <a
-                                                        href={
-                                                            studio.socialLink
-                                                                ?.instagram
-                                                        }
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="social-icons-item"
-                                                    >
-                                                        <FaInstagram />
-                                                    </a>
-                                                    <a
-                                                        href={
-                                                            studio.socialLink
-                                                                ?.linkedIn
-                                                        }
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="social-icons-item"
-                                                    >
-                                                        <FaLinkedinIn />
-                                                    </a>
+                                                    {studio.socialLink.instagram && (
+                                                        <a
+                                                            href={studio.socialLink?.instagram}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="social-icons-item"
+                                                        >
+                                                            <FaInstagram />
+                                                        </a>
+                                                    )}
+                                                    {studio.socialLink.linkedIn && (
+                                                        <a
+                                                            href={studio.socialLink?.linkedIn}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="social-icons-item"
+                                                        >
+                                                            <FaLinkedinIn />
+                                                        </a>
+                                                    )}
+                                                    {studio.socialLink.website && (
+                                                        <a
+                                                            href={studio.socialLink?.website}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="social-icons-item"
+                                                        >
+                                                            <RiLinksFill />
+                                                        </a>
+                                                    )}
                                                 </div>
                                             </div>
                                             <div className="d-flex gap-1 mb-0">

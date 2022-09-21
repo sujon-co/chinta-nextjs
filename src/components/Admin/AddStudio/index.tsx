@@ -23,6 +23,7 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
         socialLink: {
             instagram: isUpdate ? studio.socialLink?.instagram : '',
             linkedIn: isUpdate ? studio.socialLink?.linkedIn : '',
+            website: isUpdate ? studio.socialLink?.website : '',
         },
     } as IStudio;
 
@@ -218,6 +219,19 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                             name="socialLink.linkedIn"
                             value={values.socialLink.linkedIn}
                             placeholder="https://www.linkedin.com/in/yourname/"
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="website" className="form-label">
+                            Website Url
+                        </label>
+                        <Field
+                            type="text"
+                            className="form-control form-control-sm"
+                            id="website"
+                            name="socialLink.website"
+                            value={values.socialLink.website}
+                            placeholder="https://www.website.com"
                         />
                     </div>
                     <div className="d-flex gap-1 mb-0">

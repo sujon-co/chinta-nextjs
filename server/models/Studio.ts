@@ -24,6 +24,7 @@ const studioSchema = new Schema<IStudio>(
             facebook: String,
             linkedIn: String,
             instagram: String,
+            website: String,
         },
     },
     { timestamps: true }
