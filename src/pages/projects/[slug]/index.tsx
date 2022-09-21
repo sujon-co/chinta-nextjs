@@ -5,16 +5,24 @@ import { useState } from 'react';
 import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
 import Layout from 'src/components/Common/Layout';
-import GalleryView from 'src/components/Gallery';
+import GalleryImage from 'src/components/GalleryImage';
 import MyImage from 'src/components/Image';
 import { config } from 'src/config';
+import Lightbox from "yet-another-react-lightbox";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import "yet-another-react-lightbox/styles.css";
+
 
 interface Props { }
 // @ts-ignore
 const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = ({ project }) => {
     const [showMore, setShowMore] = useState(false);
+    const [index, setIndex] = useState(-1);
+    const [indexNumber, setIndexNumber] = useState(1);
 
-    console.log({ project });
+    const slides = project.gallery?.map((item: any) => ({ src: item.src, photoUrl: item.photoUrl }));
+    console.log({ index, indexNumber, slides: slides?.length });
+
     return (
         <>
             <Head>
@@ -27,7 +35,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                             <div className="col-12">
                                 <div className="image-wrapper">
                                     <MyImage
-                                        className="img-fluid"
+                                        className="img-fluid cursor-zoom"
                                         src={project.topImage.photoUrl}
                                         alt={project.title}
                                         layout="responsive"
@@ -35,6 +43,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                         blurDataURL={project?.topImage?.base64}
                                         height={project?.topImage?.height}
                                         width={project?.topImage?.width}
+                                        onClick={() => setIndex(0)}
                                     />
                                 </div>
                                 <div className="content">
@@ -137,7 +146,32 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                             </div>
                         </div>
                     </div>
-                    <GalleryView gallery={project.gallery} />
+
+                    <div className="container">
+                        <h4 className='my-3'>Project Gallery</h4>
+                        <div className="gallery-list">
+                            {slides.map((img: any, index: number) => (
+                                <GalleryImage img={img} index={index} setIndex={setIndex} key={index} alt={project.name} />
+                            ))}
+                        </div>
+                    </div>
+
+                    <Lightbox
+                        open={index >= 0}
+                        index={index}
+                        close={() => setIndex(-1)}
+                        slides={slides}
+                        fullscreen={false}
+                        plugins={[Fullscreen]}
+                        on={{
+                            view: (index) => {
+                                console.log('view', index);
+                                setIndexNumber(index + 1);
+                            }
+                        }}
+                    />
+                    <h6 className='index-number'> {indexNumber} of {slides.length} </h6>
+
                 </section>
             </Layout>
         </>
@@ -147,7 +181,6 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
 export const getServerSideProps = async (ctx: any) => {
     const { data } = await instance.get<{ data: IProject; }>(`/projects/${ctx.params?.slug}`);
     const _project = data.data;
-    console.log({ _project });
 
     const _topImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.topImage}`);
     const _portraitImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.portraitImage}`);
@@ -201,3 +234,6 @@ export const getServerSideProps = async (ctx: any) => {
 
 
 export default ProjectDetails;
+
+
+

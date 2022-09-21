@@ -17,6 +17,7 @@ type MyImage = {
     placeholder?: string;
     blurDataURL?: any;
     objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+    onClick?: () => void;
 };
 
 const MyImage: FC<MyImage> = ({
@@ -27,6 +28,7 @@ const MyImage: FC<MyImage> = ({
     className,
     layout,
     objectFit,
+    onClick
 }) => {
     const [isLoading, setIsLoading] = useState(true);
 
@@ -47,6 +49,7 @@ const MyImage: FC<MyImage> = ({
             blurDataURL={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAQAAAAHUWYVAAABKUlEQVR42u3RMQEAAAjDsE051jHBwZFKaJqJHlUgQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQAQEiIAAERAgAgJEQICYAERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABERAgAgIEAEBIiBABAQIECACAkRAgAgIEAEBIiACAkRAgAgIEAEBIiACAkRAgOiyBW92ZAHvNWp5AAAAAElFTkSuQmCC"}
             objectFit={objectFit}
             onLoadingComplete={() => setIsLoading(false)}
+            onClick={onClick}
         />
     );
 };

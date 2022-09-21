@@ -178,6 +178,7 @@ const GirdItem = ({ item, height }: gridProps) => {
     const [width, setWidth] = useState(0);
     const [length, setLength] = useState(0);
 
+
     useEffect(() => {
         const _length = item.data.length;
         setLength(_length);
@@ -186,11 +187,9 @@ const GirdItem = ({ item, height }: gridProps) => {
     useEffect(() => {
         const column = Math.ceil(length / 8);
         const width = column * 60 + (column * 10);
-        console.log({ column, width });
         setWidth(width);
     }, [length]);
 
-    console.log({ width });
 
     return (
         <div className="grids-item" >

@@ -207,13 +207,23 @@
     }
 }
 
-// @keyframes overflow-x-hidden {
-//     0% {
-//         opacity: 0;
-//         overflow-x: hidden;
-//     }
-//     100% {
-//         opacity: 1;
-//         overflow-x: hidden;
-//     }
-// }
+.gallery-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.gallery-image {
+    cursor: zoom-in;
+}
+
+.index-number {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 99900000;
+    color: #fff;
+}
+.cursor-zoom {
+    cursor: zoom-in;
+}
