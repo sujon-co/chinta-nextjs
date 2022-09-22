@@ -60,7 +60,7 @@ const Studio = ({ news }: IProps) => {
                     <div className="row g-3">
                         {news.length > 0 ? (
                             news.map((newsItem) => (
-                                <div className="col-md-6" key={newsItem.title}>
+                                <div className="col-md-3" key={newsItem.title}>
                                     <div className="card p-2  mb-3 h-100">
                                         <div className="w-100">
                                             <img
@@ -73,8 +73,7 @@ const Studio = ({ news }: IProps) => {
                                             <p className="card-text mb-0 mt-2">
                                                 <b>{newsItem.title}</b>
                                             </p>
-                                            <div className="card-text mb-2 " dangerouslySetInnerHTML={{ __html: newsItem.description }} />
-                                            <div className="d-flex gap-1 mb-0">
+                                            <div className="d-flex gap-1 mt-3 mb-0">
                                                 <button
                                                     className="btn btn-success btn-sm fs-12"
                                                     onClick={() =>

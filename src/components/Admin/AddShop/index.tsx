@@ -75,10 +75,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                     formData.append('images', image);
                 });
 
-                const {
-                    data: { data: imageUrl },
-                } = await axios.post(
-                    `${config.imageUploadUrl}/api/upload/images`,
+                const { data: { data: imageUrl }, } = await axios.post(`${config.imageUploadUrl}/api/upload/images`,
                     formData,
                     {
                         headers: {
@@ -214,7 +211,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
 
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
-                            Images (Max 3MB)
+                            Images (Max 5MB)
                         </label>
                         <input
                             type="file"

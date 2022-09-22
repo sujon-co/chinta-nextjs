@@ -104,7 +104,7 @@ const Shops = ({ shops }: ShopProps) => {
                                             </td>
                                         </tr>
                                     )) : (
-                                        <h3>No Shop Item Found, Please add someone</h3>
+                                        <h6 className='mt-2'>No Shop Item Found, Please add someone</h6>
                                     )}
                                 </tbody>
                             </table>

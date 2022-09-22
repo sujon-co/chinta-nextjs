@@ -7,6 +7,7 @@ import instance from 'src/api/httpService';
 import AddProject from 'src/components/Admin/AddProject';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
+// import MyImage from 'src/components/Image';
 
 interface IProps {
     projects: IProject[];
@@ -64,6 +65,7 @@ const Projects = ({ projects }: IProps) => {
                             <table className="table">
                                 <thead className="table-dark">
                                     <tr>
+                                        <th>SN</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Principal Architect</th>
                                         <th scope="col">Engineer</th>
@@ -73,8 +75,9 @@ const Projects = ({ projects }: IProps) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {projects.map((project) => (
-                                        <tr key={project.topImage}>
+                                    {projects.map((project, index) => (
+                                        <tr key={Math.random()}>
+                                            <td style={{ minWidth: '40px' }}> <span className='fw-bolder'>{index + 1}</span> </td>
                                             <td> <span className='fw-bolder'>{project.name}</span> </td>
                                             <td> {project.principalArchitect}{' '} </td>
                                             <td>{project.engineer} </td>
@@ -82,7 +85,7 @@ const Projects = ({ projects }: IProps) => {
                                             <td>
                                                 <MyImage
                                                     className='img-fluid'
-                                                    src={project.topImage}
+                                                    src={project.gallery[project.topImage - 1]}
                                                     alt={project.name}
                                                     layout="fixed"
                                                     placeholder="blur"
@@ -115,7 +118,7 @@ const Projects = ({ projects }: IProps) => {
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 };
 

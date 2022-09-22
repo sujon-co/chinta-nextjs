@@ -21,7 +21,6 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
     const [indexNumber, setIndexNumber] = useState(1);
 
     const slides = project.gallery?.map((item: any) => ({ src: item.src, photoUrl: item.photoUrl }));
-    console.log({ index, indexNumber, slides: slides?.length });
 
     return (
         <>
@@ -36,14 +35,13 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                 <div className="image-wrapper">
                                     <MyImage
                                         className="img-fluid cursor-zoom"
-                                        src={project.topImage.photoUrl}
+                                        src={project.gallery[project.topImage - 1].photoUrl}
                                         alt={project.title}
                                         layout="responsive"
                                         placeholder="blur"
-                                        blurDataURL={project?.topImage?.base64}
-                                        height={project?.topImage?.height}
-                                        width={project?.topImage?.width}
-                                        onClick={() => setIndex(0)}
+                                        height={project.gallery[project.topImage - 1].height}
+                                        width={project.gallery[project.topImage - 1].width}
+                                        onClick={() => setIndex(project.topImage - 1)}
                                     />
                                 </div>
                                 <div className="content">
@@ -116,33 +114,34 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                         <div className="col-md-6">
                                             <div className="mb-3 image-wrapper">
                                                 <MyImage
-                                                    src={project.portraitImage.photoUrl}
+                                                    className="img-fluid cursor-zoom"
+                                                    src={project.gallery[project.portraitImage - 1].photoUrl}
                                                     alt={project.title}
                                                     layout="responsive"
                                                     placeholder="blur"
-                                                    blurDataURL={project?.portraitImage?.base64}
-                                                    height={project?.portraitImage?.height}
-                                                    width={project?.portraitImage?.width}
+                                                    height={project.gallery[project.portraitImage].height}
+                                                    width={project.gallery[project.portraitImage].width}
+                                                    onClick={() => setIndex(project.portraitImage - 1)}
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="images">
-                                    {project.images?.map((image: any, index: any) => (
-                                        <div className="image-item image-wrapper" key={index}>
-                                            <MyImage
-                                                src={image.photoUrl}
-                                                alt={project.title}
-                                                layout="responsive"
-                                                placeholder="blur"
-                                                blurDataURL={image?.base64}
-                                                height={image?.height}
-                                                width={image?.width}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
+                                {project.images.split(',')?.map((number: string) => ({ ...project.gallery[parseInt(number) - 1], index: parseInt(number) - 1 })).map((image: any, index: number) => (
+                                    <div className="image-item image-wrapper mb-3" key={index}>
+                                        <MyImage
+                                            className='img-fluid cursor-zoom'
+                                            src={image.photoUrl}
+                                            alt={project.title}
+                                            layout="responsive"
+                                            placeholder="blur"
+                                            blurDataURL={image?.base64}
+                                            height={image?.height}
+                                            width={image?.width}
+                                            onClick={() => setIndex(image.index)}
+                                        />
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
@@ -182,20 +181,6 @@ export const getServerSideProps = async (ctx: any) => {
     const { data } = await instance.get<{ data: IProject; }>(`/projects/${ctx.params?.slug}`);
     const _project = data.data;
 
-    const _topImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.topImage}`);
-    const _portraitImage = await getPlaiceholder(`${config.imageUploadUrl}${_project.portraitImage}`);
-
-    const images = await Promise.all(
-        _project.images.map(async (image) => {
-            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
-            const obj = {
-                ...img,
-                base64: base64,
-                photoUrl: image
-            };
-            return obj;
-        })
-    );
     const gallery = await Promise.all(
         _project.gallery.map(async (image) => {
             const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
@@ -210,17 +195,6 @@ export const getServerSideProps = async (ctx: any) => {
 
     const project = {
         ..._project,
-        topImage: {
-            ..._topImage.img,
-            base64: _topImage.base64,
-            photoUrl: _project.topImage
-        },
-        portraitImage: {
-            ..._portraitImage.img,
-            base64: _portraitImage.base64,
-            photoUrl: _project.portraitImage
-        },
-        images: images,
         gallery: gallery
     };
 

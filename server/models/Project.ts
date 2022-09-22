@@ -36,14 +36,14 @@ const projectSchema = new Schema<IProject>(
             required: true,
         },
         topImage: {
-            type: String,
+            type: Number,
             required: true,
         },
         portraitImage: {
-            type: String,
+            type: Number,
             required: true,
         },
-        images: [String],
+        images: String,
         gallery: [String],
     },
     { timestamps: true }

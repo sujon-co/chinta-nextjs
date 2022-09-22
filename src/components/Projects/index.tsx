@@ -1,14 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { IProject } from 'server/interface';
-import MyImage from 'src/components/Image';
+import GridItem from '../GridItem';
 import ProjectItem from '../ProjectItem';
 
 type IFilter = 'scrolling' | 'status' | 'location' | 'chronological' | 'programmatic';
 
-type status = {
+export type status = {
     name: string;
     data: IProject[];
 };
@@ -96,6 +95,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
     }, [projects, filter]);
 
+    console.log({ length: projects.length });
 
     return (
         <div className="container">
@@ -105,7 +105,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
                         {projects.map((project, index) => (
                             <ProjectItem
                                 project={project}
-                                key={project.portraitImage}
+                                key={Math.random() + index}
                             />
                         ))}
                     </div>
@@ -113,21 +113,21 @@ const Projects: NextPage<Props> = ({ projects }) => {
                 {filter === 'status' && (
                     <div className="grids" >
                         {status.map((data, index) => (
-                            <GirdItem item={data} key={index} height={projectHeight} />
+                            <GridItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
                 {filter === 'programmatic' && (
                     <div className="grids" >
                         {programmatic.map((data, index) => (
-                            <GirdItem item={data} key={index} height={projectHeight} />
+                            <GridItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
                 {filter === 'chronological' && (
                     <div className="grids" >
                         {chronological.map((data, index) => (
-                            <GirdItem item={data} key={index} height={projectHeight} />
+                            <GridItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
@@ -170,49 +170,3 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
 export default Projects;
 
-interface gridProps {
-    item: status;
-    height: number;
-}
-const GirdItem = ({ item, height }: gridProps) => {
-    const [width, setWidth] = useState(0);
-    const [length, setLength] = useState(0);
-
-
-    useEffect(() => {
-        const _length = item.data.length;
-        setLength(_length);
-    }, [item.data.length]);
-
-    useEffect(() => {
-        const column = Math.ceil(length / 8);
-        const width = column * 60 + (column * 10);
-        setWidth(width);
-    }, [length]);
-
-
-    return (
-        <div className="grids-item" >
-            <ul className='grids-list' style={{ width, height: (height - 50) }}>
-                {item.data.map((project, index) => (
-                    <li className='grids-list-item' key={index}>
-                        <Link as={`/projects/${project._id}`} href="/projects/[slug]" key={index + 1}>
-                            <a className='grids-list-item-link'>
-                                <MyImage
-                                    src={project.topImage}
-                                    alt='project'
-                                    width={60}
-                                    height={50}
-                                    layout='fixed'
-                                    objectFit="cover"
-                                />
-                                <div className="grids-list-item-link-title"> {project.name} </div>
-                            </a>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-            <div className="status-title"> {item.name} </div>
-        </div>
-    );
-};

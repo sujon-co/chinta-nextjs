@@ -29,11 +29,11 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         photograph: isUpdate ? project.photograph : '',
         year: isUpdate ? project.year : 2022,
         description: isUpdate ? project.description : '',
-        topImage: isUpdate ? project.topImage : '',
-        portraitImage: isUpdate ? project.portraitImage : '',
+        topImage: isUpdate ? project.topImage : 1,
+        portraitImage: isUpdate ? project.portraitImage : 2,
         landscape: isUpdate ? project.landscape : '',
         size: isUpdate ? project.size : '',
-        images: isUpdate ? project.images : [],
+        images: isUpdate ? project.images : '',
         gallery: isUpdate ? project.gallery : [],
         map: {
             getLocation: {
@@ -56,12 +56,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         try {
             if (!isUpdate) {
                 const formData = new FormData();
-
-                formData.append('topImage', values.topImage);
-                formData.append('portraitImage', values.portraitImage);
-                values.images.forEach((image) => {
-                    formData.append('images', image);
-                });
                 values.gallery.forEach((image) => {
                     formData.append('gallery', image);
                 });
@@ -74,16 +68,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     }
                 );
 
-                console.log({ imageUrl });
 
                 const project: IProject = {
                     ...values,
-                    topImage: imageUrl.topImage,
-                    portraitImage: imageUrl.portraitImage,
-                    images: imageUrl.images,
                     gallery: imageUrl.gallery,
                 };
                 console.log({ project });
+
+                // return null;
 
                 // @ts-ignore
                 delete project._id;
@@ -92,58 +84,25 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 console.log({ data });
                 if (data.success) {
                     toast.success(data.message);
-                    // formikHelpers.resetForm();
-                    // setTimeout(() => {
-                    //     window.location.reload();
-                    // }, 1000);
+                    formikHelpers.resetForm();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 } else {
                     toast.error(data.message);
                 }
             } else {
                 const formData = new FormData();
 
-                let _topImage = '';
-                let _portraitImage = '';
-
-                if (typeof values.topImage === 'string') {
-                    _topImage = values.topImage;
-                } else {
-                    formData.append('topImage', values.topImage);
-                    formData.append('topImagePath', project.topImage);
-                }
-
-                if (typeof values.portraitImage === 'string') {
-                    _portraitImage = values.portraitImage;
-                } else {
-                    formData.append('portraitImage', values.portraitImage);
-                    formData.append('portraitImagePath', project.portraitImage);
-                }
-
-                values.images.forEach((image) => {
-                    if (typeof image !== 'string') {
-                        formData.append('images', image);
-                    }
-                });
                 values.gallery.forEach((image) => {
                     if (typeof image !== 'string') {
                         formData.append('gallery', image);
                     }
                 });
-
                 const { data: imageUrl } = await imageUploadInstance.patch('/upload/images', formData);
-
-                _topImage = imageUrl.data.topImage
-                    ? imageUrl.data.topImage
-                    : project.topImage;
-                _portraitImage = imageUrl.data.portraitImage
-                    ? imageUrl.data.portraitImage
-                    : project.portraitImage;
 
                 const _project: IProject = {
                     ...values,
-                    topImage: _topImage,
-                    portraitImage: _portraitImage,
-                    images: imageUrl.images,
                     gallery: imageUrl.gallery,
                 };
 
@@ -158,7 +117,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 if (data.success) {
                     toast.success(data.message);
                     // formikHelpers.resetForm();
-                    // setTimeout(() => { window.location.reload(); }, 1000);
+                    setTimeout(() => { window.location.reload(); }, 1000);
                 }
             }
         } catch (err) {
@@ -184,8 +143,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 // photograph: string().required('Photograph is required'),
                 year: number().required('Year is required'),
                 description: string().required('Description is required'),
-                topImage: string().required('Top image is required'),
-                portraitImage: string().required('Portrait image is required'),
+                topImage: string().required('Top image number is required'),
+                portraitImage: string().required('Portrait image number is required'),
                 // images: array().min(1).required('Images is required'),
                 gallery: array().min(1).required('Images is required'),
             })}
@@ -392,131 +351,55 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="topImage" className="form-label">
-                            Top Image (Max 3MB)
+                            Top Image Number
                         </label>
-                        <input
-                            type="file"
+                        <Field
+                            type="number"
                             className="form-control form-control-sm"
                             id="topImage"
                             name="topImage"
-                            onChange={(event: any) => {
-                                setFieldValue(
-                                    'topImage',
-                                    event.currentTarget.files[0]
-                                );
-                            }}
+                            placeholder="eg. 2 (valid number of image)"
                         />
-
-                        {errors.topImage && touched.topImage && (
-                            <div className="text-danger">
-                                Top Image is a required field
-                            </div>
-                        )}
-                        {isUpdate && (
-                            <MyImage
-                                className='mt-2'
-                                src={project.topImage}
-                                alt={project.name}
-                                layout="fixed"
-                                placeholder="blur"
-                                width={80}
-                                height={50}
-                            />
-                        )}
+                        <div className="text-danger">
+                            <ErrorMessage name="topImage" />
+                        </div>
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="portraitImage" className="form-label">
-                            Portrait Image (Max 3MB)
+                            Portrait Image Number
                         </label>
-                        <input
-                            type="file"
+                        <Field
+                            type="number"
                             className="form-control form-control-sm"
                             id="portraitImage"
                             name="portraitImage"
-                            onChange={(event: any) => {
-                                setFieldValue(
-                                    'portraitImage',
-                                    event.currentTarget.files[0]
-                                );
-                            }}
+                            placeholder="eg. 5 (valid number of image)"
                         />
-                        {errors.portraitImage && touched.portraitImage && (
-                            <div className="text-danger">
-                                Portrait Image is a required field
-                            </div>
-                        )}
-                        {isUpdate && (
-                            <MyImage
-                                className='mt-2'
-                                src={project.portraitImage}
-                                alt={project.name}
-                                layout="fixed"
-                                placeholder="blur"
-                                width={80}
-                                height={50}
-                            />
-                        )}
+                        <div className="text-danger">
+                            <ErrorMessage name="portraitImage" />
+                        </div>
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
-                            Images (Max 3MB)
+                            Images Numbers (separate by comma)
                         </label>
-                        <input
-                            type="file"
+                        <Field
+                            type="string"
                             className="form-control form-control-sm"
                             id="images"
                             name="images"
-                            multiple
-                            onChange={(event: any) => {
-                                setFieldValue('images', [
-                                    ...values.images,
-                                    event.currentTarget.files[0],
-                                ]);
-                            }}
+                            placeholder="Image Number (eg. 5, 7, 9 - valid number of image )"
                         />
-                        {errors.images && touched.images && (
-                            <div className="text-danger">
-                                Images is a required field
-                            </div>
-                        )}
-                        <div className='mb-2 mt-1'>
-                            {values.images?.map((image: any, index: number) => (
-                                <>
-                                    {image?.name && (
-                                        <div className='file-name' key={index} onClick={() => {
-                                            const newImages = values.images?.filter((img: any) => img.name !== image.name);
-                                            setFieldValue('images', newImages);
-                                        }}>
-                                            <span> {image?.name}</span>
-                                            {image?.name && <span className='remove'> <FaRegTimesCircle /> </span>}
-                                        </div>
-                                    )}
-                                </>
-                            ))}
+                        <div className="text-danger">
+                            <ErrorMessage name="images" />
                         </div>
-                        {isUpdate && (
-                            <div className='d-flex flex-wrap gap-2'>
-                                {project.images?.map((image: any, index: number) => (
-                                    <MyImage
-                                        src={image}
-                                        alt={project.name}
-                                        layout="fixed"
-                                        placeholder="blur"
-                                        width={80}
-                                        height={50}
-                                        key={index}
-                                    />
-                                ))}
-
-                            </div>
-                        )}
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="gallery" className="form-label">
-                            Gallery (Max 3MB)
+                            Gallery (Max 5MB)
                         </label>
                         <input
                             type="file"
@@ -540,11 +423,12 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             {values.gallery?.map((image: any, index: number) => (
                                 <>
                                     {image?.name && (
-                                        <div className='file-name' key={index} onClick={() => {
+                                        <div className='file-name' key={index + Math.random()} onClick={() => {
                                             const newImages = values.gallery?.filter((img: any) => img.name !== image.name);
                                             setFieldValue('gallery', newImages);
                                         }}>
-                                            <span> {image?.name}</span>
+                                            <span><b>{index + 1}</b>: &nbsp; </span>
+                                            <span>  {image?.name} </span>
                                             {image?.name && <span className='remove'> <FaRegTimesCircle /> </span>}
                                         </div>
                                     )}
@@ -554,15 +438,18 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         {isUpdate && (
                             <div className='d-flex flex-wrap gap-2'>
                                 {project.gallery?.map((image: any, index: number) => (
-                                    <MyImage
-                                        src={image}
-                                        alt={project.name}
-                                        layout="fixed"
-                                        placeholder="blur"
-                                        width={80}
-                                        height={50}
-                                        key={index}
-                                    />
+                                    <div className="" key={index + Math.random()}>
+                                        <div className='ms-2'> {index + 1} </div>
+                                        <MyImage
+                                            src={image}
+                                            alt={project.name}
+                                            layout="fixed"
+                                            placeholder="blur"
+                                            width={80}
+                                            height={50}
+
+                                        />
+                                    </div>
                                 ))}
 
                             </div>

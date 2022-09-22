@@ -13,9 +13,9 @@ interface IProject {
     photograph: string;
     year: number;
     description: string;
-    topImage: string;
-    portraitImage: string;
-    images: string[];
+    topImage: number;
+    portraitImage: number;
+    images: string;
     gallery: string[];
     landscape?: string;
     size?: string;
