@@ -162,6 +162,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                         slides={slides}
                         fullscreen={false}
                         plugins={[Fullscreen]}
+                        animation={{ fade: 0, swipe: 0 }}
                         on={{
                             view: (index) => {
                                 console.log('view', index);

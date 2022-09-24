@@ -8,6 +8,7 @@ import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
 import MyImage from 'src/components/Image';
 import About from 'src/components/Info/about';
+import JobApply from 'src/components/Info/jobs';
 import ShopItem from 'src/components/Info/shop/ShopItem';
 import Studio from 'src/components/Info/studio';
 import NewsItem from 'src/components/NewsItem';
@@ -112,7 +113,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                 <div className={SEL} >
                                     <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
                                         <div className="jobs">
-
+                                            <JobApply />
                                             <div className="row">
                                                 <div className="col-md-12 mb-3">
                                                     <MyImage

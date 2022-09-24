@@ -116,3 +116,13 @@ interface APIResponse<T> {
     data: T;
     message: string;
 }
+
+interface IApply {
+    _id: Types.ObjectId | string;
+    name: string;
+    email: string;
+    phone?: string;
+    description?: string;
+    position: string;
+    file: string;
+}

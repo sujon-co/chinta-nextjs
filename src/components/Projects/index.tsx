@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { IProject } from 'server/interface';
 import GridItem from '../GridItem';
 import ProjectItem from '../ProjectItem';
@@ -93,9 +93,8 @@ const Projects: NextPage<Props> = ({ projects }) => {
         }, {} as any);
         setChronological(Object.values(years));
 
-    }, [projects, filter]);
-
-    console.log({ length: projects.length });
+    }, [projects]);
+    console.log("Render");
 
     return (
         <div className="container">
@@ -168,5 +167,5 @@ const Projects: NextPage<Props> = ({ projects }) => {
     );
 };
 
-export default Projects;
+export default memo(Projects);
 

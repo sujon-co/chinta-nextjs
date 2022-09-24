@@ -1,6 +1,6 @@
 import cn from 'clsx';
 import Image from 'next/image';
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import { config } from 'src/config';
 
 const myLoader = ({ src }: any) => {
@@ -20,16 +20,7 @@ type MyImage = {
     onClick?: () => void;
 };
 
-const MyImage: FC<MyImage> = ({
-    src,
-    alt,
-    width,
-    height,
-    className,
-    layout,
-    objectFit,
-    onClick
-}) => {
+const MyImage: FC<MyImage> = ({ src, alt, width, height, className, layout, objectFit, onClick }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     return (
@@ -53,4 +44,4 @@ const MyImage: FC<MyImage> = ({
         />
     );
 };
-export default MyImage;
+export default memo(MyImage);
