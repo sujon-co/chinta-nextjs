@@ -37,11 +37,12 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                         className="img-fluid cursor-zoom"
                                         src={project.gallery[project.topImage - 1].photoUrl}
                                         alt={project.title}
-                                        layout="responsive"
+                                        layout="intrinsic"
                                         placeholder="blur"
                                         height={project.gallery[project.topImage - 1].height}
                                         width={project.gallery[project.topImage - 1].width}
                                         onClick={() => setIndex(project.topImage - 1)}
+                                        objectFit="cover"
                                     />
                                 </div>
                                 <div className="content">
@@ -114,7 +115,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                         <div className="col-md-6">
                                             <div className="mb-3 image-wrapper">
                                                 <MyImage
-                                                    className="img-fluid cursor-zoom"
+                                                    className=" cursor-zoom"
                                                     src={project.gallery[project.portraitImage - 1].photoUrl}
                                                     alt={project.title}
                                                     layout="responsive"

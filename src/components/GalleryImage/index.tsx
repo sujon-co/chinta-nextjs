@@ -15,8 +15,8 @@ const GalleryImage = ({ img, setIndex, index, alt }: ImageProps) => {
             alt={alt}
             layout="fixed"
             placeholder="blur"
-            height={100}
-            width={130}
+            height={80}
+            width={100}
             onClick={() => setIndex(index)}
             objectFit="cover"
         />

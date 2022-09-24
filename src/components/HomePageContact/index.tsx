@@ -64,7 +64,6 @@ const HomePageContact = ({ showFooter = true }: Props) => {
 
     const mailSubmitHandler = async (event: SyntheticEvent) => {
         event.preventDefault();
-        toast.success('Mail Send Successfully!');
         toast.promise(
             fetchData(),
             {

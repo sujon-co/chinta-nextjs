@@ -24,6 +24,7 @@ p {
 .custom-section {
     padding-top: calc(60px + 25px);
 }
+
 .about-section-overwrite {
     padding-top: 60px !important;
     display: flex !important;
@@ -47,7 +48,9 @@ p {
     visibility: hidden !important;
     opacity: 0 !important;
 }
-
+.award-info-section {
+    padding-top: 78px;
+}
 .ReactModal__Overlay--after-open {
     z-index: 101 !important;
     background-color: rgb(31 31 31 / 75%) !important;
