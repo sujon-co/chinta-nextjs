@@ -1,9 +1,8 @@
-import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { IShop } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import AddShop from 'src/components/Admin/AddShop';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
@@ -17,12 +16,15 @@ const Shops = ({ shops }: ShopProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [shop, setShop] = useState<IShop>({} as IShop);
 
-    const deleteHandler = async (id: Types.ObjectId) => {
+    const deleteHandler = async (shop: IShop) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await instance.delete<{ message: string; }>(
-                `/info/shops/${id}`
-            );
+            const { data } = await instance.delete<{ message: string; }>(`/info/shops/${shop._id}`);
+            await imageUploadInstance.delete('/upload/images', {
+                data: {
+                    imagesPath: shop.images
+                }
+            });
             if (data.message) {
                 toast.success(data.message);
                 window.location.reload();
@@ -96,7 +98,7 @@ const Shops = ({ shops }: ShopProps) => {
                                                     </button>
                                                     <button
                                                         className="btn btn-danger btn-sm fs-12"
-                                                        onClick={() => deleteHandler(shop._id)}
+                                                        onClick={() => deleteHandler(shop)}
                                                     >
                                                         Delete
                                                     </button>

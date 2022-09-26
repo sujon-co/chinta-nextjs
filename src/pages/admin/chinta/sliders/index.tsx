@@ -1,10 +1,9 @@
 import moment from 'moment';
-import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { ISlider } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import AddSlider from 'src/components/Admin/AddSlider';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
@@ -22,10 +21,17 @@ const Sliders = ({ sliders }: IProps) => {
     const [sliderPlaceholder, setSliderPlaceholder] =
         useState<ISlider>({} as ISlider);
 
-    const sliderDeleteHandler = async (id: Types.ObjectId) => {
+    const sliderDeleteHandler = async (slider: ISlider) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await instance.delete<deleteSliderResponse>('sliders/' + id);
+            const { data } = await instance.delete<deleteSliderResponse>('sliders/' + slider._id);
+            await imageUploadInstance.delete('/upload/image', {
+                data: {
+                    path: slider.photoUrl
+                }
+            });
+
+
             if (data) {
                 toast.success(data.message);
             }
@@ -99,7 +105,7 @@ const Sliders = ({ sliders }: IProps) => {
                                                 </button>
                                                 <button
                                                     className="btn btn-danger btn-sm fs-12"
-                                                    onClick={() => sliderDeleteHandler(slider._id)}
+                                                    onClick={() => sliderDeleteHandler(slider)}
                                                 >
                                                     Delete
                                                 </button>

@@ -36,7 +36,8 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
             if (typeof values.photoUrl === 'string') {
                 imageUrl = values.photoUrl;
             } else {
-                const { data: _imageUrl } = await imageUploadInstance.post('/upload/image', formData);
+                formData.append('path', values.photoUrl);
+                const { data: _imageUrl } = await imageUploadInstance.patch('/upload/image', formData);
                 imageUrl = _imageUrl.data;
             }
 

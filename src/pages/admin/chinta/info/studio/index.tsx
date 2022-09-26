@@ -1,11 +1,10 @@
-import { Types } from 'mongoose';
 import { GetServerSideProps } from 'next';
 import { ReactNode, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaInstagram, FaLinkedinIn } from 'react-icons/fa';
 import { RiLinksFill } from 'react-icons/ri';
 import { IStudio } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import AddStudio from 'src/components/Admin/AddStudio';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 import MyImage from 'src/components/Image';
@@ -19,12 +18,16 @@ const Studio = ({ studios }: IProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [studio, setStudio] = useState<IStudio>({} as IStudio);
 
-    const deleteHandler = async (id: Types.ObjectId) => {
+    const deleteHandler = async (studio: IStudio) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
-            const { data } = await instance.delete<{ message: string; }>(
-                '/info/studios/' + id
-            );
+            const { data } = await instance.delete<{ message: string; }>('/info/studios/' + studio._id);
+            await imageUploadInstance.delete('/upload/image', {
+                data: {
+                    path: studio.photoUrl
+                }
+            });
+
             if (data) {
                 toast.success(data.message);
             }
@@ -130,11 +133,7 @@ const Studio = ({ studios }: IProps) => {
                                                 </button>
                                                 <button
                                                     className="btn btn-danger btn-sm fs-12"
-                                                    onClick={() =>
-                                                        deleteHandler(
-                                                            studio._id
-                                                        )
-                                                    }
+                                                    onClick={() => deleteHandler(studio)}
                                                 >
                                                     Delete
                                                 </button>
