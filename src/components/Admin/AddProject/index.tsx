@@ -75,7 +75,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 };
                 console.log({ project });
 
-                // return null;
 
                 // @ts-ignore
                 delete project._id;
@@ -84,10 +83,10 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 console.log({ data });
                 if (data.success) {
                     toast.success(data.message);
-                    formikHelpers.resetForm();
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    // formikHelpers.resetForm();
+                    // setTimeout(() => {
+                    //     window.location.reload();
+                    // }, 1000);
                 } else {
                     toast.error(data.message);
                 }
@@ -99,25 +98,30 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         formData.append('gallery', image);
                     }
                 });
+                const isAddNewImage = values.gallery?.filter((img) => typeof img !== 'string').length;
+                console.log({ isAddNewImage });
+                if (isAddNewImage) {
+                    project.gallery.forEach((image) => {
+                        formData.append('galleryPath', image);
+                    });
+                }
                 const { data: imageUrl } = await imageUploadInstance.patch('/upload/images', formData);
 
                 const _project: IProject = {
                     ...values,
-                    gallery: imageUrl.gallery,
+                    gallery: imageUrl.data?.gallery.length ? imageUrl.data.gallery : project.gallery,
                 };
+
+                console.log({ imageUrl, _project });
 
                 // @ts-ignore
                 delete _project._id;
 
-
-                const { data } = await instance.patch(
-                    `/projects/${project._id}`,
-                    _project
-                );
+                const { data } = await instance.patch(`/projects/${project._id}`, _project);
                 if (data.success) {
                     toast.success(data.message);
                     // formikHelpers.resetForm();
-                    setTimeout(() => { window.location.reload(); }, 1000);
+                    // setTimeout(() => { window.location.reload(); }, 1000);
                 }
             }
         } catch (err) {
@@ -420,16 +424,16 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             </div>
                         )}
                         <div className='mb-2 mt-1'>
-                            {values.gallery?.map((image: any, index: number) => (
+                            {values.gallery?.filter((img) => typeof img !== 'string').map((image: any, index: number) => (
                                 <>
                                     {image?.name && (
-                                        <div className='file-name' key={index + Math.random()} onClick={() => {
-                                            const newImages = values.gallery?.filter((img: any) => img.name !== image.name);
-                                            setFieldValue('gallery', newImages);
-                                        }}>
+                                        <div className='file-name' key={index + Math.random()} >
                                             <span><b>{index + 1}</b>: &nbsp; </span>
                                             <span>  {image?.name} </span>
-                                            {image?.name && <span className='remove'> <FaRegTimesCircle /> </span>}
+                                            {image?.name && <span className='remove' onClick={() => {
+                                                const newImages = values.gallery?.filter((img: any) => img.name !== image.name);
+                                                setFieldValue('gallery', newImages);
+                                            }}> <FaRegTimesCircle /> </span>}
                                         </div>
                                     )}
                                 </>
@@ -451,7 +455,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                         />
                                     </div>
                                 ))}
-
                             </div>
                         )}
                     </div>

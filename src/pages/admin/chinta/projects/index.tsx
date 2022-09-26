@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { GetServerSideProps } from 'next';
 import { ReactElement, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -6,7 +5,6 @@ import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
 import AddProject from 'src/components/Admin/AddProject';
 import AdminLayout from 'src/components/Admin/AdminLayout';
-import MyImage from 'src/components/Image';
 // import MyImage from 'src/components/Image';
 
 interface IProps {
@@ -83,7 +81,8 @@ const Projects = ({ projects }: IProps) => {
                                             <td>{project.engineer} </td>
                                             <td>{project.year} </td>
                                             <td>
-                                                <MyImage
+                                                {/* {project.gallery[project.topImage - 1] && (
+                                                    <MyImage
                                                     className='img-fluid'
                                                     src={project.gallery[project.topImage - 1]}
                                                     alt={project.name}
@@ -92,7 +91,10 @@ const Projects = ({ projects }: IProps) => {
                                                     width={80}
                                                     height={50}
                                                     objectFit="cover"
-                                                />
+                                                /> 
+                                                )}
+                                                */}
+                                                <img style={{ width: '80px' }} src={'http://localhost:4000' + project.gallery[project.topImage - 1]} alt="ssdf" />
                                             </td>
                                             <td>
                                                 <div className="d-flex gap-1 mb-0">
