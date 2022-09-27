@@ -19,6 +19,7 @@ interface IProject {
     gallery: string[];
     landscape?: string;
     size?: string;
+    video?: string;
     map: {
         getLocation: {
             lat: string | number;

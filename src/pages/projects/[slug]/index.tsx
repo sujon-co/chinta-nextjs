@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
 import { useState } from 'react';
@@ -11,6 +12,7 @@ import { config } from 'src/config';
 import Lightbox from "yet-another-react-lightbox";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import "yet-another-react-lightbox/styles.css";
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 
 interface Props { }
@@ -126,6 +128,18 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                                 />
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-12">
+                                        <ReactPlayer
+                                            url='https://www.youtube.com/watch?v=RqxLkfZMduM&list=RDgYV1Xvwr0lg&index=2&ab_channel=SVF'
+                                            className='react-player'
+                                            playing
+                                            width='100%'
+                                            height='100%'
+                                            controls
+                                        />
                                     </div>
                                 </div>
                                 {project.images.split(',')?.map((number: string) => ({ ...project.gallery[parseInt(number) - 1], index: parseInt(number) - 1 })).map((image: any, index: number) => (

@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { ReactElement, useState } from 'react';
 import toast from 'react-hot-toast';
 import { IProject } from 'server/interface';
-import instance from 'src/api/httpService';
+import instance, { imageUploadInstance } from 'src/api/httpService';
 import AddProject from 'src/components/Admin/AddProject';
 import AdminLayout from 'src/components/Admin/AdminLayout';
 // import MyImage from 'src/components/Image';
@@ -16,15 +16,20 @@ const Projects = ({ projects }: IProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [project, setProject] = useState<IProject>({} as IProject);
 
-    const deleteHandler = async (id: any) => {
+    const deleteHandler = async (project: IProject) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
             const { data } = await instance.delete<{ message: string; }>(
-                `/projects/${id}`
+                `/projects/${project._id}`
             );
+            await imageUploadInstance.delete('/upload/images', {
+                data: {
+                    galleryPath: project.gallery
+                }
+            });
             if (data.message) {
                 toast.success(data.message);
-                // window.location.reload();
+                window.location.reload();
             }
         }
     };
@@ -106,7 +111,7 @@ const Projects = ({ projects }: IProps) => {
                                                     </button>
                                                     <button
                                                         className="btn btn-danger btn-sm fs-12"
-                                                        onClick={() => deleteHandler(project._id)}
+                                                        onClick={() => deleteHandler(project)}
                                                     >
                                                         Delete
                                                     </button>

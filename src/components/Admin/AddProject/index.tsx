@@ -29,6 +29,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         photograph: isUpdate ? project.photograph : '',
         year: isUpdate ? project.year : 2022,
         description: isUpdate ? project.description : '',
+        video: isUpdate ? project.video : '',
         topImage: isUpdate ? project.topImage : 1,
         portraitImage: isUpdate ? project.portraitImage : 2,
         landscape: isUpdate ? project.landscape : '',
@@ -83,10 +84,10 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 console.log({ data });
                 if (data.success) {
                     toast.success(data.message);
-                    // formikHelpers.resetForm();
-                    // setTimeout(() => {
-                    //     window.location.reload();
-                    // }, 1000);
+                    formikHelpers.resetForm();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 } else {
                     toast.error(data.message);
                 }
@@ -99,7 +100,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     }
                 });
                 const isAddNewImage = values.gallery?.filter((img) => typeof img !== 'string').length;
-                console.log({ isAddNewImage });
                 if (isAddNewImage) {
                     project.gallery.forEach((image) => {
                         formData.append('galleryPath', image);
@@ -112,16 +112,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     gallery: imageUrl.data?.gallery.length ? imageUrl.data.gallery : project.gallery,
                 };
 
-                console.log({ imageUrl, _project });
-
                 // @ts-ignore
                 delete _project._id;
 
                 const { data } = await instance.patch(`/projects/${project._id}`, _project);
                 if (data.success) {
                     toast.success(data.message);
-                    // formikHelpers.resetForm();
-                    // setTimeout(() => { window.location.reload(); }, 1000);
+                    formikHelpers.resetForm();
+                    setTimeout(() => { window.location.reload(); }, 1000);
                 }
             }
         } catch (err) {
@@ -141,15 +139,10 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 principalArchitect: string().required(
                     'Principal architect is required'
                 ),
-                // designTeam: string().required('Design team is required'),
-                // engineer: string().required('Engineer is required'),
-                // taskConstructionFirm: string().required( 'Task construction firm is required' ),
-                // photograph: string().required('Photograph is required'),
                 year: number().required('Year is required'),
                 description: string().required('Description is required'),
                 topImage: string().required('Top image number is required'),
                 portraitImage: string().required('Portrait image number is required'),
-                // images: array().min(1).required('Images is required'),
                 gallery: array().min(1).required('Images is required'),
             })}
         >
@@ -240,11 +233,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="form-control form-control-sm"
                             id="designTeam"
                             name="designTeam"
-                            placeholder="Design Team"
+                            placeholder="Design Team (Optional)"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="designTeam" />
-                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="landscape" className="form-label">
@@ -255,11 +245,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="form-control form-control-sm"
                             id="landscape"
                             name="landscape"
-                            placeholder="Add Landscape"
+                            placeholder="Add Landscape (Optional)"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="landscape" />
-                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="engineer" className="form-label">
@@ -270,11 +257,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="form-control form-control-sm"
                             id="engineer"
                             name="engineer"
-                            placeholder="Engineer"
+                            placeholder="Engineer (Optional)"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="engineer" />
-                        </div>
                     </div>
                     <div className="mb-3">
                         <label
@@ -288,11 +272,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="form-control form-control-sm"
                             id="taskConstructionFirm"
                             name="taskConstructionFirm"
-                            placeholder="Task Construction Firm"
+                            placeholder="Task Construction Firm / Company Name (Optional)"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="taskConstructionFirm" />
-                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="photograph" className="form-label">
@@ -303,11 +284,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="form-control form-control-sm"
                             id="photograph"
                             name="photograph"
-                            placeholder="Photograph"
+                            placeholder="Photographer (Optional)"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="photograph" />
-                        </div>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="size" className="form-label">
@@ -318,11 +296,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="form-control form-control-sm"
                             id="size"
                             name="size"
-                            placeholder="Add Size"
+                            placeholder="Add Size (Optional)"
                         />
-                        <div className="text-danger">
-                            <ErrorMessage name="size" />
-                        </div>
                     </div>
 
                     <div className="mb-3">
@@ -352,6 +327,18 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         <div className="text-danger">
                             <ErrorMessage name="description" />
                         </div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="video" className="form-label">
+                            Video
+                        </label>
+                        <Field
+                            type="text"
+                            className="form-control form-control-sm"
+                            id="video"
+                            name="video"
+                            placeholder="Add Video full link (Optional) "
+                        />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="topImage" className="form-label">
