@@ -53,13 +53,9 @@ const Jobs = ({ job }: JobsProps) => {
                             </div>
                         </div>
                         <h4 className='text-success py-3'>{job.title}</h4>
-                        <div className="h-100 mb-3">
-                            <div className="" dangerouslySetInnerHTML={{ __html: job.requirements }} />
-                        </div>
                         <div className=" h-100 mb-3">
                             <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
                         </div>
-
                     </div>
                 )}
             </div>

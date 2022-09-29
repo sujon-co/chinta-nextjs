@@ -3,7 +3,7 @@ import nextConnect from 'next-connect';
 import connectDB from 'server/database';
 import Apply from 'server/models/Apply';
 
-const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
+const studioUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
         if (err.message) {
             res.status(err.status || 500).json({
@@ -31,7 +31,7 @@ const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
         try {
             const { body, query } = req;
             const { id: _id } = query;
-            const studio = await Apply.findOneAndUpdate(
+            const apply = await Apply.findOneAndUpdate(
                 { _id },
                 { ...body },
                 { new: true }
@@ -39,7 +39,7 @@ const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
 
             res.status(200).json({
                 success: true,
-                data: studio,
+                data: apply,
                 message: 'Apply updated successfully.',
             });
         } catch (error) {
@@ -54,11 +54,11 @@ const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
             res.status(200).json({
                 success: true,
                 data: null,
-                message: 'Delete deleted successfully.',
+                message: 'Apply deleted successfully.',
             });
         } catch (error) {
             next(error);
         }
     });
 
-export default connectDB(applyUpdateAndDelete);
+export default connectDB(studioUpdateAndDelete);

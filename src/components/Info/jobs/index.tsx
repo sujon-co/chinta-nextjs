@@ -10,10 +10,10 @@ const JobApply: FC<IJobProps> = (props) => {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-    return <div>
-        <button onClick={openModal}>Open Modal</button>
+    return <>
+        <span style={{ textDecoration: 'underline', cursor: "pointer" }} onClick={openModal}> here</span>
         <ApplyModal modalIsOpen={isModalOpen} closeModal={closeModal} />
-    </div>;
+    </>;
 };
 
 export default JobApply;

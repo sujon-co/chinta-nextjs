@@ -19,7 +19,7 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
         title: job.title,
         description: job.description,
         image: job.image,
-        requirements: job.requirements,
+        opportunity: job.opportunity,
     } as IJob;
 
 
@@ -31,22 +31,22 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
 
         try {
             const formData = new FormData();
-            formData.append('image', values.image);
-
             let imageUrl = '';
 
             if (typeof values.image === 'string') {
                 imageUrl = values.image;
             } else {
-                const { data: _imageUrl } = await imageUploadInstance.post('/upload/image', formData);
+                formData.append('image', values.image);
+                formData.append('path', job.image);
+                const { data: _imageUrl } = await imageUploadInstance.patch('/upload/image', formData);
                 imageUrl = _imageUrl.data;
             }
+
 
             const _job: IJob = {
                 ...values,
                 image: imageUrl
             };
-
 
             const { data } = await instance.patch<{ message: string; }>(`/info/jobs/${job._id}`, _job);
             if (data.message) {
@@ -70,7 +70,7 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
             validationSchema={object({
                 title: string().required('Title is required'),
                 description: string().required('Description is required'),
-                requirements: string().required('Requirements is required'),
+                opportunity: string().required('Opportunity link is required'),
                 image: string().required(),
             })}
         >
@@ -93,6 +93,36 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
                         </div>
                     </div>
 
+
+                    <div className="mb-3">
+                        <label htmlFor="opportunity" className="form-label">
+                            Opportunity
+                        </label>
+                        <Field
+                            type="text"
+                            className="form-control form-control-sm"
+                            id="opportunity"
+                            name="opportunity"
+                            placeholder="Add Opportunity link"
+                        />
+                        <div className="text-danger">
+                            <ErrorMessage name="opportunity" />
+                        </div>
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="description" className="form-label">
+                            Description
+                        </label>
+                        <CKEditor
+                            value={job.description}
+                            fieldName="description"
+                            setFieldValue={setFieldValue}
+                        />
+
+                        <div className="text-danger">
+                            <ErrorMessage name="description" />
+                        </div>
+                    </div>
                     <div className="mb-3">
                         <label htmlFor="image" className="form-label">
                             Image
@@ -118,6 +148,7 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
                                 placeholder="blur"
                                 height={60}
                                 width={65}
+                                objectFit="cover"
                             />
                         )}
                         {errors.image && touched.image && (
@@ -125,34 +156,6 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
                                 Image is a required field
                             </div>
                         )}
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="requirements" className="form-label">
-                            Requirements
-                        </label>
-                        <CKEditor
-                            value={job.requirements}
-                            fieldName="requirements"
-                            setFieldValue={setFieldValue}
-                        />
-
-                        <div className="text-danger">
-                            <ErrorMessage name="requirements" />
-                        </div>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="description" className="form-label">
-                            Description
-                        </label>
-                        <CKEditor
-                            value={job.description}
-                            fieldName="description"
-                            setFieldValue={setFieldValue}
-                        />
-
-                        <div className="text-danger">
-                            <ErrorMessage name="description" />
-                        </div>
                     </div>
                     <div className="d-flex gap-1 mb-0">
                         <button

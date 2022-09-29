@@ -7,7 +7,7 @@ const jobSchema = new Schema<IJob>(
             type: String,
             required: true,
         },
-        requirements: {
+        opportunity: {
             type: String,
             required: true,
         },

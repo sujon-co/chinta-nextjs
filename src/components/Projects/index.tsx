@@ -112,14 +112,14 @@ const Projects: NextPage<Props> = ({ projects }) => {
                 {filter === 'status' && (
                     <div className="grids" >
                         {status.map((data, index) => (
-                            <GridItem item={data} key={index} height={projectHeight} />
+                            data.data.length > 0 && <GridItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
                 {filter === 'programmatic' && (
                     <div className="grids" >
                         {programmatic.map((data, index) => (
-                            <GridItem item={data} key={index} height={projectHeight} />
+                            data.data.length > 0 && <GridItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}

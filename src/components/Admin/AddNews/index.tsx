@@ -36,20 +36,14 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
                 } else {
                     formData.append('image', values.image);
                     formData.append('path', news.image);
-                    const { data: imageUrl } = await imageUploadInstance.patch(
-                        '/upload/image',
-                        formData
-                    );
+                    const { data: imageUrl } = await imageUploadInstance.patch('/upload/image', formData);
                     _imageUrl = imageUrl.data;
                 }
                 const newsItem: INews = {
                     ...values,
                     image: _imageUrl,
                 };
-                const { data } = await instance.patch<APIResponse<INews>>(
-                    '/info/news/' + news._id,
-                    newsItem
-                );
+                const { data } = await instance.patch<APIResponse<INews>>('/info/news/' + news._id, newsItem);
                 if (data.message) {
                     toast.success(data.message);
                     setTimeout(() => {

@@ -51,6 +51,11 @@ const routers = [
         icon: <BsFillBagCheckFill />,
     },
     {
+        name: 'Applies',
+        link: 'apply',
+        icon: <BsFillBagCheckFill />,
+    },
+    {
         name: 'Contact',
         link: 'contact',
         icon: <AiFillContacts />,

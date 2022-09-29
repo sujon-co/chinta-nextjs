@@ -3,7 +3,7 @@ import nextConnect from 'next-connect';
 import connectDB from 'server/database';
 import Apply from 'server/models/Apply';
 
-const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
+const applyHandler = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
         if (err.message) {
             res.status(err.status || 500).json({
@@ -27,38 +27,32 @@ const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
         });
     },
 })
-    .patch(async (req, res, next) => {
+    .get(async (req, res, next) => {
         try {
-            const { body, query } = req;
-            const { id: _id } = query;
-            const studio = await Apply.findOneAndUpdate(
-                { _id },
-                { ...body },
-                { new: true }
-            );
+            const studios = await Apply.find({}).sort({ position: 1 });
 
             res.status(200).json({
                 success: true,
-                data: studio,
-                message: 'Apply updated successfully.',
+                data: studios,
+                message: 'Applies fetched successfully.',
             });
         } catch (error) {
             next(error);
         }
     })
-    .delete(async (req, res, next) => {
+    .post(async (req, res, next) => {
         try {
-            const { id: _id } = req.query;
-            await Apply.findOneAndDelete({ _id });
+            const { body } = req;
+
+            const studio = await Apply.create(body);
 
             res.status(200).json({
                 success: true,
-                data: null,
-                message: 'Delete deleted successfully.',
+                data: studio,
+                message: 'Thanks for Applying!',
             });
         } catch (error) {
             next(error);
         }
     });
-
-export default connectDB(applyUpdateAndDelete);
+export default connectDB(applyHandler);

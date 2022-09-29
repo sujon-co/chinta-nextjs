@@ -113,28 +113,23 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                 <div className={SEL} >
                                     <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
                                         <div className="jobs">
-                                            <JobApply />
                                             <div className="row">
                                                 <div className="col-md-12 mb-3">
                                                     <MyImage
                                                         layout="responsive"
-                                                        className=" img-fluid mt-1"
+                                                        className="img-fluid mt-1"
                                                         src={job.image}
                                                         alt={job.title}
                                                         placeholder="blur"
-                                                        height={280}
-                                                        width={450}
+                                                        height={900}
+                                                        width={2500}
+                                                        objectFit="cover"
                                                     />
-                                                </div>
-                                                <div className="jobs-title mb-3">
-                                                    <h4>{job.title}</h4>
-                                                </div>
-                                                <div className="col-md-12 jobs-description">
-                                                    <div className="" dangerouslySetInnerHTML={{ __html: job.requirements }} />
                                                 </div>
                                                 <div className="col-md-12 jobs-description">
                                                     <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
                                                 </div>
+                                                <p>If you are interested in joining Chinta Sthapatya, apply our opportunities <JobApply /> or view our current opportunities <a href={job.opportunity} target="_blank" rel="noreferrer" >here</a> . We look forward to hearing from you!</p>
                                             </div>
                                         </div>
                                     </div>

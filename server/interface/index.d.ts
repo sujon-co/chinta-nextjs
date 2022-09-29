@@ -97,7 +97,7 @@ interface INews {
 interface IJob {
     _id: Types.ObjectId | string;
     title: string;
-    requirements: string;
+    opportunity: string;
     description: string;
     image: string;
 }
@@ -119,7 +119,7 @@ interface APIResponse<T> {
 }
 
 interface IApply {
-    _id: Types.ObjectId | string;
+    _id?: Types.ObjectId | string;
     name: string;
     email: string;
     phone?: string;
