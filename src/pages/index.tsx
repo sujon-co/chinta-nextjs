@@ -31,7 +31,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
     const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
     const { height } = useSizeContext();
 
-    // console.log({ responsive });
 
     const onLeave = (origin: any, destination: any, direction: any) => {
         // console.log('onLeave', { origin, destination, direction });
@@ -42,11 +41,8 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         const imageItemHeight = imageItem?.clientHeight || 180;
         const images = (height - 145) / imageItemHeight;
         const imageCount = Math.floor(images);
-        console.log({ imageCount, imageItemHeight, height });
-
 
         const totalHeight = imageItemHeight * imageCount + (14 * 3);
-        // console.log({ images: parseInt(images), totalHeight });
         setProjectHeight(totalHeight);
     }, [height]);
 
@@ -58,7 +54,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <Header />
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
-                onLeave={onLeave}
+                // onLeave={onLeave}
                 scrollBar={false}
                 autoScrolling
                 scrollOverflowReset

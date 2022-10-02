@@ -82,6 +82,61 @@ p {
         }
     }
 }
+/** OverWrite Image **/
+.top-image-wrapper {
+    min-height: calc(100vh - 60px);
+    // background: rgb(31 31 31 / 75%);
+    // overflow: scroll;
+}
+.top-image-height-control {
+    height: calc(100vh - 60px - 20vh);
+}
+.top-img-overwrite {
+    height: calc(100vh - 60px - 20vh);
+    > span {
+        width: 100% !important;
+        height: 100% !important;
+    }
+}
+.portrait-wrapper {
+    height: calc(100vh - 60px);
+    width: 100%;
+    // background-color: slateblue;
+    display: flex;
+    align-items: center;
+}
+
+.video-player-controller {
+    height: calc(100vh - 60px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-height-control {
+    height: calc(100vh - 60px);
+    // background-color: cadetblue;÷
+    // border-bottom: 5px solid #000;
+    display: flex;
+    align-items: center;
+
+    .image-overwrite {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        > span {
+            width: 100% !important;
+            height: 90% !important;
+        }
+    }
+}
+.image-testing {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
 /******** Responsive ********/
 @media (max-width: 575.98px) {

@@ -74,8 +74,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     ...values,
                     gallery: imageUrl.gallery,
                 };
-                console.log({ project });
-
 
                 // @ts-ignore
                 delete project._id;
@@ -111,6 +109,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     ...values,
                     gallery: imageUrl.data?.gallery.length ? imageUrl.data.gallery : project.gallery,
                 };
+
 
                 // @ts-ignore
                 delete _project._id;

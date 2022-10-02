@@ -10,6 +10,9 @@
             transition: max-height 0.5s;
             overflow: hidden;
         }
+        .other {
+            text-transform: capitalize;
+        }
     }
 }
 .image-wrapper {

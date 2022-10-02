@@ -94,7 +94,6 @@ const Projects: NextPage<Props> = ({ projects }) => {
         setChronological(Object.values(years));
 
     }, [projects]);
-    console.log("Render");
 
     return (
         <div className="container">

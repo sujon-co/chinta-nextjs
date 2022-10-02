@@ -52,6 +52,8 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
         typeof document !== undefined ? require('bootstrap/dist/js/bootstrap.bundle') : null;
     }, []);
 
+
+
     const getLayout = Component.getLayout || ((page: ReactNode) => page);
     return (
         <>

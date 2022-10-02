@@ -27,6 +27,7 @@ const projectSchema = new Schema<IProject>(
         engineer: String,
         taskConstructionFirm: String,
         photograph: String,
+        video: String,
         year: {
             type: Number,
             required: true,

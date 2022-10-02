@@ -13,14 +13,14 @@ type MyImage = {
     width?: number;
     height?: number;
     className?: string;
-    layout: 'fixed' | 'fill' | 'intrinsic' | 'responsive' | 'raw';
+    layout?: 'fixed' | 'fill' | 'intrinsic' | 'responsive' | 'raw';
     placeholder?: string;
     blurDataURL?: any;
     objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
     onClick?: () => void;
 };
 
-const MyImage: FC<MyImage> = ({ src, alt, width, height, className, layout, objectFit, onClick }) => {
+const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className, layout, objectFit, onClick }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     return (

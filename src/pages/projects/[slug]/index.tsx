@@ -2,7 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
 import Layout from 'src/components/Common/Layout';
@@ -21,8 +21,19 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
     const [showMore, setShowMore] = useState(false);
     const [index, setIndex] = useState(-1);
     const [indexNumber, setIndexNumber] = useState(1);
+    const showRef = useRef<HTMLDivElement | null>(null);
 
     const slides = project.gallery?.map((item: any) => ({ src: item.src, photoUrl: item.photoUrl }));
+
+    const handleShowMore = () => {
+        setShowMore(!showMore);
+    };
+
+    useEffect(() => {
+        console.log('height', showRef.current?.getBoundingClientRect());
+        const top = showRef.current?.getBoundingClientRect().y as number;
+        showMore ? window.scrollTo({ top: 150, behavior: 'smooth' }) : window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [showMore]);
 
     return (
         <>
@@ -31,119 +42,129 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
             </Head>
             <Layout>
                 <section className="project-details-section">
-                    <div className="container mx-auto">
-                        <div className="row">
-                            <div className="col-12">
-                                <div className="image-wrapper">
-                                    <MyImage
-                                        className="img-fluid cursor-zoom"
-                                        src={project.gallery[project.topImage - 1].photoUrl}
-                                        alt={project.title}
-                                        layout="intrinsic"
-                                        placeholder="blur"
-                                        height={project.gallery[project.topImage - 1].height}
-                                        width={project.gallery[project.topImage - 1].width}
-                                        onClick={() => setIndex(project.topImage - 1)}
-                                        objectFit="cover"
-                                    />
-                                </div>
-                                <div className="content">
-                                    <h5 className="pt-2"> {project.name} </h5>
-                                    <div className="other">
-                                        <b>Type:</b> {project.type}
-                                    </div>
-                                    <div className="other">
-                                        <b>Status:</b> {project.status}
-                                    </div>
-                                    <div className="other">
-                                        <b>Principal Architect:</b> {project.principalArchitect}
-                                    </div>
-                                    {project.designTeam && (
-                                        <div className="other">
-                                            <b>Deasign Team:</b> {project.designTeam}
-                                        </div>
-                                    )}
-
-                                    {project.landscape && (
-                                        <div className="other">
-                                            <b>Landscape:</b> {project.landscape}
-                                        </div>
-                                    )}
-                                    {project.engineer && (
-                                        <div className="other">
-                                            <b>Engineer:</b> {project.engineer}
-                                        </div>
-                                    )}
-                                    <div className="height-wrapper" style={{ maxHeight: showMore ? 105 : 0, }} >
-                                        {project.taskConstructionFirm && (
-                                            <div className="other">
-                                                <b>Task Construction Firm: </b>
-                                                {project.taskConstructionFirm}
-                                            </div>
-                                        )}
-                                        {project.photograph && (
-                                            <div className="other">
-                                                <b>Photograph: </b> {project.photograph}
-                                            </div>
-                                        )}
-                                        <div className="other">
-                                            <b>Location:</b> Bashundhara, Dhaka,
-                                            Bangladesh
-                                        </div>
-                                        {project.size && (
-                                            <div className="other">
-                                                <b>Size: </b> {project.size}
-                                            </div>
-                                        )}
-                                        <div className="other">
-                                            <b>Year:</b> {project.year}
-                                        </div>
-                                    </div>
-                                    {!showMore && (
-                                        <div className="show-more" onClick={() => setShowMore(true)} >
-                                            Show More
-                                        </div>
-                                    )}
-                                    {showMore && (
-                                        <div className="show-less" onClick={() => setShowMore(false)} >
-                                            Show Less
-                                        </div>
-                                    )}
-
-                                    <div className="row g-3 mt-3 align-items-center">
-                                        <div className="col-md-6 ">
-                                            <div dangerouslySetInnerHTML={{ __html: project.description }} />
-                                        </div>
-                                        <div className="col-md-6">
-                                            <div className="mb-3 image-wrapper">
+                    <div className="container">
+                        <div className='top-image-wrapper'>
+                            <div className="row">
+                                <div className="col-12">
+                                    {project.gallery[project.topImage - 1] ? project.gallery[project.topImage - 1]?.photoUrl && (
+                                        <div className="top-image-height-control">
+                                            <div className="top-img-overwrite">
                                                 <MyImage
-                                                    className=" cursor-zoom"
-                                                    src={project.gallery[project.portraitImage - 1].photoUrl}
+                                                    className="img-fluid cursor-zoom"
+                                                    src={project.gallery[project.topImage - 1].photoUrl}
                                                     alt={project.title}
-                                                    layout="responsive"
+                                                    layout="intrinsic"
                                                     placeholder="blur"
-                                                    height={project.gallery[project.portraitImage].height}
-                                                    width={project.gallery[project.portraitImage].width}
-                                                    onClick={() => setIndex(project.portraitImage - 1)}
+                                                    height={project.gallery[project.topImage - 1].height}
+                                                    width={project.gallery[project.topImage - 1].width}
+                                                    onClick={() => setIndex(project.topImage - 1)}
+                                                    objectFit="cover"
                                                 />
                                             </div>
                                         </div>
+                                    ) : null}
+
+                                    <div className="content">
+                                        <h5 className="pt-2"> {project.name} </h5>
+                                        <div className="other">
+                                            <b>Type:</b> {project.type}
+                                        </div>
+                                        <div className="other">
+                                            <b>Status:</b> {project.status}
+                                        </div>
+                                        <div className="other">
+                                            <b>Principal Architect:</b> {project.principalArchitect}
+                                        </div>
+                                        {project.designTeam && (
+                                            <div className="other">
+                                                <b>Deasign Team:</b> {project.designTeam}
+                                            </div>
+                                        )}
+
+                                        <div className="height-wrapper" style={{ maxHeight: showMore ? 105 : 0, }} >
+                                            {project.landscape && (
+                                                <div className="other">
+                                                    <b>Landscape:</b> {project.landscape}
+                                                </div>
+                                            )}
+                                            {project.engineer && (
+                                                <div className="other">
+                                                    <b>Engineer:</b> {project.engineer}
+                                                </div>
+                                            )}
+                                            {project.taskConstructionFirm && (
+                                                <div className="other">
+                                                    <b>Task Construction Firm: </b>
+                                                    {project.taskConstructionFirm}
+                                                </div>
+                                            )}
+                                            {project.photograph && (
+                                                <div className="other">
+                                                    <b>Photograph: </b> {project.photograph}
+                                                </div>
+                                            )}
+                                            <div className="other">
+                                                <b>Location:</b> Bashundhara, Dhaka,
+                                                Bangladesh
+                                            </div>
+                                            {project.size && (
+                                                <div className="other">
+                                                    <b>Size: </b> {project.size}
+                                                </div>
+                                            )}
+                                            <div className="other">
+                                                <b>Year:</b> {project.year}
+                                            </div>
+                                        </div>
+                                        <div ref={showRef} className="show-more" onClick={handleShowMore} >
+                                            {showMore ? 'Show Less' : 'Show More'}
+                                        </div>
                                     </div>
+
                                 </div>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <ReactPlayer
-                                            url='https://www.youtube.com/watch?v=RqxLkfZMduM&list=RDgYV1Xvwr0lg&index=2&ab_channel=SVF'
-                                            className='react-player'
-                                            playing
-                                            width='100%'
-                                            height='100%'
-                                            controls
+
+                            </div>
+                        </div>
+                        <div className="portrait-wrapper">
+                            <div className="row g-3 align-items-center">
+                                <div className="col-md-6 ">
+                                    <div dangerouslySetInnerHTML={{ __html: project.description }} />
+                                </div>
+                                <div className="col-md-6">
+                                    {project.gallery[project.portraitImage - 1]?.photoUrl && (
+                                        <MyImage
+                                            className="cursor-zoom"
+                                            src={project.gallery[project.portraitImage - 1].photoUrl}
+                                            alt={project.title}
+                                            layout="responsive"
+                                            placeholder="blur"
+                                            height={project.gallery[project.portraitImage - 1].height}
+                                            width={project.gallery[project.portraitImage - 1].width}
+                                            onClick={() => setIndex(project.portraitImage - 1)}
                                         />
-                                    </div>
+                                    )}
+
                                 </div>
-                                {project.images.split(',')?.map((number: string) => ({ ...project.gallery[parseInt(number) - 1], index: parseInt(number) - 1 })).map((image: any, index: number) => (
-                                    <div className="image-item image-wrapper mb-3" key={index}>
+                            </div>
+                        </div>
+                        {project.video && (
+                            <div className='video-player-controller' >
+                                <ReactPlayer
+                                    url={project.video}
+                                    className='react-player'
+                                    playing
+                                    width='100%'
+                                    height='80vh'
+                                    controls
+                                    muted
+                                />
+                            </div>
+                        )}
+
+                        {project.images.split(',')?.map((number: string) => ({ ...project.gallery[parseInt(number) - 1], index: parseInt(number) - 1 })).map((image: any, index: number) => (
+                            <div className='image-height-control' key={index}>
+                                <div className="image-overwrite" style={{ width: '100%' }}>
+                                    {image.photoUrl && (
                                         <MyImage
                                             className='img-fluid cursor-zoom'
                                             src={image.photoUrl}
@@ -151,14 +172,16 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                             layout="responsive"
                                             placeholder="blur"
                                             blurDataURL={image?.base64}
-                                            height={image?.height}
-                                            width={image?.width}
+                                            height={image.height}
+                                            width={image.width}
                                             onClick={() => setIndex(image.index)}
+                                            objectFit="cover"
                                         />
-                                    </div>
-                                ))}
+                                    )}
+                                </div>
                             </div>
-                        </div>
+                        ))}
+
                     </div>
 
                     <div className="container">
