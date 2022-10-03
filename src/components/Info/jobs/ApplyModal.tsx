@@ -80,97 +80,96 @@ const ApplyModal: FC<IModalProps> = ({ closeModal, modalIsOpen }) => {
         <div className="text-danger close-btn" onClick={closeModal} >
             <FaTimes />
         </div>
-        <div className="popup-inner">
-            <Formik
-                initialValues={initialValue}
-                onSubmit={onSubmitHandler}
-                validationSchema={object({
-                    name: string().required('Name is required'),
-                    email: string().required('Email is required'),
-                    phone: string().required('Phone is required'),
-                    description: string().required('Description is required'),
-                    position: string().required('Position is required'),
-                })}
-            >
-                {({ touched, errors, isSubmitting, setFieldValue }) => (
+        <div className="apply-modal">
+            <div className="popup-inner">
+                <Formik
+                    initialValues={initialValue}
+                    onSubmit={onSubmitHandler}
+                    validationSchema={object({
+                        name: string().required('Name is required'),
+                        email: string().required('Email is required'),
+                        phone: string().required('Phone is required'),
+                        description: string().required('Description is required'),
+                        // position: string().required('Position is required'),
+                    })}
+                >
+                    {({ touched, errors, isSubmitting, setFieldValue }) => (
 
-                    <Form className="user-form">
-                        <div className="input-group">
-                            <Field
-                                type="text"
-                                name="name"
-                                placeholder="Your Name"
-                            />
-                            <div className="text-danger">
-                                <ErrorMessage name="name" />
+                        <Form className="user-form">
+                            <div className="input-group">
+                                <Field
+                                    type="text"
+                                    name="name"
+                                    placeholder="Your Name"
+                                />
+                                <div className="text-danger">
+                                    <ErrorMessage name="name" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="input-group">
-                            <Field
-                                type="text"
-                                name="email"
-                                placeholder="Email Address"
-                            />
-                            <div className="text-danger">
-                                <ErrorMessage name="email" />
+                            <div className="input-group">
+                                <Field
+                                    type="text"
+                                    name="email"
+                                    placeholder="Email Address"
+                                />
+                                <div className="text-danger">
+                                    <ErrorMessage name="email" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="input-group">
-                            <Field
-                                type="text"
-                                name="phone"
-                                placeholder="Phone Number"
-                            />
-                            <div className="text-danger">
-                                <ErrorMessage name="phone" />
+                            <div className="input-group">
+                                <Field
+                                    type="text"
+                                    name="phone"
+                                    placeholder="Phone Number"
+                                />
+                                <div className="text-danger">
+                                    <ErrorMessage name="phone" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="input-group">
-                            <Field
-                                type="text"
-                                name="position"
-                                placeholder="Apply Position"
-                            />
-                            <div className="text-danger">
-                                <ErrorMessage name="position" />
+                            <div className="input-group">
+                                <Field
+                                    type="text"
+                                    name="position"
+                                    placeholder="Apply Position"
+                                />
                             </div>
-                        </div>
-                        <div className="input-group">
-                            <Field
-                                as="textarea"
-                                type="text"
-                                name="description"
-                                placeholder="Write Yourself!"
-                                style={{ height: '120px' }}
-                            />
-                            <div className="text-danger">
-                                <ErrorMessage name="position" />
+                            <div className="input-group">
+                                <Field
+                                    as="textarea"
+                                    type="text"
+                                    name="description"
+                                    placeholder="Write Yourself!"
+                                    style={{ height: '120px' }}
+                                />
+                                <div className="text-danger">
+                                    <ErrorMessage name="description" />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="" className='mb-2'>  <b>Attach Portfolio/CV (30MB)</b> </label>
-                            <input
-                                type="file"
-                                name=""
-                                onChange={(event: any) => {
-                                    setFieldValue(
-                                        'file',
-                                        event.currentTarget.files[0]
-                                    );
-                                }}
-                            />
-                        </div>
+                            <div className="mb-3">
+                                <label htmlFor="" className='mb-2'>  <b>Attach Portfolio/CV (30MB)</b> </label>
+                                <input
+                                    type="file"
+                                    name=""
+                                    onChange={(event: any) => {
+                                        setFieldValue(
+                                            'file',
+                                            event.currentTarget.files[0]
+                                        );
+                                    }}
+                                />
+                            </div>
 
 
-                        <div className="text-end">
-                            <button type='submit' className='send-btn'  >
-                                <FiChevronRight />
-                            </button>
-                        </div>
-                    </Form>
-                )}
-            </Formik>
+                            <div className="text-end">
+                                <button type='submit' className='send-btn'  >
+                                    <FiChevronRight />
+                                </button>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
         </div>
     </Modal>;
 };

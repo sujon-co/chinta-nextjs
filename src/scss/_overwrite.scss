@@ -84,22 +84,20 @@ p {
 }
 /** OverWrite Image **/
 .top-image-wrapper {
-    min-height: calc(100vh - 60px);
-    // background: rgb(31 31 31 / 75%);
-    // overflow: scroll;
+    min-height: calc(100vh - 70px);
 }
 .top-image-height-control {
-    height: calc(100vh - 60px - 20vh);
+    height: calc(100vh - 70px - 20vh);
 }
 .top-img-overwrite {
-    height: calc(100vh - 60px - 20vh);
+    height: calc(100vh - 70px - 20vh);
     > span {
         width: 100% !important;
         height: 100% !important;
     }
 }
 .portrait-wrapper {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 70px);
     width: 100%;
     // background-color: slateblue;
     display: flex;
@@ -107,14 +105,14 @@ p {
 }
 
 .video-player-controller {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 70px);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .image-height-control {
-    height: calc(100vh - 60px);
+    height: calc(100vh - 70px);
     // background-color: cadetblue;÷
     // border-bottom: 5px solid #000;
     display: flex;
@@ -136,6 +134,17 @@ p {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+.apply-modal {
+    .user-form {
+        width: 450px;
+
+        .input-group {
+            textarea {
+                max-height: 250px;
+            }
+        }
+    }
 }
 
 /******** Responsive ********/

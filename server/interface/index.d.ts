@@ -68,11 +68,11 @@ interface IAbout {
 interface IAward {
     _id: Types.ObjectId;
     awardName: string;
-    programName: string;
-    programUrl: string;
+    programName?: string;
+    programUrl?: string;
     year: number;
-    organizedBy: string;
-    organizationUrl: string;
+    organizedBy?: string;
+    organizationUrl?: string;
 }
 interface IShop {
     _id: Types.ObjectId;
@@ -82,7 +82,7 @@ interface IShop {
     description?: string;
     previousPrice?: number;
     currentPrice: number;
-    stock: number;
+    stock?: number;
     images: [string];
 }
 interface INews {
@@ -124,6 +124,6 @@ interface IApply {
     email: string;
     phone?: string;
     description?: string;
-    position: string;
+    position?: string;
     file: string;
 }

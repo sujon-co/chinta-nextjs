@@ -29,7 +29,7 @@ const studioHandler = nextConnect<NextApiRequest, NextApiResponse>({
 })
     .get(async (req, res, next) => {
         try {
-            const studios = await Studio.find({}).sort({ position: 1 });
+            const studios = await Studio.find({}).sort({ position: 1, updatedAt: -1 });
 
             res.status(200).json({
                 success: true,

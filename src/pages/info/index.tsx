@@ -117,19 +117,19 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                                 <div className="col-md-12 mb-3">
                                                     <MyImage
                                                         layout="responsive"
-                                                        className="img-fluid mt-1"
+                                                        className="img-fluid"
                                                         src={job.image}
                                                         alt={job.title}
                                                         placeholder="blur"
                                                         height={900}
-                                                        width={2500}
-                                                        objectFit="cover"
+                                                        width={1975}
+                                                        objectFit="contain"
                                                     />
                                                 </div>
                                                 <div className="col-md-12 jobs-description">
                                                     <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
                                                 </div>
-                                                <p>If you are interested in joining Chinta Sthapatya, apply our opportunities <JobApply /> or view our current opportunities <a href={job.opportunity} target="_blank" rel="noreferrer" >here</a> . We look forward to hearing from you!</p>
+                                                <p>If you are interested in joining Chinta Sthapatya, apply our opportunities <JobApply /> or view our current opportunities <a href={job.opportunity} target="_blank" rel="noreferrer" > <b>here</b> </a> . We look forward to hearing from you!</p>
                                             </div>
                                         </div>
                                     </div>
@@ -171,7 +171,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
             awards: awards.data,
             shops: _shops.data,
             news: _news.data,
-            job: _job.data[0]
+            job: _job?.data[0]
         },
     };
 };

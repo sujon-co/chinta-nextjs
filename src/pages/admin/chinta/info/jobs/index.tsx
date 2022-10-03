@@ -68,7 +68,7 @@ Jobs.getLayout = function getLayout(page: ReactNode) {
 };
 export const getServerSideProps: GetServerSideProps = async () => {
     const { data } = await instance.get<{ data: IJob[]; }>('/info/jobs');
-    const job = data.data[0];
+    const job = data?.data[0];
 
     return {
         props: {

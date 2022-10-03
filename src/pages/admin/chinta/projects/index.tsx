@@ -5,7 +5,7 @@ import { IProject } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
 import AddProject from 'src/components/Admin/AddProject';
 import AdminLayout from 'src/components/Admin/AdminLayout';
-// import MyImage from 'src/components/Image';
+import MyImage from 'src/components/Image';
 
 interface IProps {
     projects: IProject[];
@@ -71,7 +71,6 @@ const Projects = ({ projects }: IProps) => {
                                         <th>SN</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Principal Architect</th>
-                                        <th scope="col">Engineer</th>
                                         <th scope="col">Year</th>
                                         <th scope="col">Top Image</th>
                                         <th scope="col">Action</th>
@@ -83,23 +82,20 @@ const Projects = ({ projects }: IProps) => {
                                             <td style={{ minWidth: '40px' }}> <span className='fw-bolder'>{index + 1}</span> </td>
                                             <td> <span className='fw-bolder'>{project.name}</span> </td>
                                             <td> {project.principalArchitect}{' '} </td>
-                                            <td>{project.engineer} </td>
                                             <td>{project.year} </td>
                                             <td>
-                                                {/* {project.gallery[project.topImage - 1] && (
+                                                {project.gallery[project.topImage - 1] && (
                                                     <MyImage
-                                                    className='img-fluid'
-                                                    src={project.gallery[project.topImage - 1]}
-                                                    alt={project.name}
-                                                    layout="fixed"
-                                                    placeholder="blur"
-                                                    width={80}
-                                                    height={50}
-                                                    objectFit="cover"
-                                                /> 
+                                                        className='img-fluid'
+                                                        src={project.gallery[project.topImage - 1]}
+                                                        alt={project.name}
+                                                        layout="fixed"
+                                                        placeholder="blur"
+                                                        width={80}
+                                                        height={50}
+                                                        objectFit="cover"
+                                                    />
                                                 )}
-                                                */}
-                                                <img style={{ width: '80px' }} src={'http://localhost:4000' + project.gallery[project.topImage - 1]} alt="ssdf" />
                                             </td>
                                             <td>
                                                 <div className="d-flex gap-1 mb-0">

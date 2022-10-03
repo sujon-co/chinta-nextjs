@@ -11,7 +11,7 @@ const JobApply: FC<IJobProps> = (props) => {
     const closeModal = () => setIsModalOpen(false);
 
     return <>
-        <span style={{ textDecoration: 'underline', cursor: "pointer" }} onClick={openModal}> here</span>
+        <span style={{ textDecoration: 'underline', cursor: "pointer" }} onClick={openModal}> <b>here</b> </span>
         <ApplyModal modalIsOpen={isModalOpen} closeModal={closeModal} />
     </>;
 };

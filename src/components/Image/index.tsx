@@ -28,8 +28,8 @@ const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className
             loader={myLoader}
             className={cn(
                 className,
-                'duration-700 ease-in-out',
-                isLoading ? 'grayscale  scale-110' : 'grayscale-0  scale-100'
+                // 'duration-700 ease-in-out',
+                // isLoading ? 'grayscale  scale-110' : 'grayscale-0  scale-100'
             )}
             src={src}
             alt={alt}

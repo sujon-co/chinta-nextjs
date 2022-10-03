@@ -7,19 +7,13 @@ const awardSchema = new Schema<IAward>(
             type: String,
             required: true,
         },
-        programName: {
-            type: String,
-            required: true,
-        },
+        programName: String,
         programUrl: String,
         year: {
             type: Number,
             required: true,
         },
-        organizedBy: {
-            type: String,
-            required: true,
-        },
+        organizedBy: String,
         organizationUrl: String,
     },
     { timestamps: true }

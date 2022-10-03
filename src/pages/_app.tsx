@@ -2,7 +2,7 @@ import '@fullpage/react-fullpage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NextComponentType } from 'next';
 import { AppContext, AppInitialProps, AppLayoutProps } from 'next/app';
-import { useRouter } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { ReactNode, useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 import Preloader from 'src/components/Preloader';
@@ -34,6 +34,9 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
         };
         const handleComplete = () => {
             setPageLoading(false);
+            window.scrollTo({ top: 0, behavior: 'auto' });
+            // window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'auto' });
         };
 
         router.events.on('routeChangeStart', handleStart);
@@ -52,7 +55,15 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
         typeof document !== undefined ? require('bootstrap/dist/js/bootstrap.bundle') : null;
     }, []);
 
-
+    useEffect(() => {
+        Router.events.on('routeChangeComplete', () => {
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        });
+    }, []);
 
     const getLayout = Component.getLayout || ((page: ReactNode) => page);
     return (
@@ -61,6 +72,9 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
                 <Preloader />
             ) : (
                 <SizeContextProvider>
+                    {/* <ToTop >
+                    
+                    </ToTop> */}
                     {getLayout(<Component {...pageProps} />)}
                     <Toaster
                         position="top-right"

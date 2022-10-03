@@ -29,7 +29,7 @@ const awardHandler = nextConnect<NextApiRequest, NextApiResponse>({
 })
     .get(async (req, res, next) => {
         try {
-            const studios = await Award.find({}).sort({ createdAt: -1 });
+            const studios = await Award.find({}).sort({ year: -1, updatedAt: -1 });
 
             res.status(200).json({
                 success: true,

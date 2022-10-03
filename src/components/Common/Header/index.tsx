@@ -30,11 +30,12 @@ const Header: NextPage<IProps> = () => {
         }
     }, [showMenu, stay]);
 
+
     return (
         <header className="header">
             <nav className="container header-nav">
-                <Link href="/" >
-                    <a className="header-brand">
+                <Link href="/#home" as={'/#home'}>
+                    <a className="header-brand" >
                         <Image
                             src="/logo.svg"
                             alt="brand logo"
@@ -59,7 +60,7 @@ const Header: NextPage<IProps> = () => {
                                     Projects
                                 </a>
                             </Link>
-                            <Link href="/info">
+                            <Link href="/info#info-about">
                                 <a className={`header-menu-item blue ${pathname === '/info' ? 'active  BLUE' : ''}`} >
                                     Info
                                 </a>

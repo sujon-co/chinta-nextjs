@@ -155,16 +155,14 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     playing
                                     width='100%'
                                     height='80vh'
-                                    controls
-                                    muted
                                 />
                             </div>
                         )}
 
                         {project.images.split(',')?.map((number: string) => ({ ...project.gallery[parseInt(number) - 1], index: parseInt(number) - 1 })).map((image: any, index: number) => (
-                            <div className='image-height-control' key={index}>
-                                <div className="image-overwrite" style={{ width: '100%' }}>
-                                    {image.photoUrl && (
+                            image.photoUrl && (
+                                <div className='image-height-control' key={index}>
+                                    <div className="image-overwrite" style={{ width: '100%' }}>
                                         <MyImage
                                             className='img-fluid cursor-zoom'
                                             src={image.photoUrl}
@@ -177,9 +175,9 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                             onClick={() => setIndex(image.index)}
                                             objectFit="cover"
                                         />
-                                    )}
+                                    </div>
                                 </div>
-                            </div>
+                            )
                         ))}
 
                     </div>

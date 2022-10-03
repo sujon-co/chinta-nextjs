@@ -60,9 +60,9 @@ const AddAward: FC<IAddAward> = ({ setIsAdd, isUpdate, award }) => {
             onSubmit={onSubmitHandler}
             validationSchema={object({
                 awardName: string().required('Award name is required'),
-                programName: string().required('Program name is required'),
+                // programName: string().required('Program name is required'),
                 year: number().required('Year is required'),
-                organizedBy: string().required('Organized by is required'),
+                // organizedBy: string().required('Organized by is required'),
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue }) => (

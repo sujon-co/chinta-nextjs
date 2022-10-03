@@ -55,6 +55,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
                 // onLeave={onLeave}
+                anchors={['home', 'about', 'projects', 'contact']}
                 scrollBar={false}
                 autoScrolling
                 scrollOverflowReset
@@ -62,7 +63,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 sectionSelector={SECTION_SEL}
                 render={(comp) => (
                     <ReactFullpage.Wrapper>
-                        <div className={`${SEL} py-50`}>
+                        <div className={`${SEL} py-50`} >
                             <div className="container slider-height">
                                 <Swiper
                                     autoplay={{ delay: 3000, }}

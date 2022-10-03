@@ -115,7 +115,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                     'Short description is required'
                 ),
                 currentPrice: string().required('Price is required'),
-                stock: string().required('Stock is required'),
+                // stock: string().required('Stock is required'),
                 images: array().required('Images is required'),
             })}
         >
