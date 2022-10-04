@@ -4,8 +4,8 @@ import { Types } from 'mongoose';
 interface IProject {
     _id: Types.ObjectId | string;
     name: string;
-    type: 'residential' | 'commercial' | 'publicSpace' | 'urbanism' | 'interior';
-    status: 'idea' | 'inProgress' | 'underConstruction' | 'completed';
+    type: 'residential' | 'commercial' | 'public space' | 'urbanism' | 'interior';
+    status: 'idea' | 'in progress' | 'under construction' | 'completed';
     principalArchitect: string;
     designTeam: string;
     engineer: string;
@@ -107,6 +107,7 @@ interface IContact {
     phone: string;
     email: string;
     address: string;
+    text: string;
 }
 type ResponseError = AxiosError & {
     response: { data: { message: string; }; };

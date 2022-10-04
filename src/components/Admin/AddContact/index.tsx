@@ -18,6 +18,7 @@ const AddContact: FC<IAddContactProps> = ({ setIsUpdate, isUpdate, contact }) =>
         _id: contact._id,
         phone: contact.phone,
         email: contact.email,
+        text: contact.text,
         address: contact.address,
     } as IContact;
 
@@ -48,12 +49,28 @@ const AddContact: FC<IAddContactProps> = ({ setIsUpdate, isUpdate, contact }) =>
             onSubmit={onSubmitHandler}
             validationSchema={object({
                 phone: string().required(),
+                text: string().required('Content is required'),
                 email: string().required(),
-                address: string().required(),
+                address: string().required(''),
             })}
         >
             {({ touched, errors, isSubmitting, setFieldValue }) => (
                 <Form className="mb-3">
+                    <div className="mb-3">
+                        <label htmlFor="text" className="form-label">
+                            Content Part (text)
+                        </label>
+                        <Field
+                            type="text"
+                            className="form-control form-control-sm"
+                            id="text"
+                            name="text"
+                            placeholder="Text"
+                        />
+                        <div className="text-danger">
+                            <ErrorMessage name="text" />
+                        </div>
+                    </div>
                     <div className="mb-3">
                         <label htmlFor="phone" className="form-label">
                             Phone Number

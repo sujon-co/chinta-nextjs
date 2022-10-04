@@ -40,15 +40,16 @@ const Jobs = ({ job }: JobsProps) => {
                 )}
                 {!isUpdate && (
                     <div className="row">
-                        <div className="col-md-6 mx-auto">
+                        <div className="col-md-12 mx-auto">
                             <div className="about-img">
+                                regulation: 1975 × 900 px
                                 <MyImage
                                     src={job.image}
                                     alt={job.title}
                                     layout="responsive"
                                     placeholder="blur"
-                                    width={400}
-                                    height={300}
+                                    width={1975}
+                                    height={900}
                                 />
                             </div>
                         </div>

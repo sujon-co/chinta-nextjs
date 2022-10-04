@@ -14,6 +14,10 @@ const contactSchema = new Schema<IContact>(
         address: {
             type: String,
             required: true,
+        },
+        text: {
+            type: String,
+            required: true,
         }
     },
     { timestamps: true }

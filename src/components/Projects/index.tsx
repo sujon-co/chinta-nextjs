@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
-import { memo, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IProject } from 'server/interface';
 import GridItem from '../GridItem';
 import ProjectItem from '../ProjectItem';
 
-type IFilter = 'scrolling' | 'status' | 'location' | 'chronological' | 'programmatic';
+type IFilter = 'scrolling' | 'status' | 'location' | 'chronological' | 'programmatic' | 'alphabetical';
 
 export type status = {
     name: string;
@@ -21,12 +21,14 @@ const Projects: NextPage<Props> = ({ projects }) => {
     const [programmatic, setProgrammatic] = useState<status[]>([]);
     const [chronological, setChronological] = useState<status[]>([]);
     const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
+    const [alphabetical, setAlphabetical] = useState<status[]>([]);
+
 
 
     useEffect(() => {
         const imageItem = document.querySelector('.project-item-img .img-fluid');
         const imageItemHeight = imageItem?.clientHeight;
-        const totalHeight = imageItemHeight ? imageItemHeight * 3 + (14 * 3) : 180 * 3 + (16 * 3);
+        const totalHeight = imageItemHeight ? imageItemHeight * 3 + (10 * 3) : 180 * 3 + (16 * 3);
         setProjectHeight(totalHeight);
     }, []);
 
@@ -41,9 +43,9 @@ const Projects: NextPage<Props> = ({ projects }) => {
         projects.forEach((project) => {
             if (project.status === 'idea') {
                 _idea.data.push(project);
-            } else if (project.status === 'inProgress') {
+            } else if (project.status === 'in progress') {
                 _inProgress.data.push(project);
-            } else if (project.status === 'underConstruction') {
+            } else if (project.status === 'under construction') {
                 _underConstruction.data.push(project);
             } else if (project.status === 'completed') {
                 _completed.data.push(project);
@@ -66,7 +68,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
                 _residential.data.push(project);
             } else if (project.type === 'commercial') {
                 _commercial.data.push(project);
-            } else if (project.type === 'publicSpace') {
+            } else if (project.type === 'public space') {
                 _publicSpace.data.push(project);
             } else if (project.type === 'urbanism') {
                 _urbanism.data.push(project);
@@ -95,6 +97,32 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
     }, [projects]);
 
+
+    useEffect(() => {
+        const sortedProjects = projects.sort((a, b) => {
+            const nameA = a.name.toUpperCase();
+            const nameB = b.name.toUpperCase();
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+            return 0;
+        });
+        const alphabetOrderSort = sortedProjects.reduce((total, item) => {
+            const firstLetter = item.name[0].toUpperCase();
+            if (total[firstLetter]) {
+                total[firstLetter].data.push(item);
+            } else {
+                total[firstLetter] = { name: firstLetter, data: [item] };
+            }
+            return total;
+        }, {} as any);
+        setAlphabetical(Object.values(alphabetOrderSort));
+
+    }, [projects]);
+
     return (
         <div className="container">
             <div className="projects" style={{ height: projectHeight }}>
@@ -108,10 +136,10 @@ const Projects: NextPage<Props> = ({ projects }) => {
                         ))}
                     </div>
                 )}
-                {filter === 'status' && (
+                {filter === 'chronological' && (
                     <div className="grids" >
-                        {status.map((data, index) => (
-                            data.data.length > 0 && <GridItem item={data} key={index} height={projectHeight} />
+                        {chronological.map((data, index) => (
+                            <GridItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
@@ -122,13 +150,21 @@ const Projects: NextPage<Props> = ({ projects }) => {
                         ))}
                     </div>
                 )}
-                {filter === 'chronological' && (
+                {filter === 'alphabetical' && (
                     <div className="grids" >
-                        {chronological.map((data, index) => (
-                            <GridItem item={data} key={index} height={projectHeight} />
+                        {alphabetical.map((data, index) => (
+                            data.data.length > 0 && <GridItem item={data} key={index} height={projectHeight} />
                         ))}
                     </div>
                 )}
+                {filter === 'status' && (
+                    <div className="grids" >
+                        {status.map((data, index) => (
+                            data.data.length > 0 && <GridItem item={data} key={index} height={projectHeight} />
+                        ))}
+                    </div>
+                )}
+
             </div>
             <ul className="project-filter">
                 <li
@@ -138,10 +174,16 @@ const Projects: NextPage<Props> = ({ projects }) => {
                     Scrolling-Grid
                 </li>
                 <li
-                    className={`filter-item ${filter === 'status' ? 'active' : ''}`}
-                    onClick={() => setFilter('status')}
+                    className={`filter-item ${filter === 'chronological' ? 'active' : ''}`}
+                    onClick={() => setFilter('chronological')}
                 >
-                    Status
+                    Chronological
+                </li>
+                <li
+                    className={`filter-item ${filter === 'alphabetical' ? 'active' : ''}`}
+                    onClick={() => setFilter('alphabetical')}
+                >
+                    Alphabetical
                 </li>
                 <li
                     className={`filter-item ${filter === 'programmatic' ? 'active' : ''}`}
@@ -150,11 +192,13 @@ const Projects: NextPage<Props> = ({ projects }) => {
                     Programmatic
                 </li>
                 <li
-                    className={`filter-item ${filter === 'chronological' ? 'active' : ''}`}
-                    onClick={() => setFilter('chronological')}
+                    className={`filter-item ${filter === 'status' ? 'active' : ''}`}
+                    onClick={() => setFilter('status')}
                 >
-                    Chronological
+                    Status
                 </li>
+
+
                 <li
                     className={`filter-item ${filter === 'location' ? 'active' : ''}`}
                 // onClick={() => setFilter('location')}
@@ -166,5 +210,5 @@ const Projects: NextPage<Props> = ({ projects }) => {
     );
 };
 
-export default memo(Projects);
+export default Projects;
 

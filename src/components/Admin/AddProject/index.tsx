@@ -175,7 +175,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         >
                             <option value="residential">Residential</option>
                             <option value="commercial">Commercial</option>
-                            <option value="publicSpace">Public Space</option>
+                            <option value="public space">Public Space</option>
                             <option value="urbanism">Urbanism</option>
                             <option value="interior">Interior</option>
                         </Field>
@@ -195,8 +195,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             placeholder="Project Status"
                         >
                             <option value="idea">Idea</option>
-                            <option value="inProgress">In Progress</option>
-                            <option value="underConstruction">
+                            <option value="in progress">In Progress</option>
+                            <option value="under construction">
                                 Under Construction
                             </option>
                             <option value="completed">Completed</option>

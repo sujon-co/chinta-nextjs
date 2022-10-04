@@ -16,6 +16,8 @@ const Projects = ({ projects }: IProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [project, setProject] = useState<IProject>({} as IProject);
 
+    console.log({ dashboard: projects });
+
     const deleteHandler = async (project: IProject) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
@@ -70,8 +72,9 @@ const Projects = ({ projects }: IProps) => {
                                     <tr>
                                         <th>SN</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Principal Architect</th>
                                         <th scope="col">Year</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Type</th>
                                         <th scope="col">Top Image</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -81,8 +84,9 @@ const Projects = ({ projects }: IProps) => {
                                         <tr key={Math.random()}>
                                             <td style={{ minWidth: '40px' }}> <span className='fw-bolder'>{index + 1}</span> </td>
                                             <td> <span className='fw-bolder'>{project.name}</span> </td>
-                                            <td> {project.principalArchitect}{' '} </td>
-                                            <td>{project.year} </td>
+                                            <td > {project.year} </td>
+                                            <td className='text-capitalize'> {project.status} </td>
+                                            <td className='text-capitalize'> {project.type} </td>
                                             <td>
                                                 {project.gallery[project.topImage - 1] && (
                                                     <MyImage

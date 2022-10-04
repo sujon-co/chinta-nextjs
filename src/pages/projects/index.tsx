@@ -1,13 +1,25 @@
-import { InferGetServerSidePropsType, NextPage } from 'next';
+import { NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import Projects from 'src/components/Projects';
 
-const ProjectsPage: NextPage<
-    InferGetServerSidePropsType<typeof getServerSideProps>
-> = ({ projects }) => {
+interface Props {
+    projects: IProject[];
+}
+
+const ProjectsPage: NextPage<Props> = ({ projects }) => {
+    const [_projects, setProjects] = useState<IProject[]>([]);
+
+
+    useEffect(() => {
+        // sort by year
+        const sortedProjects = projects.sort((a, b) => b.year - a.year);
+        console.log({ sortedProjects });
+    }, [projects]);
+
     return (
         <>
             <Head>
@@ -26,13 +38,11 @@ const ProjectsPage: NextPage<
 };
 
 export const getServerSideProps = async () => {
-    const { data: _projects } = await instance.get<{ data: IProject[]; }>(
-        '/projects'
-    );
+    const { data } = await instance.get<{ data: IProject[]; }>('/projects');
 
     return {
         props: {
-            projects: _projects.data,
+            projects: data.data
         },
     };
 };

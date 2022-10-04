@@ -10,12 +10,12 @@ const projectSchema = new Schema<IProject>(
         type: {
             type: String,
             required: true,
-            enum: ['residential', 'commercial', 'publicSpace', 'urbanism', 'interior'],
+            enum: ['residential', 'commercial', 'public space', 'urbanism', 'interior'],
         },
         status: {
             type: String,
             required: true,
-            enum: ['idea', 'inProgress', 'underConstruction', 'completed'],
+            enum: ['idea', 'in progress', 'under construction', 'completed'],
         },
         principalArchitect: {
             type: String,

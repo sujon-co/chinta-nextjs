@@ -31,11 +31,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
     const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
     const { height } = useSizeContext();
 
-
-    const onLeave = (origin: any, destination: any, direction: any) => {
-        // console.log('onLeave', { origin, destination, direction });
-    };
-
     useEffect(() => {
         const imageItem = document.querySelector('.project-item-img .img-fluid');
         const imageItemHeight = imageItem?.clientHeight || 180;

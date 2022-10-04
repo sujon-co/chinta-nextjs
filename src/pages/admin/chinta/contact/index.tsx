@@ -38,6 +38,10 @@ const Contact = ({ contact }: ContactProps) => {
                 {!isUpdate && (
                     <div className="row">
                         <li className='d-flex gap-2 mb-2'>
+                            <b>Text:</b>
+                            <div>{contact.text}</div>
+                        </li>
+                        <li className='d-flex gap-2 mb-2'>
                             <b>Phone:</b>
                             <div>{contact.phone}</div>
                         </li>

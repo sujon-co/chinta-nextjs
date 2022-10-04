@@ -206,7 +206,9 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                             }
                         }}
                     />
-                    <h6 className='index-number'> {indexNumber} of {slides.length} </h6>
+                    {index > -1 && (
+                        <h6 className='index-number'> {indexNumber} of {slides.length} </h6>
+                    )}
 
                 </section>
             </Layout>

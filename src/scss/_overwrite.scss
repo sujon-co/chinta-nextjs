@@ -71,6 +71,18 @@ p {
         margin-bottom: 8px;
     }
 }
+.yarl__flex_center {
+    background-color: #fff !important;
+}
+.yarl__button {
+    color: #000 !important;
+    filter: none !important;
+    &:hover,
+    &:focus {
+        color: #000 !important;
+        filter: none !important;
+    }
+}
 /** table modified **/
 .modified-table {
     thead,

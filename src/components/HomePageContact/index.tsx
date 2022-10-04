@@ -109,7 +109,7 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                                     </button>
                                 </div>
                             </div>
-                            <h6 className='mb-2'> We would love to hear from you so don&lsquo;t hesitate to say hi! </h6>
+                            <h6 className='mb-2' style={{ fontWeight: '300' }}> {contact.text} </h6>
 
                             <div className="mb-2">
                                 <div className="">
