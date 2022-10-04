@@ -34,9 +34,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
         };
         const handleComplete = () => {
             setPageLoading(false);
-            window.scrollTo({ top: 0, behavior: 'auto' });
-            // window.scrollTo(0, 0);
-            window.scrollTo({ top: 0, behavior: 'auto' });
         };
 
         router.events.on('routeChangeStart', handleStart);

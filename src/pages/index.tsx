@@ -46,6 +46,9 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         setProjectHeight(totalHeight);
     }, [height]);
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'auto' });
+    }, []);
     return (
         <div className="App">
             <Head>
