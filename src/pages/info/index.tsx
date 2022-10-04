@@ -91,7 +91,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                 <div className={`${SEL} award-info-section`}>
                                     <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
                                         {awards.map((award) => (
-                                            <div className="d-flex gap-2 mb-2" key={award.awardName}>
+                                            <div className=" award-item" key={award.awardName}>
                                                 <span> {award.year} </span>
                                                 <span> {award.awardName} </span>
                                                 <a href={award.programUrl} target="_blank" rel="noreferrer">

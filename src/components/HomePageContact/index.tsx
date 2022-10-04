@@ -17,6 +17,8 @@ const HomePageContact = ({ showFooter = true }: Props) => {
     const [data, setData] = useState({});
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const [contact, setContact] = useState<IContact>({} as IContact);
+    const [showInput, setShowInput] = useState(false);
+
 
     function openModal() { setIsOpen(true); }
     function closeModal() { setIsOpen(false); }
@@ -92,8 +94,16 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                 <div className="row g-3">
                     <div className="col-lg-6">
                         <div className="wrapper">
+
                             <div className="type-writer-wrapper">
-                                <div className="type-writer-box-3">
+                                <div
+                                    className="tagline"
+                                    style={{ display: showInput ? 'none' : 'block', }}
+                                    onClick={() => setShowInput(true)}
+                                >
+                                    <p>DROP US A LINE</p>
+                                </div>
+                                <div className="type-writer-box-3" style={{ display: showInput ? 'block' : 'none', }}>
                                     <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
                                     <button className='send-btn' onClick={openModal} >
                                         <FiChevronRight />

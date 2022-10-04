@@ -83,8 +83,8 @@ const Sidebar = () => {
                                                 height={40}
                                                 width={36}
                                             />
-                                            <h5 className="text-white ps-3">
-                                                Chinta
+                                            <h5 className="text-white ps-3 text-uppercase">
+                                                Chinta Sthapatya
                                             </h5>
                                         </a>
                                     </Link>

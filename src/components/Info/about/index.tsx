@@ -15,7 +15,7 @@ const About: FC<Props> = ({ about }) => {
 
     return (
         <div className="row g-4">
-            <div className="col-md-5 col-lg-4">
+            <div className="col-md-5 col-lg-4 col-xl-3">
                 <div className="about-img">
                     <MyImage
                         src={about.photoUrl}

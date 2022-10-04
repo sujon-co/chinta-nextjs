@@ -130,6 +130,7 @@
     height: 50%;
     text-align: right;
     padding-right: 10px;
+    border-right: 1px solid red;
 
     li {
         a {
@@ -172,12 +173,33 @@
         line-height: 15px;
     }
 }
+.award-item {
+    display: flex;
+    gap: 4px 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
 
 /******** Responsive ********/
+@media (max-width: 991.98px) {
+    #myMenu {
+        display: none;
+    }
+    .award-item {
+        gap: 0px 8px;
+        margin-bottom: 16px;
+    }
+}
 @media (max-width: 575.98px) {
+    .award-item {
+        margin-bottom: 20px;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
+    .award-item {
+        margin-bottom: 20px;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
