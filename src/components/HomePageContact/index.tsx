@@ -94,7 +94,6 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                 <div className="row g-3">
                     <div className="col-lg-6">
                         <div className="wrapper">
-
                             <div className="type-writer-wrapper">
                                 <div
                                     className="tagline"
