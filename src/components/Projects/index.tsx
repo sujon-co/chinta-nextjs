@@ -20,7 +20,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
     const [status, setStatus] = useState<status[]>([]);
     const [programmatic, setProgrammatic] = useState<status[]>([]);
     const [chronological, setChronological] = useState<status[]>([]);
-    const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
+    const [projectHeight, setProjectHeight] = useState(180 * 3 + (8 * 3));
     const [alphabetical, setAlphabetical] = useState<status[]>([]);
 
 
@@ -28,7 +28,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
     useEffect(() => {
         const imageItem = document.querySelector('.project-item-img .img-fluid');
         const imageItemHeight = imageItem?.clientHeight;
-        const totalHeight = imageItemHeight ? imageItemHeight * 3 + (10 * 3) : 180 * 3 + (16 * 3);
+        const totalHeight = imageItemHeight ? imageItemHeight * 3 + (8 * 3) : 180 * 3 + (8 * 3);
         setProjectHeight(totalHeight);
     }, []);
 

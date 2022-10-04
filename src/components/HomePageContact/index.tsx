@@ -88,6 +88,8 @@ const HomePageContact = ({ showFooter = true }: Props) => {
         }
     }, [message]);
 
+    console.log({ contact });
+
     return (
         <Fragment>
             <div className="container contact-container" onWheel={scrollHandler}>
@@ -119,7 +121,7 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                                     <a target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }} href={`mailto:${contact.email}`}> {contact.email} </a>
                                 </div>
                             </div>
-                            <p className='mb-0'> <div dangerouslySetInnerHTML={{ __html: contact.address }} /> </p>
+                            <div className='mb-0' dangerouslySetInnerHTML={{ __html: contact.address }} />
                         </div>
                     </div>
                     <div className="col-lg-6" >

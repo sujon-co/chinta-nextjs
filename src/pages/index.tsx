@@ -28,7 +28,7 @@ const pluginWrapper = () => {
 };
 
 const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliders, about, projects, }) => {
-    const [projectHeight, setProjectHeight] = useState(180 * 3 + (16 * 3));
+    const [projectHeight, setProjectHeight] = useState(0);
     const { height } = useSizeContext();
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         const images = (height - 145) / imageItemHeight;
         const imageCount = Math.floor(images);
 
-        const totalHeight = imageItemHeight * imageCount + (14 * 3);
+        const totalHeight = imageItemHeight * imageCount + (8 * imageCount);
         setProjectHeight(totalHeight);
     }, [height]);
 
@@ -52,7 +52,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <Header />
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
-                // onLeave={onLeave}
                 // anchors={['home', 'about', 'projects', 'contact']}
                 scrollBar={false}
                 autoScrolling
