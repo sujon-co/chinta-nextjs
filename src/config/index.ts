@@ -4,7 +4,7 @@ export const config = {
     // imageUploadUrl: process.env.NEXT_PUBLIC_API_IMAGE_UPLOAD_URL || '',
     jwtSecret: 'hi_i_am_sujon_hossain_a_developer',
     baseUrl: 'https://chinta-nextjs.vercel.app',
-    imageUploadUrl: 'http://184.168.120.4',
+    imageUploadUrl: 'https://chinta-image-upload.herokuapp.com',
     // baseUrl: 'http://localhost:3000',
     // imageUploadUrl: 'http://localhost:4000',
 };
