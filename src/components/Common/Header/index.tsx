@@ -34,7 +34,7 @@ const Header: NextPage<IProps> = () => {
     return (
         <header className="header">
             <nav className="container header-nav">
-                <Link href="/#home" as={'/#home'}>
+                <Link href="/">
                     <a className="header-brand" >
                         <Image
                             src="/logo.svg"

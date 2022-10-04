@@ -55,7 +55,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
                 // onLeave={onLeave}
-                anchors={['home', 'about', 'projects', 'contact']}
+                // anchors={['home', 'about', 'projects', 'contact']}
                 scrollBar={false}
                 autoScrolling
                 scrollOverflowReset
