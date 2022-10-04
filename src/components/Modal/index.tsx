@@ -1,5 +1,5 @@
 import { FC, SyntheticEvent } from 'react';
-import { FaTimes } from 'react-icons/fa';
+import { CgClose } from 'react-icons/cg';
 import { FiChevronRight } from 'react-icons/fi';
 import Modal from 'react-modal';
 
@@ -32,7 +32,7 @@ const MailPop: FC<IModalProps> = ({ closeModal, mailSubmitHandler, inputHandler,
         contentLabel="Example Modal"
     >
         <div className="text-danger close-btn" onClick={closeModal} >
-            <FaTimes />
+            <CgClose />
         </div>
         <div className="popup-inner">
 
