@@ -57,7 +57,8 @@ const adminLogin = nextConnect<NextApiRequest, NextApiResponse>({
             'Set-Cookie',
             cookie.serialize('chinta_auth_token', token, {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === 'production',
+                // secure: process.env.NODE_ENV === 'production',
+                secure: false,
                 sameSite: 'strict',
                 maxAge: 3600 * (passwordRemember ? 360 : 24),
                 path: '/',
