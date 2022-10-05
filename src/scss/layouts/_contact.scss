@@ -88,6 +88,9 @@
     width: max-content;
     cursor: pointer;
     margin-bottom: 25px;
+    p {
+        margin-bottom: 2px;
+    }
 
     &::after {
         content: '';
