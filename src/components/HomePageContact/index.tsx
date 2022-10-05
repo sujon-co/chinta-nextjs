@@ -88,7 +88,6 @@ const HomePageContact = ({ showFooter = true }: Props) => {
         }
     }, [message]);
 
-    console.log({ contact });
 
     return (
         <Fragment>

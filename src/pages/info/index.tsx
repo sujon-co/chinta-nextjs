@@ -40,12 +40,6 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
         // with the event
     };
 
-    console.log({ job });
-
-    const moveSectionDown = () => {
-        //@ts-ignore
-        fullpage_api.moveSectionDown();
-    };
 
     return (
         <Fragment>

@@ -13,7 +13,6 @@ interface JobsProps {
 
 const Jobs = ({ job }: JobsProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
-    console.log({ job });
 
     return (
         <div className="card">

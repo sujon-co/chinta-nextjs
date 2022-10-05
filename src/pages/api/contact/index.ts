@@ -57,8 +57,6 @@ const contactHandler = nextConnect<NextApiRequest, NextApiResponse>({
     .patch(async (req, res, next) => {
         try {
             const { body } = req;
-            console.log({ body });
-
             const contact = await Contact.findByIdAndUpdate(
                 body._id,
                 { ...body },

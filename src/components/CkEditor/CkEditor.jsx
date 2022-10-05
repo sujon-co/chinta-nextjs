@@ -21,7 +21,6 @@ const CKEditor = ({ setFieldValue, fieldName, value }) => {
                     editor={ClassicEditor}
                     data={value}
                     onReady={editor => {
-                        console.log('Editor is ready to use!', editor);
                     }}
                     onChange={(event, editor) => {
                         const data = editor.getData()

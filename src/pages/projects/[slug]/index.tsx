@@ -30,8 +30,6 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
     };
 
     useEffect(() => {
-        console.log('height', showRef.current?.getBoundingClientRect());
-        const top = showRef.current?.getBoundingClientRect().y as number;
         showMore ? window.scrollTo({ top: 150, behavior: 'smooth' }) : window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [showMore]);
 

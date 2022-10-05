@@ -17,7 +17,6 @@ const ProjectsPage: NextPage<Props> = ({ projects }) => {
     useEffect(() => {
         // sort by year
         const sortedProjects = projects.sort((a, b) => b.year - a.year);
-        console.log({ sortedProjects });
     }, [projects]);
 
     return (

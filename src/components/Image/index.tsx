@@ -22,7 +22,6 @@ type MyImage = {
 
 const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className, layout, objectFit, onClick }) => {
     const [isLoading, setIsLoading] = useState(true);
-    // console.log({ isLoading });
     return (
         <Image
             loader={myLoader}

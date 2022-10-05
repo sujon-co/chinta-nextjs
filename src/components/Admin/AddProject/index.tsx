@@ -79,7 +79,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 delete project._id;
 
                 const { data } = await instance.post('/projects', project);
-                console.log({ data });
                 if (data.success) {
                     toast.success(data.message);
                     formikHelpers.resetForm();

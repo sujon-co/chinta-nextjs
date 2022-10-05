@@ -40,9 +40,6 @@ const Contact = ({ apply }: ApplyProps) => {
         setApplier({} as IApply);
     };
 
-
-
-    console.log({ applier });
     return (
         <>
             <div className="card">

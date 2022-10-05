@@ -16,7 +16,6 @@ const Projects = ({ projects }: IProps) => {
     const [isUpdate, setIsUpdate] = useState(false);
     const [project, setProject] = useState<IProject>({} as IProject);
 
-    console.log({ dashboard: projects });
 
     const deleteHandler = async (project: IProject) => {
         const sure = window.confirm('Are you sure!!');
