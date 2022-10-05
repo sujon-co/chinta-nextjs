@@ -13,7 +13,6 @@ p {
 }
 
 /*** full page scroll ***/
-
 .fp-table {
     display: block !important;
 }
@@ -40,9 +39,9 @@ p {
     align-items: center;
     overflow: hidden;
 }
-.swiper-wrapper {
-    margin-top: 70px !important;
-}
+// .swiper-wrapper {
+//     margin-top: 70px !important;
+// }
 .fp-watermark {
     display: none !important;
     height: 0;
@@ -159,7 +158,23 @@ p {
         }
     }
 }
+.slider__item {
+    position: relative;
+    width: 100%;
+    height: 100%;
 
+    &-data {
+        position: absolute;
+        right: 0;
+        background: #211e1eb3;
+        font-size: 14px;
+        bottom: 0;
+        width: fit-content;
+        padding: 1px 25px;
+        color: #fff;
+        word-spacing: 4px;
+    }
+}
 /******** Responsive ********/
 @media (max-width: 575.98px) {
 }

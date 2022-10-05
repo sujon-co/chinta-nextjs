@@ -72,13 +72,16 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                     {sliders.length > 0 &&
                                         sliders.map((image) => (
                                             <SwiperSlide key={image.photoUrl}>
-                                                <MyImage
-                                                    src={image.photoUrl}
-                                                    alt={image.alt}
-                                                    layout="fill"
-                                                    width={3840}
-                                                    height={2160}
-                                                />
+                                                <div className="slider__item">
+                                                    <MyImage
+                                                        src={image.photoUrl}
+                                                        alt={image.alt}
+                                                        layout="fill"
+                                                        width={3840}
+                                                        height={2160}
+                                                    />
+                                                    <div className='slider__item-data'>2020 Sujon&rsquo;s Hossain House</div>
+                                                </div>
                                             </SwiperSlide>
                                         ))}
                                     {sliders.length === 0 && (
