@@ -4,7 +4,10 @@ import { config } from 'src/config';
 
 export async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl;
-    let token = req.cookies['chinta_auth_token'];
+    let token = req.cookies.get('chinta_auth_token');
+
+    console.log({ token });
+    console.log("middleware.ts: ", pathname);
 
     if (pathname.includes('/admin/chinta')) {
         if (token === undefined)

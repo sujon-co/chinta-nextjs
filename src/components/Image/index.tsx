@@ -13,7 +13,7 @@ type MyImage = {
     width?: number;
     height?: number;
     className?: string;
-    layout?: 'fixed' | 'fill' | 'intrinsic' | 'responsive' | 'raw';
+    layout?: 'fixed' | 'fill' | 'intrinsic' | 'responsive';
     placeholder?: string;
     blurDataURL?: any;
     objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
