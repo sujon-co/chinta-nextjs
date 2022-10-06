@@ -12,7 +12,7 @@ import About from 'src/components/Info/about';
 import ProjectItem from 'src/components/ProjectItem';
 import { useSizeContext } from 'src/contexts/ResponseContextProvider';
 import { scrollHandler } from 'src/utils';
-import { Autoplay } from 'swiper';
+// import { Autoplay } from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -66,7 +66,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                     autoplay={{ delay: 3000, }}
                                     loop
                                     simulateTouch={false}
-                                    modules={[Autoplay]}
+                                    // modules={[Autoplay]}
                                     className="mySwiper"
                                 >
                                     {sliders.length > 0 &&
