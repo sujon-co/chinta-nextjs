@@ -181,7 +181,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                     </div>
 
                     <div className="container">
-                        <h4 className='my-3'>Project Gallery</h4>
+                        <h5 className='my-3'>Project gallery</h5>
                         <div className="gallery-list">
                             {slides.map((img: any, index: number) => (
                                 <GalleryImage img={img} index={index} setIndex={setIndex} key={index} alt={project.name} />

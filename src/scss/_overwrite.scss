@@ -161,18 +161,19 @@ p {
 .slider__item {
     position: relative;
     width: 100%;
-    height: 100%;
+    // height: 100%;
+    height: 84vh;
+    position: relative;
+
+    span {
+        height: 81vh !important;
+    }
 
     &-data {
         position: absolute;
-        right: 0;
-        background: #211e1eb3;
-        font-size: 14px;
         bottom: 0;
-        width: fit-content;
-        padding: 1px 25px;
-        color: #fff;
-        word-spacing: 4px;
+        right: 0;
+        font-size: 15px;
     }
 }
 /******** Responsive ********/

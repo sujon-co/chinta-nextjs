@@ -52,9 +52,9 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                     <li data-menuanchor="info-about"> <a href='#info-about'>About</a> </li>
                     <li data-menuanchor="info-studio"> <a href='#info-studio'>Studio</a> </li>
                     <li data-menuanchor="info-award"> <a href='#info-award'>Award</a> </li>
+                    <li data-menuanchor="info-news"> <a href='#info-news'>News</a> </li>
                     <li data-menuanchor="info-shops"> <a href='#info-shops'>Shop</a> </li>
                     <li data-menuanchor="info-jobs"> <a href='#info-jobs'>Jobs</a> </li>
-                    <li data-menuanchor="info-news"> <a href='#info-news'>News</a> </li>
                     <li data-menuanchor="info-contact"> <a href='#info-contact'>Contact</a> </li>
                 </ul>
                 <div className='container'>
@@ -64,7 +64,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                         scrollBar={false}
                         licenseKey='YOUR_KEY_HERE'
                         sectionSelector={SECTION_SEL}
-                        anchors={['info-about', 'info-studio', 'info-award', 'info-shops', 'info-jobs', 'info-news', 'info-contact']}
+                        anchors={['info-about', 'info-studio', 'info-award', 'info-news', 'info-shops', 'info-jobs', 'info-contact']}
                         css3={true}
                         menu="#myMenu"
                         autoScrolling={true}
@@ -99,6 +99,13 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                 </div>
                                 <div className={SEL} >
                                     <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
+                                        {news.map(news => (
+                                            <NewsItem news={news} key={news.title} />
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className={SEL} >
+                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
                                         {shops.map(shop => (
                                             <ShopItem shop={shop} key={shop.title} />
                                         ))}
@@ -123,18 +130,12 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                                                 <div className="col-md-12 jobs-description">
                                                     <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
                                                 </div>
-                                                <p>If you are interested in joining Chinta Sthapatya, apply our opportunities <JobApply /> or view our current opportunities <a href={job.opportunity} target="_blank" rel="noreferrer" > <b>here</b> </a> . We look forward to hearing from you!</p>
+                                                <p>If you are interested in joining Chinta Sthapatya, submit your details <JobApply /> or view our current opportunities <a href={job.opportunity} target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }} > <b>here</b> </a>. We look forward to hearing from you!</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className={SEL} >
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                        {news.map(news => (
-                                            <NewsItem news={news} key={news.title} />
-                                        ))}
-                                    </div>
-                                </div>
+
                                 <div className={SEL} >
                                     <div className="info-section scroll info-contact" onWheel={scrollHandler} >
                                         <HomePageContact />

@@ -171,7 +171,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
                     className={`filter-item ${filter === 'scrolling' ? 'active' : ''}`}
                     onClick={() => setFilter('scrolling')}
                 >
-                    Scrolling-Grid
+                    Scrolling-grid
                 </li>
                 <li
                     className={`filter-item ${filter === 'chronological' ? 'active' : ''}`}

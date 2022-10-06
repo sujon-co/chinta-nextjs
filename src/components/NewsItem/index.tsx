@@ -18,9 +18,9 @@ const NewsItem: FC<INewsItemProps> = ({ news }) => {
                 width={1000}
             />
         </a>
-        <h5 className='mb-1 pt-2'>
+        <h6 className='mb-1 pt-2'>
             <a href={news.url}>{news.title} </a>
-        </h5>
+        </h6>
         <div dangerouslySetInnerHTML={{ __html: news.description }} />
     </div>;
 };
