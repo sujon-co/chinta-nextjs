@@ -95,14 +95,14 @@ const AddSlider: FC<IAddSliderProps> = ({
                 <Form className="mb-3">
                     <div className="mb-3">
                         <label htmlFor="alt" className="form-label">
-                            Alt Key
+                            Title
                         </label>
                         <Field
                             type="text"
                             className="form-control form-control-sm"
                             id="alt"
                             name="alt"
-                            placeholder="image alt key"
+                            placeholder="image title"
                         />
                         <div className="text-danger">
                             <ErrorMessage name="alt" />

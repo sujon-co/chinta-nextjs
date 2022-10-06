@@ -87,7 +87,7 @@ const Sliders = ({ sliders }: IProps) => {
                                         />
                                         <div className="card-body p-0">
                                             <p className="card-text mb-0">
-                                                <b>Alt: </b>
+                                                <b> Title: </b>
                                                 <span>{slider.alt}</span>
                                             </p>
                                             <p className="card-text mb-2">

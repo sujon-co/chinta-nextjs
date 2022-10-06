@@ -80,7 +80,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                                         width={3840}
                                                         height={2160}
                                                     />
-                                                    <div className='slider__item-data'>2020 Sujon&rsquo;s Hossain House</div>
+                                                    <div className='slider__item-data'>{image.alt}</div>
                                                 </div>
                                             </SwiperSlide>
                                         ))}
