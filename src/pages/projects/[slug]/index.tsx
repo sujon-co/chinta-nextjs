@@ -129,18 +129,21 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     <div dangerouslySetInnerHTML={{ __html: project.description }} />
                                 </div>
                                 <div className="col-md-6">
-                                    {project.gallery[project.portraitImage - 1]?.photoUrl && (
-                                        <MyImage
-                                            className="cursor-zoom"
-                                            src={project.gallery[project.portraitImage - 1].photoUrl}
-                                            alt={project.title}
-                                            layout="responsive"
-                                            placeholder="blur"
-                                            height={project.gallery[project.portraitImage - 1].height}
-                                            width={project.gallery[project.portraitImage - 1].width}
-                                            onClick={() => setIndex(project.portraitImage - 1)}
-                                        />
-                                    )}
+                                    <div className="portrait-image-height">
+                                        {project.gallery[project.portraitImage - 1]?.photoUrl && (
+                                            <MyImage
+                                                className="cursor-zoom"
+                                                src={project.gallery[project.portraitImage - 1].photoUrl}
+                                                alt={project.title}
+                                                layout="responsive"
+                                                placeholder="blur"
+                                                objectFit='cover'
+                                                height={project.gallery[project.portraitImage - 1].height}
+                                                width={project.gallery[project.portraitImage - 1].width}
+                                                onClick={() => setIndex(project.portraitImage - 1)}
+                                            />
+                                        )}
+                                    </div>
 
                                 </div>
                             </div>

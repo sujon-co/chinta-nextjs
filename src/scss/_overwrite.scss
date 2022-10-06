@@ -111,9 +111,15 @@ p {
 .portrait-wrapper {
     height: calc(100vh - 70px);
     width: 100%;
-    // background-color: slateblue;
     display: flex;
     align-items: center;
+    .portrait-image-height {
+        height: calc(100vh - 70px - 5vh);
+        > span {
+            width: 100% !important;
+            height: 100% !important;
+        }
+    }
 }
 
 .video-player-controller {
@@ -125,8 +131,6 @@ p {
 
 .image-height-control {
     height: calc(100vh - 70px);
-    // background-color: cadetblue;÷
-    // border-bottom: 5px solid #000;
     display: flex;
     align-items: center;
 
