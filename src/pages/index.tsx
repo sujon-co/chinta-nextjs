@@ -77,8 +77,8 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                                         src={image.photoUrl}
                                                         alt={image.alt}
                                                         layout="fill"
-                                                        width={3840}
-                                                        height={2160}
+                                                    // width={3840}
+                                                    // height={2160}
                                                     />
                                                     <div className='slider__item-data'>{image.alt}</div>
                                                 </div>
