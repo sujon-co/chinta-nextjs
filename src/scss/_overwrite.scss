@@ -186,14 +186,14 @@ p {
 }
 .next-image {
     position: relative;
-    z-index: 222222;
+    z-index: 2;
     width: inherit;
     height: inherit;
 
     &-overlay {
         position: absolute;
         inset: 0;
-        background-color: #d8d8d8;
+        background-color: rgb(240, 240, 240);
         // background-color: #fff;
 
         > span {

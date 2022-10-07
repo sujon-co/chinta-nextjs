@@ -30,7 +30,7 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
 })
     .get(async (req, res, next) => {
         try {
-            const project = await Project.findOne({ _id: req.query.id });
+            const project = await Project.findOne({ slug: req.query.slug });
 
             return res.status(200).json({
                 success: true,
@@ -44,9 +44,9 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
     .patch(async (req, res, next) => {
         try {
             const { body, query } = req;
-            const { id: _id } = query;
+            const { slug } = query;
             const slider = await Project.findOneAndUpdate(
-                { _id },
+                { slug },
                 { ...body },
                 { new: true }
             );
@@ -62,8 +62,8 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
     })
     .delete(async (req, res, next) => {
         try {
-            const { id: _id } = req.query;
-            const slider = await Project.findOneAndDelete({ _id });
+            const { slug } = req.query;
+            const slider = await Project.findOneAndDelete({ slug });
 
             res.status(200).json({
                 success: true,

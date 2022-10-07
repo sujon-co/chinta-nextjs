@@ -20,6 +20,7 @@ interface IProject {
     landscape?: string;
     size?: string;
     video?: string;
+    slug?: string;
     map: {
         getLocation: {
             lat: string | number;

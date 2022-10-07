@@ -3,6 +3,8 @@ import nextConnect from 'next-connect';
 import connectDB from 'server/database';
 import authenticated from 'server/middlewares/authenticated';
 import Project from 'server/models/Project';
+import slugify from 'slugify';
+
 
 const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
@@ -44,7 +46,11 @@ const uploadHandler = nextConnect<NextApiRequest, NextApiResponse>({
     .post(async (req, res, next) => {
         try {
             const { body } = req;
-            const project = await Project.create(body);
+
+            const project = await Project.create({
+                ...body,
+                slug: slugify(body.name + '-' + body.year, { lower: true }),
+            });
 
             return res.status(200).json({
                 success: true,

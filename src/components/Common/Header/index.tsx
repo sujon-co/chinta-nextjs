@@ -30,21 +30,26 @@ const Header: NextPage<IProps> = () => {
         }
     }, [showMenu, stay]);
 
+    // push home page and scroll to top
+    const homeHandler = () => {
+        push('/');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
 
     return (
         <header className="header">
             <nav className="container header-nav">
-                <Link href="/">
-                    <a className="header-brand" >
-                        <Image
-                            src="/logo.svg"
-                            alt="brand logo"
-                            layout="fixed"
-                            height={40}
-                            width={36}
-                        />
-                    </a>
-                </Link>
+                <div className="header-brand" onClick={homeHandler} >
+                    <Image
+                        src="/logo.svg"
+                        alt="brand logo"
+                        layout="fixed"
+                        height={40}
+                        width={36}
+                        style={{ cursor: 'pointer' }}
+                    />
+                </div>
                 <div className="header-content">
                     <div className="header-menu-wrapper">
                         <div

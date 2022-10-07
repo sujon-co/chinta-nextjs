@@ -21,7 +21,7 @@ const Projects = ({ projects }: IProps) => {
         const sure = window.confirm('Are you sure!!');
         if (sure) {
             const { data } = await instance.delete<{ message: string; }>(
-                `/projects/${project._id}`
+                `/projects/${project.slug}`
             );
             await imageUploadInstance.delete('/upload/images', {
                 data: {

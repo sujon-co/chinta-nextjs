@@ -23,6 +23,7 @@ const projectSchema = new Schema<IProject>(
         },
         designTeam: String,
         landscape: String,
+
         size: String,
         engineer: String,
         taskConstructionFirm: String,
@@ -45,6 +46,7 @@ const projectSchema = new Schema<IProject>(
             required: true,
         },
         images: String,
+        slug: String,
         gallery: [String],
     },
     { timestamps: true }

@@ -12,7 +12,7 @@ interface Props {
 const ProjectItem: NextPage<Props> = ({ project }) => {
 
     return (
-        <Link as={`/projects/${project._id}`} href="/projects/[slug]">
+        <Link as={`/projects/${project.slug}`} href="/projects/[slug]">
             <a className="project-item">
                 <div className="project-item-img">
                     <MyImage

@@ -1,6 +1,5 @@
 import { FC, SyntheticEvent } from 'react';
-import { CgClose } from 'react-icons/cg';
-import { FiChevronRight } from 'react-icons/fi';
+import { VscChevronRight, VscClose } from 'react-icons/vsc';
 import Modal from 'react-modal';
 
 const customStyles = {
@@ -31,8 +30,8 @@ const MailPop: FC<IModalProps> = ({ closeModal, mailSubmitHandler, inputHandler,
         style={customStyles}
         contentLabel="Example Modal"
     >
-        <div className="text-danger close-btn" onClick={closeModal} >
-            <CgClose />
+        <div className=" close-btn" onClick={closeModal} >
+            <VscClose />
         </div>
         <div className="popup-inner">
 
@@ -81,7 +80,7 @@ const MailPop: FC<IModalProps> = ({ closeModal, mailSubmitHandler, inputHandler,
                 </div>
                 <div className="text-end">
                     <button type='submit' className='send-btn'  >
-                        <FiChevronRight />
+                        <VscChevronRight />
                     </button>
                 </div>
             </form>

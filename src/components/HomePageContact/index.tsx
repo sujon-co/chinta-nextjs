@@ -1,6 +1,6 @@
 import { Fragment, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { FiChevronRight } from 'react-icons/fi';
+import { VscChevronRight } from 'react-icons/vsc';
 import { IContact } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
 import { scrollHandler } from 'src/utils';
@@ -106,7 +106,7 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                                 <div className="type-writer-box-3" style={{ display: showInput ? 'block' : 'none', }}>
                                     <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
                                     <button className='send-btn' onClick={openModal} >
-                                        <FiChevronRight />
+                                        <VscChevronRight />
                                     </button>
                                 </div>
                             </div>

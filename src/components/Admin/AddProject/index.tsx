@@ -113,7 +113,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 // @ts-ignore
                 delete _project._id;
 
-                const { data } = await instance.patch(`/projects/${project._id}`, _project);
+                const { data } = await instance.patch(`/projects/${project.slug}`, _project);
                 if (data.success) {
                     toast.success(data.message);
                     formikHelpers.resetForm();
