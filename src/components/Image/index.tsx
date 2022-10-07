@@ -1,6 +1,7 @@
 import cn from 'clsx';
 import Image from 'next/image';
-import gifImage from 'public/preload.gif';
+import gifImage from "public/preload.gif";
+// import gifImage from "public/preloader2.gif";
 import { FC, memo, useState } from 'react';
 import { config } from 'src/config';
 
@@ -62,7 +63,7 @@ const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className
                 onLoadingComplete={() => setIsLoading(false)}
                 onClick={onClick}
             />
-            {preloader && (
+            {preloader && isLoading && (
                 <div className="next-image-overlay">
                     <Image
                         src={gifImage}
@@ -72,17 +73,6 @@ const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className
                     />
                 </div>
             )}
-            {/* {isLoading && (
-                <div className="next-image-overlay">
-                    <Image
-                        src={gifImage}
-                        layout="fixed"
-                        alt="brand preloader"
-                        height={160}
-                        width={140}
-                    />
-                </div>
-            )} */}
         </div>
     );
 };

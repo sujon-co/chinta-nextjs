@@ -39,9 +39,6 @@ p {
     align-items: center;
     overflow: hidden;
 }
-// .swiper-wrapper {
-//     margin-top: 70px !important;
-// }
 .fp-watermark {
     display: none !important;
     height: 0;
@@ -103,11 +100,14 @@ p {
 }
 .top-img-overwrite {
     height: calc(100vh - 70px - 20vh);
-    > span {
-        width: 100% !important;
-        height: 100% !important;
+    .next-image {
+        > span {
+            width: 100% !important;
+            height: 100% !important;
+        }
     }
 }
+
 .portrait-wrapper {
     height: calc(100vh - 70px);
     width: 100%;
@@ -116,9 +116,11 @@ p {
 
     .portrait-image-height {
         height: calc(100vh - 70px - 5vh);
-        > span {
-            width: 100% !important;
-            height: 100% !important;
+        .next-image {
+            > span {
+                width: 100% !important;
+                height: 100% !important;
+            }
         }
     }
 }
@@ -136,14 +138,12 @@ p {
     align-items: center;
 
     .image-overwrite {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-
-        > span {
-            width: 100% !important;
-            height: 90% !important;
+        height: calc(100vh - 70px - 8vh);
+        .next-image {
+            > span {
+                width: 100% !important;
+                height: 100% !important;
+            }
         }
     }
 }
@@ -168,7 +168,7 @@ p {
     width: 100%;
     height: 85vh;
     position: relative;
-    span {
+    > span {
         height: 80vh !important;
     }
 
@@ -183,19 +183,20 @@ p {
 .next-image {
     position: relative;
     z-index: 222222;
+    width: inherit;
+    height: inherit;
 
     &-overlay {
         position: absolute;
         inset: 0;
-        background-color: red;
+        background-color: #d8d8d8;
+        // background-color: #fff;
 
         > span {
-            position: absolute;
+            position: absolute !important;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            // color: #fff;
-            // font-size: 30px;
         }
     }
 }
