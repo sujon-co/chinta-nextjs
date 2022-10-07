@@ -23,6 +23,7 @@ const ProjectItem: NextPage<Props> = ({ project }) => {
                         height={155}
                         width={200}
                         objectFit="cover"
+                        preloaderSize="small"
                     />
                     <div className="project-item-overlay">
                         <h6> {project.name} </h6>

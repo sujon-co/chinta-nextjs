@@ -45,6 +45,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                         placeholder="blur"
                         width={200}
                         height={160}
+                        preloaderSize="small"
                     />
                 </div>
                 <div className="col-md-9">

@@ -19,10 +19,29 @@ type MyImage = {
     blurDataURL?: any;
     objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
     onClick?: () => void;
+    preloader?: boolean;
+    preloaderSize?: 'xlSmall' | 'small' | 'normal' | 'large';
 };
 
-const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className, layout, objectFit, onClick }) => {
+const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className, layout, objectFit, onClick, preloader = true, preloaderSize = 'normal' }) => {
     const [isLoading, setIsLoading] = useState(true);
+
+    // handler image height and width base on preloaderSize
+    const handlePreloaderSize = () => {
+        switch (preloaderSize) {
+            case 'xlSmall':
+                return { width: 40, height: 50 };
+            case 'small':
+                return { width: 80, height: 90 };
+            case 'normal':
+                return { width: 120, height: 140 };
+            case 'large':
+                return { width: 140, height: 160 };
+            default:
+                return { width: 80, height: 100 };
+        }
+    };
+
     return (
         <div className="next-image">
             <Image
@@ -43,8 +62,17 @@ const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className
                 onLoadingComplete={() => setIsLoading(false)}
                 onClick={onClick}
             />
-
-            {isLoading && (
+            {preloader && (
+                <div className="next-image-overlay">
+                    <Image
+                        src={gifImage}
+                        layout="fixed"
+                        alt="brand preloader"
+                        {...handlePreloaderSize()}
+                    />
+                </div>
+            )}
+            {/* {isLoading && (
                 <div className="next-image-overlay">
                     <Image
                         src={gifImage}
@@ -54,7 +82,7 @@ const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className
                         width={140}
                     />
                 </div>
-            )}
+            )} */}
         </div>
     );
 };

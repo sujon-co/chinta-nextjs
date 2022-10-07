@@ -19,6 +19,7 @@ const GalleryImage = ({ img, setIndex, index, alt }: ImageProps) => {
             width={100}
             onClick={() => setIndex(index)}
             objectFit="cover"
+            preloaderSize="xlSmall"
         />
     );
 };

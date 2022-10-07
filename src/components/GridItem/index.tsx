@@ -39,6 +39,7 @@ const GridItem = ({ item, height }: gridProps) => {
                                     height={50}
                                     layout='fixed'
                                     objectFit="cover"
+                                    preloader={false}
                                 />
                                 <div className="grids-list-item-link-title"> {project.name} </div>
                             </a>

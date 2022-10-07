@@ -18,6 +18,7 @@ const StudioItem: NextPage<Props> = ({ studio }) => {
                     layout="responsive"
                     width={200}
                     height={260}
+                    preloaderSize="normal"
                 />
             </div>
             <div className="studio-item-content">

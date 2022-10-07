@@ -182,6 +182,7 @@ p {
 }
 .next-image {
     position: relative;
+    z-index: 222222;
 
     &-overlay {
         position: absolute;
