@@ -21,6 +21,8 @@ const CKEditor = ({ setFieldValue, fieldName, value }) => {
                     editor={ClassicEditor}
                     data={value}
                     onReady={editor => {
+                        // You can store the "editor" and use when it is needed.
+                        // console.log('Editor is ready to use!', editor);
                     }}
                     onChange={(event, editor) => {
                         const data = editor.getData()

@@ -86,6 +86,8 @@ const Shops = ({ shops }: ShopProps) => {
                                                     placeholder="blur"
                                                     width={80}
                                                     height={50}
+                                                    objectFit="cover"
+                                                    preloader={false}
                                                 />
                                             </td>
                                             <td>

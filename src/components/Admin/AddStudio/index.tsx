@@ -187,6 +187,7 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                                 placeholder="blur"
                                 height={100}
                                 width={80}
+                                preloader={false}
                             />
                         )}
                         {errors.photoUrl && touched.photoUrl && (

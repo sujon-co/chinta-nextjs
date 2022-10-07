@@ -97,6 +97,7 @@ const Projects = ({ projects }: IProps) => {
                                                         width={80}
                                                         height={50}
                                                         objectFit="cover"
+                                                        preloader={false}
                                                     />
                                                 )}
                                             </td>

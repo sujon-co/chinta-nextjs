@@ -160,6 +160,8 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
                                 placeholder="blur"
                                 width={80}
                                 height={50}
+                                objectFit="cover"
+                                preloader={false}
                             />
                         )}
                         {errors.image && touched.image && (

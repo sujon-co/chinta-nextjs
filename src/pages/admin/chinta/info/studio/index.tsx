@@ -79,6 +79,8 @@ const Studio = ({ studios }: IProps) => {
                                                 placeholder="blur"
                                                 width={244}
                                                 height={317}
+                                                objectFit="cover"
+                                                preloader={false}
                                             />
                                         </div>
                                         <div className="card-body p-0">

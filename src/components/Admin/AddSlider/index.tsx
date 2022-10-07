@@ -132,7 +132,9 @@ const AddSlider: FC<IAddSliderProps> = ({
                                 alt={slider.alt}
                                 placeholder="blur"
                                 height={80}
-                                width={80}
+                                width={60}
+                                objectFit="cover"
+                                preloader={false}
                             />
                         )}
                         {errors.photoUrl && touched.photoUrl && (

@@ -49,6 +49,8 @@ const Jobs = ({ job }: JobsProps) => {
                                     placeholder="blur"
                                     width={1975}
                                     height={900}
+                                    objectFit="cover"
+                                    preloader={false}
                                 />
                             </div>
                         </div>

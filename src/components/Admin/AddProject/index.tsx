@@ -436,7 +436,8 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                             placeholder="blur"
                                             width={80}
                                             height={50}
-
+                                            objectFit="cover"
+                                            preloader={false}
                                         />
                                     </div>
                                 ))}

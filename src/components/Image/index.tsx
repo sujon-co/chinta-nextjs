@@ -1,7 +1,7 @@
 import cn from 'clsx';
 import Image from 'next/image';
-import gifImage from "public/preload.gif";
-// import gifImage from "public/preloader2.gif";
+// import gifImage from "public/preload.gif";
+import gifImage from "public/preloader2.gif";
 import { FC, memo, useState } from 'react';
 import { config } from 'src/config';
 
@@ -31,15 +31,15 @@ const MyImage: FC<MyImage> = ({ src, alt, width = 1000, height = 1000, className
     const handlePreloaderSize = () => {
         switch (preloaderSize) {
             case 'xlSmall':
-                return { width: 40, height: 50 };
+                return { width: 40, height: 45 };
             case 'small':
-                return { width: 80, height: 90 };
+                return { width: 80, height: 85 };
             case 'normal':
-                return { width: 120, height: 140 };
+                return { width: 120, height: 135 };
             case 'large':
                 return { width: 140, height: 160 };
             default:
-                return { width: 80, height: 100 };
+                return { width: 80, height: 90 };
         }
     };
 

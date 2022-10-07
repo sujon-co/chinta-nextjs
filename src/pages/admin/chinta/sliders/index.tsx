@@ -84,6 +84,7 @@ const Sliders = ({ sliders }: IProps) => {
                                             placeholder="blur"
                                             width={100}
                                             height={80}
+                                            preloader={false}
                                         />
                                         <div className="card-body p-0">
                                             <p className="card-text mb-0">

@@ -114,6 +114,8 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
                                 placeholder="blur"
                                 height={80}
                                 width={65}
+                                objectFit="cover"
+                                preloader={false}
                             />
                         )}
                         {errors.photoUrl && touched.photoUrl && (

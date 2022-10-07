@@ -149,6 +149,7 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
                                 height={60}
                                 width={65}
                                 objectFit="cover"
+                                preloader={false}
                             />
                         )}
                         {errors.image && touched.image && (

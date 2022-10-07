@@ -254,6 +254,8 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                                         width={80}
                                         height={50}
                                         key={index}
+                                        objectFit="cover"
+                                        preloader={false}
                                     />
                                 ))}
 
