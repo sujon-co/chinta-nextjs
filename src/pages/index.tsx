@@ -103,6 +103,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                     className="projects"
                                     style={{ height: projectHeight }}
                                     onWheel={scrollHandler}
+                                // onTouchMove={scrollHandler}
                                 >
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
                                         {projects.map((project, index) => (

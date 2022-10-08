@@ -1,3 +1,4 @@
+
 export const scrollHandler = function (e: any) {
     let flag = true;
     if (e.deltaY < 0 && e.currentTarget.scrollTop === 0) {
@@ -5,11 +6,29 @@ export const scrollHandler = function (e: any) {
     } else if (
         e.deltaY > 0 &&
         e.currentTarget.scrollHeight <=
-            e.currentTarget.scrollTop + e.currentTarget.clientHeight + 3
+        e.currentTarget.scrollTop + e.currentTarget.clientHeight + 3
     ) {
         flag = false;
     }
-    if (flag) {
-        e.stopPropagation();
-    }
+
+
+
+
+
+    // let touchStartPosX = 0;
+
+    // console.log({ top: e.currentTarget.scrollTop });
+
+    // const currentPageX = Math.round();
+    // if (touchStartPosX === currentPageX) return;
+
+    // if (touchStartPosX - currentPageX > 0) {
+    //     console.log("down");
+    // } else {
+    //     console.log("up");
+    // }
+    // touchStartPosX = currentPageX;
+
+    // console.log({ touchStartPosX });
+
 };
