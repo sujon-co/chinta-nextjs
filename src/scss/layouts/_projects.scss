@@ -89,6 +89,7 @@
     text-transform: uppercase;
     text-align: center;
     margin-top: 15px;
+    white-space: nowrap;
 }
 
 .status-project {
@@ -228,4 +229,25 @@
 }
 .cursor-zoom {
     cursor: zoom-in;
+}
+
+/******** Responsive ********/
+@media (max-width: 575.98px) {
+    .grids {
+        overflow-x: auto;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+@media (min-width: 1200px) and (max-width: 1399.9px) {
+}
+@media (min-width: 1400px) {
 }

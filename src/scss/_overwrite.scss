@@ -205,9 +205,32 @@ p {
     }
 }
 /******** Responsive ********/
+@media (max-width: 991.98px) {
+    .top-image-wrapper,
+    .top-image-height-control,
+    .top-img-overwrite {
+        height: auto;
+        min-height: auto;
+    }
+    .portrait-wrapper {
+        height: auto;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        .portrait-image-height {
+            height: auto;
+        }
+    }
+
+    .image-height-control {
+        height: auto;
+        .image-overwrite {
+            height: auto;
+            margin-bottom: 25px;
+        }
+    }
+}
 @media (max-width: 575.98px) {
 }
-
 @media (min-width: 576px) and (max-width: 767.98px) {
 }
 
