@@ -51,7 +51,7 @@ const Header: NextPage<IProps> = () => {
                     />
                 </div>
                 <div className="header-content">
-                    <div className="header-menu-wrapper">
+                    <div className="header-menu-wrapper" style={{ width: showMenu ? 'auto' : '0' }}>
                         <div
                             className={`header-menu ${showMenu
                                 ? 'menu-open-animation'

@@ -1,18 +1,22 @@
 import { Fragment, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { VscChevronRight } from 'react-icons/vsc';
+import { FiChevronRight } from 'react-icons/fi';
 import { IContact } from 'server/interface';
 import instance, { imageUploadInstance } from 'src/api/httpService';
+import { useSizeContext } from 'src/contexts/ResponseContextProvider';
 import { scrollHandler } from 'src/utils';
 import Footer from '../Common/Footer';
 import MailPop from '../Modal';
+import TypeModal from '../Modal/TypeBox';
 
 interface Props {
     showFooter?: boolean;
 }
 
 const HomePageContact = ({ showFooter = true }: Props) => {
+    const { isMobile, isDesktop } = useSizeContext();
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [typeModalOpen, setTypeModalOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [data, setData] = useState({});
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -22,6 +26,11 @@ const HomePageContact = ({ showFooter = true }: Props) => {
 
     function openModal() { setIsOpen(true); }
     function closeModal() { setIsOpen(false); }
+    const typeModalOpenHandler = () => setTypeModalOpen(true);
+    const typeModalCloseHandler = () => {
+        setTypeModalOpen(false);
+        setShowInput(false);
+    };
 
     const heightHandler = (textArea: any) => {
         if (textArea.scrollHeight > 34) {
@@ -96,22 +105,48 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                     <div className="col-lg-6">
                         <div className="wrapper">
                             <div className="type-writer-wrapper">
-                                <div
-                                    className="tagline"
-                                    style={{ display: showInput ? 'none' : 'block', }}
-                                    onClick={() => setShowInput(true)}
-                                >
-                                    <p>DROP US A LINE</p>
-                                </div>
-                                <div className="type-writer-box-3" style={{ display: showInput ? 'block' : 'none', }}>
-                                    <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
-                                    <button className='send-btn' onClick={openModal} >
-                                        <VscChevronRight />
-                                    </button>
-                                </div>
+                                {isMobile && (<>
+                                    <div
+                                        className="tagline"
+                                        style={{ display: showInput ? 'none' : 'block', }}
+                                        onClick={() => {
+                                            setShowInput(true);
+                                            typeModalOpenHandler();
+                                        }}
+                                    >
+                                        <p>DROP US A LINE MOBILE</p>
+                                    </div>
+                                    <TypeModal modalIsOpen={typeModalOpen} closeModal={typeModalCloseHandler} >
+                                        <div className="type-writer-wrapper" style={{ height: '300px' }}>
+                                            <div className="type-writer-box-3" >
+                                                <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
+                                                <button className='send-btn' onClick={openModal} >
+                                                    <FiChevronRight />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </TypeModal>
+                                </>)}
+                                {isDesktop && (
+                                    <>
+                                        <div
+                                            className="tagline"
+                                            style={{ display: showInput ? 'none' : 'block', }}
+                                            onClick={() => setShowInput(true)}
+                                        >
+                                            <p>DROP US A LINE</p>
+                                        </div>
+                                        <div className="type-writer-box-3" style={{ display: showInput ? 'block' : 'none', }}>
+                                            <textarea name="" id="message" ref={textAreaRef} onChange={textAreaHandler} onWheel={scrollHandler} />
+                                            <button className='send-btn' onClick={openModal} >
+                                                <FiChevronRight />
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </div>
-                            <h6 className='mb-2' style={{ fontWeight: '300' }}> {contact.text} </h6>
 
+                            <h6 className='mb-2' style={{ fontWeight: '300' }}> {contact.text} </h6>
                             <div className="mb-2">
                                 <div className="">
                                     <a style={{ textDecoration: 'none' }} href={`tel:${contact.phone}`}>{contact.phone}</a>
@@ -151,6 +186,8 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                 mailSubmitHandler={mailSubmitHandler}
                 modalIsOpen={modalIsOpen}
             />
+
+
 
         </Fragment >
     );

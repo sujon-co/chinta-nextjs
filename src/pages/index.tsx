@@ -52,7 +52,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <Header />
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
-                // anchors={['home', 'about', 'projects', 'contact']}
                 scrollBar={false}
                 autoScrolling
                 scrollOverflowReset
@@ -79,7 +78,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                                         layout="responsive"
                                                         width={3840}
                                                         height={2160}
-                                                    // preloader={false}
                                                     />
                                                     <div className='slider__item-data'>{image.alt}</div>
                                                 </div>
