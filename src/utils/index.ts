@@ -12,6 +12,10 @@ export const scrollHandler = function (e: any) {
     }
 
 
+    if (flag) {
+        e.stopPropagation();
+    }
+    // console.log({ value: e.changedTouches[0].screenY });
 
 
 
