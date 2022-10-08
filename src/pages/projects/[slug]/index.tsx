@@ -221,29 +221,35 @@ export const getServerSideProps = async (ctx: any) => {
     const { data } = await instance.get<{ data: IProject; }>(`/projects/${ctx.params?.slug}`);
     const _project = data.data;
 
-    const gallery = await Promise.all(
-        _project.gallery.map(async (image) => {
-            const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
-            const obj = {
-                ...img,
-                base64: base64,
-                photoUrl: image
-            };
-            return obj;
-        })
-    );
+    if (_project) {
+        const gallery = await Promise.all(
+            _project.gallery.map(async (image) => {
+                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
+                const obj = {
+                    ...img,
+                    base64: base64,
+                    photoUrl: image
+                };
+                return obj;
+            })
+        );
 
-    const project = {
-        ..._project,
-        gallery: gallery
-    };
+        const project = {
+            ..._project,
+            gallery: gallery
+        };
 
-    return {
-        props: {
-            project: project
-        }
+        return {
+            props: {
+                project: project
+            }
 
-    };
+        };
+    } else {
+        return {
+            project: {}
+        };
+    }
 };
 
 

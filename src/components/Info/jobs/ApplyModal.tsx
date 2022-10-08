@@ -1,8 +1,7 @@
 import { ErrorMessage, Field, Form, Formik, FormikHelpers } from 'formik';
 import { FC } from 'react';
 import toast from 'react-hot-toast';
-import { FaTimes } from 'react-icons/fa';
-import { FiChevronRight } from 'react-icons/fi';
+import { VscChevronRight, VscClose } from 'react-icons/vsc';
 import Modal from 'react-modal';
 import { ErrorResponse, isAxiosError } from 'server/helpers/error';
 import { IApply } from 'server/interface';
@@ -76,8 +75,8 @@ const ApplyModal: FC<IModalProps> = ({ closeModal, modalIsOpen }) => {
         contentLabel="Apply Modal"
     >
 
-        <div className="text-danger close-btn" onClick={closeModal} >
-            <FaTimes />
+        <div className="close-btn" onClick={closeModal} >
+            <VscClose />
         </div>
         <div className="apply-modal">
             <div className="popup-inner">
@@ -162,7 +161,7 @@ const ApplyModal: FC<IModalProps> = ({ closeModal, modalIsOpen }) => {
 
                             <div className="text-end">
                                 <button type='submit' className='send-btn'  >
-                                    <FiChevronRight />
+                                    <VscChevronRight />
                                 </button>
                             </div>
                         </Form>
