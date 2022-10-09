@@ -60,7 +60,6 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
                 scrollBar={false}
-                autoScrolling={false}
                 scrollOverflowReset
                 scrollOverflow
                 sectionSelector={SECTION_SEL}
@@ -111,8 +110,8 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                         <div id="projects" className={`${SEL} d-flex fp-auto-height-responsive`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
                             <div className="container ">
                                 <div
-                                    className="projects"
-                                    style={{ height: projectHeight }}
+                                    className={`${isDesktop ? 'projects' : ''}`}
+                                    style={{ height: isDesktop ? projectHeight : 'auto' }}
                                     onWheel={scrollHandler}
                                 >
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
