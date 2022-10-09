@@ -114,7 +114,7 @@ const HomePageContact = ({ showFooter = true }: Props) => {
                                             typeModalOpenHandler();
                                         }}
                                     >
-                                        <p>DROP US A LINE MOBILE</p>
+                                        <p>DROP US A LINE</p>
                                     </div>
                                     <TypeModal modalIsOpen={typeModalOpen} closeModal={typeModalCloseHandler} >
                                         <div className="type-writer-wrapper" style={{ height: '300px' }}>

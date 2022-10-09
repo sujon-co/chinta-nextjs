@@ -12,14 +12,10 @@ import JobApply from 'src/components/Info/jobs';
 import ShopItem from 'src/components/Info/shop/ShopItem';
 import Studio from 'src/components/Info/studio';
 import NewsItem from 'src/components/NewsItem';
+import { useSizeContext } from 'src/contexts/ResponseContextProvider';
 import { scrollHandler } from 'src/utils';
 
-// NOTE: if using fullpage extensions/plugins put them here and pass it as props.
-const pluginWrapper = () => {
-    /*
-     * require('../static/fullpage.scrollHorizontally.min.js'); // Optional. Required when using the "scrollHorizontally" extension.
-     */
-};
+
 const SEL = "custom-section";
 const SECTION_SEL = `.${SEL}`;
 
@@ -34,12 +30,81 @@ interface Props {
 }
 
 const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job }) => {
-    const onLeave = (origin: any, destination: any, direction: any) => {
-        // console.log('onLeave', { origin, destination, direction });
-        // arguments are mapped in order of fullpage.js callback arguments do something
-        // with the event
-    };
+    const { isMobile, isDesktop } = useSizeContext();
 
+
+    const InfoAllData = <>
+        <div className={`${SEL} about-section-overwrite`} >
+            <div className="info-section info-about-overwrite" >
+                <About about={about} />
+            </div>
+        </div>
+        <div className={SEL} >
+            <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
+                <div className="pb-1">
+                    <Studio studios={studios} />
+                </div>
+            </div>
+        </div>
+        <div className={`${SEL} award-info-section`}>
+            <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
+                {awards.map((award) => (
+                    <div className=" award-item" key={award.awardName}>
+                        <span> {award.year} </span>
+                        <span> {award.awardName} </span>
+                        <a href={award.programUrl} target="_blank" rel="noreferrer">
+                            {award.programName}
+                        </a>
+                        <span> Organized by</span>
+                        <a href={award.organizationUrl} target="_blank" rel="noreferrer"> {award.organizedBy} </a>
+                    </div>
+                ))}
+            </div>
+        </div>
+        <div className={SEL} >
+            <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
+                {news.map(news => (
+                    <NewsItem news={news} key={news.title} />
+                ))}
+            </div>
+        </div>
+        <div className={SEL} >
+            <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
+                {shops.map(shop => (
+                    <ShopItem shop={shop} key={shop.title} />
+                ))}
+            </div>
+        </div>
+        <div className={SEL} >
+            <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
+                <div className="jobs">
+                    <div className="row">
+                        <div className="col-md-12 mb-3">
+                            <MyImage
+                                layout="responsive"
+                                className="img-fluid"
+                                src={job.image}
+                                alt={job.title}
+                                placeholder="blur"
+                                height={900}
+                                width={1975}
+                                objectFit="contain"
+                            />
+                        </div>
+                        <div className="col-md-12 jobs-description">
+                            <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
+                        </div>
+                        <p>If you are interested in joining Chinta Sthapatya, submit your details <JobApply /> or view our current opportunities <a href={job.opportunity} target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }} > <b>here</b> </a>. We look forward to hearing from you!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className={SEL} >
+            <div className="info-section scroll info-contact" onWheel={scrollHandler} >
+                <HomePageContact />
+            </div>
+        </div>
+    </>;
 
     return (
         <Fragment>
@@ -58,92 +123,23 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                     <li data-menuanchor="info-contact"> <a href='#info-contact'>Contact</a> </li>
                 </ul>
                 <div className='container'>
-                    <ReactFullpage
-                        pluginWrapper={pluginWrapper}
-                        onLeave={onLeave}
-                        scrollBar={false}
-                        licenseKey='YOUR_KEY_HERE'
-                        sectionSelector={SECTION_SEL}
-                        anchors={['info-about', 'info-studio', 'info-award', 'info-news', 'info-shops', 'info-jobs', 'info-contact']}
-                        css3={true}
-                        menu="#myMenu"
-                        autoScrolling={true}
-                        render={(comp) =>
-                            <ReactFullpage.Wrapper  >
-                                <div className={`${SEL} about-section-overwrite`} >
-                                    <div className="info-section info-about-overwrite" >
-                                        <About about={about} />
-                                    </div>
-                                </div>
-                                <div className={SEL} >
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                        <div className="pb-1">
-                                            <Studio studios={studios} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={`${SEL} award-info-section`}>
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                        {awards.map((award) => (
-                                            <div className=" award-item" key={award.awardName}>
-                                                <span> {award.year} </span>
-                                                <span> {award.awardName} </span>
-                                                <a href={award.programUrl} target="_blank" rel="noreferrer">
-                                                    {award.programName}
-                                                </a>
-                                                <span> Organized by</span>
-                                                <a href={award.organizationUrl} target="_blank" rel="noreferrer"> {award.organizedBy} </a>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={SEL} >
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                        {news.map(news => (
-                                            <NewsItem news={news} key={news.title} />
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={SEL} >
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                        {shops.map(shop => (
-                                            <ShopItem shop={shop} key={shop.title} />
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className={SEL} >
-                                    <div className="info-section scroll" style={{ height: '80vh' }} onWheel={scrollHandler} >
-                                        <div className="jobs">
-                                            <div className="row">
-                                                <div className="col-md-12 mb-3">
-                                                    <MyImage
-                                                        layout="responsive"
-                                                        className="img-fluid"
-                                                        src={job.image}
-                                                        alt={job.title}
-                                                        placeholder="blur"
-                                                        height={900}
-                                                        width={1975}
-                                                        objectFit="contain"
-                                                    />
-                                                </div>
-                                                <div className="col-md-12 jobs-description">
-                                                    <div className="" dangerouslySetInnerHTML={{ __html: job.description }} />
-                                                </div>
-                                                <p>If you are interested in joining Chinta Sthapatya, submit your details <JobApply /> or view our current opportunities <a href={job.opportunity} target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }} > <b>here</b> </a>. We look forward to hearing from you!</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className={SEL} >
-                                    <div className="info-section scroll info-contact" onWheel={scrollHandler} >
-                                        <HomePageContact />
-                                    </div>
-                                </div>
-                            </ReactFullpage.Wrapper>
-                        }
-                    />
+                    <>
+                        {isDesktop && <ReactFullpage
+                            scrollBar={false}
+                            licenseKey='YOUR_KEY_HERE'
+                            sectionSelector={SECTION_SEL}
+                            anchors={['info-about', 'info-studio', 'info-award', 'info-news', 'info-shops', 'info-jobs', 'info-contact']}
+                            css3={true}
+                            menu="#myMenu"
+                            autoScrolling={true}
+                            render={(comp) =>
+                                <ReactFullpage.Wrapper  >
+                                    {InfoAllData}
+                                </ReactFullpage.Wrapper>
+                            }
+                        />}
+                        {isMobile && InfoAllData}
+                    </>
                 </div>
             </div>
         </Fragment >

@@ -45,11 +45,69 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         window.scrollTo({ top: 0, behavior: 'auto' });
     }, []);
 
-    const onScrollHandler = (e: any) => {
-        console.log({ e });
-        e.stopPropagation();
+    const HomePageData = <>
+        <div className={`${SEL} py-50`} >
+            <div className="container slider-height">
+                <Swiper
+                    autoplay={{ delay: 3000, }}
+                    loop
+                    simulateTouch={false}
+                    modules={[Autoplay]}
+                    className="mySwiper"
+                >
+                    {sliders.length > 0 &&
+                        sliders.map((image) => (
+                            <SwiperSlide key={image.photoUrl}>
+                                <div className="slider__item">
+                                    <MyImage
+                                        src={image.photoUrl}
+                                        alt={image.alt}
+                                        layout="responsive"
+                                        width={3840}
+                                        height={2160}
+                                    />
+                                    <div className='slider__item-data'>{image.alt}</div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    {sliders.length === 0 && (
+                        <h1>
+                            Please, Upload Image from dashboard
+                        </h1>
+                    )}
+                </Swiper>
+            </div>
+        </div>
 
-    };
+        <div className={`${SEL} about-section-overwrite`}>
+            <div className="container ">
+                <About about={about} />
+            </div>
+        </div>
+        <div id="projects" className={`${SEL} d-flex`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
+            <div className="container ">
+                <div
+                    className="projects"
+                    style={{ height: projectHeight }}
+                    onWheel={scrollHandler}
+                >
+                    <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
+                        {projects.map((project, index) => (
+                            <ProjectItem
+                                project={project}
+                                key={index + 1}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div className={`${SEL} contact-section-overwrite`}>
+            <div className="footer-wrapper">
+                <HomePageContact />
+            </div>
+        </div>
+    </>;
 
     return (
         <div className="App">
@@ -57,9 +115,10 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 <title>Chinta Sthapatya</title>
             </Head>
             <Header />
-            <ReactFullpage
+            {isDesktop && <ReactFullpage
                 pluginWrapper={pluginWrapper}
                 scrollBar={false}
+                autoScrolling
                 scrollOverflowReset
                 scrollOverflow
                 sectionSelector={SECTION_SEL}
@@ -69,70 +128,11 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 }}
                 render={(comp) => (
                     <ReactFullpage.Wrapper>
-                        <div className={`${SEL} py-50`} >
-                            <div className="container slider-height">
-                                <Swiper
-                                    autoplay={{ delay: 3000, }}
-                                    loop
-                                    simulateTouch={false}
-                                    modules={[Autoplay]}
-                                    className="mySwiper"
-                                >
-                                    {sliders.length > 0 &&
-                                        sliders.map((image) => (
-                                            <SwiperSlide key={image.photoUrl}>
-                                                <div className="slider__item">
-                                                    <MyImage
-                                                        src={image.photoUrl}
-                                                        alt={image.alt}
-                                                        layout="responsive"
-                                                        width={3840}
-                                                        height={2160}
-                                                    />
-                                                    <div className='slider__item-data'>{image.alt}</div>
-                                                </div>
-                                            </SwiperSlide>
-                                        ))}
-                                    {sliders.length === 0 && (
-                                        <h1>
-                                            Please, Upload Image from dashboard
-                                        </h1>
-                                    )}
-                                </Swiper>
-                            </div>
-                        </div>
-
-                        <div className={`${SEL} about-section-overwrite`}>
-                            <div className="container ">
-                                <About about={about} />
-                            </div>
-                        </div>
-                        <div id="projects" className={`${SEL} custom-section d-flex testing`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
-                            <div className="container ">
-                                <div
-                                    className={`${isDesktop ? 'projects' : ''}`}
-                                    style={{ height: isDesktop ? projectHeight : 'auto' }}
-                                    onWheel={scrollHandler}
-                                >
-                                    <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
-                                        {projects.map((project, index) => (
-                                            <ProjectItem
-                                                project={project}
-                                                key={index + 1}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={`${SEL} contact-section-overwrite`}>
-                            <div className="footer-wrapper">
-                                <HomePageContact />
-                            </div>
-                        </div>
+                        {HomePageData}
                     </ReactFullpage.Wrapper>
                 )}
-            />
+            />}
+            {isMobile && HomePageData}
         </div>
     );
 };

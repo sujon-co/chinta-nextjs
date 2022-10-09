@@ -3,6 +3,9 @@
     position: relative;
     margin: 0 auto;
 }
+.info-section-height {
+    height: 80vh;
+}
 .info-route {
     border-right: 1px solid red;
     margin-left: auto;
@@ -198,6 +201,12 @@
     .award-item {
         gap: 0px 8px;
         margin-bottom: 16px;
+    }
+    .info-section-height {
+        height: 100vh;
+    }
+    .info-about-overwrite {
+        // height: 100vh;
     }
 }
 @media (max-width: 575.98px) {
