@@ -29,7 +29,7 @@ const pluginWrapper = () => {
 
 const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliders, about, projects, }) => {
     const [projectHeight, setProjectHeight] = useState(0);
-    const { height, isDesktop } = useSizeContext();
+    const { height, isDesktop, isMobile } = useSizeContext();
 
     useEffect(() => {
         const imageItem = document.querySelector('.project-item-img .img-fluid');
@@ -107,7 +107,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id="projects" className={`${SEL} d-flex fp-auto-height-responsive`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
+                        <div id="projects" className={`${SEL} custom-section d-flex testing`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
                             <div className="container ">
                                 <div
                                     className={`${isDesktop ? 'projects' : ''}`}
