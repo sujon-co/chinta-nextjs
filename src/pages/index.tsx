@@ -60,7 +60,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
                 scrollBar={false}
-                autoScrolling={isDesktop}
+                autoScrolling={false}
                 scrollOverflowReset
                 scrollOverflow
                 sectionSelector={SECTION_SEL}
