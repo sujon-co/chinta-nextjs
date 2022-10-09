@@ -79,12 +79,12 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             </div>
         </div>
 
-        <div className={`${SEL} about-section-overwrite`}>
+        <div className={`${SEL} about-section-overwrite full-height`}>
             <div className="container ">
                 <About about={about} />
             </div>
         </div>
-        <div id="projects" className={`${SEL} d-flex`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
+        <div id="projects" className={`${SEL} d-flex full-height`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
             <div className="container ">
                 <div
                     className="projects"
@@ -102,7 +102,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                 </div>
             </div>
         </div>
-        <div className={`${SEL} contact-section-overwrite`}>
+        <div className={`${SEL} contact-section-overwrite full-height`}>
             <div className="footer-wrapper">
                 <HomePageContact />
             </div>
