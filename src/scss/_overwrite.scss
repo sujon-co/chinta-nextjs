@@ -231,27 +231,12 @@ p {
     }
 }
 @media (max-width: 991.98px) {
-    .slider__item {
-        .next-image {
-            > span {
-                height: 70vh !important;
-            }
-        }
-
-        &-data {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            font-size: 15px;
-            font-style: italic;
-        }
-    }
 }
 @media (max-width: 575.98px) {
     .slider__item {
         .next-image {
             > span {
-                height: 70vh !important;
+                height: 75vh !important;
             }
         }
 
@@ -263,8 +248,20 @@ p {
             font-style: italic;
         }
     }
+    .about-section-overwrite {
+        height: 100vh;
+    }
+    #projects {
+        height: 100vh;
+    }
 }
 @media (min-width: 576px) and (max-width: 767.98px) {
+    .about-section-overwrite {
+        height: 100vh;
+    }
+    #projects {
+        height: 100vh;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {

@@ -202,13 +202,21 @@
         gap: 0px 8px;
         margin-bottom: 16px;
     }
+}
+@media (max-width: 767.98px) {
     .info-section-height {
         height: 100vh;
     }
     .info-about-overwrite {
-        // height: 100vh;
+        height: 100vh;
+    }
+    .contact-footer {
+        .footer {
+            padding-top: 25px;
+        }
     }
 }
+
 @media (max-width: 575.98px) {
     .award-item {
         margin-bottom: 20px;
