@@ -34,19 +34,19 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
 
 
     const InfoAllData = <>
-        <div className={`${SEL} about-section-overwrite`} >
+        <div className={`${SEL} full-height about-section-overwrite`} >
             <div className="info-section info-about-overwrite" >
                 <About about={about} />
             </div>
         </div>
-        <div className={SEL} >
+        <div className={`${SEL} full-height`} >
             <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
                 <div className="pb-1">
                     <Studio studios={studios} />
                 </div>
             </div>
         </div>
-        <div className={`${SEL} award-info-section`}>
+        <div className={`${SEL} full-height award-info-section`}>
             <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
                 {awards.map((award) => (
                     <div className=" award-item" key={award.awardName}>
@@ -61,21 +61,21 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                 ))}
             </div>
         </div>
-        <div className={SEL} >
+        <div className={`${SEL} full-height`} >
             <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
                 {news.map(news => (
                     <NewsItem news={news} key={news.title} />
                 ))}
             </div>
         </div>
-        <div className={SEL} >
+        <div className={`${SEL} full-height`} >
             <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
                 {shops.map(shop => (
                     <ShopItem shop={shop} key={shop.title} />
                 ))}
             </div>
         </div>
-        <div className={SEL} >
+        <div className={`${SEL} full-height`} >
             <div className="info-section scroll info-section-height" onWheel={scrollHandler} >
                 <div className="jobs">
                     <div className="row">
@@ -99,7 +99,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
                 </div>
             </div>
         </div>
-        <div className={SEL} >
+        <div className={`${SEL} full-height`} >
             <div className="info-section scroll info-contact" onWheel={scrollHandler} >
                 <HomePageContact />
             </div>
