@@ -29,7 +29,7 @@ const pluginWrapper = () => {
 
 const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliders, about, projects, }) => {
     const [projectHeight, setProjectHeight] = useState(0);
-    const { height } = useSizeContext();
+    const { height, isDesktop } = useSizeContext();
 
     useEffect(() => {
         const imageItem = document.querySelector('.project-item-img .img-fluid');
@@ -44,6 +44,13 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'auto' });
     }, []);
+
+    const onScrollHandler = (e: any) => {
+        console.log({ e });
+        e.stopPropagation();
+
+    };
+
     return (
         <div className="App">
             <Head>
@@ -53,10 +60,14 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
             <ReactFullpage
                 pluginWrapper={pluginWrapper}
                 scrollBar={false}
-                autoScrolling
+                autoScrolling={isDesktop}
                 scrollOverflowReset
                 scrollOverflow
                 sectionSelector={SECTION_SEL}
+                onLeave={(origin, destination, direction) => {
+                    console.log('onLeave event', { origin, destination, direction });
+
+                }}
                 render={(comp) => (
                     <ReactFullpage.Wrapper>
                         <div className={`${SEL} py-50`} >
@@ -97,13 +108,12 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
                                 <About about={about} />
                             </div>
                         </div>
-                        <div id="projects" className={`${SEL} d-flex`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
+                        <div id="projects" className={`${SEL} d-flex fp-auto-height-responsive`} style={{ paddingTop: '53px', alignItems: "center", justifyContent: 'content' }} >
                             <div className="container ">
                                 <div
                                     className="projects"
                                     style={{ height: projectHeight }}
                                     onWheel={scrollHandler}
-                                // onTouchMove={scrollHandler}
                                 >
                                     <div className="row g-2 g-sm-3  row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 ">
                                         {projects.map((project, index) => (
