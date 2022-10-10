@@ -37,7 +37,8 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         const images = (height - 145) / imageItemHeight;
         const imageCount = Math.floor(images);
 
-        const totalHeight = imageItemHeight * imageCount + (8 * imageCount);
+        const atLeastImages = imageCount > 3 ? imageCount : 3;
+        const totalHeight = imageItemHeight * atLeastImages + (8 * atLeastImages);
         setProjectHeight(totalHeight);
     }, [height]);
 

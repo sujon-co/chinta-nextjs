@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { getPlaiceholder } from 'plaiceholder';
 import { useEffect, useRef, useState } from 'react';
+import { VscChevronLeft, VscChevronRight, VscClose } from 'react-icons/vsc';
 import { IProject } from 'server/interface';
 import instance from 'src/api/httpService';
 import Layout from 'src/components/Common/Layout';
@@ -13,7 +14,6 @@ import Lightbox from "yet-another-react-lightbox";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import "yet-another-react-lightbox/styles.css";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
-
 
 interface Props { }
 // @ts-ignore
@@ -200,6 +200,11 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                         fullscreen={false}
                         plugins={[Fullscreen]}
                         animation={{ fade: 0, swipe: 0 }}
+                        render={{
+                            iconPrev: () => <VscChevronLeft style={{ fontSize: '35px' }} />,
+                            iconNext: () => <VscChevronRight style={{ fontSize: '35px' }} />,
+                            iconClose: () => <VscClose style={{ fontSize: '35px' }} />
+                        }}
                         on={{
                             view: (index) => {
                                 console.log('view', index);
