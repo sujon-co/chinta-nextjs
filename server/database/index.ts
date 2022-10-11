@@ -15,4 +15,5 @@ const connectDB =
         return handler(req, res);
     };
 
+
 export default connectDB;
