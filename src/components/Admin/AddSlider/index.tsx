@@ -60,7 +60,9 @@ const AddSlider: FC<IAddSliderProps> = ({
             } else {
                 formData.append('image', values.photoUrl);
 
-                const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData);
+                const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
                 const slider: ISlider = {
                     ...values,
                     photoUrl: imageUrl.data,
