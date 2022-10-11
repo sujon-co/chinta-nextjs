@@ -9,9 +9,17 @@ const connectDB =
         // Use new db connection
 
         // await mongoose.connect('mongodb://127.0.0.1:27017/chinta-nextjs');
+
+        // await mongoose.connect(
+        //     `mongodb+srv://chinta:chinta-1321@cluster0.z5lsi.mongodb.net/chinta-nextjs?retryWrites=true&w=majority`
+        // ); // personal
+
+
         await mongoose.connect(
-            `mongodb+srv://chinta:chinta-1321@cluster0.z5lsi.mongodb.net/chinta-nextjs?retryWrites=true&w=majority`
-        );
+            `mongodb+srv://chinta:chinta-2224@cluster0.corjkqr.mongodb.net/chinta-nextjs?retryWrites=true&w=majority`
+        ); // kanak
+
+
         return handler(req, res);
     };
 
