@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nextConnect from 'next-connect';
 import connectDB from 'server/database';
-import Apply from 'server/models/Apply';
+import Studio from 'server/models/Studio';
 
 const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
     onError: (err, req, res, next) => {
@@ -31,7 +31,7 @@ const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
         try {
             const { body, query } = req;
             const { id: _id } = query;
-            const studio = await Apply.findOneAndUpdate(
+            const studio = await Studio.findOneAndUpdate(
                 { _id },
                 { ...body },
                 { new: true }
@@ -49,11 +49,11 @@ const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
     .delete(async (req, res, next) => {
         try {
             const { id: _id } = req.query;
-            await Apply.findOneAndDelete({ _id });
+            const data = await Studio.findOneAndDelete({ _id });
 
             res.status(200).json({
                 success: true,
-                data: null,
+                data: data,
                 message: 'Delete deleted successfully.',
             });
         } catch (error) {

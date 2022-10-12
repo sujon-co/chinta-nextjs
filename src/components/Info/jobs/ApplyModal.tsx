@@ -145,7 +145,7 @@ const ApplyModal: FC<IModalProps> = ({ closeModal, modalIsOpen }) => {
                             </div>
 
                             <div className="mb-3">
-                                <label htmlFor="" className='mb-2'>  <b>Attach Portfolio/CV (30MB)</b> </label>
+                                <label htmlFor="" className='mb-2'>  <b>Attach Portfolio/CV (Max 30MB, pdf only)</b> </label>
                                 <input
                                     type="file"
                                     name=""

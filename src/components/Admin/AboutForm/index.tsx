@@ -23,30 +23,27 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
     } as IAbout;
 
 
-    const onSubmitHandler = async (
-        values: IAbout,
-        formikHelpers: FormikHelpers<IAbout>
-    ) => {
+
+    const onSubmitHandler = async (values: IAbout, formikHelpers: FormikHelpers<IAbout>) => {
         try {
             const formData = new FormData();
-            formData.append('image', values.photoUrl);
-
             let imageUrl = '';
 
             if (typeof values.photoUrl === 'string') {
                 imageUrl = values.photoUrl;
             } else {
-                formData.append('path', values.photoUrl);
+                formData.append('image', values.photoUrl);
+                formData.append('path', about.photoUrl);
                 const { data: _imageUrl } = await imageUploadInstance.patch('/upload/image', formData);
                 imageUrl = _imageUrl.data;
             }
 
-            const about: IAbout = {
+            const _about: IAbout = {
                 ...values,
                 photoUrl: imageUrl
             };
 
-            const { data } = await instance.patch<{ message: string; }>('/info/about', about);
+            const { data } = await instance.patch<{ message: string; }>('/info/about', _about);
             if (data.message) {
                 toast.success(data.message);
                 formikHelpers.resetForm();

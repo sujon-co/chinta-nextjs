@@ -45,7 +45,7 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
         try {
             const { body, query } = req;
             const { slug } = query;
-            const slider = await Project.findOneAndUpdate(
+            const project = await Project.findOneAndUpdate(
                 { slug },
                 { ...body },
                 { new: true }
@@ -53,7 +53,7 @@ const projectHandler = nextConnect<NextApiRequest, NextApiResponse>({
 
             res.status(200).json({
                 success: true,
-                data: slider,
+                data: project,
                 message: 'Project updated successfully.',
             });
         } catch (error) {

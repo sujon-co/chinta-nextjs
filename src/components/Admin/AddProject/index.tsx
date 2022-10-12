@@ -119,6 +119,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     formikHelpers.resetForm();
                     setTimeout(() => { window.location.reload(); }, 1000);
                 }
+                console.log({ imageUrl, data });
             }
         } catch (err) {
             const error = err as ResponseError;

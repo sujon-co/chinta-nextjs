@@ -39,5 +39,20 @@ const newsHandler = nextConnect<NextApiRequest, NextApiResponse>({
     } catch (error) {
         next(error);
     }
-});
+})
+    .post(async (req, res, next) => {
+        try {
+            const { body } = req;
+            const news = await News.create(body);
+
+            res.status(200).json({
+                success: true,
+                data: news,
+                message: 'News Item uploaded successfully.',
+            });
+        } catch (error) {
+            next(error);
+        }
+    });
+;
 export default connectDB(authenticated(newsHandler));
