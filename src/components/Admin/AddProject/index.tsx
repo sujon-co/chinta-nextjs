@@ -459,7 +459,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="btn btn-success btn-sm fs-12"
                             disabled={isSubmitting}
                         >
-                            Submit
+                            {isSubmitting ?
+                                <div className='d-flex gap-1'>
+                                    <div className="spinner-border spinner-border-sm" role="status">
+                                        <span className="visually-hidden">Loading...</span>
+                                    </div>
+                                    <span>Uploading please wait ...</span>
+                                </div>
+                                : 'Submit'}
                         </button>
                     </div>
                 </Form>

@@ -228,7 +228,7 @@ export const getServerSideProps = async (ctx: any) => {
 
     if (_project) {
         const gallery = await Promise.all(
-            _project.gallery.map(async (image) => {
+            _project?.gallery.map(async (image) => {
                 const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
                 const obj = {
                     ...img,
@@ -252,7 +252,9 @@ export const getServerSideProps = async (ctx: any) => {
         };
     } else {
         return {
-            project: {}
+            props: {
+                project: {}
+            }
         };
     }
 };
