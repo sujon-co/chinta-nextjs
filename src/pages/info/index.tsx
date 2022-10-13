@@ -2,7 +2,7 @@ import ReactFullpage from '@fullpage/react-fullpage';
 import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { Fragment } from 'react';
-import { APIResponse, IAbout, IAward, IJob, INews, IShop, IStudio } from 'server/interface';
+import { APIResponse, IAbout, IAward, IContact, IJob, INews, IShop, IStudio } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
@@ -27,9 +27,10 @@ interface Props {
     shops: IShop[];
     news: INews[];
     job: IJob;
+    contact: IContact;
 }
 
-const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job }) => {
+const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job, contact }) => {
     const { isMobile, isDesktop } = useSizeContext();
 
 
@@ -101,7 +102,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job })
         </div>
         <div className={`${SEL} full-height`} >
             <div className="info-section scroll info-contact" onWheel={scrollHandler} >
-                <HomePageContact />
+                <HomePageContact contact={contact} />
             </div>
         </div>
     </>;
@@ -154,6 +155,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const { data: _shops } = await instance.get<{ data: IShop[]; }>('/info/shops');
     const { data: _news } = await instance.get<{ data: INews[]; }>('/info/news');
     const { data: _job } = await instance.get<APIResponse<IJob[]>>('/info/jobs');
+    const { data: contact } = await instance.get<{ data: IContact[]; }>('/contact');
 
     return {
         props: {
@@ -162,7 +164,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
             awards: awards.data,
             shops: _shops.data,
             news: _news.data,
-            job: _job?.data[0]
+            job: _job?.data[0],
+            contact: contact.data[0],
         },
     };
 };

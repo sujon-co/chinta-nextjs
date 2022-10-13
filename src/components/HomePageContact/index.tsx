@@ -2,7 +2,7 @@ import { Fragment, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FiChevronRight } from 'react-icons/fi';
 import { IContact } from 'server/interface';
-import instance, { imageUploadInstance } from 'src/api/httpService';
+import { imageUploadInstance } from 'src/api/httpService';
 import { useSizeContext } from 'src/contexts/ResponseContextProvider';
 import { scrollHandler } from 'src/utils';
 import Footer from '../Common/Footer';
@@ -11,16 +11,16 @@ import TypeModal from '../Modal/TypeBox';
 
 interface Props {
     showFooter?: boolean;
+    contact: IContact;
 }
 
-const HomePageContact = ({ showFooter = true }: Props) => {
+const HomePageContact = ({ contact, showFooter = true }: Props) => {
     const { isMobile, isDesktop } = useSizeContext();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [typeModalOpen, setTypeModalOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [data, setData] = useState({});
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-    const [contact, setContact] = useState<IContact>({} as IContact);
     const [showInput, setShowInput] = useState(false);
 
 
@@ -60,12 +60,6 @@ const HomePageContact = ({ showFooter = true }: Props) => {
         }
 
     };
-
-    useEffect(() => {
-        instance.get('/contact')
-            .then((data) => { setContact(data.data?.data[0]); })
-            .catch((err) => { console.log(err); });
-    }, []);
 
 
     const fetchData = async (): Promise<unknown> => {

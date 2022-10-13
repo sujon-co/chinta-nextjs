@@ -1,11 +1,15 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
+import { IContact } from 'server/interface';
+import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
 
-interface Props { }
+interface Props {
+    contact: IContact;
+}
 
-const ContactPage: NextPage<Props> = () => {
+const ContactPage: NextPage<Props> = ({ contact }) => {
     return (
         <>
             <Head>
@@ -16,14 +20,21 @@ const ContactPage: NextPage<Props> = () => {
                     <Header />
                 </div>
                 <div className="container__main">
-                    <HomePageContact />
-                </div>
-                <div className="container__footer">
-                    {/* <Footer /> */}
+                    <HomePageContact contact={contact} />
                 </div>
             </div>
         </>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+    const { data: contact } = await instance.get<{ data: IContact[]; }>('/contact');
+
+    return {
+        props: {
+            contact: contact.data[0],
+        },
+    };
 };
 
 export default ContactPage;

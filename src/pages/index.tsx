@@ -1,9 +1,8 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
-import { InferGetStaticPropsType, NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import { IAbout, IProject, ISlider } from 'server/interface';
+import { IAbout, IContact, IProject, ISlider } from 'server/interface';
 import instance from 'src/api/httpService';
 import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
@@ -27,7 +26,14 @@ const pluginWrapper = () => {
      */
 };
 
-const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ sliders, about, projects, }) => {
+interface IProps {
+    sliders: ISlider[];
+    about: IAbout;
+    projects: IProject[];
+    contact: IContact;
+}
+
+const Final = ({ sliders, about, projects, contact }: IProps) => {
     const [projectHeight, setProjectHeight] = useState(0);
     const { height, isDesktop, isMobile } = useSizeContext();
 
@@ -105,7 +111,7 @@ const Final: NextPage<InferGetStaticPropsType<typeof getServerSideProps>> = ({ s
         </div>
         <div className={`${SEL} contact-section-overwrite full-height`}>
             <div className="footer-wrapper">
-                <HomePageContact />
+                <HomePageContact contact={contact} />
             </div>
         </div>
     </>;
@@ -142,12 +148,14 @@ export const getServerSideProps = async () => {
     const { data: sliders } = await instance.get<AxiosResponse<ISlider[]>>('/sliders');
     const { data: _about } = await instance.get<{ data: IAbout[]; }>('/info/about');
     const { data: projects } = await instance.get<{ data: IProject[]; }>('/projects');
+    const { data: contact } = await instance.get<{ data: IContact[]; }>('/contact');
 
     return {
         props: {
             sliders: sliders.data,
             about: _about.data[0],
             projects: projects.data,
+            contact: contact.data[0],
         },
     };
 };
