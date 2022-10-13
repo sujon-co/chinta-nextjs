@@ -111,8 +111,6 @@ p {
 .portrait-wrapper {
     height: calc(100vh - 70px);
     width: 100%;
-    display: flex;
-    align-items: center;
 
     .portrait-image-height {
         height: calc(100vh - 70px - 5vh);

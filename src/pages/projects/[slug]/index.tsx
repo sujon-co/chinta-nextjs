@@ -1,7 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { getPlaiceholder } from 'plaiceholder';
 import { useEffect, useRef, useState } from 'react';
 import { VscChevronLeft, VscChevronRight, VscClose } from 'react-icons/vsc';
 import { IProject } from 'server/interface';
@@ -23,7 +22,7 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
     const [indexNumber, setIndexNumber] = useState(1);
     const showRef = useRef<HTMLDivElement | null>(null);
 
-    const slides = project.gallery?.map((item: any) => ({ src: item.src, photoUrl: item.photoUrl }));
+    const slides = project.gallery?.map((item: any) => ({ src: config.imageUploadUrl + item, photoUrl: item }));
 
     const handleShowMore = () => {
         setShowMore(!showMore);
@@ -32,6 +31,8 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
     useEffect(() => {
         showMore ? window.scrollTo({ top: 150, behavior: 'smooth' }) : window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [showMore]);
+
+    const data = project.images.split(',')?.map((number: string) => ({ src: project.gallery[parseInt(number)], index: parseInt(number) }));
 
     return (
         <>
@@ -44,17 +45,15 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                         <div className='top-image-wrapper'>
                             <div className="row">
                                 <div className="col-12">
-                                    {project.gallery[project.topImage - 1] ? project.gallery[project.topImage - 1]?.photoUrl && (
+                                    {project.gallery[project.topImage - 1] ? project.gallery[project.topImage - 1] && (
                                         <div className="top-image-height-control">
                                             <div className="top-img-overwrite">
                                                 <MyImage
                                                     className="img-fluid cursor-zoom"
-                                                    src={project.gallery[project.topImage - 1].photoUrl}
+                                                    src={project.gallery[project.topImage - 1]}
                                                     alt={project.title}
-                                                    layout="intrinsic"
+                                                    layout="responsive"
                                                     placeholder="blur"
-                                                    height={project.gallery[project.topImage - 1].height}
-                                                    width={project.gallery[project.topImage - 1].width}
                                                     onClick={() => setIndex(project.topImage - 1)}
                                                     objectFit="cover"
                                                 />
@@ -124,27 +123,27 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                             </div>
                         </div>
                         <div className="portrait-wrapper">
-                            <div className="row g-3 align-items-center">
-                                <div className="col-md-6 ">
-                                    <div dangerouslySetInnerHTML={{ __html: project.description }} />
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="portrait-image-height">
-                                        {project.gallery[project.portraitImage - 1]?.photoUrl && (
-                                            <MyImage
-                                                className="cursor-zoom"
-                                                src={project.gallery[project.portraitImage - 1].photoUrl}
-                                                alt={project.title}
-                                                layout="responsive"
-                                                placeholder="blur"
-                                                objectFit='cover'
-                                                height={project.gallery[project.portraitImage - 1].height}
-                                                width={project.gallery[project.portraitImage - 1].width}
-                                                onClick={() => setIndex(project.portraitImage - 1)}
-                                            />
-                                        )}
+                            <div>
+                                <div className="row g-3 align-items-center">
+                                    <div className="col-md-6 ">
+                                        <div dangerouslySetInnerHTML={{ __html: project.description }} />
                                     </div>
+                                    <div className="col-md-6">
+                                        <div className="portrait-image-height">
+                                            {project.gallery[project.portraitImage - 1] && (
+                                                <MyImage
+                                                    className="cursor-zoom"
+                                                    src={project.gallery[project.portraitImage - 1]}
+                                                    alt={project.title}
+                                                    layout="responsive"
+                                                    placeholder="blur"
+                                                    objectFit='cover'
+                                                    onClick={() => setIndex(project.portraitImage - 1)}
+                                                />
+                                            )}
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -160,19 +159,18 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                             </div>
                         )}
 
-                        {project.images.split(',')?.map((number: string) => ({ ...project.gallery[parseInt(number) - 1], index: parseInt(number) - 1 })).map((image: any, index: number) => (
-                            image.photoUrl && (
+                        {project.images.split(',')?.map((number: string) => ({ src: project.gallery[parseInt(number)], index: parseInt(number) })).map((image: any, index: number) => (
+                            image.src && (
                                 <div className='image-height-control' key={index}>
                                     <div className="image-overwrite" style={{ width: '100%' }}>
                                         <MyImage
                                             className='img-fluid cursor-zoom'
-                                            src={image.photoUrl}
+                                            src={image.src}
                                             alt={project.title}
                                             layout="responsive"
                                             placeholder="blur"
-                                            blurDataURL={image?.base64}
-                                            height={image.height}
-                                            width={image.width}
+                                            height={1500}
+                                            width={2500}
                                             onClick={() => setIndex(image.index)}
                                             objectFit="cover"
                                         />
@@ -226,37 +224,44 @@ export const getServerSideProps = async (ctx: any) => {
     const { data } = await instance.get<{ data: IProject; }>(`/projects/${ctx.params?.slug}`);
     const _project = data.data;
 
-    if (_project) {
-        const gallery = await Promise.all(
-            _project?.gallery.map(async (image) => {
-                const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
-                const obj = {
-                    ...img,
-                    base64: base64,
-                    photoUrl: image
-                };
-                return obj;
-            })
-        );
 
-        const project = {
-            ..._project,
-            gallery: gallery
-        };
+    return {
+        props: {
+            project: _project
+        }
+    };
 
-        return {
-            props: {
-                project: project
-            }
+    // if (_project) {
+    //     const gallery = await Promise.all(
+    //         _project?.gallery.map(async (image) => {
+    //             const { base64, img } = await getPlaiceholder(`${config.imageUploadUrl}${image}`);
+    //             const obj = {
+    //                 ...img,
+    //                 base64: base64,
+    //                 photoUrl: image
+    //             };
+    //             return obj;
+    //         })
+    //     );
 
-        };
-    } else {
-        return {
-            props: {
-                project: {}
-            }
-        };
-    }
+    //     const project = {
+    //         ..._project,
+    //         gallery: gallery
+    //     };
+
+    //     return {
+    //         props: {
+    //             project: project
+    //         }
+
+    //     };
+    // } else {
+    //     return {
+    //         props: {
+    //             project: {}
+    //         }
+    //     };
+    // }
 };
 
 

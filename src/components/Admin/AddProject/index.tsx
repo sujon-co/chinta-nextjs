@@ -135,9 +135,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 name: string().required('Name is required'),
                 type: string().required('Type is required'),
                 status: string().required('Status is required'),
-                principalArchitect: string().required(
-                    'Principal architect is required'
-                ),
+                // principalArchitect: string().required(
+                //     'Principal architect is required'
+                // ),
                 year: number().required('Year is required'),
                 description: string().required('Description is required'),
                 topImage: string().required('Top image number is required'),

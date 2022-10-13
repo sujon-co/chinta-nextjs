@@ -17,10 +17,7 @@ const projectSchema = new Schema<IProject>(
             required: true,
             enum: ['idea', 'in progress', 'under construction', 'completed'],
         },
-        principalArchitect: {
-            type: String,
-            required: true,
-        },
+        principalArchitect: String,
         designTeam: String,
         landscape: String,
 
