@@ -30,7 +30,7 @@ const GridItem = ({ item, height }: gridProps) => {
             <ul className='grids-list' style={{ width, height: (height - 50) }}>
                 {item.data.map((project: IProject, index: number) => (
                     <li className='grids-list-item' key={index}>
-                        <Link as={`/projects/${project._id}`} href="/projects/[slug]" key={index + 1}>
+                        <Link as={`/projects/${project.slug}`} href="/projects/[slug]" key={index + 1}>
                             <a className='grids-list-item-link'>
                                 <MyImage
                                     src={project.gallery[project.topImage - 1]}

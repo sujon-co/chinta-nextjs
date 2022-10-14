@@ -8,7 +8,7 @@ interface INewsItemProps {
 
 const NewsItem: FC<INewsItemProps> = ({ news }) => {
     return <div className="news-item">
-        <a href={news.url}>
+        <a href={news.url} target="_blank" rel="noopener noreferrer">
             <MyImage
                 src={news.image}
                 alt={news.title}
@@ -19,7 +19,9 @@ const NewsItem: FC<INewsItemProps> = ({ news }) => {
             />
         </a>
         <h6 className='mb-1 pt-2'>
-            <a href={news.url}>{news.title} </a>
+            <a href={news.url} target="_blank" rel="noopener noreferrer">
+                {news.title}
+            </a>
         </h6>
         <div dangerouslySetInnerHTML={{ __html: news.description }} />
     </div>;

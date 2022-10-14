@@ -5,10 +5,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useSizeContext } from 'src/contexts/ResponseContextProvider';
 
 interface IProps { }
 
 const Header: NextPage<IProps> = () => {
+    const { isMobile } = useSizeContext();
     const [showMenu, setShowMenu] = useState(false);
     const [stay, setStay] = useState(false);
     const [search, setSearch] = useState('');
@@ -36,6 +38,13 @@ const Header: NextPage<IProps> = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    let width = 'auto';
+
+    if (isMobile) {
+        width = isMobile && showMenu ? 'auto' : '0';
+    } else {
+        width = 'auto';
+    }
 
     return (
         <header className="header">
@@ -51,7 +60,7 @@ const Header: NextPage<IProps> = () => {
                     />
                 </div>
                 <div className="header-content">
-                    <div className="header-menu-wrapper" style={{ width: showMenu ? 'auto' : '0' }}>
+                    <div className="header-menu-wrapper" style={{ width }}>
                         <div
                             className={`header-menu ${showMenu
                                 ? 'menu-open-animation'

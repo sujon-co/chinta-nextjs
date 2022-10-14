@@ -38,15 +38,15 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
         <Fragment>
             <div className="row mb-4 shop-item">
                 <div className="col-md-2">
-                    <MyImage
-                        src={shop.images[0]}
-                        alt={shop.title}
-                        layout="responsive"
-                        placeholder="blur"
-                        width={200}
-                        height={160}
-                        preloaderSize="small"
-                    />
+                    <div className="" style={{ width: '200px', height: '200px' }}>
+                        <MyImage
+                            src={shop.images[0]}
+                            alt={shop.title}
+                            layout="responsive"
+                            placeholder="blur"
+                            preloaderSize="small"
+                        />
+                    </div>
                 </div>
                 <div className="col-md-9">
                     <div className="shop-item-content">

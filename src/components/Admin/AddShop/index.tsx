@@ -53,11 +53,15 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                         formData.append('images', image);
                     }
                 });
-                const { data: imageUrl } = await imageUploadInstance.patch('upload/images', formData);
+                const { data: imageUrl } = await imageUploadInstance.patch('/upload/images', formData);
+                // const images = imageUrl?.data?.images?.length > 0 ? imageUrl?.data?.images : values.images;
+
+                // console.log({ imageUrl, images });
+                // return null;
 
                 const _shop: IShop = {
                     ...values,
-                    images: imageUrl.images?.length > 0 ? imageUrl.images : values.images,
+                    images: imageUrl?.data?.images?.length > 0 ? imageUrl?.data?.images : values.images,
                 };
 
                 const { data } = await instance.patch<APIResponse<IShop>>('/info/shops/' + shop._id, _shop);

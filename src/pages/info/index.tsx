@@ -53,11 +53,11 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job, c
                     <div className=" award-item" key={award.awardName}>
                         <span> {award.year} </span>
                         <span> {award.awardName} </span>
-                        <a href={award.programUrl} target="_blank" rel="noreferrer">
+                        <a href={award.programUrl} target="_blank" rel="noopener noreferrer">
                             {award.programName}
                         </a>
                         <span> Organized by</span>
-                        <a href={award.organizationUrl} target="_blank" rel="noreferrer"> {award.organizedBy} </a>
+                        <a href={award.organizationUrl} target="_blank" rel="noopener noreferrer"> {award.organizedBy} </a>
                     </div>
                 ))}
             </div>

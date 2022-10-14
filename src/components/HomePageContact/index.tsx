@@ -73,7 +73,10 @@ const HomePageContact = ({ contact, showFooter = true }: Props) => {
             fetchData(),
             {
                 loading: 'Mail Sending...',
-                success: (data) => `Mail Send Successfully!`,
+                success: (data) => {
+                    closeModal();
+                    return `Mail Send Successfully!`;
+                },
                 error: (err) => `Email send Failed!, Please Try Again'`,
             },
             {
