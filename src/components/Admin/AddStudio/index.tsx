@@ -35,7 +35,6 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
         try {
             const formData = new FormData();
             formData.append('name', values.name);
-            formData.append('image', values.photoUrl);
 
             if (isUpdate) {
                 let _photoUrl = "";

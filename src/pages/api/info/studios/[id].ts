@@ -40,7 +40,7 @@ const applyUpdateAndDelete = nextConnect<NextApiRequest, NextApiResponse>({
             res.status(200).json({
                 success: true,
                 data: studio,
-                message: 'Apply updated successfully.',
+                message: 'Studio updated successfully.',
             });
         } catch (error) {
             next(error);
