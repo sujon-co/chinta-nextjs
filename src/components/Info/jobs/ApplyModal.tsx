@@ -43,6 +43,7 @@ const ApplyModal: FC<IModalProps> = ({ closeModal, modalIsOpen }) => {
     ) => {
         try {
             const formData = new FormData();
+            formData.append('name', values.name);
             formData.append('file', values.file);
 
             const { data: fileUrl } = await imageUploadInstance.post('/upload/file', formData);

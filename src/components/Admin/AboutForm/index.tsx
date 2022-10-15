@@ -27,6 +27,7 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
     const onSubmitHandler = async (values: IAbout, formikHelpers: FormikHelpers<IAbout>) => {
         try {
             const formData = new FormData();
+            formData.append('name', 'about-image');
             let imageUrl = '';
 
             if (typeof values.photoUrl === 'string') {

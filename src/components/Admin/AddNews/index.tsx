@@ -28,6 +28,7 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
     ) => {
         try {
             const formData = new FormData();
+            formData.append('name', values.title);
 
             if (isUpdate) {
                 let _imageUrl = '';

@@ -29,6 +29,7 @@ const AddSlider: FC<IAddSliderProps> = ({
     ) => {
         try {
             const formData = new FormData();
+            formData.append('name', values.alt);
 
 
             if (isUpdate) {
@@ -59,6 +60,7 @@ const AddSlider: FC<IAddSliderProps> = ({
                 }
             } else {
                 formData.append('image', values.photoUrl);
+                formData.append('name', values.alt);
 
                 const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' }
