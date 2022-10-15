@@ -54,6 +54,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         formikHelpers: FormikHelpers<IProject>
     ) => {
 
+        // max 50mb
+        const totalSize: any = values.gallery.reduce((acc: any, file: any) => acc + file.size, 0);
+
+        if (totalSize > 52428800) {
+            toast.error('Your Total Images size should be less than 50MB');
+            return;
+        }
+
 
         try {
             if (!isUpdate) {
@@ -63,14 +71,17 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     formData.append('gallery', image);
                 });
 
-                const { data: { data: imageUrl } } = await axios.post(`${config.imageUploadUrl}/api/upload/images`, formData,
+                const {
+                    data: { data: imageUrl },
+                } = await axios.post(
+                    `${config.imageUploadUrl}/api/upload/images`,
+                    formData,
                     {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                         },
                     }
                 );
-
 
                 const project: IProject = {
                     ...values,
@@ -99,28 +110,39 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         formData.append('gallery', image);
                     }
                 });
-                const isAddNewImage = values.gallery?.filter((img) => typeof img !== 'string').length;
+                const isAddNewImage = values.gallery?.filter(
+                    (img) => typeof img !== 'string'
+                ).length;
                 if (isAddNewImage) {
                     project.gallery.forEach((image) => {
                         formData.append('galleryPath', image);
                     });
                 }
-                const { data: imageUrl } = await imageUploadInstance.patch('/upload/images', formData);
+                const { data: imageUrl } = await imageUploadInstance.patch(
+                    '/upload/images',
+                    formData
+                );
 
                 const _project: IProject = {
                     ...values,
-                    gallery: imageUrl.data?.gallery.length ? imageUrl.data.gallery : project.gallery,
+                    gallery: imageUrl.data?.gallery.length
+                        ? imageUrl.data.gallery
+                        : project.gallery,
                 };
-
 
                 // @ts-ignore
                 delete _project._id;
 
-                const { data } = await instance.patch(`/projects/${project.slug}`, _project);
+                const { data } = await instance.patch(
+                    `/projects/${project.slug}`,
+                    _project
+                );
                 if (data.success) {
                     toast.success(data.message);
                     formikHelpers.resetForm();
-                    setTimeout(() => { window.location.reload(); }, 1000);
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
                 }
                 console.log({ imageUrl, data });
             }
@@ -141,7 +163,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 year: number().required('Year is required'),
                 description: string().required('Description is required'),
                 topImage: string().required('Top image number is required'),
-                portraitImage: string().required('Portrait image number is required'),
+                portraitImage: string().required(
+                    'Portrait image number is required'
+                ),
                 gallery: array().min(1).required('Images is required'),
             })}
         >
@@ -411,12 +435,13 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             multiple
                             accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/svg"
                             onChange={(event: any) => {
-                                console.log(event.target.files);
                                 const sortedFiles = Array.from(event.target.files).sort((a: any, b: any) => a.name.localeCompare(b.name));
-                                const filteredFiles = sortedFiles.filter((file: any) => {
-                                    return file.type.includes('image');
-                                });
-                                setFieldValue("gallery", filteredFiles);
+                                const filteredFiles = sortedFiles.filter(
+                                    (file: any) => {
+                                        return file.type.includes('image');
+                                    }
+                                );
+                                setFieldValue('gallery', filteredFiles);
                             }}
                         />
                         {errors.gallery && touched.gallery && (
@@ -424,39 +449,72 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                 Gallery is a required field
                             </div>
                         )}
-                        <div className='mb-2 mt-1'>
-                            {values.gallery?.filter((img) => typeof img !== 'string').map((image: any, index: number) => (
-                                <>
-                                    {image?.name && (
-                                        <div className='file-name' key={index + Math.random()} >
-                                            <span><b>{index + 1}</b>: &nbsp; </span>
-                                            <span>  {image?.name} </span>
-                                            {image?.name && <span className='remove' onClick={() => {
-                                                const newImages = values.gallery?.filter((img: any) => img.name !== image.name);
-                                                setFieldValue('gallery', newImages);
-                                            }}> <FaRegTimesCircle /> </span>}
-                                        </div>
-                                    )}
-                                </>
-                            ))}
+                        <div className="mb-2 mt-1">
+                            {values.gallery
+                                ?.filter((img) => typeof img !== 'string')
+                                .map((image: any, index: number) => (
+                                    <>
+                                        {image?.name && (
+                                            <div
+                                                className="file-name"
+                                                key={index + Math.random()}
+                                            >
+                                                <span>
+                                                    <b>{index + 1}</b>: &nbsp;{' '}
+                                                </span>
+                                                <span> {image?.name} </span>
+                                                {image?.name && (
+                                                    <span
+                                                        className="remove"
+                                                        onClick={() => {
+                                                            const newImages =
+                                                                values.gallery?.filter(
+                                                                    (
+                                                                        img: any
+                                                                    ) =>
+                                                                        img.name !==
+                                                                        image.name
+                                                                );
+                                                            setFieldValue(
+                                                                'gallery',
+                                                                newImages
+                                                            );
+                                                        }}
+                                                    >
+                                                        {' '}
+                                                        <FaRegTimesCircle />{' '}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        )}
+                                    </>
+                                ))}
                         </div>
                         {isUpdate && (
-                            <div className='d-flex flex-wrap gap-2'>
-                                {project.gallery?.map((image: any, index: number) => (
-                                    <div className="" key={index + Math.random()}>
-                                        <div className='ms-2'> {index + 1} </div>
-                                        <MyImage
-                                            src={image}
-                                            alt={project.name}
-                                            layout="fixed"
-                                            placeholder="blur"
-                                            width={80}
-                                            height={50}
-                                            objectFit="cover"
-                                            preloader={false}
-                                        />
-                                    </div>
-                                ))}
+                            <div className="d-flex flex-wrap gap-2">
+                                {project.gallery?.map(
+                                    (image: any, index: number) => (
+                                        <div
+                                            className=""
+                                            key={index + Math.random()}
+                                        >
+                                            <div className="ms-2">
+                                                {' '}
+                                                {index + 1}{' '}
+                                            </div>
+                                            <MyImage
+                                                src={image}
+                                                alt={project.name}
+                                                layout="fixed"
+                                                placeholder="blur"
+                                                width={80}
+                                                height={50}
+                                                objectFit="cover"
+                                                preloader={false}
+                                            />
+                                        </div>
+                                    )
+                                )}
                             </div>
                         )}
                     </div>
@@ -474,14 +532,21 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             className="btn btn-success btn-sm fs-12"
                             disabled={isSubmitting}
                         >
-                            {isSubmitting ?
-                                <div className='d-flex gap-1'>
-                                    <div className="spinner-border spinner-border-sm" role="status">
-                                        <span className="visually-hidden">Loading...</span>
+                            {isSubmitting ? (
+                                <div className="d-flex gap-1">
+                                    <div
+                                        className="spinner-border spinner-border-sm"
+                                        role="status"
+                                    >
+                                        <span className="visually-hidden">
+                                            Loading...
+                                        </span>
                                     </div>
                                     <span>Uploading please wait ...</span>
                                 </div>
-                                : 'Submit'}
+                            ) : (
+                                'Submit'
+                            )}
                         </button>
                     </div>
                 </Form>
