@@ -27,7 +27,7 @@ const ProjectItem: NextPage<Props> = ({ project }) => {
                     />
                     <div className="project-item-overlay">
                         <h6> {project.name} </h6>
-                        <div className="fs-sm">Location: Dhaka, Bangladesh</div>
+                        <div className="fs-sm">{project?.location}</div>
                         <div className="fs-sm">
                             Data:{' '}
                             {moment(project.updatedAt).toDate().toLocaleDateString()} </div>

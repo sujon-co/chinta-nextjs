@@ -100,10 +100,12 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                                     <b>Photograph: </b> {project.photograph}
                                                 </div>
                                             )}
-                                            <div className="other">
-                                                <b>Location:</b> Bashundhara, Dhaka,
-                                                Bangladesh
-                                            </div>
+                                            {project?.location && (
+                                                <div className="other">
+                                                    <b>Location:</b> {project.location}
+                                                </div>
+                                            )}
+
                                             {project.size && (
                                                 <div className="other">
                                                     <b>Size: </b> {project.size}

@@ -25,6 +25,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         principalArchitect: isUpdate ? project.principalArchitect : '',
         designTeam: isUpdate ? project.designTeam : '',
         engineer: isUpdate ? project.engineer : '',
+        location: isUpdate ? project.location : '',
         taskConstructionFirm: isUpdate ? project.taskConstructionFirm : '',
         photograph: isUpdate ? project.photograph : '',
         year: isUpdate ? project.year : 2022,
@@ -57,6 +58,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
         try {
             if (!isUpdate) {
                 const formData = new FormData();
+                formData.append('name', values.name);
                 values.gallery.forEach((image) => {
                     formData.append('gallery', image);
                 });
@@ -90,6 +92,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 }
             } else {
                 const formData = new FormData();
+                formData.append('name', values.name);
 
                 values.gallery.forEach((image) => {
                     if (typeof image !== 'string') {
@@ -135,9 +138,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 name: string().required('Name is required'),
                 type: string().required('Type is required'),
                 status: string().required('Status is required'),
-                // principalArchitect: string().required(
-                //     'Principal architect is required'
-                // ),
                 year: number().required('Year is required'),
                 description: string().required('Description is required'),
                 topImage: string().required('Top image number is required'),
@@ -257,6 +257,18 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             id="engineer"
                             name="engineer"
                             placeholder="Engineer (Optional)"
+                        />
+                    </div>
+                    <div className="mb-3">
+                        <label htmlFor="location" className="form-label">
+                            Location
+                        </label>
+                        <Field
+                            type="text"
+                            className="form-control form-control-sm"
+                            id="location"
+                            name="location"
+                            placeholder="Add Location"
                         />
                     </div>
                     <div className="mb-3">
@@ -398,10 +410,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             name="gallery"
                             multiple
                             onChange={(event: any) => {
-                                setFieldValue('gallery', [
-                                    ...values.gallery,
-                                    event.currentTarget.files[0],
-                                ]);
+                                console.log(event.target.files);
+                                const sortedFiles = Array.from(event.target.files).sort((a: any, b: any) => a.name.localeCompare(b.name));
+                                setFieldValue("gallery", sortedFiles);
                             }}
                         />
                         {errors.gallery && touched.gallery && (

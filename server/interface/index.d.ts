@@ -21,6 +21,7 @@ interface IProject {
     size?: string;
     video?: string;
     slug?: string;
+    location?: string;
     map: {
         getLocation: {
             lat: string | number;
