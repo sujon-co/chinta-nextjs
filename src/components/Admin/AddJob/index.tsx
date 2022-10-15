@@ -31,6 +31,7 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
 
         try {
             const formData = new FormData();
+            formData.append('name', 'job-image');
             let imageUrl = '';
 
             if (typeof values.image === 'string') {

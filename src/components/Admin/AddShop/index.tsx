@@ -47,6 +47,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
         try {
             if (isUpdate) {
                 const formData = new FormData();
+                formData.append('name', values.title);
 
                 values.images.forEach((image) => {
                     if (typeof image !== 'string') {
@@ -54,10 +55,6 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                     }
                 });
                 const { data: imageUrl } = await imageUploadInstance.patch('/upload/images', formData);
-                // const images = imageUrl?.data?.images?.length > 0 ? imageUrl?.data?.images : values.images;
-
-                // console.log({ imageUrl, images });
-                // return null;
 
                 const _shop: IShop = {
                     ...values,
@@ -75,6 +72,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
 
             } else {
                 const formData = new FormData();
+                formData.append('name', values.title);
                 values.images.forEach((image) => {
                     formData.append('images', image);
                 });
