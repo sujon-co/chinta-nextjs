@@ -96,6 +96,7 @@ const AboutForm: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, about }) => {
                             className="form-control form-control-sm"
                             id="photoUrl"
                             name="photoUrl"
+                            accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/svg"
                             onChange={(event: any) => {
                                 setFieldValue(
                                     'photoUrl',

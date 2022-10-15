@@ -145,6 +145,7 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
                             className="form-control form-control-sm"
                             id="image"
                             name="image"
+                            accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/svg"
                             onChange={(event: any) => {
                                 setFieldValue(
                                     'image',

@@ -221,6 +221,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                             id="images"
                             name="images"
                             multiple
+                            accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/svg"
                             onChange={(event: any) => {
                                 setFieldValue('images', [
                                     ...values.images,

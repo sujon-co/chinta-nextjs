@@ -131,6 +131,7 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
                         <input
                             type="file"
                             className="form-control form-control-sm"
+                            accept="application/pdf"
                             id="image"
                             name="image"
                             onChange={(event: any) => {

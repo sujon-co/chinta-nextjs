@@ -409,10 +409,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             id="gallery"
                             name="gallery"
                             multiple
+                            accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/svg"
                             onChange={(event: any) => {
                                 console.log(event.target.files);
                                 const sortedFiles = Array.from(event.target.files).sort((a: any, b: any) => a.name.localeCompare(b.name));
-                                setFieldValue("gallery", sortedFiles);
+                                const filteredFiles = sortedFiles.filter((file: any) => {
+                                    return file.type.includes('image');
+                                });
+                                setFieldValue("gallery", filteredFiles);
                             }}
                         />
                         {errors.gallery && touched.gallery && (
