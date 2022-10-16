@@ -70,7 +70,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
             }
         }
 
-
         try {
             if (!isUpdate) {
                 const formData = new FormData();
@@ -78,11 +77,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 values.gallery.forEach((image) => {
                     formData.append('gallery', image);
                 });
+                // max 70 images
+                if (files.length > 70) {
+                    toast.error('You can upload maximum 3 images');
+                    return;
+                }
 
-                const {
-                    data: { data: imageUrl },
-                } = await axios.post(
-                    `${config.imageUploadUrl}/api/upload/images`,
+
+                const { data: { data: imageUrl } } = await axios.post(`${config.imageUploadUrl}/api/upload/images`,
                     formData,
                     {
                         headers: {
@@ -118,9 +120,13 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         formData.append('gallery', image);
                     }
                 });
-                const isAddNewImage = values.gallery?.filter(
-                    (img) => typeof img !== 'string'
-                ).length;
+                const isAddNewImage = values.gallery?.filter((img) => typeof img !== 'string').length;
+                if (isAddNewImage) {
+                    if (isAddNewImage > 70) {
+                        toast.error('You can upload maximum 70 images');
+                        return;
+                    }
+                }
                 if (isAddNewImage) {
                     project.gallery.forEach((image) => {
                         formData.append('galleryPath', image);

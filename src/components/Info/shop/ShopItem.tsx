@@ -83,22 +83,19 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                     src={shop.images[0]}
                                     alt={shop.title}
                                     layout="responsive"
-                                    placeholder="blur"
-                                    height={200}
-                                    width={200}
                                 />
                             </div>
                             {shop.images.slice(1).length > 0 &&
                                 shop.images.slice(1).map((image, index) => (
                                     <div className="col-6" key={index}>
-                                        <MyImage
-                                            src={image}
-                                            alt={shop.title}
-                                            layout="responsive"
-                                            placeholder="blur"
-                                            height={200}
-                                            width={200}
-                                        />
+                                        <div className="w-100 h-100">
+                                            <MyImage
+                                                src={image}
+                                                alt={shop.title}
+                                                layout="responsive"
+                                                preloaderSize="small"
+                                            />
+                                        </div>
                                     </div>
                                 ))}
                         </div>

@@ -57,6 +57,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
         }
 
 
+
         try {
             if (isUpdate) {
                 const formData = new FormData();
@@ -67,6 +68,14 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                         formData.append('images', image);
                     }
                 });
+                const isAddNewImage = values.images?.filter((img) => typeof img !== 'string').length;
+                if (isAddNewImage) {
+                    if (isAddNewImage > 3) {
+                        toast.error('You can upload maximum 3 images');
+                        return;
+                    }
+                }
+
                 const { data: imageUrl } = await imageUploadInstance.patch('/upload/images', formData);
 
                 const _shop: IShop = {
@@ -89,6 +98,12 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                 values.images.forEach((image) => {
                     formData.append('images', image);
                 });
+
+                // max 3 images
+                if (files.length > 3) {
+                    toast.error('You can upload maximum 3 images');
+                    return;
+                }
 
                 const { data: { data: imageUrl }, } = await axios.post(`${config.imageUploadUrl}/api/upload/images`,
                     formData,
@@ -225,7 +240,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
 
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
-                            Images (Max 5MB)
+                            Images(Max 3 images) (Max 5MB)
                         </label>
                         <input
                             type="file"
