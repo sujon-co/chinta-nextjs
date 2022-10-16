@@ -27,6 +27,13 @@ const AddSlider: FC<IAddSliderProps> = ({
         values: ISlider,
         formikHelpers: FormikHelpers<ISlider>
     ) => {
+
+        const file: any = values.photoUrl;
+        if (file.size > 5242880) {
+            toast.error('Your Image size should be equal or less than 5MB');
+            return;
+        }
+
         try {
             const formData = new FormData();
             formData.append('name', values.alt);
@@ -114,7 +121,7 @@ const AddSlider: FC<IAddSliderProps> = ({
                     </div>
                     <div className="mb-3">
                         <label htmlFor="photoUrl" className="form-label">
-                            Photo (Max 3MB)
+                            Photo (Max 5MB)
                         </label>
                         <input
                             type="file"

@@ -12,7 +12,6 @@ const connectDB =
             `mongodb+srv://chinta:chinta-2224@cluster0.corjkqr.mongodb.net/chinta-nextjs?retryWrites=true&w=majority`
         ); // kanak
 
-
         return handler(req, res);
     };
 

@@ -26,6 +26,12 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
         values: INews,
         formikHelpers: FormikHelpers<INews>
     ) => {
+        const file: any = values.image;
+        if (file.size > 5242880) {
+            toast.error('Your Image size should be equal or less than 5MB');
+            return;
+        }
+
         try {
             const formData = new FormData();
             formData.append('name', values.title);
@@ -138,7 +144,7 @@ const AddNews: FC<IAddNewProps> = ({ setIsAdd, isUpdate, news }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="image" className="form-label">
-                            Photo
+                            Photo (Max 5MB)
                         </label>
                         <input
                             type="file"

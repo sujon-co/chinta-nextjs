@@ -207,7 +207,6 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                         }}
                         on={{
                             view: (index) => {
-                                console.log('view', index);
                                 setIndexNumber(index + 1);
                             }
                         }}

@@ -62,6 +62,14 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
             return;
         }
 
+        const files: any = values.gallery;
+        for (let i = 0; i < files.length; i++) {
+            if (files[i].size > 5242880) {
+                toast.error('Your Image size should be equal or less than 5MB');
+                return;
+            }
+        }
+
 
         try {
             if (!isUpdate) {
@@ -144,7 +152,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         window.location.reload();
                     }, 1000);
                 }
-                console.log({ imageUrl, data });
             }
         } catch (err) {
             const error = err as ResponseError;
@@ -467,22 +474,11 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                                     <span
                                                         className="remove"
                                                         onClick={() => {
-                                                            const newImages =
-                                                                values.gallery?.filter(
-                                                                    (
-                                                                        img: any
-                                                                    ) =>
-                                                                        img.name !==
-                                                                        image.name
-                                                                );
-                                                            setFieldValue(
-                                                                'gallery',
-                                                                newImages
-                                                            );
+                                                            const newImages = values.gallery?.filter((img: any) => img.name !== image.name);
+                                                            setFieldValue('gallery', newImages);
                                                         }}
                                                     >
-                                                        {' '}
-                                                        <FaRegTimesCircle />{' '}
+                                                        <FaRegTimesCircle />
                                                     </span>
                                                 )}
                                             </div>

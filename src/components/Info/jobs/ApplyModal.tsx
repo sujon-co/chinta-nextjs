@@ -41,6 +41,12 @@ const ApplyModal: FC<IModalProps> = ({ closeModal, modalIsOpen }) => {
         values: IApply,
         formikHelpers: FormikHelpers<IApply>
     ) => {
+        const file: any = values.file;
+        // 10mb
+        if (file.size > 10485760) {
+            toast.error('Your Pdf size should be equal or less than 10MB');
+            return;
+        }
         try {
             const formData = new FormData();
             formData.append('name', values.name);
@@ -150,6 +156,7 @@ const ApplyModal: FC<IModalProps> = ({ closeModal, modalIsOpen }) => {
                                 <input
                                     type="file"
                                     name=""
+                                    accept='application/pdf'
                                     onChange={(event: any) => {
                                         setFieldValue(
                                             'file',

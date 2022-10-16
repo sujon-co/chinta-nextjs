@@ -44,6 +44,19 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
         values: IShop,
         formikHelpers: FormikHelpers<IShop>
     ) => {
+
+
+        // check every image should less or equal 5mb
+        const files: any = values.images;
+        for (let i = 0; i < files.length; i++) {
+            console.log({ size: files[i].size, '5mb': 5242880 });
+            if (files[i].size > 5242880) {
+                toast.error('Your Image size should be equal or less than 5MB');
+                return;
+            }
+        }
+
+
         try {
             if (isUpdate) {
                 const formData = new FormData();
@@ -117,7 +130,6 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                     'Short description is required'
                 ),
                 currentPrice: string().required('Price is required'),
-                // stock: string().required('Stock is required'),
                 images: array().required('Images is required'),
             })}
         >

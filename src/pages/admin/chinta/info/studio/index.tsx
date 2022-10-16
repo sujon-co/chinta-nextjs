@@ -31,7 +31,6 @@ const Studio = ({ studios }: IProps) => {
             if (data) {
                 toast.success(data.message);
             }
-            console.log({ data, studio });
             window.location.reload();
         }
     };

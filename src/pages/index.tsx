@@ -130,7 +130,6 @@ const Final = ({ sliders, about, projects, contact }: IProps) => {
                 scrollOverflow
                 sectionSelector={SECTION_SEL}
                 onLeave={(origin, destination, direction) => {
-                    console.log('onLeave event', { origin, destination, direction });
 
                 }}
                 render={(comp) => (

@@ -27,7 +27,11 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
         values: IJob,
         formikHelpers: FormikHelpers<IJob>
     ) => {
-
+        const file: any = values.image;
+        if (file.size > 5242880) {
+            toast.error('Your Image size should be equal or less than 5MB');
+            return;
+        }
 
         try {
             const formData = new FormData();
@@ -126,12 +130,11 @@ const AddJob: FC<IAddSliderProps> = ({ setIsUpdate, isUpdate, job }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="image" className="form-label">
-                            Image
+                            Image (Max 5MB)
                         </label>
                         <input
                             type="file"
                             className="form-control form-control-sm"
-                            accept="application/pdf"
                             id="image"
                             name="image"
                             onChange={(event: any) => {
