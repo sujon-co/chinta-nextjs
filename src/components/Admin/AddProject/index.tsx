@@ -117,7 +117,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         toast.error(data.message);
                     }
                 } else {
-                    toast.error(imageUrl.message);
+                    toast.error('Submit Again, Image Upload Failed! ');
                 }
 
 
@@ -175,7 +175,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         }, 1000);
                     }
                 } else {
-                    toast.error(imageUrl.message);
+                    toast.error('Submit Again, Image Upload Failed! ');
                 }
             }
         } catch (err) {
