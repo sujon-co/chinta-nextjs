@@ -84,7 +84,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                 }
 
 
-                const { data: { data: imageUrl } } = await axios.post(`${config.imageUploadUrl}/api/upload/images`,
+                const { data: imageUrl } = await axios.post(`${config.imageUploadUrl}/api/upload/images`,
                     formData,
                     {
                         headers: {
@@ -93,24 +93,36 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     }
                 );
 
-                const project: IProject = {
-                    ...values,
-                    gallery: imageUrl.gallery,
-                };
+                console.log(imageUrl);
 
-                // @ts-ignore
-                delete project._id;
+                if (imageUrl.success) {
+                    toast.success('Image Uploaded Successfully');
 
-                const { data } = await instance.post('/projects', project);
-                if (data.success) {
-                    toast.success(data.message);
-                    formikHelpers.resetForm();
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    const project: IProject = {
+                        ...values,
+                        gallery: imageUrl.data?.gallery,
+                    };
+
+                    // @ts-ignore
+                    delete project._id;
+                    const { data } = await instance.post('/projects', project);
+
+                    if (data.success) {
+                        setTimeout(() => {
+                            window.location.reload();
+                            toast.success(data.message);
+                            formikHelpers.resetForm();
+                        }, 1000);
+                    } else {
+                        toast.error(data.message);
+                    }
                 } else {
-                    toast.error(data.message);
+                    toast.error(imageUrl.message);
                 }
+
+
+
+
             } else {
                 const formData = new FormData();
                 formData.append('name', values.name);
@@ -132,31 +144,38 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                         formData.append('galleryPath', image);
                     });
                 }
+
                 const { data: imageUrl } = await imageUploadInstance.patch(
                     '/upload/images',
                     formData
                 );
 
-                const _project: IProject = {
-                    ...values,
-                    gallery: imageUrl.data?.gallery.length
-                        ? imageUrl.data.gallery
-                        : project.gallery,
-                };
+                if (imageUrl.success) {
+                    toast.success(imageUrl.message);
 
-                // @ts-ignore
-                delete _project._id;
+                    const _project: IProject = {
+                        ...values,
+                        gallery: imageUrl.data?.gallery.length
+                            ? imageUrl.data.gallery
+                            : project.gallery,
+                    };
 
-                const { data } = await instance.patch(
-                    `/projects/${project.slug}`,
-                    _project
-                );
-                if (data.success) {
-                    toast.success(data.message);
-                    formikHelpers.resetForm();
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    // @ts-ignore
+                    delete _project._id;
+
+                    const { data } = await instance.patch(
+                        `/projects/${project.slug}`,
+                        _project
+                    );
+                    if (data.success) {
+                        setTimeout(() => {
+                            toast.success(data.message);
+                            formikHelpers.resetForm();
+                            window.location.reload();
+                        }, 1000);
+                    }
+                } else {
+                    toast.error(imageUrl.message);
                 }
             }
         } catch (err) {

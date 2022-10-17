@@ -247,7 +247,6 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
                             className="form-control form-control-sm"
                             id="images"
                             name="images"
-                            multiple
                             accept="image/png, image/gif, image/jpeg, image/jpg, image/webp, image/svg"
                             onChange={(event: any) => {
                                 setFieldValue('images', [
