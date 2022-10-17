@@ -83,7 +83,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     return;
                 }
 
-
                 const { data: imageUrl } = await axios.post(`${config.imageUploadUrl}/api/upload/images`,
                     formData,
                     {
@@ -93,7 +92,6 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     }
                 );
 
-                console.log(imageUrl);
 
                 if (imageUrl.success) {
                     toast.success('Image Uploaded Successfully');
@@ -150,23 +148,19 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     formData
                 );
 
+
                 if (imageUrl.success) {
                     toast.success(imageUrl.message);
 
                     const _project: IProject = {
                         ...values,
-                        gallery: imageUrl.data?.gallery.length
-                            ? imageUrl.data.gallery
-                            : project.gallery,
+                        gallery: imageUrl.data?.gallery.length > 0 ? imageUrl.data?.gallery : project.gallery,
                     };
 
                     // @ts-ignore
                     delete _project._id;
 
-                    const { data } = await instance.patch(
-                        `/projects/${project.slug}`,
-                        _project
-                    );
+                    const { data } = await instance.patch(`/projects/${project.slug}`, _project);
                     if (data.success) {
                         setTimeout(() => {
                             toast.success(data.message);
@@ -494,7 +488,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                                                 <span>
                                                     <b>{index + 1}</b>: &nbsp;{' '}
                                                 </span>
-                                                <span> {image?.name} </span>
+                                                <span> {image?.name} {image.size && (<small style={{ fontSize: '10px', marginLeft: '5px' }}> ({(image?.size / 1024 / 1024).toFixed(2)} MB) </small>)} </span>
                                                 {image?.name && (
                                                     <span
                                                         className="remove"
@@ -515,13 +509,9 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                             <div className="d-flex flex-wrap gap-2">
                                 {project.gallery?.map(
                                     (image: any, index: number) => (
-                                        <div
-                                            className=""
-                                            key={index + Math.random()}
-                                        >
+                                        <div className="" key={index + Math.random()} >
                                             <div className="ms-2">
-                                                {' '}
-                                                {index + 1}{' '}
+                                                {index + 1}
                                             </div>
                                             <MyImage
                                                 src={image}
