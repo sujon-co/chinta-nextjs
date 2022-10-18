@@ -62,6 +62,8 @@ const AddStudio: FC<IAddSliderProps> = ({ studio, setIsAdd, isUpdate }) => {
                     }, 1000);
                 }
             } else {
+                formData.append('image', values.photoUrl);
+
                 const { data: imageUrl } = await imageUploadInstance.post('/upload/image', formData);
                 const studio: IStudio = {
                     ...values,
