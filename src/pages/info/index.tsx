@@ -37,7 +37,9 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job, c
     const InfoAllData = <>
         <div className={`${SEL} full-height about-section-overwrite`} >
             <div className="info-section info-about-overwrite" >
-                <About about={about} />
+                <div className="w-100">
+                    <About about={about} />
+                </div>
             </div>
         </div>
         <div className={`${SEL} full-height`} >

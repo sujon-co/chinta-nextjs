@@ -403,7 +403,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="topImage" className="form-label">
-                            Top Image Number
+                            Top Image Number(Ratio=27:13)
                         </label>
                         <Field
                             type="number"
@@ -419,7 +419,7 @@ const AddProject: FC<IAddProjectProps> = ({ project, isUpdate, setIsAdd }) => {
 
                     <div className="mb-3">
                         <label htmlFor="portraitImage" className="form-label">
-                            Portrait Image Number
+                            Portrait Image Number(Ratio=320:377)
                         </label>
                         <Field
                             type="number"

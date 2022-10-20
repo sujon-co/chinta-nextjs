@@ -121,7 +121,7 @@ const AddSlider: FC<IAddSliderProps> = ({
                     </div>
                     <div className="mb-3">
                         <label htmlFor="photoUrl" className="form-label">
-                            Photo (Max 5MB)
+                            Photo(Ratio=648:347) (Max 5MB)
                         </label>
                         <input
                             type="file"

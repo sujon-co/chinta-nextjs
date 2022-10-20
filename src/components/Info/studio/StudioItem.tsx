@@ -35,9 +35,9 @@ const StudioItem: NextPage<Props> = ({ studio }) => {
                             <FaInstagram />
                         </a>
                     )}
-                    {studio?.socialLink.instagram && (
+                    {studio?.socialLink.linkedIn && (
                         <a
-                            href={studio?.socialLink.instagram}
+                            href={studio?.socialLink.linkedIn}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="social-icons-item"

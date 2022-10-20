@@ -161,7 +161,7 @@ const HomePageContact = ({ contact, showFooter = true }: Props) => {
                                 width="100%"
                                 height="100%"
                                 id="gmap_canvas"
-                                src="https://maps.google.com/maps?q=Chinta,%20CHINTA%20STHAPATYA,%20Level-5&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                src="https://maps.google.com/maps?q=Chinta,%20CHINTA%20STHAPATYA,%20Level-5&t=&z=18&ie=UTF8&iwloc=&output=embed"
                                 frameBorder="0"
                                 scrolling="no"
                             />
