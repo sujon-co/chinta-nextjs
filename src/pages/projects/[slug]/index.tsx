@@ -157,6 +157,8 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                     playing
                                     width='100%'
                                     height='80vh'
+                                    controls
+                                    autoplay={false}
                                 />
                             </div>
                         )}

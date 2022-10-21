@@ -41,6 +41,20 @@ const signup = nextConnect<NextApiRequest, NextApiResponse>({
     } catch (error) {
         next(error);
     }
+}).delete(async (req, res, next) => {
+    // delete by email address
+    const { email } = req.body;
+    try {
+        const admin = await Admin.findOneAndDelete({ email });
+        res.status(200).json({
+            success: true,
+            data: null,
+            message: 'Admin deleted successfully.',
+        });
+    } catch (error) {
+        next(error);
+    }
 });
+
 
 export default connectDB(validate(adminValidator, signup));

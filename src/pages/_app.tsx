@@ -88,10 +88,6 @@ const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
                             },
                             success: {
                                 duration: 3000,
-                                theme: {
-                                    primary: 'green',
-                                    secondary: 'black',
-                                },
                             },
                         }}
                     />
