@@ -154,11 +154,10 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
                                 <ReactPlayer
                                     url={project.video}
                                     className='react-player'
-                                    playing
+                                    playing={false}
                                     width='100%'
                                     height='80vh'
                                     controls
-                                    autoplay={false}
                                 />
                             </div>
                         )}
