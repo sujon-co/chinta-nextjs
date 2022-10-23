@@ -11,7 +11,7 @@ import About from 'src/components/Info/about';
 import ProjectItem from 'src/components/ProjectItem';
 import { useSizeContext } from 'src/contexts/ResponseContextProvider';
 import { scrollHandler } from 'src/utils';
-import { Autoplay } from 'swiper';
+import { Autoplay, EffectFade } from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -59,8 +59,10 @@ const Final = ({ sliders, about, projects, contact }: IProps) => {
                     autoplay={{ delay: 3000, }}
                     loop
                     simulateTouch={false}
-                    modules={[Autoplay]}
+                    modules={[Autoplay, EffectFade]}
                     className="mySwiper"
+                    effect="fade"
+                    speed={1000}
                 >
                     {sliders.length > 0 &&
                         sliders.map((image) => (
@@ -83,8 +85,8 @@ const Final = ({ sliders, about, projects, contact }: IProps) => {
                         </h1>
                     )}
                 </Swiper>
-            </div>
-        </div>
+            </div >
+        </div >
 
         <div className={`${SEL} about-section-overwrite full-height`}>
             <div className="container ">
@@ -122,22 +124,25 @@ const Final = ({ sliders, about, projects, contact }: IProps) => {
                 <title>Chinta Sthapatya</title>
             </Head>
             <Header />
-            {isDesktop && <ReactFullpage
-                pluginWrapper={pluginWrapper}
-                scrollBar={false}
-                autoScrolling
-                scrollOverflowReset
-                scrollOverflow
-                sectionSelector={SECTION_SEL}
-                onLeave={(origin, destination, direction) => {
-
-                }}
-                render={(comp) => (
-                    <ReactFullpage.Wrapper>
-                        {HomePageData}
-                    </ReactFullpage.Wrapper>
-                )}
-            />}
+            {isDesktop &&
+                <ReactFullpage
+                    pluginWrapper={pluginWrapper}
+                    scrollBar={false}
+                    autoScrolling={true}
+                    keyboardScrolling={true}
+                    sectionSelector={SECTION_SEL}
+                    licenseKey='YOUR_KEY_HERE'
+                    css3={true}
+                    menu="#myMenu"
+                    scrollingSpeed={1000}
+                    fitToSection
+                    // navigation
+                    render={() => (
+                        <ReactFullpage.Wrapper>
+                            {HomePageData}
+                        </ReactFullpage.Wrapper>
+                    )}
+                />}
             {isMobile && HomePageData}
         </div>
     );

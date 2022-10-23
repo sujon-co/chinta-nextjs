@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
-import moment from 'moment';
-import { NextPage } from 'next';
 import Link from 'next/link';
+import { FC } from 'react';
 import { IProject } from 'server/interface';
 import MyImage from '../Image';
 
@@ -9,7 +8,7 @@ interface Props {
     project: IProject;
 }
 
-const ProjectItem: NextPage<Props> = ({ project }) => {
+const ProjectItem: FC<Props> = ({ project }) => {
 
     return (
         <Link as={`/projects/${project.slug}`} href="/projects/[slug]">
@@ -27,10 +26,10 @@ const ProjectItem: NextPage<Props> = ({ project }) => {
                     />
                     <div className="project-item-overlay">
                         <h6> {project.name} </h6>
-                        <div className="fs-sm">{project?.location}</div>
-                        <div className="fs-sm">
-                            Data:{' '}
-                            {moment(project.updatedAt).toDate().toLocaleDateString()} </div>
+                        <div className="fs-sm d-flex justify-content-between align-items-end">
+                            <span>{project?.location}</span>
+                            <span>{project?.year}</span>
+                        </div>
                     </div>
                 </div>
             </a>

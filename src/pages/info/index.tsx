@@ -135,6 +135,7 @@ const InfoPage: NextPage<Props> = ({ studios, about, awards, shops, news, job, c
                             css3={true}
                             menu="#myMenu"
                             autoScrolling={true}
+                            keyboardScrolling={true}
                             render={(comp) =>
                                 <ReactFullpage.Wrapper  >
                                     {InfoAllData}

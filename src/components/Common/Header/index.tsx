@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import { NextPage } from 'next';
 import Image from 'next/image';
@@ -32,11 +33,6 @@ const Header: NextPage<IProps> = () => {
         }
     }, [showMenu, stay]);
 
-    // push home page and scroll to top
-    const homeHandler = () => {
-        push('/');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    };
 
     let width = 'auto';
 
@@ -49,7 +45,7 @@ const Header: NextPage<IProps> = () => {
     return (
         <header className="header">
             <nav className="container header-nav">
-                <div className="header-brand" onClick={homeHandler} >
+                <a href='/' className="header-brand">
                     <Image
                         src="/logo.svg"
                         alt="brand logo"
@@ -58,7 +54,7 @@ const Header: NextPage<IProps> = () => {
                         width={36}
                         style={{ cursor: 'pointer' }}
                     />
-                </div>
+                </a>
                 <div className="header-content">
                     <div className="header-menu-wrapper" style={{ width }}>
                         <div

@@ -43,7 +43,6 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                             src={shop.images[0]}
                             alt={shop.title}
                             layout="responsive"
-                            placeholder="blur"
                             preloaderSize="small"
                         />
                     </div>
@@ -83,6 +82,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                     src={shop.images[0]}
                                     alt={shop.title}
                                     layout="responsive"
+                                    objectFit="contain"
                                 />
                             </div>
                             {shop.images.slice(1).length > 0 &&
@@ -94,6 +94,7 @@ const ShopItem: FC<IShopItemProps> = ({ shop }) => {
                                                 alt={shop.title}
                                                 layout="responsive"
                                                 preloaderSize="small"
+                                                objectFit="contain"
                                             />
                                         </div>
                                     </div>

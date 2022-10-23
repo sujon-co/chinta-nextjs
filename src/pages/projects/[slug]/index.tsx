@@ -32,12 +32,32 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
         showMore ? window.scrollTo({ top: 150, behavior: 'smooth' }) : window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [showMore]);
 
-    const data = project.images.split(',')?.map((number: string) => ({ src: project.gallery[parseInt(number)], index: parseInt(number) }));
-
     return (
         <>
             <Head>
                 <title> {project.name} </title>
+                {/* <!-- Primary Meta Tags --> */}
+                <meta name="title" content={project.name} />
+                <meta name="description"
+                    content={project.description} />
+
+                {/* <!-- Open Graph / Facebook --> */}
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content={project.name} />
+                <meta property="og:description"
+                    content={project.description} />
+                <meta property="og:image" content={`${config.imageUploadUrl}${project.gallery[project.topImage - 1]}`} />
+
+                {/* <!-- Twitter --> */}
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta property="twitter:title" content={project.name} />
+                <meta property="twitter:description"
+                    content={project.description} />
+                <meta property="twitter:image" content={`${config.imageUploadUrl}${project.gallery[project.topImage - 1]}`} />
+
+                {/* <!-- recommend  --> */}
+                <meta property="og:site_name" content={project.name} />
+                <meta name="twitter:image:alt" content="Sujon Hossain" />
             </Head>
             <Layout>
                 <section className="project-details-section">

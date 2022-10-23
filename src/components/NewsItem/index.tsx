@@ -16,6 +16,7 @@ const NewsItem: FC<INewsItemProps> = ({ news }) => {
                 placeholder="blur"
                 height={550}
                 width={1000}
+                objectFit="contain"
             />
         </a>
         <h6 className='mb-1 pt-2'>

@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import { IContact } from 'server/interface';
 import instance from 'src/api/httpService';
+import Footer from 'src/components/Common/Footer';
 import Header from 'src/components/Common/Header';
 import HomePageContact from 'src/components/HomePageContact';
 
@@ -20,7 +21,10 @@ const ContactPage: NextPage<Props> = ({ contact }) => {
                     <Header />
                 </div>
                 <div className="container__main">
-                    <HomePageContact contact={contact} />
+                    <HomePageContact contact={contact} showFooter={false} />
+                </div>
+                <div className="container__footer">
+                    <Footer />
                 </div>
             </div>
         </>

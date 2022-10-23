@@ -135,6 +135,18 @@ Projects.getLayout = function getLayout(page: ReactElement) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const { data } = await instance.get<{ data: IProject[]; }>('/projects');
+    const projects = data.data;
+    // sort by name
+    projects.sort((a, b) => {
+        if (a.name < b.name) {
+            return -1;
+        }
+        if (a.name > b.name) {
+            return 1;
+        }
+        return 0;
+    });
+
     return {
         props: {
             projects: data.data,

@@ -240,7 +240,7 @@ const AddShop: FC<IAddShop> = ({ setIsAdd, isUpdate, shop }) => {
 
                     <div className="mb-3">
                         <label htmlFor="images" className="form-label">
-                            Images(Max 3 images) (Max 5MB)
+                            Images(Max 3 images) (Ratio=1:1) (Max 5MB)
                         </label>
                         <input
                             type="file"

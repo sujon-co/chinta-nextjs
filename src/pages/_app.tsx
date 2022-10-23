@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import Preloader from 'src/components/Preloader';
 import SizeContextProvider from 'src/contexts/ResponseContextProvider';
 import 'swiper/css/bundle';
+import "swiper/css/effect-fade";
 import '../scss/main.scss';
 
 const MyApp: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
