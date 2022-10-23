@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
+import Head from "next/head";
 import { useEffect, useRef, useState } from 'react';
 import { VscChevronLeft, VscChevronRight, VscClose } from 'react-icons/vsc';
 import { IProject } from 'server/interface';
@@ -35,29 +35,26 @@ const ProjectDetails: NextPage<GetServerSideProps<typeof getServerSideProps>> = 
     return (
         <>
             <Head>
+                {/* <!-- HTML Meta Tags --> */}
                 <title> {project.name} </title>
-                {/* <!-- Primary Meta Tags --> */}
-                <meta name="title" content={project.name} />
-                <meta name="description"
-                    content={project.description} />
+                <meta name="description" content={project.description} />
 
-                {/* <!-- Open Graph / Facebook --> */}
+                {/* <!-- Facebook Meta Tags --> */}
+                <meta property="og:url" content="https://chintasthapatya.com/" />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={project.name} />
-                <meta property="og:description"
-                    content={project.description} />
-                <meta property="og:image" content={`${config.imageUploadUrl}${project.gallery[project.topImage - 1]}`} />
+                <meta property="og:description" content={project.description} />
+                <meta property="og:image" content="https://api.chintaarchitects.com/uploads/07-1666420991460.jpg" />
 
-                {/* <!-- Twitter --> */}
-                <meta property="twitter:card" content="summary_large_image" />
-                <meta property="twitter:title" content={project.name} />
-                <meta property="twitter:description"
-                    content={project.description} />
-                <meta property="twitter:image" content={`${config.imageUploadUrl}${project.gallery[project.topImage - 1]}`} />
+                {/* <!-- Twitter Meta Tags --> */}
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta property="twitter:domain" content="chintasthapatya.com" />
+                <meta property="twitter:url" content="https://chintasthapatya.com/" />
+                <meta name="twitter:title" content={project.name} />
+                <meta name="twitter:description" content={project.description} />
+                <meta name="twitter:image" content="https://api.chintaarchitects.com/uploads/07-1666420991460.jpg" />
 
-                {/* <!-- recommend  --> */}
-                <meta property="og:site_name" content={project.name} />
-                <meta name="twitter:image:alt" content="Sujon Hossain" />
+
             </Head>
             <Layout>
                 <section className="project-details-section">
