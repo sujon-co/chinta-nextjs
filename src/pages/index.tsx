@@ -1,5 +1,6 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { IAbout, IContact, IProject, ISlider } from 'server/interface';
@@ -134,7 +135,7 @@ const Final = ({ sliders, about, projects, contact }: IProps) => {
                     licenseKey='YOUR_KEY_HERE'
                     css3={true}
                     menu="#myMenu"
-                    scrollingSpeed={1000}
+                    scrollingSpeed={800}
                     fitToSection
                     // navigation
                     render={() => (
@@ -148,7 +149,7 @@ const Final = ({ sliders, about, projects, contact }: IProps) => {
     );
 };
 
-export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps<IProps> = async () => {
     const { data: sliders } = await instance.get<AxiosResponse<ISlider[]>>('/sliders');
     const { data: _about } = await instance.get<{ data: IAbout[]; }>('/info/about');
     const { data: projects } = await instance.get<{ data: IProject[]; }>('/projects');
@@ -161,6 +162,7 @@ export const getServerSideProps = async () => {
             projects: projects.data,
             contact: contact.data[0],
         },
+        revalidate: 60
     };
 };
 

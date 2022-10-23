@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Projects: NextPage<Props> = ({ projects }) => {
-    const [filter, setFilter] = useState<IFilter>('scrolling');
+    const [filter, setFilter] = useState<IFilter>('' as any);
     const [status, setStatus] = useState<status[]>([]);
     const [programmatic, setProgrammatic] = useState<status[]>([]);
     const [chronological, setChronological] = useState<status[]>([]);
@@ -24,6 +24,14 @@ const Projects: NextPage<Props> = ({ projects }) => {
     const [alphabetical, setAlphabetical] = useState<status[]>([]);
 
 
+    useEffect(() => {
+        const _filter: any = localStorage.getItem('chinta-filter');
+        if (_filter) {
+            setFilter(_filter);
+        } else {
+            localStorage.setItem('chinta-filter', 'scrolling');
+        }
+    }, []);
 
     useEffect(() => {
         const imageItem = document.querySelector('.project-item-img .img-fluid');
@@ -123,6 +131,11 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
     }, [projects]);
 
+    const handleFilter = (name: IFilter) => {
+        setFilter(name);
+        localStorage.setItem('chinta-filter', name);
+    };
+
     return (
         <div className="container">
             <div className="projects" style={{ height: projectHeight }}>
@@ -169,31 +182,31 @@ const Projects: NextPage<Props> = ({ projects }) => {
             <ul className="project-filter">
                 <li
                     className={`filter-item ${filter === 'scrolling' ? 'active' : ''}`}
-                    onClick={() => setFilter('scrolling')}
+                    onClick={() => handleFilter('scrolling')}
                 >
                     Scrolling-grid
                 </li>
                 <li
                     className={`filter-item ${filter === 'chronological' ? 'active' : ''}`}
-                    onClick={() => setFilter('chronological')}
+                    onClick={() => handleFilter('chronological')}
                 >
                     Chronological
                 </li>
                 <li
                     className={`filter-item ${filter === 'alphabetical' ? 'active' : ''}`}
-                    onClick={() => setFilter('alphabetical')}
+                    onClick={() => handleFilter('alphabetical')}
                 >
                     Alphabetical
                 </li>
                 <li
                     className={`filter-item ${filter === 'programmatic' ? 'active' : ''}`}
-                    onClick={() => setFilter('programmatic')}
+                    onClick={() => handleFilter('programmatic')}
                 >
                     Programmatic
                 </li>
                 <li
                     className={`filter-item ${filter === 'status' ? 'active' : ''}`}
-                    onClick={() => setFilter('status')}
+                    onClick={() => handleFilter('status')}
                 >
                     Status
                 </li>
@@ -201,7 +214,7 @@ const Projects: NextPage<Props> = ({ projects }) => {
 
                 <li
                     className={`filter-item ${filter === 'location' ? 'active' : ''}`}
-                // onClick={() => setFilter('location')}
+                // onClick={() => handleFilter('location')}
                 >
                     Location
                 </li>
