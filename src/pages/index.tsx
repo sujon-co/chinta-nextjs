@@ -1,6 +1,6 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import { AxiosResponse } from 'axios';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { IAbout, IContact, IProject, ISlider } from 'server/interface';
@@ -149,7 +149,7 @@ const Final = ({ sliders, about, projects, contact }: IProps) => {
     );
 };
 
-export const getStaticProps: GetStaticProps<IProps> = async () => {
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
     const { data: sliders } = await instance.get<AxiosResponse<ISlider[]>>('/sliders');
     const { data: _about } = await instance.get<{ data: IAbout[]; }>('/info/about');
     const { data: projects } = await instance.get<{ data: IProject[]; }>('/projects');
