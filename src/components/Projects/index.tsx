@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Projects: NextPage<Props> = ({ projects }) => {
-    const [filter, setFilter] = useState<IFilter>('' as any);
+    const [filter, setFilter] = useState<IFilter>('scrolling' as any);
     const [status, setStatus] = useState<status[]>([]);
     const [programmatic, setProgrammatic] = useState<status[]>([]);
     const [chronological, setChronological] = useState<status[]>([]);
