@@ -5,13 +5,13 @@ const Footer = () => {
         <footer className="container footer-section">
             <div className="footer">
                 <div className="social-icons">
-                    <a href="#" className="social-icons-item">
+                    <a href="https://www.facebook.com/chintasthapatya/" className="social-icons-item" target="_blank" rel="noopener noreferrer">
                         <FaFacebookF />
                     </a>
-                    <a href="#" className="social-icons-item">
+                    <a href="https://www.instagram.com/chintaarchitects/" className="social-icons-item" target="_blank" rel="noopener noreferrer">
                         <FaInstagram />
                     </a>
-                    <a href="#" className="social-icons-item">
+                    <a href="https://www.linkedin.com/in/chintasthapatya" className="social-icons-item" target="_blank" rel="noopener noreferrer">
                         <FaLinkedinIn />
                     </a>
                 </div>
